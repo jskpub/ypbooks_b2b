@@ -1,0 +1,73 @@
+@use '../abstracts' as *;
+
+// Figma node 1184:2192 (Component/Alert) — tone=Info/Success/Warning/Danger.
+// "제목과 설명 모두 줄바꿈되며 잘리지 않습니다" — white-space 강제하지 않는다(기본값 그대로 허용).
+.alert {
+  display: flex;
+  gap: $space-3;
+  padding: $space-4;
+  border-radius: $radius-md;
+  border: $border-width-1 solid;
+
+  &__icon {
+    flex: 0 0 auto;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+    font-weight: 700;
+    margin-bottom: $space-1;
+  }
+
+  &__desc {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+  }
+
+  &--info {
+    background-color: $color-info-soft;
+    border-color: $color-info-border;
+
+    .alert__icon,
+    .alert__title {
+      color: $color-info;
+    }
+  }
+
+  &--success {
+    background-color: $color-success-soft;
+    border-color: $color-success-border;
+
+    .alert__icon,
+    .alert__title {
+      color: $color-success;
+    }
+  }
+
+  &--warning {
+    background-color: $color-warning-soft;
+    border-color: $color-warning-border;
+
+    .alert__icon,
+    .alert__title {
+      color: $color-warning;
+    }
+  }
+
+  &--danger {
+    background-color: $color-danger-soft;
+    border-color: $color-danger-border;
+
+    .alert__icon,
+    .alert__title {
+      color: $color-danger;
+    }
+  }
+}

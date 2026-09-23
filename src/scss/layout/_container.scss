@@ -1,0 +1,13 @@
+@use '../abstracts' as *;
+
+// Figma 소스: 1280px 고정 컨테이너, 좌우 20px 여백(--layout-inner-padding).
+// mo/ta 케이스는 소스 디자인에 없는 예비값이라 데스크톱 값으로 수렴시켜 둔다.
+// 1280px 콘텐츠 영역 공통 클래스. <main>은 물론 header/footer의 각 줄 안쪽 콘텐츠도
+// 전부 이 클래스로 가운데 정렬한다 — 바깥 배경/보더만 뷰포트 전체 폭으로 깔고,
+// 안쪽 콘텐츠는 항상 이 클래스로 1280px에 맞춘다.
+.container {
+  width: 100%;
+  max-width: $layout-max-width;
+  margin-inline: auto;
+  padding-inline: $layout-padding;
+}

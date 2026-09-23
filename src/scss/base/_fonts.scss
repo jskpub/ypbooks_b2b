@@ -1,0 +1,75 @@
+// Pretendard GOV — 로컬 정적 웨이트 파일 (src/assets/fonts/)
+// 실무 팁(design-system.md): UI엔 400/500/600/700만 써도 충분하지만, 받아둔 9종 전부 선언해둔다.
+// font-display: swap이라 브라우저가 로딩 중엔 폴백 폰트로 먼저 보여주고 로드되면 교체한다.
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Thin.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-ExtraLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard GOV';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../assets/fonts/PretendardGOV-Black.woff') format('woff');
+}

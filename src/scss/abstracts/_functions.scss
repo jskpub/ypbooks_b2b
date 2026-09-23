@@ -1,0 +1,10 @@
+@use 'sass:math';
+
+// px -> rem (base 10px)
+// ⚠️ design-system.md에 없는 이 프로젝트만의 설정: html { font-size: 62.5% }(base/_base.scss)와
+// 짝을 이루는 62.5% 트릭. 1rem = 10px가 되므로 px를 10으로 나누기만 하면 rem이 나와 계산이 쉬워진다.
+// base/_base.scss의 62.5% 값을 바꾸면 이 $base도 반드시 같이 바꿔야 한다.
+// 예: rem(24) = 2.4rem → 62.5% 루트에서 화면상 24px로 렌더링
+@function rem($px, $base: 10) {
+  @return math.div($px, $base) * 1rem;
+}

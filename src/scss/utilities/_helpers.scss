@@ -1,0 +1,49 @@
+@use '../abstracts' as *;
+
+// Phosphor Icons(Regular) 전용 — 기본 20px, 색은 놓이는 자리의 글자색(currentColor)을 따른다.
+// SVG 자체가 이미 fill="currentColor"라 별도 색 지정 없이 부모 text color를 그대로 상속한다.
+.icon {
+  width: rem(20);
+  height: rem(20);
+  flex-shrink: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hide-mo {
+  display: none;
+
+  @include respond-to('ta') {
+    display: initial;
+  }
+}
+
+.hide-pc {
+  @include respond-to('pc') {
+    display: none;
+  }
+}
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 999;
+  padding: $space-2 $space-4;
+  background-color: $color-primary;
+  color: $color-on-primary;
+
+  &:focus {
+    top: 0;
+  }
+}

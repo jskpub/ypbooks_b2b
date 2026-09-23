@@ -1,0 +1,28 @@
+@use '../abstracts' as *;
+
+// Figma 소스: 1280px 고정 폭 기준 12컬럼, 거터 24px. 반응형 대상 아님(모바일 MVP 범위 밖).
+.grid {
+  display: grid;
+  gap: $layout-gutter;
+  grid-template-columns: repeat($layout-columns, 1fr);
+}
+
+// 본문 + 결제 사이드바(320px 고정) 레이아웃 — Figma "Grid/Demo" 패턴
+// 기존 .layout--with-sidebar { .layout__main {} .layout__sidebar {} }는 정의된 적 없는
+// .layout 블록의 엘리먼트인 것처럼 이름 붙어 있었다(모디파이어가 블록처럼 단독 사용됨) — 실제로 쓰는
+// 모양 그대로 독립 블록으로 바꾸고 엘리먼트를 중첩한다.
+.layout-with-sidebar {
+  display: flex;
+  align-items: flex-start;
+  gap: $layout-gutter;
+
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__sidebar {
+    flex: 0 0 $layout-sidebar-width;
+    width: $layout-sidebar-width;
+  }
+}

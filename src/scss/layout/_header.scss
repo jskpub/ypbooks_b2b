@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+// 상단 헤더 전체 래퍼. utility-bar/brand-bar/gnb는 각자 파일에서 스타일을 담당하고
+// 여기서는 배경과 쌓임 맥락(stacking context)만 잡는다.
+// z-index가 category-menu 배경 딤(z-category-menu-backdrop)보다 높아야
+// 카테고리 메뉴가 열려도 헤더 자체는 어두워지지 않고 또렷하게 보인다.
+.header {
+  position: relative;
+  z-index: $z-header;
+  background-color: $color-surface-card;
+}

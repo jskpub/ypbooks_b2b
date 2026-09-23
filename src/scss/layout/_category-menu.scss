@@ -1,0 +1,165 @@
+@use '../abstracts' as *;
+
+// "전체카테고리" 트리거(gnb 상단 / header-sticky 햄버거 둘 다 공용)로 여는 메가메뉴.
+//
+// panel의 top은 더 이상 JS가 스크롤/트랜지션에 맞춰 실시간으로 계산하지 않는다 — 두 경우 다
+// 값이 고정돼 있어서(gnb 위 3줄 높이, header-sticky 자체 높이 둘 다 컨텐츠가 안 바뀌는 한 항상
+// 같음) CSS 상수로 박아두는 게 맞다:
+//   - 기본(gnb 트리거로 열림): position:absolute — position:fixed 조상이 없어서 문서(페이지)
+//     기준으로 자리잡고, 페이지와 함께 자연스럽게 스크롤된다. top은 헤더 3줄(utility-bar+
+//     brand-bar+gnb) 높이 실측값.
+//   - header-sticky가 떠 있을 때(`#header-sticky.is-visible`): position:fixed로 전환 —
+//     header-sticky 자체가 늘 top:0에 고정이라 top은 그 높이 실측값 하나로 충분하다.
+// 전환은 CSS :has()로만 처리해서 JS가 매 스크롤/프레임마다 픽셀을 다시 잴 필요가 아예 없다.
+// (실측값이 바뀌면 — 헤더 내용이 바뀌면 — 아래 두 rem() 값만 다시 재서 갱신하면 된다.)
+//
+// 열림/닫힘은 [hidden] 대신 .is-open 클래스 + opacity/transform 트랜지션으로 처리한다
+// (display:none은 transition이 안 먹어서 애니메이션이 안 된다).
+// z-index가 헤더(z-header)보다 낮아야 딤 처리된 배경 위로 헤더가 또렷하게 올라와 보인다.
+.category-menu {
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    // inset:0(=right:0 포함) 대신 width+min-width — header-sticky와 같은 이유로,
+    // 뷰포트가 1280px보다 좁아져도(가로 스크롤 상태) 딤 배경이 실제 콘텐츠 폭(1280px)을
+    // 다 못 덮고 뷰포트 폭만큼만 좁게 깔리는 문제를 막는다.
+    width: 100%;
+    min-width: $layout-min-width;
+    z-index: $z-category-menu-backdrop;
+    background-color: rgba($color-neutral-900, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity $motion-base,
+      visibility $motion-base;
+  }
+
+  &.is-open &__backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  // 배경은 뷰포트 전체 폭(#fff), 실제 콘텐츠 정렬은 안쪽 &__panel-inner(.container)가 담당 —
+  // header/footer와 동일하게 "바깥 풀폭 + 안쪽 container" 패턴을 따른다.
+  &__panel {
+    position: absolute;
+    top: 181px; // utility-bar(41) + brand-bar(112) + gnb(54) 실측
+    left: 0;
+    right: 0;
+    z-index: $z-category-menu-panel;
+    background-color: $color-surface-card;
+    box-shadow: 0 rem(8) rem(24) rgba($color-neutral-900, 0.15);
+    max-height: 70vh;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(rem(-8));
+    transition:
+      opacity $motion-base,
+      visibility $motion-base,
+      transform $motion-base;
+  }
+
+  &.is-open &__panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+// header-sticky가 떠 있는 동안만 패널을 고정 위치로 전환한다 — header-sticky.js가 원래
+// 켜고 끄던 .is-visible 클래스를 그대로 감지만 할 뿐 별도 JS 훅이 필요 없다.
+body:has(#header-sticky.is-visible) .category-menu__panel {
+  position: fixed;
+  top: rem(87); // header-sticky 자체 높이 실측
+  // header-sticky/backdrop과 같은 이유로 right:0 대신 width+min-width를 명시해서
+  // 뷰포트가 1280px보다 좁을 때 패널만 따로 쪼그라들지 않게 한다.
+  right: auto;
+  width: 100%;
+  min-width: $layout-min-width;
+}
+
+.category-menu {
+  &__panel-inner {
+    display: flex;
+    gap: $space-8;
+    padding-block: $space-6;
+  }
+
+  &__lnb {
+    flex: 0 0 auto;
+    width: rem(200);
+    border-right: $border-width-1 solid $color-border;
+  }
+
+  &__lnb-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: $space-3 $space-4;
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
+    color: $color-foreground-secondary;
+    transition:
+      color $motion-fast,
+      background-color $motion-fast;
+
+    &.is-active {
+      color: $color-primary;
+      font-weight: 700;
+      background-color: $color-primary-soft;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+  }
+
+  &__content {
+    flex: 1 1 auto;
+  }
+
+  &__panel-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-2 $space-8;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__sub-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+
+    a {
+      display: block;
+      padding: $space-1 0;
+      font-size: $font-size-body-sm;
+      color: $color-foreground-secondary;
+      transition: color $motion-fast;
+
+      &:hover {
+        color: $color-primary;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-focus-ring;
+        outline-offset: 2px;
+      }
+    }
+  }
+}

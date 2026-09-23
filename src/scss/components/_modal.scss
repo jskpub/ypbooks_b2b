@@ -1,0 +1,60 @@
+@use '../abstracts' as *;
+
+// Figma node 1184:2269 (Component/Modal) — type=Default/Danger, customize=Show Close.
+// 배경 오버레이는 category-menu와 같은 패턴(고정+딤)을 그대로 재사용하면 되므로 여기서는 모달 박스 자체만 다룬다.
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  width: rem(480);
+  max-width: 90vw;
+  padding: $space-6;
+  border-radius: $radius-lg; // 카드, 모달 — Figma Radius 문서
+  background-color: $color-surface-card;
+  box-shadow: $shadow-lg;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-4;
+  }
+
+  &__title {
+    font-size: $font-size-h3;
+    line-height: $line-height-h3;
+    font-weight: 500;
+  }
+
+  &__close {
+    flex: 0 0 auto;
+    display: inline-flex;
+    color: $color-muted;
+
+    &:hover {
+      color: $color-foreground;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__body {
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
+    color: $color-foreground-secondary;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-2;
+  }
+
+  // type=Danger — "되돌릴 수 없는 작업"
+  &--danger &__title {
+    color: $color-danger;
+  }
+}

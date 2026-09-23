@@ -1,0 +1,210 @@
+// -----------------------------------------------------------------------------
+// Design tokens
+// Source: Figma "영풍문고 프로젝트" file, node 1184:216 (Foundations) —
+// pulled directly via get_variable_defs (실제 바인딩된 Figma Variables), 2026-09-23.
+// 팔레트(raw hue)와 시맨틱 토큰(--color-*)을 Figma가 나눠둔 그대로 2단으로 구성한다.
+// ⚠️ 개정: get_design_context로 문서 레이어만 읽었을 때는 놓쳤던 실제 시맨틱 바인딩을
+// get_variable_defs로 다시 받아보니 $color-primary가 파랑이 아니라 빨강이었다(--color-primary: red/500).
+// 파랑(blue/500)은 --color-focus-ring 전용이고, --color-info가 blue/700이다.
+// -----------------------------------------------------------------------------
+
+@use 'functions' as *;
+
+// ---- 팔레트 (raw hue, Figma "Chip/*" 레이어명 그대로) --------------------------
+$color-neutral-0: #ffffff;
+$color-neutral-50: #fafafa;
+$color-neutral-100: #f5f4f4;
+$color-neutral-200: #e9e7e8;
+$color-neutral-300: #d6d3d4;
+$color-neutral-400: #aba6a7;
+$color-neutral-550: #6f696b;
+$color-neutral-600: #555152;
+$color-neutral-700: #3d3b3b;
+$color-neutral-800: #262425;
+$color-neutral-900: #191818;
+
+$color-red-50: #ffeeed;
+$color-red-100: #fdd9d8;
+$color-red-300: #f47d7b;
+$color-red-500: #e01e1a;
+$color-red-600: #c61a17;
+$color-red-700: #aa1714;
+
+$color-blue-50: #eaf1ff;
+$color-blue-100: #c9dbff;
+$color-blue-500: #2563eb;
+$color-blue-700: #1d4fbf;
+
+$color-green-50: #eaf7ef;
+$color-green-100: #bee7cf;
+$color-green-500: #1c8a4b;
+$color-green-600: #157a40;
+
+$color-amber-50: #fff6e5;
+$color-amber-100: #f5dfa6;
+$color-amber-500: #c77700;
+$color-amber-700: #8a5700;
+
+// ---- 시맨틱 토큰 (Figma Variables --color-* 그대로, 컴포넌트는 이 레이어만 참조) ----
+$color-foreground: $color-neutral-900; // --color-foreground
+$color-foreground-secondary: $color-neutral-600; // --color-foreground-secondary
+$color-canvas: $color-neutral-50; // --color-canvas — 페이지 배경 (순백 아님!)
+$color-surface: $color-neutral-100; // --color-surface
+$color-surface-card: $color-neutral-0; // --color-surface-card — 카드/입력 등 뜬 표면
+$color-border: $color-neutral-200; // --color-border
+$color-border-strong: $color-neutral-300; // --color-border-strong
+$color-border-control: $color-neutral-550; // --color-border-control — 폼 컨트롤 테두리
+$color-muted: $color-neutral-550; // --color-muted
+$color-disabled-text: $color-neutral-400; // --color-disabled-text
+
+// Primary — 브랜드 CTA 색상
+$color-primary: $color-red-500; // --color-primary
+$color-primary-hover: $color-red-600; // --color-primary-hover
+$color-primary-pressed: $color-red-700; // --color-primary-pressed
+$color-primary-soft: $color-red-50; // --color-primary-soft
+$color-on-primary: $color-neutral-0; // --color-on-primary
+$color-on-primary-soft: $color-red-700; // --color-on-primary-soft
+$color-link: $color-red-600; // --color-link
+
+// Danger — primary와 같은 red 계열이지만 더 어두운 700을 기준색으로 쓴다(별개 의미).
+$color-danger: $color-red-700; // --color-danger
+$color-danger-soft: $color-red-50; // --color-danger-soft
+$color-danger-icon: $color-red-500; // --color-danger-icon
+$color-danger-border: $color-red-100; // --color-danger-border
+
+$color-success: $color-green-600; // --color-success
+$color-success-soft: $color-green-50; // --color-success-soft
+$color-success-icon: $color-green-500; // --color-success-icon
+$color-success-border: $color-green-100; // --color-success-border
+
+$color-warning: $color-amber-700; // --color-warning
+$color-warning-soft: $color-amber-50; // --color-warning-soft
+$color-warning-icon: $color-amber-500; // --color-warning-icon
+$color-warning-border: $color-amber-100; // --color-warning-border
+
+$color-info: $color-blue-700; // --color-info
+$color-info-soft: $color-blue-50; // --color-info-soft
+$color-info-border: $color-blue-100; // --color-info-border
+
+// 포커스 링은 primary와 무관하게 항상 파랑 — 모든 인터랙티브 요소에 공통 적용
+$color-focus-ring: $color-blue-500; // --color-focus-ring
+$input-border-focus: $color-red-500; // --input-border-focus — 입력 포커스 시 테두리색(링과 별개)
+
+// 지원금(Subsidy) 전용 시맨틱 — "회사 지원금" / "개인 지원금" 뱃지·버튼
+$color-subsidy-company: $color-green-600; // --color-subsidy-company
+$color-subsidy-company-soft: $color-green-50; // --color-subsidy-company-soft
+$color-subsidy-company-icon: $color-green-500; // --color-subsidy-company-icon
+$color-subsidy-employee: $color-neutral-900; // --color-subsidy-employee
+$color-subsidy-employee-soft: $color-neutral-100; // --color-subsidy-employee-soft
+
+$border-width-1: 1px; // --border-width-1
+
+// 구버전 호환 별칭(당분간 유지 — 점진 교체용)
+$color-text: $color-foreground;
+$color-text-sub: $color-foreground-secondary;
+
+// -----------------------------------------------------------------------------
+// Font family — Pretendard GOV 고정 (로컬 정적 웨이트 파일, base/_fonts.scss @font-face)
+// -----------------------------------------------------------------------------
+$font-family-base: 'Pretendard GOV', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+  'Malgun Gothic', system-ui, Roboto, sans-serif;
+
+// -----------------------------------------------------------------------------
+// Typography — Figma "Type/Table" 실측치 기반 (px 표기 그대로, weight는 Pretendard GOV 웨이트명)
+// 스타일명은 Figma 레이어명 그대로: v2/Heading/H1 등
+// ⚠️ 2026-09-23 위계 재조정: body 기본 크기를 접근성 때문에 17px로 키우면서(design-system.md 실측 15px 아님)
+// H3/H4/Body-Large가 body-base보다 작아지는 역전이 생겨 아래 네 값을 실측치에서 조정했다.
+// 근거는 design-system.md 타이포그래피 표 하단 "변경 이력" 참고.
+// -----------------------------------------------------------------------------
+$font-size-h1: rem(24); // 24 / 32, Bold — 페이지 제목
+$line-height-h1: rem(32);
+$font-size-h2: rem(20); // 20 / 28, Bold — 섹션 제목
+$line-height-h2: rem(28);
+$font-size-h3: rem(19); // 실측 17/24 아님 → 19/26, Medium — body-base(17px)와 위계 구분
+$line-height-h3: rem(26);
+$font-size-h4: rem(17); // 실측 15/22 아님 → 17/24, Medium — body-base보다 작아지는 문제 수정
+$line-height-h4: rem(24);
+
+$font-size-body-lg: rem(18); // 실측 16/26 아님 → 18/28, Regular — body-base(17px)보다 작아지는 역전 수정
+$line-height-body-lg: rem(28);
+// body-base 자체도 실측 15px가 아니라 접근성을 위해 17px로 의도적으로 키운 값(2026-09-23 결정)
+$font-size-body-base: rem(17); // 실측 15px 아님, 17px로 오버라이드
+$line-height-body-base: rem(24);
+$font-size-body-sm: rem(13); // 13 / 20, Regular — 보조 설명, 표 본문
+$line-height-body-sm: rem(20);
+
+$font-size-label-lg: rem(15); // 15 / 20, Medium — 버튼 라벨
+$line-height-label-lg: rem(20);
+$font-size-label-base: rem(13); // 13 / 18, Medium — 배지, 탭, 입력 라벨
+$line-height-label-base: rem(18);
+$font-size-label-sm: rem(12); // 12 / 16, Bold — 리본, 작은 태그
+$line-height-label-sm: rem(16);
+
+$font-size-caption: rem(12); // 12 / 18 — 날짜/도움말(Regular) 또는 상태 강조(Bold)
+$line-height-caption: rem(18);
+
+$font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
+$line-height-price-lg: rem(28);
+$font-size-price: rem(16); // 16 / 22, Bold — 도서 가격
+$line-height-price: rem(22);
+
+$letter-spacing-default: 0; // 한글은 자간 조정하지 않음
+
+// -----------------------------------------------------------------------------
+// Spacing — Figma "Spacing/space-N" 실측치. 이름은 Figma 그대로 space-1..space-16.
+// 괄호 안은 Figma 문서에 적힌 코드 변수명(비어있으면 "코드에 아직 없음"이라는 뜻)
+// -----------------------------------------------------------------------------
+$space-1: rem(4); // --spacing-xs — 아이콘과 라벨 사이
+$space-2: rem(8); // --spacing-sm — 배지 안쪽, 촘촘한 간격
+$space-3: rem(12); // --spacing-md-sm — 입력 안쪽 세로
+$space-4: rem(16); // --spacing-md — 컴포넌트 안쪽 기본
+$space-5: rem(20); // (코드 없음) — 화면 좌우 여백
+$space-6: rem(24); // --spacing-lg — 카드 안쪽, 묶음 사이
+$space-8: rem(32); // --spacing-xl — 섹션 안쪽 구획
+$space-10: rem(40); // (코드 없음) — 큰 블록 사이
+$space-12: rem(48); // --spacing-2xl — 페이지 구획
+$space-16: rem(64); // --spacing-3xl — 페이지 위아래 여백
+
+// -----------------------------------------------------------------------------
+// Radius — Figma "Radius" 실측치. lg/full 코드 변수는 아직 없다고 문서에 명시돼 있음.
+// -----------------------------------------------------------------------------
+$radius-sm: rem(6); // 입력, 소형 버튼, 툴팁
+$radius-md: rem(10); // 버튼, 알림, 입력 그룹 (코드: 8px/12px 혼용 중이라고 문서에 경고)
+$radius-lg: rem(16); // 카드, 모달 (코드에 아직 없음)
+$radius-full: 999px; // --radius-full — 배지, 칩, 지원금 버튼
+
+// -----------------------------------------------------------------------------
+// Border width — Figma node 1184:1519(Components) get_variable_defs 실측.
+// -----------------------layout-wrap-min-width--------------------------------------------------------
+$border-width-2: 2px; // --border-width-2 — Focus 상태 테두리 등
+
+// -----------------------------------------------------------------------------
+// Shadow — 같은 노드에서 "Shadow/LG" effect 실측(Modal 등에 사용).
+// 원본 컬러 #18171A29는 $color-neutral-900(#191818)과 사실상 동일해 별도 컬러 토큰을 새로 만들지 않고 재사용한다.
+// -----------------------------------------------------------------------------
+$shadow-lg: 0 rem(16) rem(40) rgba($color-neutral-900, 0.16); // Effect(offset 0/16, radius 40, ~16% opacity)
+
+// -----------------------------------------------------------------------------
+// Layout / Grid — Figma "Grid" 섹션 실측치.
+// ⚠️ "데스크톱 1280px 기준 12컬럼. 모바일은 MVP 범위 밖" 이라고 문서에 명시 — 반응형 대상이 아님.
+// -----------------------------------------------------------------------------
+$layout-min-width: 1280px; // --layout-wrap-min-width (이 폭 밑에서는 가로 스크롤 허용, 반응형 축소 아님)
+$layout-max-width: 1280px; // --layout-inner-max-width
+$layout-padding: $space-5; // --layout-inner-padding, 20px
+$layout-columns: 12; // 코드에 없음 (신규 제안)
+$layout-gutter: $space-6; // 24px, 코드에 없음 (신규 제안)
+$layout-sidebar-width: 320px; // 결제 사이드바 고정폭
+
+// -----------------------------------------------------------------------------
+// Motion — design-system_foundations.md 8. Motion 표 그대로.
+// -----------------------------------------------------------------------------
+$motion-fast: 150ms ease-out; // 색, 테두리 전환
+$motion-base: 250ms ease-out; // 아코디언 열림, 게이지 채움, 모달/메가메뉴 표시
+
+// -----------------------------------------------------------------------------
+// Z-index — 겹치는 순서: 페이지 콘텐츠 < 배경 딤 처리 < 헤더(딤 위에서 또렷하게 보여야 함) < 메가메뉴 패널
+// -----------------------------------------------------------------------------
+$z-header: 41;
+$z-header-sticky: 42;
+$z-category-menu-backdrop: 40;
+$z-category-menu-panel: 43;

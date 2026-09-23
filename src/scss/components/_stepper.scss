@@ -1,0 +1,48 @@
+@use '../abstracts' as *;
+
+// Figma node 1271:1337 (Component/Stepper) — quantity-stepper, 실측 160×34.
+.stepper {
+  display: inline-flex;
+  align-items: stretch;
+  height: rem(34);
+  border: $border-width-1 solid $color-border-control;
+  border-radius: $radius-sm;
+  overflow: hidden;
+
+  &__btn {
+    flex: 0 0 auto;
+    width: rem(34);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-surface;
+    color: $color-foreground;
+    font-size: $font-size-body-base;
+    line-height: 1;
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-border;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+
+    &:disabled {
+      color: $color-disabled-text;
+      cursor: not-allowed;
+    }
+  }
+
+  &__value {
+    flex: 1 1 auto;
+    width: rem(60);
+    min-width: 0;
+    text-align: center;
+    border-inline: $border-width-1 solid $color-border;
+    background-color: $color-surface-card;
+    font-size: $font-size-body-sm;
+  }
+}

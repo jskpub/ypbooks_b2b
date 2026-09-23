@@ -1,0 +1,26 @@
+@use '../abstracts' as *;
+
+// Figma node 1184:2167 (Component/Status Chip) — status=Available/Renewal.
+// "누르지 않습니다"라고 명시돼 있어 button이 아니라 span 등 비인터랙티브 요소로 마크업한다.
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  font-size: $font-size-label-base;
+  line-height: $line-height-label-base;
+  font-weight: 500;
+
+  &--available {
+    background-color: $color-success-soft;
+    border: $border-width-1 solid $color-success-border;
+    color: $color-success;
+  }
+
+  &--renewal {
+    background-color: $color-surface;
+    border: $border-width-1 solid $color-border;
+    color: $color-muted;
+  }
+}

@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+
+.utility-bar {
+  border-bottom: $border-width-1 solid $color-border;
+
+  &__inner {
+    display: flex;
+    justify-content: flex-end;
+    padding-block: $space-2;
+  }
+
+  &__menu {
+    display: flex;
+    gap: $space-4;
+  }
+
+  &__link {
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-foreground-secondary;
+
+    &:hover {
+      color: $color-foreground;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__name {
+    font-weight: 700;
+  }
+}

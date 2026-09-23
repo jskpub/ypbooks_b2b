@@ -1,0 +1,143 @@
+@use '../abstracts' as *;
+
+// 상단 헤더(utility-bar+brand-bar+gnb) 높이만큼 스크롤하면 나타나는 축약형 고정 헤더.
+// 노출 여부는 js/header-sticky.js가 .is-visible 클래스로 토글한다.
+.header-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  // right:0 대신 width+min-width — position:fixed는 body의 min-width(1280px)를 무시하고
+  // 항상 "지금 보이는 뷰포트" 폭에 맞춰지기 때문에, 뷰포트를 1280px보다 좁혀도 header-sticky만
+  // 페이지 나머지(가로 스크롤 생김)와 다르게 쪼그라드는 문제가 있었다. min-width로 바닥을 잡아준다.
+  width: 100%;
+  min-width: $layout-min-width;
+  z-index: $z-header-sticky;
+  display: none;
+  // transform: translateY(-100%);
+  background-color: $color-surface-card;
+  border-bottom: $border-width-1 solid $color-border;
+  box-shadow: 1px 2px 5px $color-neutral-300;
+
+  &__box {
+    display: flex;
+    gap: rem(20);
+    align-items: center;
+
+    .icon {
+      width: rem(25);
+      height: rem(25);
+    }
+  }
+
+  &.is-visible {
+    display: block;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    padding-block: $space-5;
+    justify-content: space-between;
+  }
+
+  &__hamburger {
+    @include icon-button;
+    flex: 0 0 auto;
+    // __inner의 gap($space-4)을 여기서만 줄여서 햄버거-로고는 바짝 붙이고, 나머지 간격은 그대로 둔다.
+    margin-right: -$space-2;
+
+    // 전체카테고리가 열려있을 때 배경도 음영 처리한다(스펙 GNB-CAT-01 ①, gnb 트리거와 동일 규칙).
+    &[aria-expanded='true'] {
+      background-color: $color-surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  // gnb와 동일하게, 열림 상태에선 햄버거 대신 닫기(X) 아이콘을 보여준다.
+  &__hamburger-icon--close {
+    display: none;
+  }
+
+  &__hamburger[aria-expanded='true'] {
+    .header-sticky__hamburger-icon--menu {
+      display: none;
+    }
+
+    .header-sticky__hamburger-icon--close {
+      display: inline-flex;
+    }
+  }
+
+  &__search {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    max-width: rem(500);
+    border: $border-width-1 solid $color-border-control;
+    border-radius: $radius-full;
+    padding-inline: $space-4 0;
+
+    &:focus-within {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px $color-focus-ring;
+    }
+  }
+
+  &__search-input {
+    flex: 1 1 auto;
+    border: none;
+    padding-block: $space-2;
+    font-size: $font-size-label-lg;
+    background: none;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  &__search-submit {
+    @include icon-button;
+    flex: 0 0 auto;
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__icons {
+    flex: 0 0 auto;
+    display: flex;
+    // 아이콘 버튼 자체가 44px로 커져서 간격을 space-5(20px)에서 좁혀 전체 폭이 과하게 늘어나지 않게 한다.
+    gap: $space-1;
+
+    a {
+      @include icon-button;
+      border-radius: $radius-full;
+
+      &:hover {
+        background-color: $color-surface;
+        transition: all 0.3s;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-focus-ring;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .brand-bar {
+    &__logo {
+      padding-left: 0;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+@use '../abstracts' as *;
+
+// Figma node 1184:2231 (Component/Progress) — status=Default/Warning/Full.
+// "사용한 금액과 한도는 글자로 함께 적습니다" — 게이지 아래 &__label에 금액 텍스트를 같이 둔다.
+.progress {
+  &__track {
+    height: rem(8);
+    border-radius: $radius-full;
+    background-color: $color-surface;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    background-color: $color-primary;
+    border-radius: $radius-full;
+    transition: width $motion-base;
+  }
+
+  &__label {
+    margin-top: $space-1;
+    font-size: $font-size-body-sm;
+    color: $color-foreground-secondary;
+  }
+
+  &--warning &__fill {
+    background-color: $color-warning;
+  }
+
+  &--full &__fill {
+    background-color: $color-danger;
+  }
+}

@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+
+// Figma node 1184:2310 (Component/Tab Item) — "현재 탭은 아래에 빨간 선으로 표시".
+.tab-item {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-3 $space-4;
+  border-bottom: $border-width-2 solid transparent;
+  font-size: $font-size-label-base;
+  line-height: $line-height-label-base;
+  font-weight: 500;
+  color: $color-foreground-secondary;
+  transition: color $motion-fast, border-color $motion-fast;
+
+  &:hover {
+    color: $color-foreground;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-focus-ring;
+    outline-offset: -2px;
+  }
+
+  &.is-active {
+    color: $color-primary;
+    border-bottom-color: $color-primary;
+    font-weight: 700;
+  }
+
+  &:disabled,
+  &.is-disabled {
+    color: $color-disabled-text;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,112 @@
+@use '../abstracts' as *;
+
+// 스타일명은 Figma Type/Table 그대로: Heading H1-H4 / Body / Label / Caption / Numeric
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-body-base;
+  line-height: $line-height-body-base;
+  letter-spacing: $letter-spacing-default;
+  color: $color-text;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  line-height: $line-height-h1;
+  font-weight: 700; // Bold
+}
+
+h2 {
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
+  font-weight: 700; // Bold
+}
+
+h3 {
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
+  font-weight: 500; // Medium
+}
+
+h4 {
+  font-size: $font-size-h4;
+  line-height: $line-height-h4;
+  font-weight: 500; // Medium
+}
+
+// 실제 heading 태그를 쓰지 않고 스타일만 재사용할 때(예: 스타일 가이드 데모)
+.text-h1 {
+  font-size: $font-size-h1;
+  line-height: $line-height-h1;
+  font-weight: 700;
+}
+.text-h2 {
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
+  font-weight: 700;
+}
+.text-h3 {
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
+  font-weight: 500;
+}
+.text-h4 {
+  font-size: $font-size-h4;
+  line-height: $line-height-h4;
+  font-weight: 500;
+}
+
+.text-body-lg {
+  font-size: $font-size-body-lg;
+  line-height: $line-height-body-lg;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: $font-size-body-sm;
+  line-height: $line-height-body-sm;
+  font-weight: 400;
+}
+
+.label-lg {
+  font-size: $font-size-label-lg;
+  line-height: $line-height-label-lg;
+  font-weight: 500; // Medium — 버튼 라벨
+}
+
+.label-base {
+  font-size: $font-size-label-base;
+  line-height: $line-height-label-base;
+  font-weight: 500; // Medium — 배지, 탭, 입력 라벨
+}
+
+.label-sm {
+  font-size: $font-size-label-sm;
+  line-height: $line-height-label-sm;
+  font-weight: 700; // Bold — 리본, 작은 태그
+}
+
+small,
+.caption {
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
+  font-weight: 400; // 날짜, 도움말
+}
+
+.caption-strong {
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
+  font-weight: 700; // 상태 강조 캡션
+}
+
+.price-lg {
+  font-size: $font-size-price-lg;
+  line-height: $line-height-price-lg;
+  font-weight: 700; // 최종 결제 금액
+}
+
+.price {
+  font-size: $font-size-price;
+  line-height: $line-height-price;
+  font-weight: 700; // 도서 가격
+}

@@ -1,0 +1,75 @@
+@use '../abstracts' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+
+  &__label {
+    font-size: $font-size-label-base; // 13/18 Medium — Figma Type 문서: "입력 라벨"
+    line-height: $line-height-label-base;
+    font-weight: 500;
+  }
+
+  &__input {
+    // 세로 패딩 12px(space-3)은 Figma Spacing 문서에 "입력 안쪽 세로"로 명시된 값
+    padding: $space-3 $space-4;
+    border: $border-width-1 solid $color-border-control; // --color-border-control, 폼 전용 테두리색
+    border-radius: $radius-sm; // 6px — Figma Radius 문서: "입력, 소형 버튼, 툴팁"
+    background-color: $color-surface-card;
+    font-size: $font-size-body-sm; // Type 문서에 입력값 전용 스타일이 없어 body-sm으로 추정(가정)
+    line-height: $line-height-body-sm;
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring; // --color-focus-ring, 항상 파랑
+      outline-offset: 1px;
+      border-color: $input-border-focus; // --input-border-focus, 빨강
+    }
+  }
+
+  &__help {
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-foreground-secondary;
+  }
+
+  &.is-error {
+    .field__input {
+      border-color: $color-danger;
+    }
+
+    .field__help {
+      color: $color-danger;
+    }
+  }
+}
+
+.checkbox,
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $font-size-body-sm;
+  line-height: $line-height-body-sm;
+
+  input {
+    accent-color: $color-primary; // 브랜드색(빨강) — 선택 상태
+    width: rem(18);
+    height: rem(18);
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      accent-color: $color-disabled-text;
+      cursor: not-allowed;
+    }
+  }
+
+  &:has(input:disabled) {
+    color: $color-disabled-text;
+    cursor: not-allowed;
+  }
+}

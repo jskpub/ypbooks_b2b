@@ -1,0 +1,123 @@
+@use '../abstracts' as *;
+
+.footer {
+  border-top: $border-width-1 solid $color-border;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-block: $space-6;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+  }
+
+  &__row--bottom {
+    align-items: flex-start;
+  }
+
+  // 상단 줄 — 브랜드 + 뱃지
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__logo {
+    display: inline-flex;
+    width: rem(96);
+    height: auto;
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: $space-1 $space-2;
+    border-radius: $radius-sm;
+    background-color: $color-primary;
+    color: $color-on-primary;
+    font-size: $font-size-label-sm;
+    font-weight: 700;
+  }
+
+  // 상단 줄 — 링크 내비게이션
+  &__nav {
+    display: flex;
+    align-items: center;
+    > li {
+      &:not(:first-child) {
+        .footer__nav-link {
+          &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border: 1px solid $color-border;
+            width: 1px;
+          }
+        }
+      }
+    }
+  }
+
+  &__nav-link {
+    padding-inline: $space-3;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+    position: relative;
+
+    &:hover {
+      color: $color-foreground;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__nav-link--strong {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  // 하단 줄 — 사업자 정보 + 저작권
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-foreground-secondary;
+  }
+
+  &__disclaimer {
+    color: $color-muted;
+  }
+
+  &__copyright {
+    flex: 0 0 auto;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-muted;
+    white-space: nowrap;
+  }
+}

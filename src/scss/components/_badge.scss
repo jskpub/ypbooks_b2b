@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-2;
+  border-radius: $radius-full; // Figma Radius 문서: "배지, 칩, 지원금 버튼"
+  font-size: $font-size-label-base; // 13/18 Medium — Figma Type 문서: "배지, 탭, 입력 라벨"
+  line-height: $line-height-label-base;
+  font-weight: 500;
+
+  &--recommended {
+    color: $color-primary; // 브랜드 강조(빨강) — "추천도서"
+    border: $border-width-1 solid $color-primary;
+  }
+
+  &--general {
+    color: $color-muted;
+    border: $border-width-1 solid $color-border;
+  }
+
+  // Figma에 Tone=Delivery가 추가로 있었으나 문서 설명(Recommended/General 두 가지)과는 안 맞아
+  // 배송 관련 상태 배지로 추정 — info 시맨틱 재사용.
+  &--delivery {
+    color: $color-info;
+    border: $border-width-1 solid $color-blue-100;
+  }
+}

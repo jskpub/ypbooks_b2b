@@ -1,0 +1,650 @@
+@use '../abstracts' as *;
+
+// E:\YP_PAYMENTS\src\pages\CartPage.tsx 이식 — 색상/간격/모서리는 전부 이 프로젝트 토큰으로 매핑했고,
+// 하드코딩된 hex(#df0000 등)는 하나도 안 남겼다. 기존 컴포넌트(.card/.badge/.status-chip/.alert/.modal/
+// .stepper/.checkbox/.step-indicator/.layout-with-sidebar)를 최대한 재사용하고, 이 페이지에서만
+// 쓰는 조합(장바구니 그룹 아코디언, 표, 주문 요약)만 새로 짰다.
+
+.cart {
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding-block: $space-8 $space-5;
+    border-bottom: $border-width-1 solid $color-border;
+  }
+
+  &__head-desc {
+    color: $color-foreground-secondary;
+    margin-top: $space-1;
+  }
+
+  &__head-note {
+    color: $color-danger;
+    font-weight: 700;
+    margin-top: $space-1;
+  }
+
+  &__layout {
+    padding-block: $space-6;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+}
+
+// 무료배송 진행 카드
+.shipping-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: rem(14);
+  border: $border-width-1 solid $color-danger-border;
+  border-radius: $radius-md;
+  background-color: $color-primary-soft;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(40);
+    height: rem(40);
+    border-radius: $radius-full;
+    background-color: $color-primary;
+    color: $color-on-primary;
+    flex: 0 0 auto;
+
+    .icon {
+      width: rem(20);
+      height: rem(20);
+    }
+  }
+
+  &__message {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__amount {
+    color: $color-primary;
+  }
+
+  &__sub {
+    color: $color-foreground-secondary;
+    margin-top: rem(2);
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+  }
+
+  &__track {
+    flex: 1 1 auto;
+    max-width: rem(192);
+  }
+}
+
+// 상단 컨트롤 바(전체선택/선택삭제 · 배송 안내)
+.cart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding-bottom: $space-3;
+  border-bottom: $border-width-1 solid $color-border;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__divider {
+    color: $color-border-strong;
+  }
+
+  &__remove {
+    color: $color-foreground-secondary;
+    transition: color $motion-fast;
+
+    &:hover {
+      color: $color-danger;
+    }
+  }
+
+  &__note {
+    color: $color-foreground-secondary;
+  }
+}
+
+// 그룹 카드(추천도서/개인도서) — 아코디언
+.cart-group {
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  background-color: $color-surface-card;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-2;
+    width: 100%;
+    padding: $space-4 $space-5;
+    border-bottom: $border-width-1 solid $color-border;
+    background-color: $color-surface-card;
+    text-align: left;
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+  }
+
+  &__header-left {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__title {
+    display: flex;
+    align-items: baseline;
+    gap: $space-1;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__title-note {
+    font-weight: 400;
+    color: $color-foreground-secondary;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  &__header-right {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__chevron {
+    display: inline-flex;
+    color: $color-foreground-secondary;
+
+    .icon {
+      width: rem(20);
+      height: rem(20);
+    }
+  }
+
+  // 닫힘 상태에선 아래 chevron(down), 열림 상태에선 위 chevron(up)만 보인다.
+  &__chevron--up {
+    display: none;
+  }
+
+  &__toggle[aria-expanded='true'] {
+    .cart-group__chevron--down {
+      display: none;
+    }
+
+    .cart-group__chevron--up {
+      display: inline-flex;
+    }
+  }
+
+  &__body[hidden] {
+    display: none;
+  }
+
+  &__alert {
+    border-radius: 0;
+    border-width: 0 0 $border-width-1 0;
+  }
+}
+
+// 표
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: $space-3;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  thead {
+    background-color: $color-surface;
+    border-bottom: $border-width-1 solid $color-border;
+
+    th {
+      font-size: $font-size-caption;
+      font-weight: 700;
+      color: $color-foreground-secondary;
+    }
+  }
+
+  tbody tr {
+    border-bottom: $border-width-1 solid $color-border;
+    transition: background-color $motion-fast;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: $color-surface;
+    }
+  }
+
+  &__book-col {
+    text-align: left;
+    width: auto;
+  }
+
+  &__qty-col {
+    width: rem(180);
+  }
+
+  &__delivery-col {
+    width: rem(200);
+    position: relative;
+  }
+
+  &__help {
+    display: inline-flex;
+    align-items: center;
+    color: $color-muted;
+
+    .icon {
+      width: rem(14);
+      height: rem(14);
+    }
+  }
+}
+
+.cart-book {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  padding-left: $space-2;
+
+  &__checkbox {
+    margin-top: rem(4);
+  }
+
+  &__cover {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(64);
+    height: rem(96);
+    border-radius: $radius-sm;
+    border: $border-width-1 solid $color-border;
+    background-color: $color-surface;
+    color: $color-disabled-text;
+
+    .icon {
+      width: rem(24);
+      height: rem(24);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+    min-width: 0;
+  }
+
+  &__format {
+    align-self: flex-start;
+  }
+
+  &__title {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__byline {
+    color: $color-foreground-secondary;
+    margin-top: rem(2);
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__discount {
+    color: $color-danger;
+    font-weight: 700;
+  }
+
+  &__selling {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__list {
+    color: $color-disabled-text;
+    text-decoration: line-through;
+  }
+}
+
+.cart-order-amount {
+  font-weight: 700;
+  color: $color-foreground;
+  margin-bottom: $space-2;
+}
+
+.cart-delivery-eta {
+  &__main {
+    font-weight: 600;
+    color: $color-foreground;
+  }
+
+  &__sub {
+    color: $color-foreground-secondary;
+    margin-top: rem(2);
+  }
+}
+
+.cart-remove-btn {
+  @include icon-button;
+  width: rem(32);
+  height: rem(32);
+  color: $color-muted;
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+
+  .icon {
+    width: rem(16);
+    height: rem(16);
+  }
+
+  &:hover {
+    color: $color-danger;
+    background-color: $color-danger-soft;
+  }
+}
+
+// 비어있을 때
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-16 $space-6;
+  text-align: center;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+  color: $color-foreground-secondary;
+
+  .icon {
+    width: rem(48);
+    height: rem(48);
+    color: $color-disabled-text;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// 하단 액션 바
+.cart-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+// 사이드바 — 배송지 위젯
+.cart-address {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  padding: $space-4;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+  background-color: $color-surface-card;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-2;
+    padding: $space-3;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-sm;
+    background-color: $color-surface;
+    color: $color-foreground;
+    font-weight: 600;
+
+    .icon {
+      flex: 0 0 auto;
+      color: $color-foreground-secondary;
+    }
+  }
+
+  &__notes {
+    display: flex;
+    flex-direction: column;
+    gap: rem(2);
+    color: $color-foreground-secondary;
+
+    li:first-child {
+      color: $color-foreground;
+      font-weight: 500;
+    }
+  }
+}
+
+// 사이드바 — 주문 요약
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-5;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+  background-color: $color-surface-card;
+  box-shadow: $shadow-lg;
+
+  &__title {
+    padding-bottom: $space-3;
+    border-bottom: $border-width-1 solid $color-border;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $color-foreground-secondary;
+  }
+
+  &__row--discount {
+    color: $color-danger;
+  }
+
+  &__total {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: $space-3;
+    padding-top: $space-3;
+    border-top: $border-width-1 solid $color-border;
+  }
+
+  &__total-label {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__total-note {
+    display: block;
+    margin-top: rem(2);
+    font-weight: 400;
+    color: $color-foreground-secondary;
+  }
+
+  &__total-amount {
+    font-weight: 900;
+    color: $color-primary;
+  }
+
+  // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
+  > .btn {
+    width: 100%;
+  }
+}
+
+// 배송일정 안내 모달
+.cart-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-width: $layout-min-width;
+  z-index: $z-category-menu-panel;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+  background-color: rgba($color-neutral-900, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity $motion-base, visibility $motion-base;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+.cart-delivery-modal {
+  display: flex;
+  flex-direction: column;
+  width: rem(480);
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: $radius-lg;
+  background-color: $color-surface-card;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 auto;
+    padding: $space-4 $space-5;
+    background-color: $color-primary;
+    color: $color-on-primary;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__close {
+    display: inline-flex;
+    color: $color-on-primary;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-on-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: $space-5;
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__section-title {
+    font-weight: 700;
+    color: $color-foreground;
+    margin-bottom: $space-1;
+  }
+
+  &__section p {
+    color: $color-foreground-secondary;
+    margin-top: rem(2);
+  }
+
+  &__note {
+    color: $color-danger;
+    font-weight: 500;
+  }
+
+  &__example {
+    padding-left: $space-4;
+    color: $color-muted;
+  }
+}
