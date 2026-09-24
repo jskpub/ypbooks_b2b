@@ -44,7 +44,6 @@
   }
 }
 
-.checkbox,
 .radio {
   display: inline-flex;
   align-items: center;
@@ -71,5 +70,64 @@
   &:has(input:disabled) {
     color: $color-disabled-text;
     cursor: not-allowed;
+  }
+}
+
+// Figma node 44:3303(Checkbox, checked=On) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
+// 브라우저 네이티브 accent-color로는 20px 크기·radius-sm(4px)·Phosphor check 아이콘을 정확히
+// 재현할 수 없어서(브라우저마다 렌더링이 다름), appearance:none으로 기본 렌더링을 끄고 직접 그린다.
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $font-size-body-sm;
+  line-height: $line-height-body-sm;
+
+  &:has(input:disabled) {
+    color: $color-disabled-text;
+    cursor: not-allowed;
+  }
+}
+
+// 두 마크업 패턴을 다 지원한다: <label class="checkbox"><input/>라벨</label>처럼 input이
+// .checkbox 안에 있는 경우(전체선택 등)와, <input class="cart-book__checkbox checkbox"/>처럼
+// input 자신이 .checkbox인 경우(장바구니 행 — 옆에 텍스트 라벨이 없어서 label로 안 감쌈) 둘 다.
+// (이전엔 ".checkbox input"만 있어서 후자가 브라우저 기본 체크박스로 보였다.)
+.checkbox input[type='checkbox'],
+input[type='checkbox'].checkbox {
+  appearance: none;
+  flex: 0 0 auto;
+  width: rem(20);
+  height: rem(20);
+  border-radius: $radius-sm;
+  border: $border-width-1 solid $color-border-control;
+  background-color: $color-surface-card;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: rem(16) rem(16);
+  cursor: pointer;
+  transition: background-color $motion-fast, border-color $motion-fast;
+
+  &:checked {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    // Icon/check(Phosphor Regular) — src/assets/icons/check.svg와 같은 경로, fill만 흰색으로 고정.
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M14.3538 4.85375L6.35375 12.8538C6.30731 12.9002 6.25217 12.9371 6.19147 12.9623C6.13077 12.9874 6.06571 13.0004 6 13.0004C5.93429 13.0004 5.86923 12.9874 5.80853 12.9623C5.74783 12.9371 5.69269 12.9002 5.64625 12.8538L2.14625 9.35375C2.05243 9.25993 1.99972 9.13268 1.99972 9C1.99972 8.86732 2.05243 8.74007 2.14625 8.64625C2.24007 8.55243 2.36732 8.49972 2.5 8.49972C2.63268 8.49972 2.75993 8.55243 2.85375 8.64625L6 11.7931L13.6463 4.14625C13.7401 4.05243 13.8673 3.99972 14 3.99972C14.1327 3.99972 14.2599 4.05243 14.3538 4.14625C14.4476 4.24007 14.5003 4.36732 14.5003 4.5C14.5003 4.63268 14.4476 4.75993 14.3538 4.85375Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-focus-ring;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $color-surface;
+    border-color: $color-border;
+
+    &:checked {
+      background-color: $color-disabled-text;
+      border-color: $color-disabled-text;
+    }
   }
 }

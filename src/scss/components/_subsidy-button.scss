@@ -17,6 +17,12 @@
   font-weight: 500;
   transition: background-color $motion-fast, color $motion-fast, border-color $motion-fast;
 
+  // design-system.md Imagery: "기본 20px, 소형 버튼·배지·칩 안에서는 16px"
+  .icon {
+    width: rem(16);
+    height: rem(16);
+  }
+
   &:focus-visible {
     outline: 2px solid $color-focus-ring;
     outline-offset: 2px;

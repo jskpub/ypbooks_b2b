@@ -1,9 +1,11 @@
 import type { SVGProps } from 'react';
 import ArrowsClockwiseIcon from '@/assets/icons/arrows-clockwise.svg?react';
 import BookOpenIcon from '@/assets/icons/book-open.svg?react';
+import BooksIcon from '@/assets/icons/books.svg?react';
 import CaretDownIcon from '@/assets/icons/caret-down.svg?react';
 import CaretRightIcon from '@/assets/icons/caret-right.svg?react';
 import CaretUpIcon from '@/assets/icons/caret-up.svg?react';
+import CheckIcon from '@/assets/icons/check.svg?react';
 import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
@@ -29,9 +31,11 @@ import XIcon from '@/assets/icons/x.svg?react';
 const icons = {
   'arrows-clockwise': ArrowsClockwiseIcon,
   'book-open': BookOpenIcon,
+  books: BooksIcon,
   'caret-down': CaretDownIcon,
   'caret-right': CaretRightIcon,
   'caret-up': CaretUpIcon,
+  check: CheckIcon,
   'check-circle': CheckCircleIcon,
   'device-mobile': DeviceMobileIcon,
   headset: HeadsetIcon,

@@ -21,6 +21,12 @@
     line-height: 1;
     transition: background-color $motion-fast;
 
+    // design-system.md stepper 설명: "좌우 32px 버튼(minus/plus 16px)"
+    .icon {
+      width: rem(16);
+      height: rem(16);
+    }
+
     &:hover {
       background-color: $color-border;
     }
@@ -44,5 +50,39 @@
     border-inline: $border-width-1 solid $color-border;
     background-color: $color-surface-card;
     font-size: $font-size-body-sm;
+
+    // type="number" 기본 스핀 버튼 숨김 — +/- 버튼과 중복되므로.
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+  }
+
+  // Figma node 44:2643(Stepper, size=Small) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc,
+  // Cart Row 44:3338 안에서 쓰임) — 88×28, 버튼 26×26, 아이콘 14px, 값 13px(body-xs).
+  &--sm {
+    height: rem(28);
+
+    .stepper__btn {
+      width: rem(26);
+
+      .icon {
+        width: rem(14);
+        height: rem(14);
+      }
+    }
+
+    .stepper__value {
+      width: rem(36);
+      font-size: $font-size-body-xs;
+    }
   }
 }

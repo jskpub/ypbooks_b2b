@@ -304,17 +304,18 @@
     margin-top: rem(4);
   }
 
+  // Figma node 44:3338(Cart Row) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
+  // 56×80, radius-md(6px), 테두리 없음(기존엔 64×96·radius-sm·테두리 있었음).
   &__cover {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: rem(64);
-    height: rem(96);
-    border-radius: $radius-sm;
-    border: $border-width-1 solid $color-border;
+    width: rem(56);
+    height: rem(80);
+    border-radius: $radius-md;
     background-color: $color-surface;
-    color: $color-disabled-text;
+    color: $color-muted; // 표지 아이콘 실측 fill #6f696b = $color-muted(neutral-550), disabled-text 아님
 
     .icon {
       width: rem(24);
@@ -327,6 +328,14 @@
     flex-direction: column;
     gap: rem(6);
     min-width: 0;
+  }
+
+  // 도서 유형 배지(그룹) + 포맷 배지를 한 줄에 나란히.
+  &__badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-1;
   }
 
   &__format {
@@ -363,6 +372,10 @@
     color: $color-disabled-text;
     text-decoration: line-through;
   }
+
+  &__contents {
+    text-align: left;
+  }
 }
 
 .cart-order-amount {
@@ -383,6 +396,7 @@
   }
 }
 
+// Figma node 44:3352(remove, Cart Row 44:3338 안) 실측 — 32×32 안에 20px 아이콘(기존 16px).
 .cart-remove-btn {
   @include icon-button;
   width: rem(32);
@@ -393,8 +407,8 @@
   right: $space-2;
 
   .icon {
-    width: rem(16);
-    height: rem(16);
+    width: rem(20);
+    height: rem(20);
   }
 
   &:hover {
@@ -496,6 +510,7 @@
   border-radius: $radius-lg;
   background-color: $color-surface-card;
   box-shadow: $shadow-lg;
+  margin-top: $space-5;
 
   &__title {
     padding-bottom: $space-3;
@@ -570,7 +585,9 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity $motion-base, visibility $motion-base;
+  transition:
+    opacity $motion-base,
+    visibility $motion-base;
 
   &.is-open {
     opacity: 1;

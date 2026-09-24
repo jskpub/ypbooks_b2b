@@ -11,7 +11,7 @@ html {
 body {
   background-color: $color-canvas;
   min-height: 100vh;
-  // design-system_foundations.md 5번(레이아웃): 최소 너비 1280px(--layout-wrap-min-width) —
+  // design-system.md Layout 섹션: 최소 너비 1280px(--layout-wrap-min-width) —
   // 이 폭 밑에서는 레이아웃을 줄이지 않고 가로 스크롤을 허용한다(반응형 축소 아님).
   min-width: $layout-min-width;
 }

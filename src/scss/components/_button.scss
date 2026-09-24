@@ -1,8 +1,10 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:1526 (Component/Button) 실측 — variant × size × state.
-// 라벨 타이포는 사이즈와 무관하게 전부 Label Large(15/20 Medium) 하나를 쓰고, 높이 차이는 세로 패딩으로만 만든다
-// (Large 52px = 20 + 16×2, Medium 44px = 20 + 12×2, Small 36px = 20 + 8×2 — 전부 $space 스케일과 정확히 맞음).
+// design-system.md Components 표(Action > button-*) 실측 — variant × size × state.
+// size는 height를 명시로 고정한다(패딩+line-height 합으로 암묵적으로 맞추면 타이포 값이 바뀔 때마다
+// 버튼 높이가 같이 밀린다 — 실제로 label-lg의 line-height를 20→24로 올렸을 때 Large/Medium
+// 높이가 52/44에서 56/48로 밀렸던 적이 있다).
+// Large/Medium은 라벨 label-lg(16/24) + 아이콘 20px + radius-md, Small만 label(14/20) + 아이콘 16px + radius-sm.
 // Secondary/Tertiary/Danger가 Primary보다 2px씩 넓은 건 $border-width-2 보더 때문 — Tertiary는 보더가 안 보이지만
 // 투명 보더로 같은 두께를 잡아둬서 variant를 바꿔도 버튼 크기가 흔들리지 않게 한다.
 .btn {
@@ -11,8 +13,8 @@
   justify-content: center;
   gap: $space-1;
   border: $border-width-2 solid transparent;
-  border-radius: $radius-md; // 10px — Figma Radius 문서: "버튼, 알림, 입력 그룹"
-  font-size: $font-size-label-lg; // 15/20 Medium — Figma Type 문서: "버튼 라벨"
+  border-radius: $radius-md; // 버튼, 알림, 입력 그룹
+  font-size: $font-size-label-lg;
   line-height: $line-height-label-lg;
   font-weight: 500;
   transition:
@@ -35,26 +37,33 @@
 
   // ---- size ----
   &--lg {
-    padding-block: $space-4; // 16px → 52px 총 높이
+    height: rem(52);
+    padding-inline: $space-6;
   }
 
   &--md {
-    padding-block: $space-3; // 12px → 44px 총 높이
+    height: rem(44);
+    padding-inline: $space-4;
   }
 
+  // design-system.md Components 표: Small만 label-lg가 아니라 label(14/20), radius도 sm, 아이콘도 16px.
   &--sm {
-    padding-block: $space-2; // 8px → 36px 총 높이
+    height: rem(36);
+    padding-inline: $space-3;
+    border-radius: $radius-sm;
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+
+    .icon {
+      width: rem(16);
+      height: rem(16);
+    }
   }
 
   // size 클래스 없이 쓰면 Medium을 기본값으로 둔다.
   &:not(&--lg):not(&--sm) {
-    padding-block: $space-3;
-  }
-
-  &--lg,
-  &--md,
-  &--sm {
-    padding-inline: $space-6;
+    height: rem(44);
+    padding-inline: $space-4;
   }
 
   // ---- variant ----
