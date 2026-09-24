@@ -131,6 +131,12 @@ small,
   font-weight: 400; // 도서 메타 정보
 }
 
+.caption-lg-strong {
+  font-size: $font-size-caption-lg;
+  line-height: $line-height-caption-lg;
+  font-weight: 700; // 평점 등 강조가 필요한 도서 메타
+}
+
 // Numeric — design-system.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
 // 금액 한 덩어리는 서식을 쪼개지 않는다 — 숫자와 "원"에 다른 굵기·색을 주지 않는다.
 .price-lg,
@@ -146,8 +152,8 @@ small,
 }
 
 .price {
-  font-size: $font-size-price-base;
-  line-height: $line-height-price-base; // 도서 가격, 장바구니 실제 결제 금액
+  font-size: $font-size-price;
+  line-height: $line-height-price; // 도서 가격, 장바구니 실제 결제 금액
 }
 
 // 목록 금액, 지원 비율("100%", "50%")

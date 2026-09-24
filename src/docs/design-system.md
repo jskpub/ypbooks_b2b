@@ -1,154 +1,160 @@
 ---
 version: alpha
-name: "영풍문고 B2B 독서복지 Design System"
-description: "임직원이 회사 지원금으로 도서를 고르고 결제하는 데스크톱 웹 서비스. 밝은 회색 페이지 위 흰 카드와 1px 테두리로 위계를 만들고, 영풍문고 BI 빨강(#e01e1a) 하나를 실행·강조·오류·지원금 표시(게이지, 차감 줄, 지원 비율)에만 쓴다. 지원금과 본인 부담금은 항상 같은 위치와 순서로 보이며, 상태 변화는 색으로만 표현하고 요소를 움직이지 않는다."
+name: '영풍문고 B2B 독서복지 Design System'
+description: '임직원이 회사 지원금으로 도서를 고르고 결제하는 데스크톱 웹 서비스. 밝은 회색 페이지 위 흰 카드와 1px 테두리로 위계를 만들고, 영풍문고 BI 빨강(#e01e1a) 하나를 실행·강조·오류·지원금 표시(게이지, 차감 줄, 지원 비율)에만 쓴다. 지원금과 본인 부담금은 항상 같은 위치와 순서로 보이며, 상태 변화는 색으로만 표현하고 요소를 움직이지 않는다.'
 
 colors:
   # Brand & Accent
-  primary: "#e01e1a"
-  primary-hover: "#c61a17"
-  primary-pressed: "#aa1714"
-  primary-soft: "#ffeeed"
-  on-primary: "#ffffff"
-  on-primary-soft: "#aa1714"
-  link: "#c61a17"
+  primary: '#e01e1a'
+  primary-hover: '#c61a17'
+  primary-pressed: '#aa1714'
+  primary-soft: '#ffeeed'
+  on-primary: '#ffffff'
+  on-primary-soft: '#aa1714'
+  link: '#c61a17'
   # Surface
-  canvas: "#fafafa"
-  surface-card: "#ffffff"
-  surface: "#f5f4f4"
+  canvas: '#fafafa'
+  surface-card: '#ffffff'
+  surface: '#f5f4f4'
   # Text
-  foreground: "#191818"
-  foreground-secondary: "#555152"
-  muted: "#6f696b"
-  disabled-text: "#aba6a7"
+  foreground: '#191818'
+  foreground-secondary: '#555152'
+  muted: '#6f696b'
+  disabled-text: '#aba6a7'
   # Border & Focus
-  border: "#e9e7e8"
-  border-strong: "#d6d3d4"
-  border-control: "#6f696b"
-  border-brand: "#e01e1a"
-  focus-ring: "#2563eb"
+  border: '#e9e7e8'
+  border-strong: '#d6d3d4'
+  border-control: '#6f696b'
+  border-brand: '#e01e1a'
+  focus-ring: '#2563eb'
   # State
-  danger: "#aa1714"
-  danger-soft: "#ffeeed"
-  danger-border: "#fdd9d8"
+  danger: '#aa1714'
+  danger-soft: '#ffeeed'
+  danger-border: '#fdd9d8'
   # Progress
-  progress-default: "#f9acaa"
-  progress-warning: "#f47d7b"
-  progress-full: "#e01e1a"
+  progress-default: '#f9acaa'
+  progress-warning: '#f47d7b'
+  progress-full: '#e01e1a'
   # Bookmark (추천 주체 구분)
-  bookmark-gray: "#3d3b3b"
-  bookmark-orange: "#b54708"
-  bookmark-green: "#157a40"
-  bookmark-teal: "#0f766e"
-  bookmark-blue: "#1d4fbf"
-  bookmark-purple: "#7e22ce"
-  bookmark-pink: "#be185d"
+  bookmark-gray: '#3d3b3b'
+  bookmark-orange: '#b54708'
+  bookmark-green: '#157a40'
+  bookmark-teal: '#0f766e'
+  bookmark-blue: '#1d4fbf'
+  bookmark-purple: '#7e22ce'
+  bookmark-pink: '#be185d'
   # Subsidy (서비스 전용)
-  subsidy-company: "#157a40"
-  subsidy-company-soft: "#eaf7ef"
-  subsidy-company-icon: "#1c8a4b"
-  subsidy-employee: "#191818"
-  subsidy-employee-soft: "#f5f4f4"
+  subsidy-company: '#157a40'
+  subsidy-company-soft: '#eaf7ef'
+  subsidy-company-icon: '#1c8a4b'
+  subsidy-employee: '#191818'
+  subsidy-employee-soft: '#f5f4f4'
 
 typography:
   display-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 32px
     fontWeight: 700
     lineHeight: 42px
   display:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 28px
     fontWeight: 700
     lineHeight: 36px
   heading-h1:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 26px
     fontWeight: 700
     lineHeight: 34px
   heading-h2:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 22px
     fontWeight: 700
     lineHeight: 30px
   heading-h3:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 20px
     fontWeight: 500
     lineHeight: 28px
   heading-h4:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 17px
     fontWeight: 500
     lineHeight: 24px
   body-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 18px
     fontWeight: 400
     lineHeight: 28px
   body:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 17px
     fontWeight: 400
     lineHeight: 26px
   body-sm:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 15px
     fontWeight: 400
     lineHeight: 24px
   body-xs:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 13px
     fontWeight: 400
     lineHeight: 20px
   label-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 16px
     fontWeight: 500
     lineHeight: 24px
   label:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 14px
     fontWeight: 500
     lineHeight: 20px
   label-sm:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 12px
     fontWeight: 700
     lineHeight: 16px
   caption:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 12px
     fontWeight: 400
     lineHeight: 18px
   caption-strong:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 12px
     fontWeight: 700
     lineHeight: 18px
   caption-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 14px
     fontWeight: 400
     lineHeight: 20px
+  caption-lg-strong:
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
+    fontSize: 14px
+    fontWeight: 700
+    lineHeight: 20px
   price-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 22px
     fontWeight: 700
     lineHeight: 28px
-    fontFeature: "tnum"
-  price-base:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFeature: 'tnum'
+  price:
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 17px
     fontWeight: 700
     lineHeight: 24px
-    fontFeature: "tnum"
+    fontFeature: 'tnum'
   price-sm:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontFamily: 'Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif'
     fontSize: 15px
     fontWeight: 700
     lineHeight: 22px
-    fontFeature: "tnum"
+    fontFeature: 'tnum'
+
 rounded:
   xs: 2px
   sm: 4px
@@ -178,209 +184,209 @@ spacing:
 components:
   # Action
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.label-lg}"
-    rounded: "{rounded.md}"
+    backgroundColor: '{colors.primary}'
+    textColor: '{colors.on-primary}'
+    typography: '{typography.label-lg}'
+    rounded: '{rounded.md}'
     height: 52px
     padding: 24px
   button-primary-hover:
-    backgroundColor: "{colors.primary-hover}"
+    backgroundColor: '{colors.primary-hover}'
   button-primary-pressed:
-    backgroundColor: "{colors.primary-pressed}"
+    backgroundColor: '{colors.primary-pressed}'
   button-primary-disabled:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.disabled-text}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.disabled-text}'
   button-secondary:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.label-lg}"
-    rounded: "{rounded.md}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.label-lg}'
+    rounded: '{rounded.md}'
     height: 52px
     padding: 24px
   button-secondary-hover:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: '{colors.surface}'
   button-secondary-pressed:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: '{colors.surface}'
   button-secondary-disabled:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.disabled-text}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.disabled-text}'
   button-tertiary:
     backgroundColor: transparent
-    textColor: "{colors.primary}"
-    typography: "{typography.label-lg}"
-    rounded: "{rounded.md}"
+    textColor: '{colors.primary}'
+    typography: '{typography.label-lg}'
+    rounded: '{rounded.md}'
     height: 52px
     padding: 24px
   button-tertiary-hover:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.on-primary-soft}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.on-primary-soft}'
   button-tertiary-pressed:
-    backgroundColor: "{colors.primary-soft}"
-    textColor: "{colors.on-primary-soft}"
+    backgroundColor: '{colors.primary-soft}'
+    textColor: '{colors.on-primary-soft}'
   button-danger:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.danger}"
-    typography: "{typography.label-lg}"
-    rounded: "{rounded.md}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.danger}'
+    typography: '{typography.label-lg}'
+    rounded: '{rounded.md}'
     height: 52px
     padding: 24px
   button-danger-hover:
-    backgroundColor: "{colors.danger-soft}"
+    backgroundColor: '{colors.danger-soft}'
   button-danger-pressed:
-    backgroundColor: "{colors.danger-border}"
+    backgroundColor: '{colors.danger-border}'
   side-button:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    rounded: '{rounded.full}'
     size: 50px
   subsidy-button-recommended:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.on-primary-soft}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.on-primary-soft}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 32px
     padding: 12px
   subsidy-button-recommended-applied:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
+    backgroundColor: '{colors.primary}'
+    textColor: '{colors.on-primary}'
   subsidy-button-personal:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 32px
     padding: 12px
   subsidy-button-personal-applied:
-    backgroundColor: "{colors.subsidy-employee}"
-    textColor: "{colors.on-primary}"
+    backgroundColor: '{colors.subsidy-employee}'
+    textColor: '{colors.on-primary}'
   subsidy-button-disabled:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.disabled-text}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.disabled-text}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 32px
     padding: 12px
   # Selection & Input
   checkbox:
-    backgroundColor: "{colors.surface-card}"
-    rounded: "{rounded.sm}"
+    backgroundColor: '{colors.surface-card}'
+    rounded: '{rounded.sm}'
     size: 20px
   checkbox-checked:
-    backgroundColor: "{colors.primary}"
+    backgroundColor: '{colors.primary}'
   radio:
-    backgroundColor: "{colors.surface-card}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface-card}'
+    rounded: '{rounded.full}'
     size: 20px
   input-field:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.body}"
-    rounded: "{rounded.sm}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.body}'
+    rounded: '{rounded.sm}'
     height: 44px
     padding: 16px
   input-field-error:
-    borderColor: "{colors.danger}"
+    borderColor: '{colors.danger}'
     borderWidth: 2px
-    helperTextColor: "{colors.danger}"
-    helperTypography: "{typography.caption}"
+    helperTextColor: '{colors.danger}'
+    helperTypography: '{typography.caption}'
   stepper:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.sm}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.body-sm}'
+    rounded: '{rounded.sm}'
     height: 34px
     width: 160px
   # Content
   badge-recommended:
-    backgroundColor: "{colors.primary-soft}"
-    textColor: "{colors.on-primary-soft}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.primary-soft}'
+    textColor: '{colors.on-primary-soft}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 24px
   badge-general:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.foreground-secondary}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.foreground-secondary}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 24px
   badge-delivery:
-    backgroundColor: "{colors.surface-card}"
-    borderColor: "{colors.border}"
+    backgroundColor: '{colors.surface-card}'
+    borderColor: '{colors.border}'
     borderWidth: 1px
-    textColor: "{colors.foreground-secondary}"
-    typography: "{typography.label}"
-    rounded: "{rounded.full}"
+    textColor: '{colors.foreground-secondary}'
+    typography: '{typography.label}'
+    rounded: '{rounded.full}'
     height: 24px
   empty-state:
     backgroundColor: transparent
-    textColor: "{colors.foreground}"
-    titleTypography: "{typography.heading-h3}"
-    descriptionTypography: "{typography.body}"
-    descriptionColor: "{colors.foreground-secondary}"
-    iconColor: "{colors.muted}"
+    textColor: '{colors.foreground}'
+    titleTypography: '{typography.heading-h3}'
+    descriptionTypography: '{typography.body}'
+    descriptionColor: '{colors.foreground-secondary}'
+    iconColor: '{colors.muted}'
     iconSize: 32px
     width: 480px
     padding: 48px 24px
     gap: 12px
   card:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    rounded: '{rounded.lg}'
     padding: 24px
   card-compact:
     padding: 16px
   status-chip:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.foreground-secondary}"
-    typography: "{typography.label}"
-    rounded: "{rounded.sm}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.foreground-secondary}'
+    typography: '{typography.label}'
+    rounded: '{rounded.sm}'
     height: 32px
     padding: 12px
   bookmark-chip:
-    backgroundColor: "{colors.bookmark-gray}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.label-sm}"
+    backgroundColor: '{colors.bookmark-gray}'
+    textColor: '{colors.on-primary}'
+    typography: '{typography.label-sm}'
     height: 28px
   # Feedback
   alert:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.foreground}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.md}"
+    backgroundColor: '{colors.surface}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.body-sm}'
+    rounded: '{rounded.md}'
     padding: 16px
   progress-track:
-    backgroundColor: "{colors.border}"
-    rounded: "{rounded.full}"
+    backgroundColor: '{colors.border}'
+    rounded: '{rounded.full}'
     height: 12px
   modal:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    rounded: '{rounded.lg}'
     padding: 24px
     width: 480px
   # Navigation
   tab-item:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground-secondary}"
-    typography: "{typography.label-lg}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground-secondary}'
+    typography: '{typography.label-lg}'
     height: 46px
     padding: 16px
   tab-item-active:
-    textColor: "{colors.foreground}"
+    textColor: '{colors.foreground}'
   tab-item-disabled:
-    textColor: "{colors.disabled-text}"
+    textColor: '{colors.disabled-text}'
   # Patterns
   book-card:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    rounded: '{rounded.lg}'
     padding: 24px
     width: 240px
   payment-sidebar:
-    backgroundColor: "{colors.surface-card}"
-    textColor: "{colors.foreground}"
-    rounded: "{rounded.lg}"
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    rounded: '{rounded.lg}'
     width: 320px
 ---
 
@@ -397,6 +403,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 규칙이 명시되지 않은 상황에서는 **새 색이나 장식을 더하지 말고, 지원금·금액 정보가 먼저 읽히는 쪽**으로 결정한다.
 
 **Key Characteristics:**
+
 - 주인공은 지원금과 금액이다. 회사 지원금과 본인 부담금은 항상 같은 위치, 같은 순서로 보여 준다.
 - 강조색은 `{colors.primary}`(#e01e1a) 하나. 실행 버튼, 강조 금액, 오류, 지원금 게이지, 지원금 차감 줄, 지원 비율에만 쓴다. 초록(`{colors.subsidy-company}`)은 지원금 잔액과 한도 표시에만 쓴다.
 - 예외적인 색은 두 가지뿐: 추천 주체를 구분하는 책갈피 칩 7색, 키보드 포커스 링 파랑.
@@ -410,6 +417,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 모든 색은 Atomic(원본값) → Semantic(용도명) 두 단계로 연결된다. 화면과 컴포넌트는 **Semantic만** 쓴다. 아래 토큰 이름은 코드의 CSS 변수(`--color-*`)에서 접두사를 뺀 것이다.
 
 ### Brand & Accent
+
 - **YP Red** (`{colors.primary}` — #e01e1a): 주요 버튼, 선택 상태, 강조 금액, 필수 표시, 지원금 적용됨 상태. 흰 배경 대비 4.81:1. 장식·일러스트·배경 면적에는 쓰지 않는다.
 - **Red Hover** (`{colors.primary-hover}` — #c61a17): 주요 버튼 hover.
 - **Red Pressed** (`{colors.primary-pressed}` — #aa1714): 주요 버튼 눌림.
@@ -418,11 +426,13 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - **Link** (`{colors.link}` — #c61a17): 텍스트 링크(대비 5.90:1).
 
 ### Surface
+
 - **Canvas** (`{colors.canvas}` — #fafafa): 페이지 배경.
 - **Card** (`{colors.surface-card}` — #ffffff): 카드, 모달, 입력창 배경.
 - **Sunken** (`{colors.surface}` — #f5f4f4): 약한 구획, 비활성 버튼 배경, Alert·Status Chip 배경, 표지 자리 배경.
 
 ### Text
+
 - **Foreground** (`{colors.foreground}` — #191818): 제목, 본문. 대비 17.72:1.
 - **Secondary** (`{colors.foreground-secondary}` — #555152): 보조 설명. 7.82:1.
 - **Muted** (`{colors.muted}` — #6f696b): 도움말, placeholder. 5.36:1.
@@ -430,6 +440,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - **On Primary** (`{colors.on-primary}` — #ffffff): 빨강·검정·책갈피 배경 위 글자.
 
 ### Border & Focus
+
 - **Border** (`{colors.border}` — #e9e7e8): 카드 테두리, 구분선, 게이지 트랙.
 - **Border Strong** (`{colors.border-strong}` — #d6d3d4): hover·강조 테두리.
 - **Border Control** (`{colors.border-control}` — #6f696b): 입력창, 체크박스, 라디오, Secondary 버튼 테두리. 조작 요소의 경계는 이 색으로 3:1 이상을 확보한다.
@@ -437,31 +448,37 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - **Focus Ring** (`{colors.focus-ring}` — #2563eb): 키보드 포커스 링 전용. 다른 용도로 쓰지 않는다.
 
 ### State
+
 오류는 빨강 계열로만 표현한다. 성공·주의 전용 색은 두지 않는다(Alert는 아이콘 모양으로 구분).
+
 - **Danger** (`{colors.danger}` — #aa1714): 오류 메시지, 입력 오류 테두리, Danger 버튼, **Alert 제목**. `{colors.surface}` 위 대비 6.73:1.
 - **Danger Soft** (`{colors.danger-soft}` — #ffeeed): Danger 버튼 hover 배경.
 - **Danger Border** (`{colors.danger-border}` — #fdd9d8): Danger 버튼 눌림 배경.
 
 ### Progress
+
 지원금 게이지 채움 색. 한도에 가까울수록 진해진다. 트랙은 `{colors.border}`.
+
 - `{colors.progress-default}` #f9acaa — 여유 있음
 - `{colors.progress-warning}` #f47d7b — 한도 임박
 - `{colors.progress-full}` #e01e1a — 한도 소진
 
 ### Bookmark
+
 추천 주체(CEO픽, 본부장픽 등 직무·직책)를 구분하는 책갈피 칩 배경. 글자는 모두 흰색(대비 5.4:1 이상). **추천 주체 하나에 색 하나**를 정하면 모든 화면에서 같은 색을 쓴다. 이 7색은 책갈피 칩 밖에서 쓰지 않는다.
 
-| 토큰 | Hex |
-|---|---|
-| `{colors.bookmark-gray}` | #3d3b3b |
+| 토큰                       | Hex     |
+| -------------------------- | ------- |
+| `{colors.bookmark-gray}`   | #3d3b3b |
 | `{colors.bookmark-orange}` | #b54708 |
-| `{colors.bookmark-green}` | #157a40 |
-| `{colors.bookmark-teal}` | #0f766e |
-| `{colors.bookmark-blue}` | #1d4fbf |
+| `{colors.bookmark-green}`  | #157a40 |
+| `{colors.bookmark-teal}`   | #0f766e |
+| `{colors.bookmark-blue}`   | #1d4fbf |
 | `{colors.bookmark-purple}` | #7e22ce |
-| `{colors.bookmark-pink}` | #be185d |
+| `{colors.bookmark-pink}`   | #be185d |
 
 ### Subsidy (서비스 전용)
+
 회사 지원금과 본인 부담금을 구분한다.
 
 **빨강과 초록의 경계.** 지원금을 다루는 자리에서 두 색이 헷갈리기 쉽다. 기준은 하나다. **금액이 줄어드는 움직임(차감 줄, 지원 비율)은 빨강, 남아 있는 양(잔액, 한도)은 초록**이다. 그래서 Payment Sidebar의 "-14,000원"은 빨강이고, 지원금 한도 카드의 잔액은 초록이다.
@@ -470,51 +487,56 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - **Employee** (`{colors.subsidy-employee}` — #191818) / 배경 `{colors.subsidy-employee-soft}` #f5f4f4: 본인 부담금 금액과 영역, 개인도서 지원금 적용됨 버튼 배경.
 
 ### Gradient Policy
+
 그라디언트를 쓰지 않는다.
 
 ### Figma ↔ CSS 변수 대응 (주요)
-| Figma 변수 | CSS 변수 | 토큰 |
-|---|---|---|
-| surface/page | `--color-canvas` | `{colors.canvas}` |
-| surface/card | `--color-surface-card` | `{colors.surface-card}` |
-| surface/sunken | `--color-surface` | `{colors.surface}` |
-| surface/brand(-hover/-pressed/-subtle) | `--color-primary(-hover/-pressed/-soft)` | `{colors.primary}` 계열 |
-| text/primary · secondary · tertiary · disabled | `--color-foreground` · `-foreground-secondary` · `-muted` · `-disabled-text` | 동일 |
-| text/on-brand · on-brand-subtle · link | `--color-on-primary` · `-on-primary-soft` · `-link` | 동일 |
-| border/default · strong · control · brand | `--color-border` · `-border-strong` · `-border-control` · `--input-border-focus` | `{colors.border-brand}` |
+
+| Figma 변수                                     | CSS 변수                                                                         | 토큰                    |
+| ---------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------- |
+| surface/page                                   | `--color-canvas`                                                                 | `{colors.canvas}`       |
+| surface/card                                   | `--color-surface-card`                                                           | `{colors.surface-card}` |
+| surface/sunken                                 | `--color-surface`                                                                | `{colors.surface}`      |
+| surface/brand(-hover/-pressed/-subtle)         | `--color-primary(-hover/-pressed/-soft)`                                         | `{colors.primary}` 계열 |
+| text/primary · secondary · tertiary · disabled | `--color-foreground` · `-foreground-secondary` · `-muted` · `-disabled-text`     | 동일                    |
+| text/on-brand · on-brand-subtle · link         | `--color-on-primary` · `-on-primary-soft` · `-link`                              | 동일                    |
+| border/default · strong · control · brand      | `--color-border` · `-border-strong` · `-border-control` · `--input-border-focus` | `{colors.border-brand}` |
 
 ## Typography
 
 ### Font Family
+
 - **화면용**: `Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif`
 - Noto Sans KR은 Figma 문서 페이지용(v2/Doc) 서체다. 서비스 화면에는 쓰지 않는다.
 - 금액(`price-lg`, `price-base`, `price-sm`)은 `font-variant-numeric: tabular-nums`로 자릿수를 맞춘다.
 
 ### Hierarchy
 
-| Token | Size / Line | Weight | Use |
-|---|---|---|---|
-| `{typography.display-lg}` | 32 / 42 | 700 | 도서 제목 (추천 픽) |
-| `{typography.display}` | 28 / 36 | 700 | 추천 주제 제목 (추천 영역) |
-| `{typography.heading-h1}` | 26 / 34 | 700 | 페이지 제목 |
-| `{typography.heading-h2}` | 22 / 30 | 700 | 섹션 제목, 모달 제목 |
-| `{typography.heading-h3}` | 20 / 28 | 500 | 카드 제목, 항목 제목 |
-| `{typography.heading-h4}` | 17 / 24 | 500 | 도서명, 목록 제목 |
-| `{typography.body-lg}` | 18 / 28 | 400 | 강조 본문, 안내 문장 |
-| `{typography.body}` | 17 / 26 | 400 | 기본 본문, 입력값 |
-| `{typography.body-sm}` | 15 / 24 | 400 | 보조 설명, 표 본문 |
-| `{typography.body-xs}` | 13 / 20 | 400 | 각주, 메타데이터, 부가 주석 |
-| `{typography.label-lg}` | 16 / 24 | 500 | 버튼 라벨, 탭 |
-| `{typography.label}` | 14 / 20 | 500 | 배지, 입력 라벨, 소형 버튼, 지원금 버튼 |
-| `{typography.label-sm}` | 12 / 16 | 700 | 책갈피 칩, 작은 태그 |
-| `{typography.caption}` | 12 / 18 | 400 | 날짜, 도움말, 카테고리 |
-| `{typography.caption-strong}` | 12 / 18 | 700 | 상태 강조 캡션 ("잔여 한도 1건") |
-| `{typography.caption-lg}` | 14 / 20 | 400 | 도서 메타 정보 (출간일·카테고리, 리뷰 수, 구매 수) |
-| `{typography.price-lg}` | 22 / 28 | 700 | 최종 결제 금액 |
-| `{typography.price-base}` | 17 / 24 | 700 | 도서 가격, 장바구니 실제 결제 금액 |
-| `{typography.price-sm}` | 15 / 22 | 700 | 목록 금액, 지원 비율("100%", "50%") |
+| Token                            | Size / Line | Weight | Use                                                |
+| -------------------------------- | ----------- | ------ | -------------------------------------------------- |
+| `{typography.display-lg}`        | 32 / 42     | 700    | 도서 제목 (추천 픽)                                |
+| `{typography.display}`           | 28 / 36     | 700    | 추천 주제 제목 (추천 영역)                         |
+| `{typography.heading-h1}`        | 26 / 34     | 700    | 페이지 제목                                        |
+| `{typography.heading-h2}`        | 22 / 30     | 700    | 섹션 제목, 모달 제목                               |
+| `{typography.heading-h3}`        | 20 / 28     | 500    | 카드 제목, 항목 제목                               |
+| `{typography.heading-h4}`        | 17 / 24     | 500    | 도서명, 목록 제목                                  |
+| `{typography.body-lg}`           | 18 / 28     | 400    | 강조 본문, 안내 문장                               |
+| `{typography.body}`              | 17 / 26     | 400    | 기본 본문, 입력값                                  |
+| `{typography.body-sm}`           | 15 / 24     | 400    | 보조 설명, 표 본문                                 |
+| `{typography.body-xs}`           | 13 / 20     | 400    | 각주, 메타데이터, 부가 주석                        |
+| `{typography.label-lg}`          | 16 / 24     | 500    | 버튼 라벨, 탭                                      |
+| `{typography.label}`             | 14 / 20     | 500    | 배지, 입력 라벨, 소형 버튼, 지원금 버튼            |
+| `{typography.label-sm}`          | 12 / 16     | 700    | 책갈피 칩, 작은 태그                               |
+| `{typography.caption}`           | 12 / 18     | 400    | 날짜, 도움말, 카테고리                             |
+| `{typography.caption-strong}`    | 12 / 18     | 700    | 상태 강조 캡션 ("잔여 한도 1건")                   |
+| `{typography.caption-lg}`        | 14 / 20     | 400    | 도서 메타 정보 (출간일·카테고리, 리뷰 수, 구매 수) |
+| `{typography.caption-lg-strong}` | 14 / 20     | 700    | 평점 등 강조가 필요한 도서 메타                    |
+| `{typography.price-lg}`          | 22 / 28     | 700    | 최종 결제 금액                                     |
+| `{typography.price-base}`        | 17 / 24     | 700    | 도서 가격, 장바구니 실제 결제 금액                 |
+| `{typography.price-sm}`          | 15 / 22     | 700    | 목록 금액, 지원 비율("100%", "50%")                |
 
 ### Principles
+
 - 굵기는 400 / 500 / 700 세 가지만 쓴다.
 - 자간은 모두 0. 음수 자간을 쓰지 않는다.
 - 버튼 라벨은 한 줄로 유지한다. 줄바꿈되면 라벨을 줄인다.
@@ -526,52 +548,56 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ## Layout
 
 ### Spacing System
+
 - **Base unit:** 4px. `{spacing.space-1}`~`{spacing.space-16}`(4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64)만 쓴다.
-| 토큰 | 값 | 용도 |
-|---|---|---|
-| `{spacing.space-1}` | 4px | 아이콘과 라벨 사이 |
-| `{spacing.space-2}` | 8px | 배지 안쪽, 촘촘한 간격, 버튼 아이콘-라벨 |
-| `{spacing.space-3}` | 12px | 입력 안쪽 세로, 소형 버튼 좌우 |
-| `{spacing.space-4}` | 16px | 컴포넌트 안쪽 기본, Alert 안쪽 |
-| `{spacing.space-5}` | 20px | 화면 좌우 여백 |
-| `{spacing.space-6}` | 24px | 카드·모달 안쪽, 묶음 사이 |
-| `{spacing.space-8}` | 32px | 섹션 안쪽 구획 |
-| `{spacing.space-10}` | 40px | 큰 블록 사이 |
-| `{spacing.space-12}` | 48px | 페이지 구획 |
-| `{spacing.space-16}` | 64px | 페이지 위아래 여백 |
+  | 토큰 | 값 | 용도 |
+  |---|---|---|
+  | `{spacing.space-1}` | 4px | 아이콘과 라벨 사이 |
+  | `{spacing.space-2}` | 8px | 배지 안쪽, 촘촘한 간격, 버튼 아이콘-라벨 |
+  | `{spacing.space-3}` | 12px | 입력 안쪽 세로, 소형 버튼 좌우 |
+  | `{spacing.space-4}` | 16px | 컴포넌트 안쪽 기본, Alert 안쪽 |
+  | `{spacing.space-5}` | 20px | 화면 좌우 여백 |
+  | `{spacing.space-6}` | 24px | 카드·모달 안쪽, 묶음 사이 |
+  | `{spacing.space-8}` | 32px | 섹션 안쪽 구획 |
+  | `{spacing.space-10}` | 40px | 큰 블록 사이 |
+  | `{spacing.space-12}` | 48px | 페이지 구획 |
+  | `{spacing.space-16}` | 64px | 페이지 위아래 여백 |
 
 ### Grid & Container
+
 - 데스크톱 전용. 최소·최대 너비 1280px(`{spacing.layout-min-width}`), 좌우 여백 20px, 12컬럼 · 거터 24px.
 - **결제 사이드바**는 320px(`{spacing.layout-sidebar-width}`) 고정, 화면 오른쪽. 나머지 폭은 본문이 채운다. 본문과 사이드바 사이 24px(`{spacing.layout-content-gap}`).
 - 코드 변수: `--layout-wrap-min-width`, `--layout-inner-max-width`, `--layout-inner-padding`, `--layout-sidebar-width`, `--layout-content-gap`.
 
 ### Whitespace Philosophy
+
 카드 안쪽은 24px로 넉넉하게, 카드 안 요소 사이는 8~16px로 촘촘하게 둔다. 같은 종류의 목록(장바구니 행, 도서 카드)은 간격을 통일해 리듬을 만든다.
 
 ## Elevation & Depth
 
-| Level | Treatment | Use |
-|---|---|---|
-| Flat | 그림자·테두리 없음 | 페이지 배경(`{colors.canvas}`), 탭 |
-| Outline | 흰 배경 + 1px `{colors.border}` | 카드, 장바구니 행, 결제 사이드바, Alert |
-| Shadow/Floating | `0 4px 6px rgba(24, 23, 26, 0.10)` | Side Button(목록 좌우 이동) |
-| Shadow/LG | `0 16px 40px rgba(24, 23, 26, 0.16)` | 모달 |
+| Level           | Treatment                            | Use                                     |
+| --------------- | ------------------------------------ | --------------------------------------- |
+| Flat            | 그림자·테두리 없음                   | 페이지 배경(`{colors.canvas}`), 탭      |
+| Outline         | 흰 배경 + 1px `{colors.border}`      | 카드, 장바구니 행, 결제 사이드바, Alert |
+| Shadow/Floating | `0 4px 6px rgba(24, 23, 26, 0.10)`   | Side Button(목록 좌우 이동)             |
+| Shadow/LG       | `0 16px 40px rgba(24, 23, 26, 0.16)` | 모달                                    |
 
 **Shadow philosophy.** 그림자는 화면 위에 떠 있는 요소(모달, 목록 위 Side Button)에만 쓴다. 그림자는 이 둘뿐이고, 색은 `#18171A`로 같다. 새 그림자를 만들지 않는다. 카드는 그림자 대신 테두리로 구분한다. 카드 hover는 테두리를 `{colors.border-control}`로, 선택은 2px `{colors.primary}` 테두리로 바꾼다.
 
 ## Shapes
 
-| Token | Value | Use |
-|---|---|---|
-| `{rounded.xs}` | 2px | 체크 표시 등 아주 작은 요소 |
-| `{rounded.sm}` | 4px | 입력창, Stepper, 소형 버튼, Status Chip, 체크박스, 모달 닫기 영역 |
-| `{rounded.md}` | 6px | 버튼(Large·Medium), Alert, 표지 이미지 |
-| `{rounded.lg}` | 10px | 카드, 모달, 도서 카드, 결제 사이드바, 포커스 링(md 요소 기준) |
-| `{rounded.full}` | 999px | 배지, 지원금 버튼, 게이지, Side Button, 라디오, 단계 원 |
+| Token            | Value | Use                                                               |
+| ---------------- | ----- | ----------------------------------------------------------------- |
+| `{rounded.xs}`   | 2px   | 체크 표시 등 아주 작은 요소                                       |
+| `{rounded.sm}`   | 4px   | 입력창, Stepper, 소형 버튼, Status Chip, 체크박스, 모달 닫기 영역 |
+| `{rounded.md}`   | 6px   | 버튼(Large·Medium), Alert, 표지 이미지                            |
+| `{rounded.lg}`   | 10px  | 카드, 모달, 도서 카드, 결제 사이드바, 포커스 링(md 요소 기준)     |
+| `{rounded.full}` | 999px | 배지, 지원금 버튼, 게이지, Side Button, 라디오, 단계 원           |
 
 같은 종류의 요소는 한 화면에서 같은 모서리를 쓴다. pill(`full`)은 "상태를 표시하거나 토글하는 작은 요소"의 문법이다. 주요 실행 버튼에는 pill을 쓰지 않는다.
 
 ### Imagery
+
 - **표지:** 세로 5:7 비율(도서 카드 192×268, 목록 90×126). `{rounded.md}`. 이미지가 없으면 `{colors.surface}` 바탕 + 가운데 `books` 아이콘.
 - **아이콘:** Phosphor Icons **Regular** 한 세트만. 기본 20px, 소형 버튼·배지·칩 안에서는 16px. 색은 놓이는 자리의 글자색을 따른다. 제목·라벨 왼쪽에 나란히 둔다.
 - 사용 아이콘(22): arrows-clockwise, book-open, books, caret-down, caret-right, check, check-circle, gift, info, lock-simple, magnifying-glass, minus, plus, prohibit, receipt, shopping-cart, star, truck, user, warning-circle, x, x-circle. 새 아이콘이 필요하면 Phosphor Regular에서 고른다.
@@ -587,6 +613,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | Large | 52px | 24px | `{rounded.md}` | `{typography.label-lg}` | 20px |
 | Medium | 44px | 16px | `{rounded.md}` | `{typography.label-lg}` | 20px |
 | Small | 36px | 12px | `{rounded.sm}` | `{typography.label}` | 16px |
+
 - 아이콘-라벨 간격 8px, 아이콘은 라벨 왼쪽.
 - **Primary**: 빨강 배경 + 흰 글자. **한 화면에 하나만** 둔다(예: 결제하기, 장바구니 담기).
 - **Secondary**: 흰 배경 + 1px `{colors.border-control}` 테두리 + 검정 글자. Hover 배경 `{colors.surface}`, Pressed는 테두리가 `{colors.foreground}`로.
@@ -611,6 +638,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 **`radio`** — 20×20 원. Off: 흰 배경 + 2px `{colors.border-control}`. On: 2px `{colors.primary}` 테두리 + 빨강 내부 점. 용도: 결제 수단, 배송 방법.
 
 **`input-field`** — 라벨은 **항상 위**(`{typography.label}`, 입력창과 8px), 도움말·오류는 아래. 입력창 높이 44px, 좌우 16px, `{rounded.sm}`, 1px `{colors.border-control}`. 앞 아이콘 20px(선택). placeholder `{colors.muted}`.
+
 - Focus: 테두리 2px `{colors.focus-ring}`.
 - Error(`input-field-error`): 테두리 2px `{colors.danger}` + 입력창 아래 8px 띄우고 오류 문구 `{colors.danger}` `{typography.caption}`. 문구는 "무엇을 어떻게 고치면 되는지"로 쓴다(기본값 "입력한 내용을 다시 확인해 주세요."). 오류 문구가 붙으면 전체 높이가 70px에서 96px로 늘어난다. State 속성은 Default / Focus / Error 세 가지.
 
@@ -619,17 +647,20 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ### Content
 
 **`badge-recommended` / `badge-general` / `badge-delivery`** — 도서 유형(추천도서, 일반도서)과 배송 정보(무료 배송)를 알린다. 높이 24px, pill, 좌 8px·우 12px, 아이콘 16px + 라벨 `{typography.label}`. 색만으로 구분하지 않고 아이콘과 글자를 함께 쓴다.
+
 - 추천도서: `{colors.primary-soft}` 배경, `star` 아이콘, `{colors.on-primary-soft}` 글자.
 - 일반도서: `{colors.surface}` 배경, `books` 아이콘, `{colors.foreground-secondary}` 글자.
 - 무료 배송: `{colors.surface-card}` 배경 + 1px `{colors.border}` 테두리, `{colors.foreground-secondary}` 글자. 도서 유형과 다른 축이므로 유형 배지와 나란히 놓을 수 있다.
 
 **`card`** — 흰 배경, 1px `{colors.border}`, `{rounded.lg}`, padding 24px(Compact 16px), 제목-본문 8px. 제목 `{typography.label-lg}`, 본문 `{typography.body-sm}` `{colors.foreground-secondary}`.
+
 - Hover: 테두리 `{colors.border-control}`. Selected: 테두리 2px `{colors.primary}`.
 - 카드 안에 카드를 넣지 않는다.
 
 **`status-chip`** — 표시 전용(누르지 않음). 한 항목이라도 한도를 다 쓰면 "매월 1일 자동 갱신"을 알린다. `{colors.surface}` 배경, 1px `{colors.border}`, `{rounded.sm}`, 높이 32px, `arrows-clockwise` 아이콘 16px.
 
 **`empty-state`** — 목록이나 검색 결과가 비었을 때 화면이 비어 보이지 않도록 채우는 안내. 너비 480px, padding 48px/24px, 요소 사이 12px, 가운데 정렬. 구성은 **아이콘 32px(`{colors.muted}`) → 제목 한 줄(`{typography.heading-h3}`) → 설명 한 줄(`{typography.body}` `{colors.foreground-secondary}`) → 행동 버튼 하나(Primary Large)** 뿐이다.
+
 - 버튼이 필요 없는 자리(검색 결과 없음)는 `Show Action`을 꺼서 버튼을 없앤다.
 - 배경은 투명이다. 카드 안에 넣을 때 카드가 배경을 맡는다.
 - 제목은 상황을 사실로 적고("장바구니가 비어 있습니다"), 설명은 다음 행동을 알린다("마음에 드는 도서를 담아 보세요."). 사과하거나 감정을 넣지 않는다.
@@ -658,6 +689,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ## Do's and Don'ts
 
 ### Do
+
 - 회사 지원금과 본인 부담금을 모든 화면에서 같은 위치, 같은 순서로 보여 준다.
 - `{colors.primary}`는 실행 버튼, 강조 금액, 오류, 지원금 게이지, 차감 줄, 지원 비율에만 쓴다. 지원금 잔액·한도는 초록.
 - 한 화면에 Primary 버튼은 하나만 둔다.
@@ -669,6 +701,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - 상태는 색으로 알리고, 긴 텍스트는 줄바꿈한다.
 
 ### Don't
+
 - 빨강 외의 강조색을 추가하지 않는다. 책갈피 7색은 책갈피 칩 밖에서 쓰지 않는다.
 - 그라디언트, 카드 그림자, 장식 일러스트를 쓰지 않는다.
 - hover·선택 시 요소를 움직이거나 크기를 바꾸지 않는다(scale, translate 금지).
@@ -682,42 +715,47 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 요소의 상태는 **색으로만** 알린다. 위치나 크기를 움직이지 않는다. 모든 컴포넌트는 아래 순서를 따른다.
 
-| 상태 | 표현 | 예(Primary 버튼) |
-|---|---|---|
-| Default | 기본 색 | `{colors.primary}` 배경 |
-| Hover | 한 단계 어둡게 | `{colors.primary-hover}` |
-| Pressed | 두 단계 어둡게 | `{colors.primary-pressed}` |
-| Focus | 2px `{colors.focus-ring}` 링, 요소와 2px 띄움. 링 radius = 요소 radius + 4px | `outline: 2px solid #2563eb; outline-offset: 2px;` |
-| Disabled | `{colors.surface}` 배경 + `{colors.disabled-text}` 글자 | `cursor: not-allowed` |
+| 상태     | 표현                                                                         | 예(Primary 버튼)                                   |
+| -------- | ---------------------------------------------------------------------------- | -------------------------------------------------- |
+| Default  | 기본 색                                                                      | `{colors.primary}` 배경                            |
+| Hover    | 한 단계 어둡게                                                               | `{colors.primary-hover}`                           |
+| Pressed  | 두 단계 어둡게                                                               | `{colors.primary-pressed}`                         |
+| Focus    | 2px `{colors.focus-ring}` 링, 요소와 2px 띄움. 링 radius = 요소 radius + 4px | `outline: 2px solid #2563eb; outline-offset: 2px;` |
+| Disabled | `{colors.surface}` 배경 + `{colors.disabled-text}` 글자                      | `cursor: not-allowed`                              |
 
-| Motion | 값 | 용도 | 코드 |
-|---|---|---|---|
-| fast | 150ms ease-out | 색, 테두리 전환 | `--transition-fast` |
-| base | 250ms ease-out | 아코디언 열림, 게이지 채움, 모달 표시 | `--transition-base` |
-| spin | 800ms linear infinite | Spinner 회전(회전을 쓰는 유일한 예외) | `--animation-spin` |
+| Motion | 값                    | 용도                                  | 코드                |
+| ------ | --------------------- | ------------------------------------- | ------------------- |
+| fast   | 150ms ease-out        | 색, 테두리 전환                       | `--transition-fast` |
+| base   | 250ms ease-out        | 아코디언 열림, 게이지 채움, 모달 표시 | `--transition-base` |
+| spin   | 800ms linear infinite | Spinner 회전(회전을 쓰는 유일한 예외) | `--animation-spin`  |
 
 전환은 색과 불투명도만 바꾼다. 튀거나 늘어나는 움직임은 쓰지 않는다. `prefers-reduced-motion: reduce`이면 모든 전환·애니메이션을 끄고 즉시 바꾼다.
 
 ## Responsive Behavior
 
 ### Breakpoints
-| Name | Width | Key Changes |
-|---|---|---|
-| Desktop | ≥ 1280px | 유일한 지원 구간. 1280px 고정 컨테이너, 좌우 여백은 화면 폭에 따라 늘어난다 |
-| < 1280px | — | 가로 스크롤한다(`min-width: 1280px`). 좁은 화면 전용 레이아웃은 MVP 범위 밖 |
+
+| Name     | Width    | Key Changes                                                                 |
+| -------- | -------- | --------------------------------------------------------------------------- |
+| Desktop  | ≥ 1280px | 유일한 지원 구간. 1280px 고정 컨테이너, 좌우 여백은 화면 폭에 따라 늘어난다 |
+| < 1280px | —        | 가로 스크롤한다(`min-width: 1280px`). 좁은 화면 전용 레이아웃은 MVP 범위 밖 |
 
 ### Touch Targets
+
 데스크톱 전용이지만 클릭 영역은 최소 32px 높이(지원금 버튼, Status Chip)를 지킨다. 주요 버튼은 44px 이상.
 
 ## Screen Patterns
 
 ### 공통 상태
+
 - **Loading:** Spinner + 문구. 전체 조작을 막아야 하면 Page, 영역 일부면 Inline.
 - **Error:** 대기 화면을 닫고 Alert(tone=Danger) 또는 입력 아래 오류 문구로 이유를 알린다.
 - **Empty:** `empty-state`. 장바구니, 검색 결과, 마이페이지 내역이 비었을 때 쓴다.
 
 ### Subsidy Summary — 결제, 마이페이지 홈
+
 이번 달 지원금 사용 현황 카드. 추천도서·개인도서 게이지를 세로로 나란히 두고, 한 항목이라도 소진되면 제목 오른쪽에 Status Chip("매월 1일 자동 갱신")을 놓는다. 소진 상태에서는 사용량 텍스트를 라벨 오른쪽으로 옮긴다.
+
 ```
 ┌─ card ───────────────────────────────┐
 │ 이번 달 지원금            [↻ 매월 1일 자동 갱신] │
@@ -731,12 +769,16 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ```
 
 ### Cart Row — 장바구니
+
 한 줄에 [체크박스] [표지 44×64] [배지 + 도서명 + 금액] … [실제 결제 금액 + Stepper] [지원금 버튼] [삭제 x]. 흰 카드 + 1px 테두리. 추천도서 지원금 행과 개인도서 지원금 행을 그룹 제목(`{typography.caption}`)으로 나눈다.
+
 - 지원금 적용 전: 정가만 표시(취소선 없음).
 - 적용 후: 지원 비율(`{typography.price-sm}` `{colors.primary}`, "100%"·"50%") + 적용 후 금액(`{typography.price-sm}`) + 취소선 정가(`{typography.body-xs}` `{colors.muted}`). Stepper 위 금액은 실제 결제 금액으로 `{typography.price-base}`.
 
 ### Payment Sidebar — 장바구니, 결제
+
 너비 320px 고정, 화면 오른쪽. 흰 카드.
+
 ```
 ┌─ 320px ──────────────────┐
 │ 결제 금액                  │
@@ -750,26 +792,34 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ```
 
 ### Book Card — 홈, 추천도서 선택
+
 240px 카드, padding 24px. [추천 대상 caption] → [표지 192×268, 왼쪽 위 순위 배지 24px 빨강] → [도서명 `heading-h4` / 저자 `body-sm`] → [판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선]. 도서 유형은 Badge, 담기는 Button.
 
 ### Picked Book — 홈 추천 영역, 추천도서 목록 상단
+
 추천 도서 한 권을 크게 소개. 표지 왼쪽 위에 Bookmark Chip, 오른쪽에 도서 정보 + 추천 사유(3~5줄, 잘라 내지 않음) + 구매 버튼. 이 패턴만 Display 크기를 쓴다.
+
 - 추천 주제 제목 `{typography.display}`(28) → 도서 제목 `{typography.display-lg}`(32) → 저자·출판사 `{typography.body}` → 출간일·카테고리·리뷰 수·구매 수 `{typography.caption-lg}`.
-- 평점을 굵게 쓰던 `caption-lg-strong`(14/20 Bold)은 스케일에 없다. 필요해지면 그때 추가를 논의한다.
+- 평점을 굵게 쓸 땐 `{typography.caption-lg-strong}`(14/20 Bold)을 쓴다.
 
 ### Book List — 도서 목록
+
 한 행에 [표지 90×126] [배지들 → 카테고리 → 도서명 `{typography.heading-h2}` → 저자·출판사·출간일 → 판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선 → 태그 배지] [오른쪽 160px: Stepper, 장바구니 담기(Secondary), 바로 구매(Primary)].
 
 ### Order Complete — 주문 완료
+
 결제 결과와 적용된 지원금을 알리고 다음 행동을 안내. 주문번호, 결제 금액, 적용된 지원금, 받는 곳을 label/value 목록으로.
 
 ### Login Form — 로그인
+
 사번 + 비밀번호. 오류는 입력 아래에서 알린다. 안내 문구: "회사에서 받은 사번으로 로그인하세요."
 
 ### Subsidy Limit Card — 마이페이지 지원금 관리
+
 종류별(추천도서 권수 / 개인도서 금액) 남은 한도("1권 / 1권", "10,000원 / 10,000원")와 지원 정책, 바로가기 링크("추천도서 바로가기 >")를 보여 준다. 한도 소진 시 남은 값 0.
 
 ## Iteration Guide
+
 1. 한 번에 컴포넌트 하나만 수정하고 YAML key로 지칭한다(`button-primary`, `subsidy-button-personal`).
 2. 상태 variant(`-hover`, `-pressed`, `-disabled`, `-applied`, `-active`)는 `components:`에 별도 key로 둔다.
 3. hex를 직접 쓰지 않고 CSS 변수(`var(--color-primary)`) = `{colors.*}` 토큰을 쓴다.
@@ -780,6 +830,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ## Known Gaps
 
 ### 남은 확인 사항
+
 - **다크 모드, 모바일, 1280px 미만 전용 레이아웃:** MVP 범위 밖. 1280px보다 좁으면 가로 스크롤한다.
 - **타이포 스케일과 Figma v2.3의 차이:** 현재 스케일은 2026-09-25 전달받은 기준이며 Figma v2.3
   문서값(h1 24/32, body 15/24, price 16/22 등)과 다르다. Figma와 대조할 때 불일치로 보이지만
@@ -788,18 +839,20 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 그 밖에 열려 있는 항목은 없다. 색·간격·모서리·타이포·그림자가 모두 토큰이고, 정의된 토큰은 모두 쓰이고 있다.
 
 ### 쓰지 않아서 지운 것
+
 파일에 남아 있던 미사용 토큰을 모두 지웠다. 지금은 **정의된 토큰이 전부 쓰이고 있다**(위 Side Button 그림자만 예외).
 
-| 지운 것 | 종류 | 왜 비었나 |
-|---|---|---|
-| `state/success` 4종, `state/warning` | 시맨틱 색 | 성공·주의를 Alert 아이콘 모양으로만 구분하기로 하면서 |
-| `state/danger-icon` | 시맨틱 색 | Alert 제목이 `{colors.danger}`로 바뀌면서 |
-| `amber/500`, `neutral/800`, `green/100` | 원시값 | 위 시맨틱 색들이 사라지면서 참조가 끊김 |
-| `Shadow/SM`, `Shadow/MD` | 효과 스타일 | 처음부터 쓰는 곳이 없었음 |
+| 지운 것                                 | 종류        | 왜 비었나                                             |
+| --------------------------------------- | ----------- | ----------------------------------------------------- |
+| `state/success` 4종, `state/warning`    | 시맨틱 색   | 성공·주의를 Alert 아이콘 모양으로만 구분하기로 하면서 |
+| `state/danger-icon`                     | 시맨틱 색   | Alert 제목이 `{colors.danger}`로 바뀌면서             |
+| `amber/500`, `neutral/800`, `green/100` | 원시값      | 위 시맨틱 색들이 사라지면서 참조가 끊김               |
+| `Shadow/SM`, `Shadow/MD`                | 효과 스타일 | 처음부터 쓰는 곳이 없었음                             |
 
 반대로 **쓰이는데 토큰이 아니던 것**도 정리했다. Side Button 6개에 직접 들어 있던 그림자를 효과 스타일 `Shadow/Floating`으로 만들어 연결했고, 색을 `Shadow/LG`와 같은 `#18171A`로 맞췄다(이전 `rgba(0,0,0,0.10)`).
 
 ### v2.3에서 해결한 것
+
 아래는 이전 버전의 Known Gaps였고 지금은 정리됐다. 같은 문제가 다시 보이면 이 판단을 참고한다.
 
 - **텍스트 스타일 값:** Figma 로컬 스타일이 Foundations 문서 표와 달랐다(H1 24/36, Label/Base 17/26 Regular 등). 컴포넌트 실측값이 문서 표와 일치했으므로 **문서 표 값**을 채택하고 스타일 14개를 그 값으로 고쳤다.
@@ -819,9 +872,10 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ## 버전 관리
 
-| 버전 | 날짜       | 변경 사항                                                              | 작성자 |
-| ---- | ---------- | ---------------------------------------------------------------------- | ------ |
-| 1.0  | 2026-09-24 | Figma v2.2(node 228:754) 기준 최초 작성.                               | 김지선 |
-| 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가). | 이하준 |
-| 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm). | 이하준 |
+| 버전 | 날짜       | 변경 사항                                                                                              | 작성자 |
+| ---- | ---------- | ------------------------------------------------------------------------------------------------------ | ------ |
+| 1.0  | 2026-09-24 | Figma v2.2(node 228:754) 기준 최초 작성.                                                               | 김지선 |
+| 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가).                   | 이하준 |
+| 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm).     | 이하준 |
 | 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |
+| 2.3  | 2026-09-25 | `caption-lg-strong`(14/20, Bold) 추가 — 평점 등 강조가 필요한 도서 메타.                               | 이하준 |
