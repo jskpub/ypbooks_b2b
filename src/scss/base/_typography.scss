@@ -1,6 +1,7 @@
 @use '../abstracts' as *;
 
-// 스타일명은 Figma Type/Table 그대로: Heading H1-H4 / Body / Label / Caption / Numeric
+// 스타일명은 Figma Type/Table 그대로: Display / Heading H1-H4 / Body / Label / Caption / Numeric
+// DESIGN_YP.md(Figma v2.3) 기준. 굵기는 400 / 500 / 700 세 가지만 쓴다.
 
 body {
   font-family: $font-family-base;
@@ -34,6 +35,18 @@ h4 {
   font-weight: 500; // Medium
 }
 
+// Display — v2.3 신규. 추천 도서를 크게 소개하는 Picked Book 패턴에서만 쓴다.
+.text-display-lg {
+  font-size: $font-size-display-lg;
+  line-height: $line-height-display-lg;
+  font-weight: 700;
+}
+.text-display {
+  font-size: $font-size-display;
+  line-height: $line-height-display;
+  font-weight: 700;
+}
+
 // 실제 heading 태그를 쓰지 않고 스타일만 재사용할 때(예: 스타일 가이드 데모)
 .text-h1 {
   font-size: $font-size-h1;
@@ -59,6 +72,12 @@ h4 {
 .text-body-lg {
   font-size: $font-size-body-lg;
   line-height: $line-height-body-lg;
+  font-weight: 400;
+}
+
+.text-body {
+  font-size: $font-size-body-base;
+  line-height: $line-height-body-base;
   font-weight: 400;
 }
 
@@ -99,14 +118,40 @@ small,
   font-weight: 700; // 상태 강조 캡션
 }
 
+// v2.3 신규 — 도서 메타 정보(출간일·카테고리, 리뷰 수, 구매 수)와 평점 강조
+.caption-lg {
+  font-size: $font-size-caption-lg;
+  line-height: $line-height-caption-lg;
+  font-weight: 400;
+}
+
+.caption-lg-strong {
+  font-size: $font-size-caption-lg;
+  line-height: $line-height-caption-lg;
+  font-weight: 700;
+}
+
+// Numeric — DESIGN_YP.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
+// 금액 한 덩어리는 서식을 쪼개지 않는다 — 숫자와 "원"에 다른 굵기·색을 주지 않는다.
+.price-lg,
+.price,
+.price-sm {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 .price-lg {
   font-size: $font-size-price-lg;
-  line-height: $line-height-price-lg;
-  font-weight: 700; // 최종 결제 금액
+  line-height: $line-height-price-lg; // 최종 결제 금액
 }
 
 .price {
   font-size: $font-size-price;
-  line-height: $line-height-price;
-  font-weight: 700; // 도서 가격
+  line-height: $line-height-price; // 도서 가격, 장바구니 실제 결제 금액
+}
+
+// v2.3 신규 — 목록 금액, 지원 비율("100%", "50%")
+.price-sm {
+  font-size: $font-size-price-sm;
+  line-height: $line-height-price-sm;
 }

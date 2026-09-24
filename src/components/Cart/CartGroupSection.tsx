@@ -61,7 +61,7 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
 
       <div className='cart-group__body' id={bodyId} hidden={!isExpanded}>
         {isSubsidyExhausted && exhaustedMessage && (
-          <div className='alert alert--danger cart-group__alert'>
+          <div className='alert cart-group__alert'>
             <span className='alert__icon'>
               <Icon name='warning' />
             </span>

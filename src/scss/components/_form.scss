@@ -3,7 +3,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: $space-1;
+  gap: $space-2; // v2.3: 라벨-입력창, 입력창-오류문구 모두 8px
 
   &__label {
     font-size: $font-size-label-base; // 13/18 Medium — Figma Type 문서: "입력 라벨"
@@ -15,10 +15,11 @@
     // 세로 패딩 12px(space-3)은 Figma Spacing 문서에 "입력 안쪽 세로"로 명시된 값
     padding: $space-3 $space-4;
     border: $border-width-1 solid $color-border-control; // --color-border-control, 폼 전용 테두리색
-    border-radius: $radius-sm; // 6px — Figma Radius 문서: "입력, 소형 버튼, 툴팁"
+    border-radius: $radius-sm; // 4px — Figma Radius: "입력, 소형 버튼, 툴팁"
     background-color: $color-surface-card;
-    font-size: $font-size-body-sm; // Type 문서에 입력값 전용 스타일이 없어 body-sm으로 추정(가정)
-    line-height: $line-height-body-sm;
+    // v2.3 Hierarchy 표가 body를 "기본 본문, 입력값"으로 명시 — 이전의 body-sm 추정을 대체한다
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
 
     &:focus-visible {
       outline: 2px solid $color-focus-ring; // --color-focus-ring, 항상 파랑
@@ -33,8 +34,11 @@
     color: $color-foreground-secondary;
   }
 
+  // v2.3 input-field-error — 테두리를 2px로 굵혀 Default/Focus와 구별한다.
+  // 오류 문구는 $font-size-caption($space-2 아래)이고, 붙으면 전체 높이가 70px에서 96px로 늘어난다.
   &.is-error {
     .field__input {
+      border-width: $border-width-2;
       border-color: $color-danger;
     }
 

@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+// DESIGN_YP.md(Figma v2.3) 신규 — 목록이나 검색 결과가 비었을 때 화면이 비어 보이지 않게 채운다.
+// 구성은 아이콘 → 제목 한 줄 → 설명 한 줄 → 행동 버튼 하나뿐이고, 그 이상 넣지 않는다.
+// 배경은 투명이다. 카드 안에 넣을 때 카드가 배경을 맡는다.
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  width: rem(480);
+  max-width: 100%;
+  margin-inline: auto;
+  padding: $space-12 $space-6; // 48 / 24
+  background-color: transparent;
+  text-align: center;
+
+  &__icon {
+    width: rem(32);
+    height: rem(32);
+    color: $color-muted;
+  }
+
+  // heading-h3(17/24 Medium). 제목을 heading 태그로 고정하지 않는 건 쓰이는 자리마다
+  // 알맞은 제목 단계가 달라서다 — 필요하면 쓰는 쪽에서 h2/h3 등으로 감싼다.
+  &__title {
+    font-size: $font-size-h3;
+    line-height: $line-height-h3;
+    font-weight: 500;
+  }
+
+  &__desc {
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
+    color: $color-foreground-secondary;
+  }
+}

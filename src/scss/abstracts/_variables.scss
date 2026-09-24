@@ -20,7 +20,6 @@ $color-neutral-400: #aba6a7;
 $color-neutral-550: #6f696b;
 $color-neutral-600: #555152;
 $color-neutral-700: #3d3b3b;
-$color-neutral-800: #262425;
 $color-neutral-900: #191818;
 
 $color-red-50: #ffeeed;
@@ -30,20 +29,12 @@ $color-red-500: #e01e1a;
 $color-red-600: #c61a17;
 $color-red-700: #aa1714;
 
-$color-blue-50: #eaf1ff;
-$color-blue-100: #c9dbff;
 $color-blue-500: #2563eb;
 $color-blue-700: #1d4fbf;
 
 $color-green-50: #eaf7ef;
-$color-green-100: #bee7cf;
 $color-green-500: #1c8a4b;
 $color-green-600: #157a40;
-
-$color-amber-50: #fff6e5;
-$color-amber-100: #f5dfa6;
-$color-amber-500: #c77700;
-$color-amber-700: #8a5700;
 
 // ---- 시맨틱 토큰 (Figma Variables --color-* 그대로, 컴포넌트는 이 레이어만 참조) ----
 $color-foreground: $color-neutral-900; // --color-foreground
@@ -67,24 +58,13 @@ $color-on-primary-soft: $color-red-700; // --color-on-primary-soft
 $color-link: $color-red-600; // --color-link
 
 // Danger — primary와 같은 red 계열이지만 더 어두운 700을 기준색으로 쓴다(별개 의미).
+// v2.3: success/warning/info 계열을 모두 삭제했다. 오류는 빨강 계열로만 표현하고,
+// 성공·주의·안내는 Alert의 아이콘 모양으로만 구분한다(DESIGN_YP.md → Colors → State).
+// 같은 이유로 $color-danger-icon(#e01e1a)도 삭제 — Alert 제목은 $color-danger를 쓴다
+// ($color-surface 위 대비 4.38:1 → 6.73:1로 AA 충족).
 $color-danger: $color-red-700; // --color-danger
 $color-danger-soft: $color-red-50; // --color-danger-soft
-$color-danger-icon: $color-red-500; // --color-danger-icon
 $color-danger-border: $color-red-100; // --color-danger-border
-
-$color-success: $color-green-600; // --color-success
-$color-success-soft: $color-green-50; // --color-success-soft
-$color-success-icon: $color-green-500; // --color-success-icon
-$color-success-border: $color-green-100; // --color-success-border
-
-$color-warning: $color-amber-700; // --color-warning
-$color-warning-soft: $color-amber-50; // --color-warning-soft
-$color-warning-icon: $color-amber-500; // --color-warning-icon
-$color-warning-border: $color-amber-100; // --color-warning-border
-
-$color-info: $color-blue-700; // --color-info
-$color-info-soft: $color-blue-50; // --color-info-soft
-$color-info-border: $color-blue-100; // --color-info-border
 
 // Progress — 지원금 게이지 채움 색(한도에 가까울수록 진해짐). 트랙은 $color-border.
 // design-system.md 2026-09-24 신규 — 이전에는 default에 $color-primary, warning/full에
@@ -128,44 +108,53 @@ $font-family-base: 'Pretendard GOV', Pretendard, -apple-system, BlinkMacSystemFo
   sans-serif;
 
 // -----------------------------------------------------------------------------
-// Typography — design-system.md(2026-09-24, Figma v2.2) 기준으로 전면 갱신.
-// 스타일명은 Figma 레이어명 그대로: v2/Heading/H1 등
-// 2026-09-23에 접근성 때문에 수동으로 위계를 재조정했던 값들이, 2026-09-24 Figma
-// 쪽 정식 재조정(v2.2)으로 대체됐다. body-sm은 13/20 → 15/24로 재정의되고,
-// 옛 13/20 자리는 새로 생긴 body-xs가 대신한다.
+// Typography — DESIGN_YP.md(Figma v2.3, 2026-09-25) 기준.
+// v2.2 → v2.3에서 스케일 전체가 한 단계씩 작아졌다(h1 26→24, body 17→15 등).
+// 굵기는 400 / 500 / 700 세 가지만 쓴다. 자간은 전부 0.
+// 신규: display-lg / display(Picked Book 전용), caption-lg / caption-lg-strong(도서 메타),
+//       price-sm(목록 금액·지원 비율).
+// 삭제: body-xs(13/20) — v2.3의 body-sm이 같은 13/20이라 그 자리를 대신한다.
 // -----------------------------------------------------------------------------
-$font-size-h1: rem(26); // 26 / 34, Bold — 페이지 제목
-$line-height-h1: rem(34);
-$font-size-h2: rem(22); // 22 / 30, Bold — 섹션 제목
-$line-height-h2: rem(30);
-$font-size-h3: rem(20); // 20 / 28, Medium — 카드 제목, 항목 제목
-$line-height-h3: rem(28);
-$font-size-h4: rem(17); // 17 / 24, Medium — 도서명, 목록 제목
-$line-height-h4: rem(24);
+$font-size-display-lg: rem(32); // 32 / 42, Bold — 추천 픽 도서 제목 (Picked Book)
+$line-height-display-lg: rem(42);
+$font-size-display: rem(28); // 28 / 36, Bold — 추천 영역 제목 (Picked Book)
+$line-height-display: rem(36);
 
-$font-size-body-lg: rem(18); // 18 / 28, Regular — 강조 본문, 안내 문장
-$line-height-body-lg: rem(28);
-$font-size-body-base: rem(17); // 17 / 26, Regular — 기본 본문
-$line-height-body-base: rem(26);
-$font-size-body-sm: rem(15); // 15 / 24, Regular — 보조 설명, 표 본문
-$line-height-body-sm: rem(24);
-$font-size-body-xs: rem(13); // 13 / 20, Regular — 각주, 메타데이터, 부가 주석 (신규)
-$line-height-body-xs: rem(20);
+$font-size-h1: rem(24); // 24 / 32, Bold — 페이지 제목
+$line-height-h1: rem(32);
+$font-size-h2: rem(20); // 20 / 28, Bold — 섹션 제목, 모달 제목
+$line-height-h2: rem(28);
+$font-size-h3: rem(17); // 17 / 24, Medium — 카드 제목, 항목 제목
+$line-height-h3: rem(24);
+$font-size-h4: rem(15); // 15 / 22, Medium — 도서명, 목록 제목
+$line-height-h4: rem(22);
 
-$font-size-label-lg: rem(16); // 16 / 24, Medium — 버튼 라벨
-$line-height-label-lg: rem(24);
-$font-size-label-base: rem(14); // 14 / 20, Medium — 배지, 탭, 입력 라벨
-$line-height-label-base: rem(20);
-$font-size-label-sm: rem(12); // 12 / 16, Bold — 리본, 작은 태그
+$font-size-body-lg: rem(16); // 16 / 26, Regular — 강조 본문, 안내 문장
+$line-height-body-lg: rem(26);
+$font-size-body-base: rem(15); // 15 / 24, Regular — 기본 본문, 입력값
+$line-height-body-base: rem(24);
+$font-size-body-sm: rem(13); // 13 / 20, Regular — 보조 설명, 표 본문, 저자·메타
+$line-height-body-sm: rem(20);
+
+$font-size-label-lg: rem(15); // 15 / 20, Medium — 버튼 라벨(Large·Medium), 탭
+$line-height-label-lg: rem(20);
+$font-size-label-base: rem(13); // 13 / 18, Medium — 배지, 입력 라벨, 소형 버튼, 지원금 버튼
+$line-height-label-base: rem(18);
+$font-size-label-sm: rem(12); // 12 / 16, Bold — 책갈피 칩, 작은 태그
 $line-height-label-sm: rem(16);
 
 $font-size-caption: rem(12); // 12 / 18 — 날짜/도움말(Regular) 또는 상태 강조(Bold)
 $line-height-caption: rem(18);
+$font-size-caption-lg: rem(14); // 14 / 20 — 도서 메타(출간일·카테고리, 리뷰 수), 평점은 Bold
+$line-height-caption-lg: rem(20);
 
+// Numeric — 셋 다 tabular-nums(fontFeature: tnum). base/_typography.scss에서 적용한다.
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
-$font-size-price: rem(17); // 17 / 24, Bold — 도서 가격
-$line-height-price: rem(24);
+$font-size-price: rem(16); // 16 / 22, Bold — 도서 가격, 장바구니 실제 결제 금액
+$line-height-price: rem(22);
+$font-size-price-sm: rem(15); // 15 / 22, Bold — 목록 금액, 지원 비율("100%", "50%")
+$line-height-price-sm: rem(22);
 
 $letter-spacing-default: 0; // 한글은 자간 조정하지 않음
 
@@ -202,10 +191,13 @@ $radius-full: 999px; // --radius-full — 배지, 칩, 지원금 버튼
 $border-width-2: 2px; // --border-width-2 — Focus 상태 테두리 등
 
 // -----------------------------------------------------------------------------
-// Shadow — 같은 노드에서 "Shadow/LG" effect 실측(Modal 등에 사용).
-// 원본 컬러 #18171A29는 $color-neutral-900(#191818)과 사실상 동일해 별도 컬러 토큰을 새로 만들지 않고 재사용한다.
+// Shadow — v2.3 기준 그림자는 두 개뿐이고 색은 #18171A로 같다. 새 그림자를 만들지 않는다.
+// 원본 컬러 #18171A는 $color-neutral-900(#191818)과 사실상 동일해 별도 컬러 토큰 없이 재사용한다.
+// v2.3: Side Button 6개에 직접 박혀 있던 rgba(0,0,0,.10)을 효과 스타일 Shadow/Floating으로
+// 승격하고 색을 Shadow/LG와 같은 #18171A로 맞췄다. Shadow/SM·MD는 쓰는 곳이 없어 삭제됐다.
 // -----------------------------------------------------------------------------
-$shadow-lg: 0 rem(16) rem(40) rgba($color-neutral-900, 0.16); // Effect(offset 0/16, radius 40, ~16% opacity)
+$shadow-floating: 0 rem(4) rem(6) rgba($color-neutral-900, 0.1); // Side Button(목록 좌우 이동)
+$shadow-lg: 0 rem(16) rem(40) rgba($color-neutral-900, 0.16); // 모달
 
 // -----------------------------------------------------------------------------
 // Layout / Grid — Figma "Grid" 섹션 실측치.
@@ -223,6 +215,7 @@ $layout-sidebar-width: 320px; // 결제 사이드바 고정폭
 // -----------------------------------------------------------------------------
 $motion-fast: 150ms ease-out; // 색, 테두리 전환
 $motion-base: 250ms ease-out; // 아코디언 열림, 게이지 채움, 모달/메가메뉴 표시
+$motion-spin: 800ms linear infinite; // Spinner 회전 — 회전을 쓰는 유일한 예외
 
 // -----------------------------------------------------------------------------
 // Z-index — 겹치는 순서: 페이지 콘텐츠 < 배경 딤 처리 < 헤더(딤 위에서 또렷하게 보여야 함) < 메가메뉴 패널

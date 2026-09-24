@@ -19,10 +19,12 @@
     height: rem(16);
   }
 
+  // v2.3: success 색이 삭제돼 available도 renewal과 같은 회색을 쓴다. Status Chip은 표시 전용이고
+  // "한도가 남아 있다"는 정보는 옆의 게이지·금액이 이미 말해주므로 색으로 또 말하지 않는다.
   &--available {
-    background-color: $color-success-soft;
-    border: $border-width-1 solid $color-success-border;
-    color: $color-success;
+    background-color: $color-surface;
+    border: $border-width-1 solid $color-border;
+    color: $color-foreground-secondary;
   }
 
   &--renewal {
