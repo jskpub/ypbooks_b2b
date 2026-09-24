@@ -139,9 +139,9 @@ typography:
     fontFeature: "tnum"
   price:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 16px
+    fontSize: 17px
     fontWeight: 700
-    lineHeight: 22px
+    lineHeight: 24px
     fontFeature: "tnum"
   price-sm:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
@@ -512,7 +512,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | `{typography.caption-lg}` | 14 / 20 | 400 | 도서 메타 정보 (출간일·카테고리, 리뷰 수, 구매 수) |
 | `{typography.caption-lg-strong}` | 14 / 20 | 700 | 평점 등 강조 메타 |
 | `{typography.price-lg}` | 22 / 28 | 700 | 최종 결제 금액 |
-| `{typography.price}` | 16 / 22 | 700 | 도서 가격, 장바구니 실제 결제 금액 |
+| `{typography.price}` | 17 / 24 | 700 | 도서 가격, 장바구니 실제 결제 금액 (Figma는 16/22 — 아래 Known Gaps 참고) |
 | `{typography.price-sm}` | 15 / 22 | 700 | 목록 금액, 지원 비율("100%", "50%") |
 
 ### Principles
@@ -781,6 +781,10 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### 남은 확인 사항
 - **다크 모드, 모바일, 1280px 미만 전용 레이아웃:** MVP 범위 밖. 1280px보다 좁으면 가로 스크롤한다.
+- **`{typography.price}`가 Figma와 다르다 (의도된 차이):** Figma v2.3은 16/22지만 코드와 이 문서는
+  **17/24**를 쓴다. 도서명(`heading-h4`)과 행간을 맞추기 위한 선택으로, 2026-09-25 코드 쪽에서 정해졌다
+  (`$font-size-price-base`). Figma와 대조할 때 불일치로 보이지만 되돌리지 않는다. 바꾸려면 먼저 합의한다.
+  `price-lg`(22/28)와 `price-sm`(15/22)은 Figma와 같다.
 
 그 밖에 열려 있는 항목은 없다. 색·간격·모서리·타이포·그림자가 모두 토큰이고, 정의된 토큰은 모두 쓰이고 있다.
 
