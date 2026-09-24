@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 // 스타일명은 Figma Type/Table 그대로: Display / Heading H1-H4 / Body / Label / Caption / Numeric
-// DESIGN_YP.md(Figma v2.3) 기준. 굵기는 400 / 500 / 700 세 가지만 쓴다.
+// design-system.md(Figma v2.3) 기준. 굵기는 400 / 500 / 700 세 가지만 쓴다.
 
 body {
   font-family: $font-family-base;
@@ -131,7 +131,7 @@ small,
   font-weight: 700;
 }
 
-// Numeric — DESIGN_YP.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
+// Numeric — design-system.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
 // 금액 한 덩어리는 서식을 쪼개지 않는다 — 숫자와 "원"에 다른 굵기·색을 주지 않는다.
 .price-lg,
 .price,

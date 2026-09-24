@@ -59,7 +59,7 @@ $color-link: $color-red-600; // --color-link
 
 // Danger — primary와 같은 red 계열이지만 더 어두운 700을 기준색으로 쓴다(별개 의미).
 // v2.3: success/warning/info 계열을 모두 삭제했다. 오류는 빨강 계열로만 표현하고,
-// 성공·주의·안내는 Alert의 아이콘 모양으로만 구분한다(DESIGN_YP.md → Colors → State).
+// 성공·주의·안내는 Alert의 아이콘 모양으로만 구분한다(design-system.md → Colors → State).
 // 같은 이유로 $color-danger-icon(#e01e1a)도 삭제 — Alert 제목은 $color-danger를 쓴다
 // ($color-surface 위 대비 4.38:1 → 6.73:1로 AA 충족).
 $color-danger: $color-red-700; // --color-danger
@@ -113,7 +113,7 @@ $font-family-base:
   sans-serif;
 
 // -----------------------------------------------------------------------------
-// Typography — DESIGN_YP.md(Figma v2.3, 2026-09-25) 기준.
+// Typography — design-system.md(Figma v2.3, 2026-09-25) 기준.
 // v2.2 → v2.3에서 스케일 전체가 한 단계씩 작아졌다(h1 26→24, body 17→15 등).
 // 굵기는 400 / 500 / 700 세 가지만 쓴다. 자간은 전부 0.
 // 신규: display-lg / display(Picked Book 전용), caption-lg / caption-lg-strong(도서 메타),
@@ -157,7 +157,7 @@ $line-height-caption-lg: rem(20);
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
 // ⚠️ Figma v2.3은 16/22지만 17/24를 유지한다. master의 "[update] 가격 수정"이 정한 값이고,
-// 도서명(heading-h4)과 행간을 맞추기 위한 선택이다. DESIGN_YP.md의 Known Gaps에도 적어 뒀다.
+// 도서명(heading-h4)과 행간을 맞추기 위한 선택이다. design-system.md의 Known Gaps에도 적어 뒀다.
 $font-size-price-base: rem(17); // 17 / 24, Bold — 도서 가격, 장바구니 실제 결제 금액
 $line-height-price-base: rem(24);
 $font-size-price-sm: rem(15); // 15 / 22, Bold — 목록 금액, 지원 비율("100%", "50%")
