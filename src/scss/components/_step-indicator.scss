@@ -1,48 +1,76 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:2358 (Component/Step Indicator) — current=Cart/Payment/Complete.
-// "숫자는 순서를 알리는 용도로만 씁니다" — 링크/버튼이 아니라 목록(ol)으로 마크업한다.
+// Figma node 60:3666(Component/Step Indicator) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
+// "끝난 단계는 체크, 현재 단계는 빨간 원, 남은 단계는 테두리 원." 커넥터 선(64×2px)이 단계 사이에
+// 있고, 지나온 커넥터만 빨갛게 채워진다. "숫자는 순서를 알리는 용도로만 씁니다" — 링크/버튼이
+// 아니라 목록(ol)으로 마크업한다.
 .step-indicator {
   display: flex;
   align-items: center;
-  gap: $space-2;
 
-  &__item {
-    display: inline-flex;
+  &__step {
+    display: flex;
     align-items: center;
-    gap: $space-1;
-    font-size: $font-size-body-sm;
-    color: $color-disabled-text;
+    gap: $space-2;
   }
 
-  &__num {
+  &__circle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: rem(24);
-    height: rem(24);
+    flex: 0 0 auto;
+    width: rem(28);
+    height: rem(28);
     border-radius: $radius-full;
-    background-color: $color-surface;
-    color: $color-muted;
-    font-size: $font-size-caption;
-    font-weight: 700;
-  }
-
-  &__item.is-done {
+    background-color: $color-surface-card;
+    border: $border-width-2 solid $color-border-control;
     color: $color-foreground-secondary;
+    font-size: $font-size-body-xs; // 13px
+    font-weight: 500;
 
-    .step-indicator__num {
-      background-color: $color-primary-soft;
-      color: $color-primary;
+    .icon {
+      width: rem(16);
+      height: rem(16);
     }
   }
 
-  &__item.is-current {
-    color: $color-foreground;
-    font-weight: 700;
+  &__label {
+    font-size: $font-size-body-sm; // 15px
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+  }
 
-    .step-indicator__num {
+  &__connector {
+    flex: 0 0 auto;
+    width: rem(64);
+    height: rem(2);
+    margin-inline: $space-2;
+    background-color: $color-border;
+
+    &.is-active {
       background-color: $color-primary;
+    }
+  }
+
+  // 현재 단계 — 빨간 원 + 흰 숫자, 라벨만 진하게(Medium)
+  &__step--current {
+    .step-indicator__circle {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: $color-on-primary;
+    }
+
+    .step-indicator__label {
+      color: $color-foreground;
+      font-weight: 500;
+    }
+  }
+
+  // 완료 단계 — 빨간 원 + 흰 체크 아이콘, 라벨은 남은 단계와 동일(연하게)
+  &__step--done {
+    .step-indicator__circle {
+      background-color: $color-primary;
+      border-color: $color-primary;
       color: $color-on-primary;
     }
   }
