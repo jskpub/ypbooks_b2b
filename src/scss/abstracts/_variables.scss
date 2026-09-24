@@ -124,7 +124,12 @@ $color-text-sub: $color-foreground-secondary;
 // Font family — Pretendard GOV 고정 (로컬 정적 웨이트 파일, base/_fonts.scss @font-face)
 // 2026-09-24 design-system.md 기준으로 폴백 스택 갱신.
 // -----------------------------------------------------------------------------
-$font-family-base: 'Pretendard GOV', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+$font-family-base:
+  'Pretendard GOV',
+  Pretendard,
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
   sans-serif;
 
 // -----------------------------------------------------------------------------
@@ -164,8 +169,10 @@ $line-height-caption: rem(18);
 
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
-$font-size-price: rem(17); // 17 / 24, Bold — 도서 가격
-$line-height-price: rem(24);
+$font-size-price-base: rem(17); // 17 / 24, Bold — 도서 가격
+$line-height-price-base: rem(24);
+$font-size-price-sm: rem(15); // 17 / 24, Bold — 도서 가격
+$line-height-price-sm: rem(22);
 
 $letter-spacing-default: 0; // 한글은 자간 조정하지 않음
 
@@ -231,6 +238,3 @@ $z-header: 41;
 $z-header-sticky: 42;
 $z-category-menu-backdrop: 40;
 $z-category-menu-panel: 43;
-
-
-
