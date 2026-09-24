@@ -9,6 +9,7 @@ import CheckIcon from '@/assets/icons/check.svg?react';
 import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
+import HeartIcon from '@/assets/icons/heart.svg?react';
 import InfoIcon from '@/assets/icons/info.svg?react';
 import ListIcon from '@/assets/icons/list.svg?react';
 import MagnifyingGlassIcon from '@/assets/icons/magnifying-glass.svg?react';
@@ -39,6 +40,7 @@ const icons = {
   'check-circle': CheckCircleIcon,
   'device-mobile': DeviceMobileIcon,
   headset: HeadsetIcon,
+  heart: HeartIcon,
   info: InfoIcon,
   list: ListIcon,
   'magnifying-glass': MagnifyingGlassIcon,

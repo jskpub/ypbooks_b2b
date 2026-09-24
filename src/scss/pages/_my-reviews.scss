@@ -1,0 +1,77 @@
+@use '../abstracts' as *;
+
+.my-reviews {
+  max-width: $layout-reading-max-width;
+  margin-inline: auto;
+  padding-block: $space-8;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    margin-top: $space-6;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    padding: $space-4;
+    background-color: $color-surface-card;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-lg;
+  }
+
+  &__cover {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(56);
+    height: rem(78);
+    background-color: $color-surface;
+    border-radius: $radius-sm;
+    color: $color-muted;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .icon {
+      width: rem(24);
+      height: rem(24);
+    }
+  }
+
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: $space-2;
+  }
+
+  &__visibility {
+    display: flex;
+    gap: $space-3;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-foreground-secondary;
+  }
+
+  &__visibility-option {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+  }
+}

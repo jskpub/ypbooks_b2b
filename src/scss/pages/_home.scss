@@ -50,8 +50,29 @@
     line-height: $line-height-body-sm;
   }
 
+  // SearchPage(검색 결과 그리드)가 아직 이 클래스를 쓴다 — 홈 자체는 BookCarousel로 옮겨감.
   &__row {
     display: flex;
+    flex-wrap: wrap;
     gap: $space-6;
+  }
+}
+
+.book-carousel {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__track {
+    display: flex;
+    gap: $space-6;
+    transition: transform $motion-base;
   }
 }

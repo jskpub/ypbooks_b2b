@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.book-list-page {
+  padding-block: $space-12;
+
+  &__title {
+    margin-bottom: $space-6;
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-6;
+  }
+}

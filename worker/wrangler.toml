@@ -2,5 +2,7 @@ name = "ypbooks-b2b-aladin-proxy"
 main = "src/index.js"
 compatibility_date = "2025-01-01"
 
-# TTBKey는 여기 넣지 않는다. 배포 후 아래 명령으로 시크릿으로 등록한다:
+# 시크릿은 여기 넣지 않는다. 로컬은 worker/.dev.vars(gitignore됨)에 KEY=value로 적고,
+# 배포 후에는 아래 명령으로 등록한다:
 #   wrangler secret put ALADIN_TTBKEY
+#   wrangler secret put ANTHROPIC_API_KEY   # REVIEW-04 AI 맞춤 질문용

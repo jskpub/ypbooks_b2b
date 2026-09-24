@@ -1,0 +1,33 @@
+@use '../abstracts' as *;
+
+// design-system.md Components > Action > side-button — 가로 스크롤 도서 목록 양옆의 50×50 원형 버튼.
+.side-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: rem(50);
+  height: rem(50);
+  border-radius: $radius-full;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border-control;
+  color: $color-foreground;
+  box-shadow: $shadow-floating;
+  transition: box-shadow $motion-fast;
+
+  .icon {
+    width: rem(20);
+    height: rem(20);
+  }
+
+  // caret-right 아이콘을 뒤집어서 이전 화살표로 재사용(caret-left 에셋이 없음).
+  &--prev .icon {
+    transform: rotate(180deg);
+  }
+
+  &:disabled {
+    box-shadow: none;
+    color: $color-disabled-text;
+    cursor: not-allowed;
+  }
+}

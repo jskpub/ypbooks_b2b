@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 
 export type BookCardVariant = 'home_bookcard' | 'home_best';
 
 interface BookCardProps {
   variant: BookCardVariant;
+  isbn13: string;
   title: string;
   author: string;
   coverSrc?: string;
@@ -19,8 +21,10 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
+// 스토리보드 인터랙션 명세: "카드 클릭 시 도서 상세(BOOK-05)로 이동" — 카드 전체를 링크로 감싼다.
 export default function BookCard({
   variant,
+  isbn13,
   title,
   author,
   coverSrc,
@@ -33,7 +37,7 @@ export default function BookCard({
   const displayRank = variant === 'home_best' && showRank && rank != null;
 
   return (
-    <div className={`book-card book-card--${variant}`}>
+    <Link to={`/books/${isbn13}`} className={`book-card book-card--${variant}`}>
       <div className='book-card__cover'>
         {coverSrc ? <img src={coverSrc} alt='' /> : <Icon name='books' />}
         {displayRank && <span className='book-card__rank'>{rank}</span>}
@@ -48,6 +52,6 @@ export default function BookCard({
           {listPrice != null && <span className='book-card__list text-body-xs'>{formatWon(listPrice)}</span>}
         </div>
       )}
-    </div>
+    </Link>
   );
 }

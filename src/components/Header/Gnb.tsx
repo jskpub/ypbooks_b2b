@@ -1,4 +1,5 @@
 import type { Ref } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 
 interface GnbProps {
@@ -32,24 +33,24 @@ export default function Gnb({ isMenuOpen, onToggleMenu, triggerRef }: GnbProps) 
             </button>
           </li>
           <li>
-            <a href="javascript:;" className="gnb__link">
+            <Link to="/recommend" className="gnb__link">
               추천도서
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="javascript:;" className="gnb__link">
+            <Link to="/bestseller" className="gnb__link">
               베스트
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="javascript:;" className="gnb__link">
+            <Link to="/new" className="gnb__link">
               신상품
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="javascript:;" className="gnb__link">
+            <Link to="/review" className="gnb__link">
               서평
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

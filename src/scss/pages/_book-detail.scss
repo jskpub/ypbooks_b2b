@@ -1,0 +1,74 @@
+@use '../abstracts' as *;
+
+.book-detail {
+  display: flex;
+  gap: $space-8;
+  padding-block: $space-12;
+
+  &__cover {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(220);
+    height: rem(308);
+    background-color: $color-surface;
+    border-radius: $radius-md;
+    overflow: hidden;
+    color: $color-muted;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .icon {
+      width: rem(48);
+      height: rem(48);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    padding-top: $space-2;
+  }
+
+  &__category {
+    color: $color-foreground-secondary;
+  }
+
+  &__author {
+    color: $color-foreground-secondary;
+    margin-bottom: $space-2;
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin-bottom: $space-6;
+  }
+
+  &__discount {
+    color: $color-danger;
+    font-weight: 700;
+  }
+
+  &__selling {
+    color: $color-foreground;
+  }
+
+  &__list {
+    color: $color-muted;
+    text-decoration: line-through;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+}

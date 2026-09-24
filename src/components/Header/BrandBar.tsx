@@ -1,6 +1,16 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 
 export default function BrandBar() {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+  };
+
   return (
     <div className="brand-bar">
       <div className="brand-bar__inner container">
@@ -12,7 +22,7 @@ export default function BrandBar() {
           />
           <span className="footer__badge">비즈몰</span>
         </a>
-        <form className="brand-bar__search" role="search" action="/search">
+        <form className="brand-bar__search" role="search" onSubmit={handleSubmit}>
           <label htmlFor="site-search" className="sr-only">
             도서 검색
           </label>
@@ -22,6 +32,8 @@ export default function BrandBar() {
             name="q"
             className="brand-bar__search-input"
             placeholder="도서명, 저자명, 카드번호를 검색해 보세요"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
           <button type="submit" className="brand-bar__search-submit">
             <span className="sr-only">검색</span>
