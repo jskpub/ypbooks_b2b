@@ -61,7 +61,7 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
 
       <div className='cart-group__body' id={bodyId} hidden={!isExpanded}>
         {isSubsidyExhausted && exhaustedMessage && (
-          <div className='alert cart-group__alert'>
+          <div className='alert alert--danger cart-group__alert'>
             <span className='alert__icon'>
               <Icon name='warning' />
             </span>
@@ -76,10 +76,12 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
               <th className='cart-table__book-col'>도서 정보</th>
               <th className='cart-table__qty-col'>주문금액 / 수량</th>
               <th className='cart-table__delivery-col'>
-                배송일정
-                <button type='button' className='cart-table__help' aria-label='배송일정 안내 보기' onClick={onDeliveryInfoOpen}>
-                  <Icon name='question' />
-                </button>
+                <div>
+                  배송일정
+                  <button type='button' className='cart-table__help' aria-label='배송일정 안내 보기' onClick={onDeliveryInfoOpen}>
+                    <Icon name='question' />
+                  </button>
+                </div>
               </th>
             </tr>
           </thead>
