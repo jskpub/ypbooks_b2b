@@ -1,0 +1,82 @@
+@use '../abstracts' as *;
+
+// Figma node 87:3024(Book Card, Property 1=home_bookcard/home_best) 실측 — design-system.md
+// "Book Card" 참고. 순위 배지는 home_best 전용(home_bookcard엔 그 prop 자체가 없다).
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  width: 240px;
+  padding: $space-6;
+  background-color: $color-surface-card;
+  border-radius: $radius-lg;
+
+  &__cover {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 192px;
+    height: rem(268);
+    background-color: $color-surface;
+    border-radius: $radius-md;
+    overflow: hidden;
+    color: $color-muted; // 표지 없을 때 아이콘 색
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .icon {
+      width: rem(40);
+      height: rem(40);
+    }
+  }
+
+  &__rank {
+    position: absolute;
+    top: $space-2;
+    left: $space-2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(24);
+    height: rem(24);
+    background-color: $color-primary;
+    color: $color-on-primary;
+    font-size: $font-size-label-sm;
+    line-height: $line-height-label-sm;
+    font-weight: 700;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__title {
+    color: $color-foreground;
+  }
+
+  &__author {
+    color: $color-foreground-secondary;
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+  }
+
+  &__selling {
+    color: $color-foreground;
+  }
+
+  &__list {
+    color: $color-muted;
+    text-decoration: line-through;
+  }
+}

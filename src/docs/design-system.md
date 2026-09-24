@@ -376,7 +376,17 @@ components:
     textColor: "{colors.foreground}"
     rounded: "{rounded.lg}"
     padding: 24px
+    gap: 16px
     width: 240px
+  book-card-cover:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.md}"
+    width: 192px
+    height: 268px
+  book-card-rank:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    size: 24px
   payment-sidebar:
     backgroundColor: "{colors.surface-card}"
     textColor: "{colors.foreground}"
@@ -749,8 +759,18 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 └──────────────────────────┘
 ```
 
+### Home Hero — 홈 최상단 배너
+GNB 아래 전체 폭 배너. `{colors.surface}` 배경, `{rounded.lg}`, 가운데 정렬. [eyebrow `{typography.label}`, `{colors.primary}`] → [헤드라인 `{typography.heading-h1}`] → [안내문 `{typography.body-lg}`, `{colors.foreground-secondary}`] → [CTA 버튼(Primary, Large)]. 스토리보드(84:2214/84:2568)엔 별도 Figma 컴포넌트가 없고 화면 전용 레이아웃이라 다른 Screen Pattern처럼 여기 문서로만 관리한다.
+
 ### Book Card — 홈, 추천도서 선택
-240px 카드, padding 24px. [추천 대상 caption] → [표지 192×268, 왼쪽 위 순위 배지 24px 빨강] → [도서명 `heading-h4` / 저자 `body-sm`] → [판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선]. 도서 유형은 Badge, 담기는 Button.
+2026-09-25 Figma 컴포넌트(node 87:3024) 실측 기준. 240px 카드, padding 24px, 요소 사이 16px. [표지 192×268, `{rounded.md}`, 배경 `{colors.surface}`, 표지 없으면 가운데 `books` 아이콘 40px] → [도서명 `{typography.heading-h4}` / 저자 `{typography.body-sm}`] → [판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선]. 표지·제목·저자만 기본이고, 순위·가격은 옵션으로 켜고 끈다.
+
+Figma variant(`Property 1`):
+- **home_bookcard** — 순위 배지 없음(prop 자체가 없다). 홈 "이달의 추천도서" · "신간 도서"에 쓴다. `showPrice`로 가격 표시를 켜고 끈다(추천도서는 끔, 신간은 켬).
+- **home_best** — 표지 왼쪽 위 8px에 순위 배지(`book-card-rank`: 24px, `{colors.primary}` 배경 + `{colors.on-primary}` 글자, `{typography.label-sm}`) 기본 켜짐(`showRank`). 홈 "주간 베스트셀러"에 쓴다.
+- **past-recomment**, **Default** — 이번 홈 화면 구현 범위 밖이라 아직 확인 안 함. 쓸 일이 생기면 그때 `get_design_context`로 다시 확인한다.
+
+이전 버전 문서에 적혀 있던 "추천 대상 caption", "도서 유형 Badge", "담기 Button"은 실제 컴포넌트에 없다 — 표지·제목·저자·(옵션)순위·(옵션)가격이 전부다. 필요해지면 그때 논의 후 컴포넌트에 추가한다.
 
 ### Picked Book — 홈 추천 영역, 추천도서 목록 상단
 추천 도서 한 권을 크게 소개. 표지 왼쪽 위에 Bookmark Chip, 오른쪽에 도서 정보 + 추천 사유(3~5줄, 잘라 내지 않음) + 구매 버튼. 이 패턴만 Display 크기를 쓴다.
@@ -825,3 +845,4 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가). | 이하준 |
 | 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm). | 이하준 |
 | 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |
+| 2.3  | 2026-09-25 | Book Card(node 87:3024) 실제 컴포넌트 기준으로 정정 — `home_bookcard`/`home_best` variant, 순위·가격 옵션 토글 반영. 문서에만 있던 caption·Badge·Button 삭제. | 이수현 |
