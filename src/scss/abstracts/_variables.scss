@@ -104,7 +104,12 @@ $color-text-sub: $color-foreground-secondary;
 // Font family — Pretendard GOV 고정 (로컬 정적 웨이트 파일, base/_fonts.scss @font-face)
 // 2026-09-24 design-system.md 기준으로 폴백 스택 갱신.
 // -----------------------------------------------------------------------------
-$font-family-base: 'Pretendard GOV', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+$font-family-base:
+  'Pretendard GOV',
+  Pretendard,
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
   sans-serif;
 
 // -----------------------------------------------------------------------------
@@ -151,8 +156,8 @@ $line-height-caption-lg: rem(20);
 // Numeric — 셋 다 tabular-nums(fontFeature: tnum). base/_typography.scss에서 적용한다.
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
-$font-size-price: rem(16); // 16 / 22, Bold — 도서 가격, 장바구니 실제 결제 금액
-$line-height-price: rem(22);
+$font-size-price-base: rem(16); // 16 / 22, Bold — 도서 가격, 장바구니 실제 결제 금액
+$line-height-price-base: rem(22);
 $font-size-price-sm: rem(15); // 15 / 22, Bold — 목록 금액, 지원 비율("100%", "50%")
 $line-height-price-sm: rem(22);
 

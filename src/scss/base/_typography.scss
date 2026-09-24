@@ -146,8 +146,8 @@ small,
 }
 
 .price {
-  font-size: $font-size-price;
-  line-height: $line-height-price; // 도서 가격, 장바구니 실제 결제 금액
+  font-size: $font-size-price-base;
+  line-height: $line-height-price-base; // 도서 가격, 장바구니 실제 결제 금액
 }
 
 // v2.3 신규 — 목록 금액, 지원 비율("100%", "50%")
