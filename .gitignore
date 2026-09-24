@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+
+# JSK
+/md
+/전달md
+/images
+/design_system
+/src/jsk_pages
+
+pages_temp/
+/.history
+/대화기록
