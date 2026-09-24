@@ -7,7 +7,7 @@ export default function Footer() {
             <a href='javascript:;' className='footer__logo'>
               <img className='footer__logo-img' src='https://cdn.ypbooks.co.kr/image/logo/202512/d4bd4b8c-948f-4703-9cd2-0be0cccadf27.png' alt='영풍문고' width={96} height={40} />
             </a>
-            <span className='footer__badge'>비즈몰</span>
+            <span className='logo__badge'>비즈몰</span>
           </div>
           <ul className='footer__nav'>
             <li>
