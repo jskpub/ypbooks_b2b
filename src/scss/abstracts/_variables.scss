@@ -86,6 +86,13 @@ $color-info: $color-blue-700; // --color-info
 $color-info-soft: $color-blue-50; // --color-info-soft
 $color-info-border: $color-blue-100; // --color-info-border
 
+// Progress — 지원금 게이지 채움 색(한도에 가까울수록 진해짐). 트랙은 $color-border.
+// DESIGN_YP.md 2026-09-24 신규 — 이전에는 default에 $color-primary, warning/full에
+// $color-warning/$color-danger를 재사용했다.
+$color-progress-default: #f9acaa; // --color-progress-default — 여유 있음
+$color-progress-warning: $color-red-300; // --color-progress-warning — 한도 임박 (#f47d7b)
+$color-progress-full: $color-red-500; // --color-progress-full — 한도 소진 (#e01e1a)
+
 // 포커스 링은 primary와 무관하게 항상 파랑 — 모든 인터랙티브 요소에 공통 적용
 $color-focus-ring: $color-blue-500; // --color-focus-ring
 $input-border-focus: $color-red-500; // --input-border-focus — 입력 포커스 시 테두리색(링과 별개)
@@ -97,6 +104,16 @@ $color-subsidy-company-icon: $color-green-500; // --color-subsidy-company-icon
 $color-subsidy-employee: $color-neutral-900; // --color-subsidy-employee
 $color-subsidy-employee-soft: $color-neutral-100; // --color-subsidy-employee-soft
 
+// Bookmark — 추천 주체(CEO픽, 본부장픽 등) 구분용 책갈피 칩 배경 7색.
+// DESIGN_YP.md 2026-09-24 신규 — 책갈피 칩 밖에서는 쓰지 않는다.
+$color-bookmark-gray: $color-neutral-700; // --color-bookmark-gray (#3d3b3b)
+$color-bookmark-orange: #b54708; // --color-bookmark-orange
+$color-bookmark-green: $color-green-600; // --color-bookmark-green (#157a40)
+$color-bookmark-teal: #0f766e; // --color-bookmark-teal
+$color-bookmark-blue: $color-blue-700; // --color-bookmark-blue (#1d4fbf)
+$color-bookmark-purple: #7e22ce; // --color-bookmark-purple
+$color-bookmark-pink: #be185d; // --color-bookmark-pink
+
 $border-width-1: 1px; // --border-width-1
 
 // 구버전 호환 별칭(당분간 유지 — 점진 교체용)
@@ -105,38 +122,40 @@ $color-text-sub: $color-foreground-secondary;
 
 // -----------------------------------------------------------------------------
 // Font family — Pretendard GOV 고정 (로컬 정적 웨이트 파일, base/_fonts.scss @font-face)
+// 2026-09-24 DESIGN_YP.md 기준으로 폴백 스택 갱신.
 // -----------------------------------------------------------------------------
-$font-family-base: 'Pretendard GOV', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
-  'Malgun Gothic', system-ui, Roboto, sans-serif;
+$font-family-base: 'Pretendard GOV', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+  sans-serif;
 
 // -----------------------------------------------------------------------------
-// Typography — Figma "Type/Table" 실측치 기반 (px 표기 그대로, weight는 Pretendard GOV 웨이트명)
+// Typography — DESIGN_YP.md(2026-09-24, Figma v2.2) 기준으로 전면 갱신.
 // 스타일명은 Figma 레이어명 그대로: v2/Heading/H1 등
-// ⚠️ 2026-09-23 위계 재조정: body 기본 크기를 접근성 때문에 17px로 키우면서(design-system.md 실측 15px 아님)
-// H3/H4/Body-Large가 body-base보다 작아지는 역전이 생겨 아래 네 값을 실측치에서 조정했다.
-// 근거는 design-system.md 타이포그래피 표 하단 "변경 이력" 참고.
+// 2026-09-23에 접근성 때문에 수동으로 위계를 재조정했던 값들이, 2026-09-24 Figma
+// 쪽 정식 재조정(v2.2)으로 대체됐다. body-sm은 13/20 → 15/24로 재정의되고,
+// 옛 13/20 자리는 새로 생긴 body-xs가 대신한다.
 // -----------------------------------------------------------------------------
-$font-size-h1: rem(24); // 24 / 32, Bold — 페이지 제목
-$line-height-h1: rem(32);
-$font-size-h2: rem(20); // 20 / 28, Bold — 섹션 제목
-$line-height-h2: rem(28);
-$font-size-h3: rem(19); // 실측 17/24 아님 → 19/26, Medium — body-base(17px)와 위계 구분
-$line-height-h3: rem(26);
-$font-size-h4: rem(17); // 실측 15/22 아님 → 17/24, Medium — body-base보다 작아지는 문제 수정
+$font-size-h1: rem(26); // 26 / 34, Bold — 페이지 제목
+$line-height-h1: rem(34);
+$font-size-h2: rem(22); // 22 / 30, Bold — 섹션 제목
+$line-height-h2: rem(30);
+$font-size-h3: rem(20); // 20 / 28, Medium — 카드 제목, 항목 제목
+$line-height-h3: rem(28);
+$font-size-h4: rem(17); // 17 / 24, Medium — 도서명, 목록 제목
 $line-height-h4: rem(24);
 
-$font-size-body-lg: rem(18); // 실측 16/26 아님 → 18/28, Regular — body-base(17px)보다 작아지는 역전 수정
+$font-size-body-lg: rem(18); // 18 / 28, Regular — 강조 본문, 안내 문장
 $line-height-body-lg: rem(28);
-// body-base 자체도 실측 15px가 아니라 접근성을 위해 17px로 의도적으로 키운 값(2026-09-23 결정)
-$font-size-body-base: rem(17); // 실측 15px 아님, 17px로 오버라이드
-$line-height-body-base: rem(24);
-$font-size-body-sm: rem(13); // 13 / 20, Regular — 보조 설명, 표 본문
-$line-height-body-sm: rem(20);
+$font-size-body-base: rem(17); // 17 / 26, Regular — 기본 본문
+$line-height-body-base: rem(26);
+$font-size-body-sm: rem(15); // 15 / 24, Regular — 보조 설명, 표 본문
+$line-height-body-sm: rem(24);
+$font-size-body-xs: rem(13); // 13 / 20, Regular — 각주, 메타데이터, 부가 주석 (신규)
+$line-height-body-xs: rem(20);
 
-$font-size-label-lg: rem(15); // 15 / 20, Medium — 버튼 라벨
-$line-height-label-lg: rem(20);
-$font-size-label-base: rem(13); // 13 / 18, Medium — 배지, 탭, 입력 라벨
-$line-height-label-base: rem(18);
+$font-size-label-lg: rem(16); // 16 / 24, Medium — 버튼 라벨
+$line-height-label-lg: rem(24);
+$font-size-label-base: rem(14); // 14 / 20, Medium — 배지, 탭, 입력 라벨
+$line-height-label-base: rem(20);
 $font-size-label-sm: rem(12); // 12 / 16, Bold — 리본, 작은 태그
 $line-height-label-sm: rem(16);
 
@@ -145,8 +164,8 @@ $line-height-caption: rem(18);
 
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
-$font-size-price: rem(16); // 16 / 22, Bold — 도서 가격
-$line-height-price: rem(22);
+$font-size-price: rem(17); // 17 / 24, Bold — 도서 가격
+$line-height-price: rem(24);
 
 $letter-spacing-default: 0; // 한글은 자간 조정하지 않음
 
@@ -168,6 +187,7 @@ $space-16: rem(64); // --spacing-3xl — 페이지 위아래 여백
 // -----------------------------------------------------------------------------
 // Radius — Figma "Radius" 실측치. lg/full 코드 변수는 아직 없다고 문서에 명시돼 있음.
 // -----------------------------------------------------------------------------
+$radius-xs: rem(2); // 체크 표시 등 아주 작은 요소 (DESIGN_YP.md 2026-09-24 신규)
 $radius-sm: rem(6); // 입력, 소형 버튼, 툴팁
 $radius-md: rem(10); // 버튼, 알림, 입력 그룹 (코드: 8px/12px 혼용 중이라고 문서에 경고)
 $radius-lg: rem(16); // 카드, 모달 (코드에 아직 없음)
