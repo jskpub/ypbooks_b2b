@@ -34,6 +34,39 @@
   }
 }
 
+// 정렬 유틸리티 — display:flex + align-items:center 조합이 SCSS 전체에서 반복돼서(justify-content
+// 조합만 25번, align-items:center 단독까지 합치면 48번) 공통 클래스로 뺐다. gap은 컴포넌트마다
+// 값이 달라서 여기 안 넣는다 — 쓰는 쪽 BEM 클래스에서 gap만 따로 얹는다.
+// align-items/justify-content를 따로 조합해서 쓴다: <div class="flex-row justify-between">처럼.
+.flex-row {
+  display: flex;
+  align-items: center; // 실제로 반복되는 조합 대부분이 center라 기본값으로 포함
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
 .skip-nav {
   position: absolute;
   top: -100%;

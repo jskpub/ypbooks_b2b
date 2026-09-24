@@ -264,7 +264,7 @@
     }
 
     &:hover {
-      background-color: $color-surface;
+      background-color: $color-amber-50;
     }
   }
 
@@ -280,16 +280,21 @@
   &__delivery-col {
     width: rem(200);
     position: relative;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &__help {
     display: inline-flex;
     align-items: center;
     color: $color-muted;
-
+    margin-left: rem(4);
     .icon {
-      width: rem(14);
-      height: rem(14);
+      width: rem(16);
+      height: rem(16);
     }
   }
 }
@@ -405,7 +410,8 @@
   position: absolute;
   top: $space-2;
   right: $space-2;
-
+  border-radius: $radius-full;
+  transition: background-color 0.3s;
   .icon {
     width: rem(20);
     height: rem(20);

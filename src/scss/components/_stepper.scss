@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: stretch;
   height: rem(34);
-  border: $border-width-1 solid $color-border-control;
+  border: $border-width-1 solid $color-border;
   border-radius: $radius-sm;
   overflow: hidden;
 
@@ -44,7 +44,7 @@
 
   &__value {
     flex: 1 1 auto;
-    width: rem(60);
+    width: rem(50);
     min-width: 0;
     text-align: center;
     border-inline: $border-width-1 solid $color-border;
