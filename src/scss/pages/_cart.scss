@@ -263,10 +263,8 @@
       border-bottom: none;
     }
 
-    // v2.3: amber 팔레트가 삭제되면서 $color-surface로 교체. 원래 amber-50(#fff6e5)은
-    // 디자인 시스템 어느 버전에도 용도가 정의된 적이 없다(행 hover는 surface가 맞다).
     &:hover {
-      background-color: $color-surface;
+      background-color: $color-neutral-0;
     }
   }
 
@@ -386,9 +384,13 @@
 }
 
 .cart-order-amount {
-  font-weight: 700;
+  font-weight: 500;
   color: $color-foreground;
   margin-bottom: $space-2;
+
+  strong {
+    font-weight: 700;
+  }
 }
 
 .cart-delivery-eta {
