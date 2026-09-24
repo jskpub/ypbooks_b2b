@@ -113,52 +113,41 @@ $font-family-base:
   sans-serif;
 
 // -----------------------------------------------------------------------------
-// Typography — design-system.md(Figma v2.3, 2026-09-25) 기준.
-// v2.2 → v2.3에서 스케일 전체가 한 단계씩 작아졌다(h1 26→24, body 17→15 등).
-// 굵기는 400 / 500 / 700 세 가지만 쓴다. 자간은 전부 0.
-// 신규: display-lg / display(Picked Book 전용), caption-lg / caption-lg-strong(도서 메타),
-//       price-sm(목록 금액·지원 비율).
-// 삭제: body-xs(13/20) — v2.3의 body-sm이 같은 13/20이라 그 자리를 대신한다.
+// Typography — design-system.md 기준 (2026-09-25 김지선 전달 스펙).
+// 굵기는 400 / 500 / 700 세 가지만. 자간은 전부 0.
+// Numeric 3종(price-*)은 tabular-nums(fontFeature: tnum) — base/_typography.scss에서 적용한다.
 // -----------------------------------------------------------------------------
-$font-size-display-lg: rem(32); // 32 / 42, Bold — 추천 픽 도서 제목 (Picked Book)
-$line-height-display-lg: rem(42);
-$font-size-display: rem(28); // 28 / 36, Bold — 추천 영역 제목 (Picked Book)
-$line-height-display: rem(36);
+$font-size-h1: rem(26); // 26 / 34, Bold — 페이지 제목
+$line-height-h1: rem(34);
+$font-size-h2: rem(22); // 22 / 30, Bold — 섹션 제목
+$line-height-h2: rem(30);
+$font-size-h3: rem(20); // 20 / 28, Medium — 카드 제목, 항목 제목
+$line-height-h3: rem(28);
+$font-size-h4: rem(17); // 17 / 24, Medium — 도서명, 목록 제목
+$line-height-h4: rem(24);
 
-$font-size-h1: rem(24); // 24 / 32, Bold — 페이지 제목
-$line-height-h1: rem(32);
-$font-size-h2: rem(20); // 20 / 28, Bold — 섹션 제목, 모달 제목
-$line-height-h2: rem(28);
-$font-size-h3: rem(17); // 17 / 24, Medium — 카드 제목, 항목 제목
-$line-height-h3: rem(24);
-$font-size-h4: rem(15); // 15 / 22, Medium — 도서명, 목록 제목
-$line-height-h4: rem(22);
+$font-size-body-lg: rem(18); // 18 / 28, Regular — 강조 본문, 안내 문장
+$line-height-body-lg: rem(28);
+$font-size-body-base: rem(17); // 17 / 26, Regular — 기본 본문
+$line-height-body-base: rem(26);
+$font-size-body-sm: rem(15); // 15 / 24, Regular — 보조 설명, 표 본문
+$line-height-body-sm: rem(24);
+$font-size-body-xs: rem(13); // 13 / 20, Regular — 각주, 메타데이터, 부가 주석
+$line-height-body-xs: rem(20);
 
-$font-size-body-lg: rem(16); // 16 / 26, Regular — 강조 본문, 안내 문장
-$line-height-body-lg: rem(26);
-$font-size-body-base: rem(15); // 15 / 24, Regular — 기본 본문, 입력값
-$line-height-body-base: rem(24);
-$font-size-body-sm: rem(13); // 13 / 20, Regular — 보조 설명, 표 본문, 저자·메타
-$line-height-body-sm: rem(20);
-
-$font-size-label-lg: rem(15); // 15 / 20, Medium — 버튼 라벨(Large·Medium), 탭
-$line-height-label-lg: rem(20);
-$font-size-label-base: rem(13); // 13 / 18, Medium — 배지, 입력 라벨, 소형 버튼, 지원금 버튼
-$line-height-label-base: rem(18);
-$font-size-label-sm: rem(12); // 12 / 16, Bold — 책갈피 칩, 작은 태그
+$font-size-label-lg: rem(16); // 16 / 24, Medium — 버튼 라벨
+$line-height-label-lg: rem(24);
+$font-size-label-base: rem(14); // 14 / 20, Medium — 배지, 탭, 입력 라벨
+$line-height-label-base: rem(20);
+$font-size-label-sm: rem(12); // 12 / 16, Bold — 리본, 작은 태그
 $line-height-label-sm: rem(16);
 
 $font-size-caption: rem(12); // 12 / 18 — 날짜/도움말(Regular) 또는 상태 강조(Bold)
 $line-height-caption: rem(18);
-$font-size-caption-lg: rem(14); // 14 / 20 — 도서 메타(출간일·카테고리, 리뷰 수), 평점은 Bold
-$line-height-caption-lg: rem(20);
 
-// Numeric — 셋 다 tabular-nums(fontFeature: tnum). base/_typography.scss에서 적용한다.
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);
-// ⚠️ Figma v2.3은 16/22지만 17/24를 유지한다. master의 "[update] 가격 수정"이 정한 값이고,
-// 도서명(heading-h4)과 행간을 맞추기 위한 선택이다. design-system.md의 Known Gaps에도 적어 뒀다.
-$font-size-price-base: rem(17); // 17 / 24, Bold — 도서 가격, 장바구니 실제 결제 금액
+$font-size-price-base: rem(17); // 17 / 24, Bold — 도서 가격
 $line-height-price-base: rem(24);
 $font-size-price-sm: rem(15); // 15 / 22, Bold — 목록 금액, 지원 비율("100%", "50%")
 $line-height-price-sm: rem(22);

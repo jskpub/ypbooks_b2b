@@ -67,7 +67,7 @@
   }
 
   // Figma node 44:2643(Stepper, size=Small) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc,
-  // Cart Row 44:3338 안에서 쓰임) — 88×28, 버튼 26×26, 아이콘 14px, 값 13px(body-sm).
+  // Cart Row 44:3338 안에서 쓰임) — 88×28, 버튼 26×26, 아이콘 14px, 값 13px(body-xs).
   &--sm {
     height: rem(28);
 
@@ -82,7 +82,7 @@
 
     .stepper__value {
       width: rem(36);
-      font-size: $font-size-body-sm;
+      font-size: $font-size-body-xs;
     }
   }
 }

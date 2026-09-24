@@ -51,61 +51,56 @@ colors:
   subsidy-employee-soft: "#f5f4f4"
 
 typography:
-  display-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 32px
-    fontWeight: 700
-    lineHeight: 42px
-  display:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 28px
-    fontWeight: 700
-    lineHeight: 36px
   heading-h1:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 24px
+    fontSize: 26px
     fontWeight: 700
-    lineHeight: 32px
+    lineHeight: 34px
   heading-h2:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 20px
+    fontSize: 22px
     fontWeight: 700
-    lineHeight: 28px
+    lineHeight: 30px
   heading-h3:
+    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontSize: 20px
+    fontWeight: 500
+    lineHeight: 28px
+  heading-h4:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 17px
     fontWeight: 500
     lineHeight: 24px
-  heading-h4:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 15px
-    fontWeight: 500
-    lineHeight: 22px
   body-lg:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 16px
+    fontSize: 18px
+    fontWeight: 400
+    lineHeight: 28px
+  body:
+    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontSize: 17px
     fontWeight: 400
     lineHeight: 26px
-  body:
+  body-sm:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 15px
     fontWeight: 400
     lineHeight: 24px
-  body-sm:
+  body-xs:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 13px
     fontWeight: 400
     lineHeight: 20px
   label-lg:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 15px
+    fontSize: 16px
     fontWeight: 500
-    lineHeight: 20px
+    lineHeight: 24px
   label:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 13px
+    fontSize: 14px
     fontWeight: 500
-    lineHeight: 18px
+    lineHeight: 20px
   label-sm:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 12px
@@ -121,23 +116,13 @@ typography:
     fontSize: 12px
     fontWeight: 700
     lineHeight: 18px
-  caption-lg:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 20px
-  caption-lg-strong:
-    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
-    fontSize: 14px
-    fontWeight: 700
-    lineHeight: 20px
   price-lg:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 22px
     fontWeight: 700
     lineHeight: 28px
     fontFeature: "tnum"
-  price:
+  price-base:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 17px
     fontWeight: 700
@@ -149,7 +134,6 @@ typography:
     fontWeight: 700
     lineHeight: 22px
     fontFeature: "tnum"
-
 rounded:
   xs: 2px
   sm: 4px
@@ -489,38 +473,35 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ### Font Family
 - **화면용**: `Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif`
 - Noto Sans KR은 Figma 문서 페이지용(v2/Doc) 서체다. 서비스 화면에는 쓰지 않는다.
-- 금액(`price`, `price-lg`)은 `font-variant-numeric: tabular-nums`로 자릿수를 맞춘다.
+- 금액(`price-lg`, `price-base`, `price-sm`)은 `font-variant-numeric: tabular-nums`로 자릿수를 맞춘다.
 
 ### Hierarchy
 
 | Token | Size / Line | Weight | Use |
 |---|---|---|---|
-| `{typography.display-lg}` | 32 / 42 | 700 | 추천 픽 도서 제목 (Picked Book) |
-| `{typography.display}` | 28 / 36 | 700 | 추천 영역 제목 (Picked Book) |
-| `{typography.heading-h1}` | 24 / 32 | 700 | 페이지 제목 ("나의 지원금") |
-| `{typography.heading-h2}` | 20 / 28 | 700 | 섹션 제목, 모달 제목 |
-| `{typography.heading-h3}` | 17 / 24 | 500 | 카드 제목, 항목 제목 |
-| `{typography.heading-h4}` | 15 / 22 | 500 | 도서명, 목록 제목 |
-| `{typography.body-lg}` | 16 / 26 | 400 | 강조 본문, 안내 문장 |
-| `{typography.body}` | 15 / 24 | 400 | 기본 본문, 입력값 |
-| `{typography.body-sm}` | 13 / 20 | 400 | 보조 설명, 표 본문, 저자·메타 |
-| `{typography.label-lg}` | 15 / 20 | 500 | 버튼 라벨(Large·Medium), 탭 |
-| `{typography.label}` | 13 / 18 | 500 | 배지, 입력 라벨, 소형 버튼, 지원금 버튼 |
+| `{typography.heading-h1}` | 26 / 34 | 700 | 페이지 제목 |
+| `{typography.heading-h2}` | 22 / 30 | 700 | 섹션 제목, 모달 제목 |
+| `{typography.heading-h3}` | 20 / 28 | 500 | 카드 제목, 항목 제목 |
+| `{typography.heading-h4}` | 17 / 24 | 500 | 도서명, 목록 제목 |
+| `{typography.body-lg}` | 18 / 28 | 400 | 강조 본문, 안내 문장 |
+| `{typography.body}` | 17 / 26 | 400 | 기본 본문, 입력값 |
+| `{typography.body-sm}` | 15 / 24 | 400 | 보조 설명, 표 본문 |
+| `{typography.body-xs}` | 13 / 20 | 400 | 각주, 메타데이터, 부가 주석 |
+| `{typography.label-lg}` | 16 / 24 | 500 | 버튼 라벨, 탭 |
+| `{typography.label}` | 14 / 20 | 500 | 배지, 입력 라벨, 소형 버튼, 지원금 버튼 |
 | `{typography.label-sm}` | 12 / 16 | 700 | 책갈피 칩, 작은 태그 |
 | `{typography.caption}` | 12 / 18 | 400 | 날짜, 도움말, 카테고리 |
 | `{typography.caption-strong}` | 12 / 18 | 700 | 상태 강조 캡션 ("잔여 한도 1건") |
-| `{typography.caption-lg}` | 14 / 20 | 400 | 도서 메타 정보 (출간일·카테고리, 리뷰 수, 구매 수) |
-| `{typography.caption-lg-strong}` | 14 / 20 | 700 | 평점 등 강조 메타 |
 | `{typography.price-lg}` | 22 / 28 | 700 | 최종 결제 금액 |
-| `{typography.price}` | 17 / 24 | 700 | 도서 가격, 장바구니 실제 결제 금액 (Figma는 16/22 — 아래 Known Gaps 참고) |
+| `{typography.price-base}` | 17 / 24 | 700 | 도서 가격, 장바구니 실제 결제 금액 |
 | `{typography.price-sm}` | 15 / 22 | 700 | 목록 금액, 지원 비율("100%", "50%") |
 
 ### Principles
 - 굵기는 400 / 500 / 700 세 가지만 쓴다.
 - 자간은 모두 0. 음수 자간을 쓰지 않는다.
 - 버튼 라벨은 한 줄로 유지한다. 줄바꿈되면 라벨을 줄인다.
-- 금액 표기: 천 단위 쉼표 + "원". **금액 한 덩어리는 서식을 쪼개지 않는다** — 숫자와 "원"에 다른 굵기·색을 주지 않고 `{typography.price}` 계열 하나로 쓴다.
-- 할인 전 정가는 `{typography.body-sm}`(13px) `{colors.muted}` + 취소선. 도서 카드·목록·장바구니 모두 같다.
+- 금액 표기: 천 단위 쉼표 + "원". **금액 한 덩어리는 서식을 쪼개지 않는다** — 숫자와 "원"에 다른 굵기·색을 주지 않고 `{typography.price-base}` 계열 하나로 쓴다.
+- 할인 전 정가는 `{typography.body-xs}`(13px) `{colors.muted}` + 취소선. 도서 카드·목록·장바구니 모두 같다.
 - 지원 비율은 `{typography.price-sm}` + `{colors.primary}`("100%", "50%").
 - Alert 제목·설명, 추천 사유처럼 긴 텍스트는 줄바꿈하고 말줄임으로 자르지 않는다.
 
@@ -734,7 +715,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ### Cart Row — 장바구니
 한 줄에 [체크박스] [표지 44×64] [배지 + 도서명 + 금액] … [실제 결제 금액 + Stepper] [지원금 버튼] [삭제 x]. 흰 카드 + 1px 테두리. 추천도서 지원금 행과 개인도서 지원금 행을 그룹 제목(`{typography.caption}`)으로 나눈다.
 - 지원금 적용 전: 정가만 표시(취소선 없음).
-- 적용 후: 지원 비율(`{typography.price-sm}` `{colors.primary}`, "100%"·"50%") + 적용 후 금액(`{typography.price-sm}`) + 취소선 정가(`{typography.body-sm}` `{colors.muted}`). Stepper 위 금액은 실제 결제 금액으로 `{typography.price}`.
+- 적용 후: 지원 비율(`{typography.price-sm}` `{colors.primary}`, "100%"·"50%") + 적용 후 금액(`{typography.price-sm}`) + 취소선 정가(`{typography.body-xs}` `{colors.muted}`). Stepper 위 금액은 실제 결제 금액으로 `{typography.price-base}`.
 
 ### Payment Sidebar — 장바구니, 결제
 너비 320px 고정, 화면 오른쪽. 흰 카드.
@@ -751,14 +732,14 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 ```
 
 ### Book Card — 홈, 추천도서 선택
-240px 카드, padding 24px. [추천 대상 caption] → [표지 192×268, 왼쪽 위 순위 배지 24px 빨강] → [도서명 `heading-h4` / 저자 `body-sm`] → [판매가 `{typography.price}` + 정가 `{typography.body-sm}` `{colors.muted}` 취소선]. 도서 유형은 Badge, 담기는 Button.
+240px 카드, padding 24px. [추천 대상 caption] → [표지 192×268, 왼쪽 위 순위 배지 24px 빨강] → [도서명 `heading-h4` / 저자 `body-sm`] → [판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선]. 도서 유형은 Badge, 담기는 Button.
 
 ### Picked Book — 홈 추천 영역, 추천도서 목록 상단
 추천 도서 한 권을 크게 소개. 표지 왼쪽 위에 Bookmark Chip, 오른쪽에 도서 정보 + 추천 사유(3~5줄, 잘라 내지 않음) + 구매 버튼. 이 패턴만 Display 크기를 쓴다.
-- 추천 주제 제목 `{typography.display}`(28) → 도서 제목 `{typography.display-lg}`(32) → 저자·출판사 `{typography.body}` → 출간일·카테고리 `{typography.caption-lg}` → 평점 `{typography.caption-lg-strong}` + 리뷰 수·구매 수 `{typography.caption-lg}`.
+- 저자·출판사 `{typography.body}`. 그 밖의 텍스트 크기는 **확인 필요** — 이 패턴이 쓰던 `display`(28) / `display-lg`(32) / `caption-lg`(14)가 현재 타이포 스케일에 없다. 값을 정하기 전까지 추측해서 쓰지 않는다.
 
 ### Book List — 도서 목록
-한 행에 [표지 90×126] [배지들 → 카테고리 → 도서명 `{typography.heading-h2}` → 저자·출판사·출간일 → 판매가 `{typography.price}` + 정가 `{typography.body-sm}` `{colors.muted}` 취소선 → 태그 배지] [오른쪽 160px: Stepper, 장바구니 담기(Secondary), 바로 구매(Primary)].
+한 행에 [표지 90×126] [배지들 → 카테고리 → 도서명 `{typography.heading-h2}` → 저자·출판사·출간일 → 판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선 → 태그 배지] [오른쪽 160px: Stepper, 장바구니 담기(Secondary), 바로 구매(Primary)].
 
 ### Order Complete — 주문 완료
 결제 결과와 적용된 지원금을 알리고 다음 행동을 안내. 주문번호, 결제 금액, 적용된 지원금, 받는 곳을 label/value 목록으로.
@@ -781,10 +762,11 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### 남은 확인 사항
 - **다크 모드, 모바일, 1280px 미만 전용 레이아웃:** MVP 범위 밖. 1280px보다 좁으면 가로 스크롤한다.
-- **`{typography.price}`가 Figma와 다르다 (의도된 차이):** Figma v2.3은 16/22지만 코드와 이 문서는
-  **17/24**를 쓴다. 도서명(`heading-h4`)과 행간을 맞추기 위한 선택으로, 2026-09-25 코드 쪽에서 정해졌다
-  (`$font-size-price-base`). Figma와 대조할 때 불일치로 보이지만 되돌리지 않는다. 바꾸려면 먼저 합의한다.
-  `price-lg`(22/28)와 `price-sm`(15/22)은 Figma와 같다.
+- **Picked Book 텍스트 크기:** `display` / `display-lg` / `caption-lg`가 타이포 스케일에서 빠지면서
+  이 패턴의 제목·메타 크기가 비었다. 쓸 화면이 생기기 전에 정해야 한다.
+- **타이포 스케일과 Figma v2.3의 차이:** 현재 스케일은 2026-09-25 전달받은 기준이며 Figma v2.3
+  문서값(h1 24/32, body 15/24, price 16/22 등)과 다르다. Figma와 대조할 때 불일치로 보이지만
+  임의로 되돌리지 않는다. 바꾸려면 먼저 합의한다.
 
 그 밖에 열려 있는 항목은 없다. 색·간격·모서리·타이포·그림자가 모두 토큰이고, 정의된 토큰은 모두 쓰이고 있다.
 
@@ -823,4 +805,5 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | 버전 | 날짜       | 변경 사항                                                              | 작성자 |
 | ---- | ---------- | ---------------------------------------------------------------------- | ------ |
 | 1.0  | 2026-09-24 | Figma v2.2(node 228:754) 기준 최초 작성.                               | 김지선 |
-| 2.0  | 2026-09-25 | Figma v2.3 기준 전면 갱신. 타이포 스케일 축소, state 색 삭제, empty-state 추가. `{typography.price}`는 17/24 유지(Known Gaps 참고). | 이하준 |
+| 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가). | 이하준 |
+| 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm). `display`·`caption-lg` 제외. | 이하준 |
