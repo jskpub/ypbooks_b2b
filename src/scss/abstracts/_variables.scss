@@ -117,6 +117,12 @@ $font-family-base:
 // 굵기는 400 / 500 / 700 세 가지만. 자간은 전부 0.
 // Numeric 3종(price-*)은 tabular-nums(fontFeature: tnum) — base/_typography.scss에서 적용한다.
 // -----------------------------------------------------------------------------
+// Display — Figma v2/Display/Large·Base. 추천 도서를 크게 소개하는 영역에서만 쓴다.
+$font-size-display-lg: rem(32); // 32 / 42, Bold — 도서 제목 (추천 픽)
+$line-height-display-lg: rem(42);
+$font-size-display: rem(28); // 28 / 36, Bold — 추천 주제 제목 (추천 영역)
+$line-height-display: rem(36);
+
 $font-size-h1: rem(26); // 26 / 34, Bold — 페이지 제목
 $line-height-h1: rem(34);
 $font-size-h2: rem(22); // 22 / 30, Bold — 섹션 제목
@@ -144,6 +150,8 @@ $line-height-label-sm: rem(16);
 
 $font-size-caption: rem(12); // 12 / 18 — 날짜/도움말(Regular) 또는 상태 강조(Bold)
 $line-height-caption: rem(18);
+$font-size-caption-lg: rem(14); // 14 / 20, Regular — 도서 메타(출간일·카테고리, 리뷰 수, 구매 수)
+$line-height-caption-lg: rem(20);
 
 $font-size-price-lg: rem(22); // 22 / 28, Bold — 최종 결제 금액
 $line-height-price-lg: rem(28);

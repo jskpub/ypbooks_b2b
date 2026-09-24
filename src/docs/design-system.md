@@ -51,6 +51,16 @@ colors:
   subsidy-employee-soft: "#f5f4f4"
 
 typography:
+  display-lg:
+    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontSize: 32px
+    fontWeight: 700
+    lineHeight: 42px
+  display:
+    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontSize: 28px
+    fontWeight: 700
+    lineHeight: 36px
   heading-h1:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 26px
@@ -116,6 +126,11 @@ typography:
     fontSize: 12px
     fontWeight: 700
     lineHeight: 18px
+  caption-lg:
+    fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    fontSize: 14px
+    fontWeight: 400
+    lineHeight: 20px
   price-lg:
     fontFamily: "Pretendard GOV, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
     fontSize: 22px
@@ -479,6 +494,8 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 | Token | Size / Line | Weight | Use |
 |---|---|---|---|
+| `{typography.display-lg}` | 32 / 42 | 700 | 도서 제목 (추천 픽) |
+| `{typography.display}` | 28 / 36 | 700 | 추천 주제 제목 (추천 영역) |
 | `{typography.heading-h1}` | 26 / 34 | 700 | 페이지 제목 |
 | `{typography.heading-h2}` | 22 / 30 | 700 | 섹션 제목, 모달 제목 |
 | `{typography.heading-h3}` | 20 / 28 | 500 | 카드 제목, 항목 제목 |
@@ -492,6 +509,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | `{typography.label-sm}` | 12 / 16 | 700 | 책갈피 칩, 작은 태그 |
 | `{typography.caption}` | 12 / 18 | 400 | 날짜, 도움말, 카테고리 |
 | `{typography.caption-strong}` | 12 / 18 | 700 | 상태 강조 캡션 ("잔여 한도 1건") |
+| `{typography.caption-lg}` | 14 / 20 | 400 | 도서 메타 정보 (출간일·카테고리, 리뷰 수, 구매 수) |
 | `{typography.price-lg}` | 22 / 28 | 700 | 최종 결제 금액 |
 | `{typography.price-base}` | 17 / 24 | 700 | 도서 가격, 장바구니 실제 결제 금액 |
 | `{typography.price-sm}` | 15 / 22 | 700 | 목록 금액, 지원 비율("100%", "50%") |
@@ -736,7 +754,8 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### Picked Book — 홈 추천 영역, 추천도서 목록 상단
 추천 도서 한 권을 크게 소개. 표지 왼쪽 위에 Bookmark Chip, 오른쪽에 도서 정보 + 추천 사유(3~5줄, 잘라 내지 않음) + 구매 버튼. 이 패턴만 Display 크기를 쓴다.
-- 저자·출판사 `{typography.body}`. 그 밖의 텍스트 크기는 **확인 필요** — 이 패턴이 쓰던 `display`(28) / `display-lg`(32) / `caption-lg`(14)가 현재 타이포 스케일에 없다. 값을 정하기 전까지 추측해서 쓰지 않는다.
+- 추천 주제 제목 `{typography.display}`(28) → 도서 제목 `{typography.display-lg}`(32) → 저자·출판사 `{typography.body}` → 출간일·카테고리·리뷰 수·구매 수 `{typography.caption-lg}`.
+- 평점을 굵게 쓰던 `caption-lg-strong`(14/20 Bold)은 스케일에 없다. 필요해지면 그때 추가를 논의한다.
 
 ### Book List — 도서 목록
 한 행에 [표지 90×126] [배지들 → 카테고리 → 도서명 `{typography.heading-h2}` → 저자·출판사·출간일 → 판매가 `{typography.price-base}` + 정가 `{typography.body-xs}` `{colors.muted}` 취소선 → 태그 배지] [오른쪽 160px: Stepper, 장바구니 담기(Secondary), 바로 구매(Primary)].
@@ -762,8 +781,6 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### 남은 확인 사항
 - **다크 모드, 모바일, 1280px 미만 전용 레이아웃:** MVP 범위 밖. 1280px보다 좁으면 가로 스크롤한다.
-- **Picked Book 텍스트 크기:** `display` / `display-lg` / `caption-lg`가 타이포 스케일에서 빠지면서
-  이 패턴의 제목·메타 크기가 비었다. 쓸 화면이 생기기 전에 정해야 한다.
 - **타이포 스케일과 Figma v2.3의 차이:** 현재 스케일은 2026-09-25 전달받은 기준이며 Figma v2.3
   문서값(h1 24/32, body 15/24, price 16/22 등)과 다르다. Figma와 대조할 때 불일치로 보이지만
   임의로 되돌리지 않는다. 바꾸려면 먼저 합의한다.
@@ -806,4 +823,5 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | ---- | ---------- | ---------------------------------------------------------------------- | ------ |
 | 1.0  | 2026-09-24 | Figma v2.2(node 228:754) 기준 최초 작성.                               | 김지선 |
 | 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가). | 이하준 |
-| 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm). `display`·`caption-lg` 제외. | 이하준 |
+| 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm). | 이하준 |
+| 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |

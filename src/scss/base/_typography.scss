@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-// 스타일명은 Figma Type/Table 그대로: Heading H1-H4 / Body / Label / Caption / Numeric
+// 스타일명은 Figma Type/Table 그대로: Display / Heading H1-H4 / Body / Label / Caption / Numeric
 // design-system.md 기준. 굵기는 400 / 500 / 700 세 가지만 쓴다.
 
 body {
@@ -33,6 +33,19 @@ h4 {
   font-size: $font-size-h4;
   line-height: $line-height-h4;
   font-weight: 500; // Medium
+}
+
+// Display — 추천 도서를 크게 소개하는 영역에서만 쓴다. 일반 페이지 제목에는 h1을 쓴다.
+.text-display-lg {
+  font-size: $font-size-display-lg;
+  line-height: $line-height-display-lg;
+  font-weight: 700;
+}
+
+.text-display {
+  font-size: $font-size-display;
+  line-height: $line-height-display;
+  font-weight: 700;
 }
 
 // 실제 heading 태그를 쓰지 않고 스타일만 재사용할 때(예: 스타일 가이드 데모)
@@ -110,6 +123,12 @@ small,
   font-size: $font-size-caption;
   line-height: $line-height-caption;
   font-weight: 700; // 상태 강조 캡션
+}
+
+.caption-lg {
+  font-size: $font-size-caption-lg;
+  line-height: $line-height-caption-lg;
+  font-weight: 400; // 도서 메타 정보
 }
 
 // Numeric — design-system.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
