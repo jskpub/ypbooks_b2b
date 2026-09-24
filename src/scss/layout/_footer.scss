@@ -45,17 +45,6 @@
     object-fit: contain;
   }
 
-  &__badge {
-    display: inline-flex;
-    align-items: center;
-    padding: $space-1 $space-2;
-    border-radius: $radius-sm;
-    background-color: $color-primary;
-    color: $color-on-primary;
-    font-size: $font-size-label-sm;
-    font-weight: 700;
-  }
-
   // 상단 줄 — 링크 내비게이션
   &__nav {
     display: flex;

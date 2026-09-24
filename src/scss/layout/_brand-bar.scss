@@ -15,6 +15,7 @@
     height: auto;
     gap: 0.8rem;
     padding-left: 54px;
+    align-items: center;
     &:focus-visible {
       outline: 2px solid $color-focus-ring;
       outline-offset: 2px;
