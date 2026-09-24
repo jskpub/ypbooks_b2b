@@ -43,6 +43,9 @@
   align-items: center; // 실제로 반복되는 조합 대부분이 center라 기본값으로 포함
 }
 
+.items-center {
+  align-items: flex-start;
+}
 
 .items-start {
   align-items: flex-start;

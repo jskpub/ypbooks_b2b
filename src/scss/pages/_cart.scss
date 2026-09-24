@@ -252,6 +252,14 @@
       font-size: $font-size-caption;
       font-weight: 700;
       color: $color-foreground-secondary;
+
+      &.cart-table__delivery-col {
+        > div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
     }
   }
 
@@ -265,6 +273,7 @@
 
     &:hover {
       background-color: $color-neutral-0;
+      cursor: pointer;
     }
   }
 
@@ -280,11 +289,6 @@
   &__delivery-col {
     width: rem(200);
     position: relative;
-
-    > div {
-      display: flex;
-      align-items: center;
-    }
   }
 
   &__help {
@@ -424,29 +428,6 @@
   &:hover {
     color: $color-danger;
     background-color: $color-danger-soft;
-  }
-}
-
-// 비어있을 때
-.cart-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $space-4;
-  padding: $space-16 $space-6;
-  text-align: center;
-  border: $border-width-1 solid $color-border;
-  border-radius: $radius-lg;
-  color: $color-foreground-secondary;
-
-  .icon {
-    width: rem(48);
-    height: rem(48);
-    color: $color-disabled-text;
-  }
-
-  &[hidden] {
-    display: none;
   }
 }
 
