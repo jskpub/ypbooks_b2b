@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { Icon, type IconName } from '@/components/Icon';
 import type { CartItem } from '@/data/cartItems';
 
@@ -21,8 +22,17 @@ function formatWon(amount: number) {
 export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon, groupBadgeLabel, onToggleChecked, onQtyChange, onRemove }: CartItemRowProps) {
   const discountRate = Math.round((1 - item.sellingPrice / item.listPrice) * 100);
 
+  // 행 아무 데나 클릭해도 체크박스처럼 선택/해제되게 한다. 단 수량 스텝퍼/삭제/배송안내 버튼처럼
+  // 자기 자신의 동작이 있는 요소를 눌렀을 땐 행 선택이 같이 바뀌면 안 된다 — 체크박스 자체를
+  // 클릭했을 때도 여기서 한 번 더 토글하면 onChange와 겹쳐서 상쇄(토글 안 되는 버그)되므로 걸러낸다.
+  const handleRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('input, button, a')) return;
+    onToggleChecked(item.id);
+  };
+
   return (
-    <tr>
+    <tr onClick={handleRowClick}>
       <td>
         <div className='cart-book'>
           <input type='checkbox' className='cart-book__checkbox checkbox' aria-label={`${item.title} 선택`} checked={item.checked} onChange={() => onToggleChecked(item.id)} />
@@ -55,7 +65,9 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
         </div>
       </td>
       <td>
-        <div className='cart-order-amount'>{formatWon(item.sellingPrice * item.qty)}</div>
+        <div className='cart-order-amount'>
+          <strong>{(item.sellingPrice * item.qty).toLocaleString('ko-KR')}</strong>원
+        </div>
         <div className='stepper'>
           <button type='button' className='stepper__btn' aria-label='수량 감소' disabled={item.qty <= 1} onClick={() => onQtyChange(item.id, Math.max(1, item.qty - 1))}>
             <Icon name='minus' />

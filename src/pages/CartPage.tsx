@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { StepIndicator } from '@/components/StepIndicator';
+import StepIndicator from '@/components/StepIndicator';
 import CartGroupSection from '@/components/Cart/CartGroupSection';
 import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
 import { initialCartItems, type CartGroup } from '@/data/cartItems';
