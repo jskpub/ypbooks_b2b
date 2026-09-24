@@ -11,11 +11,6 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path='/' element={<HomePage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='/payment' element={<PaymentPage />} />
-        <Route path='/layout-preview' element={<LayoutPreviewPage />} />
-        <Route path='/style-guide/components' element={<StyleGuideComponentsPage />} />
-        <Route path='/style-guide/foundations' element={<StyleGuideFoundationsPage />} />
       </Route>
     </Routes>
   );
