@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
-import { StepIndicator } from '@/components/StepIndicator';
+import StepIndicator from '@/components/StepIndicator';
+import EmptyState from '@/components/EmptyState';
 import CartGroupSection from '@/components/Cart/CartGroupSection';
 import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
 import { initialCartItems, type CartGroup } from '@/data/cartItems';
@@ -143,15 +144,8 @@ export default function CartPage() {
               </div>
             )}
 
-            {isEmpty && (
-              <div className='cart-empty'>
-                <Icon name='shopping-bag' />
-                <p className='text-h4'>장바구니에 담긴 상품이 없습니다.</p>
-                <a href='javascript:;' className='btn btn--primary'>
-                  추천도서 둘러보기
-                </a>
-              </div>
-            )}
+            {/* 원본은 추천도서 목록 페이지로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
+            {isEmpty && <EmptyState icon='shopping-cart-simple' title='장바구니에 담긴 상품이 없습니다.' description='마음에 드는 도서를 담아 보세요.' actionLabel='추천도서 둘러보기' />}
 
             <CartGroupSection
               bodyId='cart-group-recommended-body'

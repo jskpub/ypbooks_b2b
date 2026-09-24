@@ -252,6 +252,14 @@
       font-size: $font-size-caption;
       font-weight: 700;
       color: $color-foreground-secondary;
+
+      &.cart-table__delivery-col {
+        > div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
     }
   }
 
@@ -263,10 +271,9 @@
       border-bottom: none;
     }
 
-    // v2.3: amber 팔레트가 삭제되면서 $color-surface로 교체. 원래 amber-50(#fff6e5)은
-    // 디자인 시스템 어느 버전에도 용도가 정의된 적이 없다(행 hover는 surface가 맞다).
     &:hover {
-      background-color: $color-surface;
+      background-color: $color-neutral-0;
+      cursor: pointer;
     }
   }
 
@@ -282,11 +289,6 @@
   &__delivery-col {
     width: rem(200);
     position: relative;
-
-    > div {
-      display: flex;
-      align-items: center;
-    }
   }
 
   &__help {
@@ -386,9 +388,13 @@
 }
 
 .cart-order-amount {
-  font-weight: 700;
+  font-weight: 500;
   color: $color-foreground;
   margin-bottom: $space-2;
+
+  strong {
+    font-weight: 700;
+  }
 }
 
 .cart-delivery-eta {
@@ -422,29 +428,6 @@
   &:hover {
     color: $color-danger;
     background-color: $color-danger-soft;
-  }
-}
-
-// 비어있을 때
-.cart-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $space-4;
-  padding: $space-16 $space-6;
-  text-align: center;
-  border: $border-width-1 solid $color-border;
-  border-radius: $radius-lg;
-  color: $color-foreground-secondary;
-
-  .icon {
-    width: rem(48);
-    height: rem(48);
-    color: $color-disabled-text;
-  }
-
-  &[hidden] {
-    display: none;
   }
 }
 
