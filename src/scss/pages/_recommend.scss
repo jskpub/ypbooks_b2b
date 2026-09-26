@@ -1,0 +1,118 @@
+@use '../abstracts' as *;
+
+.recommend-page {
+  padding-block: $space-8;
+
+  &__section-title {
+    margin-bottom: $space-4;
+  }
+}
+
+.recommend-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  padding-block: $space-12;
+  margin-bottom: $space-8;
+  text-align: center;
+  background-color: $color-surface;
+  border-radius: $radius-lg;
+
+  &__eyebrow {
+    color: $color-primary;
+  }
+
+  &__subtext {
+    color: $color-foreground-secondary;
+  }
+}
+
+.recommend-thumbs {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-6;
+  margin-bottom: $space-12;
+  overflow-x: auto;
+
+  &__item {
+    flex: 0 0 auto;
+    width: rem(96);
+    height: rem(128);
+    background-color: $color-surface;
+    border-radius: $radius-sm;
+    border: $border-width-2 solid transparent;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &.is-active {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.past-recommendations {
+  &__title {
+    margin-bottom: $space-6;
+  }
+}
+
+.past-recommendation-row {
+  & + & {
+    margin-top: $space-8;
+  }
+
+  &__month {
+    margin-bottom: $space-3;
+    color: $color-foreground-secondary;
+  }
+
+  &__track {
+    display: flex;
+    gap: $space-4;
+    overflow-x: auto;
+  }
+}
+
+.past-card {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  width: rem(104);
+
+  &__cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(104);
+    height: rem(139);
+    background-color: $color-surface;
+    border-radius: $radius-sm;
+    color: $color-muted;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__target {
+    color: $color-muted;
+  }
+
+  &__title {
+    color: $color-foreground;
+  }
+
+  &__author {
+    color: $color-foreground-secondary;
+  }
+}

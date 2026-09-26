@@ -1,16 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import BestsellerPage from '@/pages/BestsellerPage';
 import BookDetailPage from '@/pages/BookDetailPage';
-import BookListPage from '@/pages/BookListPage';
 import CartPage from '@/pages/CartPage';
 import HomePage from '@/pages/HomePage';
 import MyReadingStatusPage from '@/pages/MyReadingStatusPage';
 import MyReviewsPage from '@/pages/MyReviewsPage';
+import NewArrivalPage from '@/pages/NewArrivalPage';
 import PaymentPage from '@/pages/PaymentPage';
+import RecommendPage from '@/pages/RecommendPage';
 import ReviewFormPage from '@/pages/ReviewFormPage';
 import ReviewPage from '@/pages/ReviewPage';
 import SearchPage from '@/pages/SearchPage';
-import { fetchBestsellerBooks, fetchNewArrivalBooks, fetchRecommendedBooks } from '@/services/aladinApi';
 
 function App() {
   return (
@@ -22,10 +23,10 @@ function App() {
         <Route path='/payment' element={<PaymentPage />} />
         <Route path='/review' element={<ReviewPage />} />
 
-        {/* BOOK-01/03/04 — 목록 3종. design-system.md Book Card("홈, 추천도서 선택")를 그대로 재사용한다. */}
-        <Route path='/recommend' element={<BookListPage title='추천 도서' fetcher={fetchRecommendedBooks} variant='home_bookcard' showPrice={false} />} />
-        <Route path='/bestseller' element={<BookListPage title='베스트' fetcher={() => fetchBestsellerBooks(20)} variant='home_best' showRank />} />
-        <Route path='/new' element={<BookListPage title='신상품' fetcher={() => fetchNewArrivalBooks(20)} variant='home_bookcard' />} />
+        {/* BOOK-01/03/04 — Figma 84:50/84:648/84:1015 기준 전용 화면 (Picked Book / Book List) */}
+        <Route path='/recommend' element={<RecommendPage />} />
+        <Route path='/bestseller' element={<BestsellerPage />} />
+        <Route path='/new' element={<NewArrivalPage />} />
 
         {/* BOOK-05 — 도서 상세 */}
         <Route path='/books/:isbn13' element={<BookDetailPage />} />

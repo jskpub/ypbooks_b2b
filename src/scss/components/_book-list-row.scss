@@ -1,0 +1,103 @@
+@use '../abstracts' as *;
+
+// Figma node 90:260 "Book List"(Property 1=Default/Best) 실측 — design-system.md에 없던
+// 컴포넌트라 여기서 새로 정의한다. 베스트(BOOK-03)·신상품(BOOK-04) 목록 전용.
+.book-list-row {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding-block: $space-4;
+  border-bottom: $border-width-1 solid $color-border;
+
+  &__cover {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(90);
+    height: rem(126);
+    background-color: $color-surface;
+    color: $color-muted;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__rank {
+    position: absolute;
+    top: $space-1;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(24);
+    height: rem(24);
+    background-color: $color-primary;
+    color: $color-on-primary;
+    font-size: $font-size-label-sm;
+    line-height: $line-height-label-sm;
+    font-weight: 700;
+  }
+
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    min-width: 0;
+  }
+
+  &__chips {
+    display: flex;
+    gap: $space-2;
+  }
+
+  &__category {
+    color: $color-muted;
+  }
+
+  &__title {
+    color: $color-foreground;
+  }
+
+  &__meta {
+    color: $color-foreground-secondary;
+  }
+
+  &__price-row {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__discount {
+    color: $color-danger;
+    font-weight: 700;
+  }
+
+  &__selling {
+    color: $color-foreground;
+  }
+
+  &__list {
+    color: $color-muted;
+    text-decoration: line-through;
+  }
+
+  &__actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    width: rem(160);
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

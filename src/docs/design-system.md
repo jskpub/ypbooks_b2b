@@ -393,6 +393,23 @@ components:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
     size: 24px
+  book-list-row:
+    backgroundColor: "{colors.surface-card}"
+    textColor: "{colors.foreground}"
+    borderColor: "{colors.border}"
+    gap: 16px
+  book-list-row-cover:
+    backgroundColor: "{colors.surface}"
+    width: 90px
+    height: 126px
+  book-list-row-rank:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    size: 24px
+  category-sidebar:
+    textColor: "{colors.foreground-secondary}"
+    activeTextColor: "{colors.primary}"
+    width: 140px
   payment-sidebar:
     backgroundColor: '{colors.surface-card}'
     textColor: '{colors.foreground}'
@@ -696,6 +713,8 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 **Step Indicator** — 주문 흐름 3단계(장바구니 → 결제하기 → 주문 완료). 28px 원 + 라벨(간격 8px), 단계 사이 64×2px 연결선. 완료·현재 단계는 빨강 원 + 빨강 연결선, 현재 라벨은 `{typography.label-lg}` `{colors.foreground}`, 남은 단계는 흰 원 + 2px `{colors.border-control}` + `{colors.foreground-secondary}` 라벨 + `{colors.border}` 연결선. 숫자는 순서 표시에만 쓴다.
 
+**`category-sidebar`** — 베스트(BOOK-03)·신상품(BOOK-04) 좌측 카테고리 목록. 너비 140px, 항목 `{typography.body-sm}` `{colors.foreground-secondary}`. 선택 항목은 `{colors.primary}` + Bold. 2026-09-27: 알라딘 CategoryId 매핑표가 아직 없어서 "종합"(전체)만 실제로 동작하고 나머지 항목은 자리만 잡아 둔 상태 — 매핑표 확보되면 실제 필터로 연결한다.
+
 ## Do's and Don'ts
 
 ### Do
@@ -899,3 +918,4 @@ Figma variant(`Property 1`):
 | 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |
 | 2.3  | 2026-09-25 | `caption-lg-strong`(14/20, Bold) 추가 — 평점 등 강조가 필요한 도서 메타.                               | 이하준 |
 | 2.4  | 2026-09-25 | Book Card(node 87:3024) 실제 컴포넌트 기준으로 정정 — `home_bookcard`/`home_best` variant, 순위·가격 옵션 토글 반영. 문서에만 있던 caption·Badge·Button 삭제. | 이수현 |
+| 2.5  | 2026-09-27 | 신규 컴포넌트 토큰 추가(`book-list-row`, `book-list-row-cover`, `book-list-row-rank`, `category-sidebar`) — 베스트/신상품(BOOK-03/04) 재구현. 기존 항목은 수정하지 않음. | 이수현 |

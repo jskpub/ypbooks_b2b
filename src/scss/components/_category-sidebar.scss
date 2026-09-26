@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+
+.category-sidebar {
+  flex: 0 0 auto;
+  width: rem(140);
+
+  &__title {
+    margin-bottom: $space-4;
+    color: $color-foreground;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    width: 100%;
+    padding-block: $space-2;
+    text-align: left;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+
+    &.is-active {
+      color: $color-primary;
+      font-weight: 700;
+    }
+
+    &:disabled {
+      cursor: default;
+      color: $color-disabled-text;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@use '../abstracts' as *;
+
+// 베스트(BOOK-03)/신상품(BOOK-04) 공용 레이아웃 — 카테고리 사이드바 + 본문.
+.catalog-page {
+  display: flex;
+  gap: $space-10;
+  padding-block: $space-8;
+
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title {
+    margin-bottom: $space-4;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: $space-2;
+    border-bottom: $border-width-1 solid $color-border;
+    margin-bottom: $space-4;
+  }
+
+  &__sort {
+    display: flex;
+    gap: $space-3;
+    margin-bottom: $space-4;
+  }
+
+  &__sort-option {
+    color: $color-foreground-secondary;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+
+    &.is-active {
+      color: $color-foreground;
+      font-weight: 700;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+}

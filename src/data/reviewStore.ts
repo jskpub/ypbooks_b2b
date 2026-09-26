@@ -38,6 +38,15 @@ export function getMyReviewByIsbn(isbn13: string, authorName: string = CURRENT_U
   return readAll().find((review) => review.isbn13 === isbn13 && review.authorName === authorName);
 }
 
+// BOOK-01 대표 도서 영역의 "평점 X.X · 서평 N개" — 우리 자체 서평 데이터 기준(알라딘 평점 아님).
+// 공개(비공개 제외) 서평만 집계한다.
+export function getReviewStatsByIsbn(isbn13: string): { average: number; count: number } {
+  const matched = readAll().filter((review) => review.isbn13 === isbn13 && review.visibility !== 'private');
+  if (matched.length === 0) return { average: 0, count: 0 };
+  const sum = matched.reduce((acc, review) => acc + review.rating, 0);
+  return { average: Math.round((sum / matched.length) * 10) / 10, count: matched.length };
+}
+
 export function saveReview(review: Review): void {
   const all = readAll();
   const idx = all.findIndex((existing) => existing.id === review.id);

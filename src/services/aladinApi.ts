@@ -15,6 +15,9 @@ export interface AladinItem {
   isbn13: string;
   itemId: number;
   categoryName: string;
+  publisher: string;
+  pubDate: string;
+  salesPoint: number;
 }
 
 interface AladinListResponse {
@@ -42,22 +45,23 @@ async function callProxy(path: string, params: Record<string, string>): Promise<
 }
 
 export interface RecommendedAladinItem extends AladinItem {
+  target: string;
   recommendReason: string;
 }
 
-// 홈 화면 "이달의 추천도서" 위젯용.
-// src/data/recommendedBookList.ts(영풍문고 MD 큐레이션 ISBN 10권 + 추천사유)를 원천으로 삼고,
+// 홈/추천도서(BOOK-01) 화면용.
+// src/data/recommendedBookList.ts(영풍문고 MD 큐레이션 ISBN 10권 + 추천대상 + 추천사유)를 원천으로 삼고,
 // 도서 정보(제목/저자/표지/가격)는 ISBN마다 알라딘 ItemLookUp으로 조회해 채운다.
 // 이 목록의 ISBN이 곧 "지원금 100% 적용 대상" 판정 기준이 된다(장바구니/결제 로직에서 재사용).
 export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> {
   const results = await Promise.all(
-    recommendedBookList.map(async ({ isbn13, recommendReason }) => {
+    recommendedBookList.map(async ({ isbn13, target, recommendReason }) => {
       const items = await callProxy('/api/aladin/lookup', {
         ItemId: isbn13,
         ItemIdType: 'ISBN13',
       });
       const item = items[0];
-      return item ? { ...item, recommendReason } : null;
+      return item ? { ...item, target, recommendReason } : null;
     }),
   );
   return results.filter((item): item is RecommendedAladinItem => item !== null);
@@ -72,10 +76,21 @@ export function fetchBestsellerBooks(maxResults = 8): Promise<AladinItem[]> {
   });
 }
 
-// 홈 화면 "신간 도서" 위젯용.
+// 홈 화면 "신간 도서" 위젯 / 신상품(BOOK-04) "새로 나온 도서" 탭.
 export function fetchNewArrivalBooks(maxResults = 8): Promise<AladinItem[]> {
   return callProxy('/api/aladin/list', {
     QueryType: 'ItemNewAll',
+    SearchTarget: 'Book',
+    MaxResults: String(maxResults),
+  });
+}
+
+// 신상품(BOOK-04) "화제의 신간" 탭. 알라딘엔 출간 전 예약판매 전용 리스트가 없어서, 대신
+// "주목할 만한 신간"(ItemNewSpecial)을 쓴다. Year/Month/Week 같은 기간 파라미터는 Bestseller
+// 전용이라 여기선 필요 없다 — 알라딘이 알아서 최신 기준으로 준다.
+export function fetchNewSpecialBooks(maxResults = 8): Promise<AladinItem[]> {
+  return callProxy('/api/aladin/list', {
+    QueryType: 'ItemNewSpecial',
     SearchTarget: 'Book',
     MaxResults: String(maxResults),
   });

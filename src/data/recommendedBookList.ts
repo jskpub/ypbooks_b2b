@@ -1,5 +1,7 @@
 export interface RecommendedBookEntry {
   isbn13: string;
+  /** 추천대상 — Figma BOOK-01 "추천대상" 라벨, 영풍문고 큐레이션 담당자가 짧게 작성하는 값. */
+  target: string;
   recommendReason: string;
 }
 
@@ -9,14 +11,19 @@ export interface RecommendedBookEntry {
 // 50% · 최대 1만원 지원). 제목/저자/표지/가격 같은 도서 정보는 여기 두지 않는다 — 알라딘 API
 // (ItemLookUp)가 단일 출처이고, fetchRecommendedBooks()가 이 ISBN을 기준으로 매번 조회해 온다.
 export const recommendedBookList: RecommendedBookEntry[] = [
-  { isbn13: '9791187142560', recommendReason: '설득과 협업의 기본기를 다지는 고전으로, 어떤 직무에서도 바로 쓸 수 있는 대인관계 원칙을 담고 있습니다.' },
-  { isbn13: '9791187444725', recommendReason: '재무 설계와 자산 관리에 대한 실용적인 통찰을 제공해 개인 재무 역량을 키우는 데 도움이 됩니다.' },
-  { isbn13: '9791193638859', recommendReason: '매년 발간되는 소비트렌드 전망서로, 업무에 바로 활용할 수 있는 산업·시장 인사이트를 제공합니다.' },
-  { isbn13: '9791162540640', recommendReason: '작은 습관으로 성과를 쌓는 법을 다룬 자기계발 베스트셀러로, 업무 생산성 향상에 실질적인 도움이 됩니다.' },
-  { isbn13: '9791162540633', recommendReason: '재능보다 끈기가 성과를 만든다는 것을 데이터로 증명한 책으로, 장기 프로젝트를 수행하는 직무에 유용합니다.' },
-  { isbn13: '9788966260577', recommendReason: '가설 검증과 빠른 실행을 강조하는 방법론으로, 신사업·기획 직무 담당자에게 특히 추천합니다.' },
-  { isbn13: '9788997575169', recommendReason: '우선순위를 정하고 집중하는 법을 다뤄, 업무 몰입도를 높이고 싶은 분들에게 권합니다.' },
-  { isbn13: '9788901227542', recommendReason: '행동경제학 관점에서 선택 설계를 다뤄 마케팅·기획 업무에 실질적인 통찰을 제공합니다.' },
-  { isbn13: '9788934977919', recommendReason: '리더십과 자기관리의 원칙을 담은 경영 고전으로, 신입부터 관리자까지 두루 추천할 만합니다.' },
-  { isbn13: '9788965707691', recommendReason: '디지털 전환 시대의 산업 변화를 조망하는 책으로, 업종을 불문하고 참고할 만한 인사이트를 제공합니다.' },
+  { isbn13: '9791187142560', target: '신입~주니어 임직원에게', recommendReason: '설득과 협업의 기본기를 다지는 고전으로, 어떤 직무에서도 바로 쓸 수 있는 대인관계 원칙을 담고 있습니다.' },
+  { isbn13: '9791187444725', target: '재무 설계를 고민하는 분께', recommendReason: '재무 설계와 자산 관리에 대한 실용적인 통찰을 제공해 개인 재무 역량을 키우는 데 도움이 됩니다.' },
+  { isbn13: '9791193638859', target: '기획·마케팅 담당자에게', recommendReason: '매년 발간되는 소비트렌드 전망서로, 업무에 바로 활용할 수 있는 산업·시장 인사이트를 제공합니다.' },
+  { isbn13: '9791162540640', target: '업무 루틴을 개선하고 싶은 분께', recommendReason: '작은 습관으로 성과를 쌓는 법을 다룬 자기계발 베스트셀러로, 업무 생산성 향상에 실질적인 도움이 됩니다.' },
+  { isbn13: '9791162540633', target: '장기 프로젝트를 맡은 분께', recommendReason: '재능보다 끈기가 성과를 만든다는 것을 데이터로 증명한 책으로, 장기 프로젝트를 수행하는 직무에 유용합니다.' },
+  { isbn13: '9788966260577', target: '신사업·기획 담당자에게', recommendReason: '가설 검증과 빠른 실행을 강조하는 방법론으로, 신사업·기획 직무 담당자에게 특히 추천합니다.' },
+  { isbn13: '9788997575169', target: '업무 몰입도를 높이고 싶은 분께', recommendReason: '우선순위를 정하고 집중하는 법을 다뤄, 업무 몰입도를 높이고 싶은 분들에게 권합니다.' },
+  { isbn13: '9788901227542', target: '마케팅·기획 담당자에게', recommendReason: '행동경제학 관점에서 선택 설계를 다뤄 마케팅·기획 업무에 실질적인 통찰을 제공합니다.' },
+  { isbn13: '9788934977919', target: '신입부터 관리자까지', recommendReason: '리더십과 자기관리의 원칙을 담은 경영 고전으로, 신입부터 관리자까지 두루 추천할 만합니다.' },
+  { isbn13: '9788965707691', target: '업종·직무 무관 전 임직원에게', recommendReason: '디지털 전환 시대의 산업 변화를 조망하는 책으로, 업종을 불문하고 참고할 만한 인사이트를 제공합니다.' },
 ];
+
+// 베스트/신상품 목록의 "추천도서" 칩 — 이달의 추천도서 10권에 포함돼 있을 때만 노출(BOOK-03/04 스펙).
+export function isCurrentlyRecommended(isbn13: string): boolean {
+  return recommendedBookList.some((entry) => entry.isbn13 === isbn13);
+}

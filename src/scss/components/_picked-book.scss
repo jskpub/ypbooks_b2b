@@ -1,0 +1,78 @@
+@use '../abstracts' as *;
+
+// design-system.md "Picked Book" 패턴 구현 — Figma node 84:105(feat-wrap) 실측 기준.
+.picked-book {
+  display: flex;
+  gap: $space-8;
+  padding: $space-8;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  &__cover {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(220);
+    height: rem(293);
+    background-color: $color-surface;
+    border-radius: $radius-md;
+    color: $color-muted;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .icon {
+      width: rem(48);
+      height: rem(48);
+    }
+  }
+
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    min-width: 0;
+  }
+
+  &__target {
+    color: $color-primary;
+  }
+
+  &__byline {
+    color: $color-foreground-secondary;
+  }
+
+  &__meta {
+    color: $color-muted;
+  }
+
+  &__stats {
+    display: flex;
+    gap: $space-4;
+    color: $color-foreground-secondary;
+    margin-top: $space-2;
+  }
+
+  &__reason {
+    margin-top: $space-2;
+    color: $color-foreground;
+    white-space: pre-line;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-3;
+    margin-top: $space-4;
+
+    .btn {
+      min-width: rem(160);
+    }
+  }
+}
