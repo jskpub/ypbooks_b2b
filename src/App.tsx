@@ -6,6 +6,7 @@ import CartPage from '@/pages/CartPage';
 import HomePage from '@/pages/HomePage';
 import MyReadingStatusPage from '@/pages/MyReadingStatusPage';
 import MyReviewsPage from '@/pages/MyReviewsPage';
+import MyStatsPage from '@/pages/MyStatsPage';
 import NewArrivalPage from '@/pages/NewArrivalPage';
 import OrderCompletePage from '@/pages/OrderCompletePage';
 import PaymentPage from '@/pages/PaymentPage';
@@ -13,7 +14,6 @@ import RecommendPage from '@/pages/RecommendPage';
 import ReviewFormPage from '@/pages/ReviewFormPage';
 import ReviewPage from '@/pages/ReviewPage';
 import SearchPage from '@/pages/SearchPage';
-import SubsidyCalloutPreviewPage from '@/pages_temp/SubsidyCalloutPreviewPage';
 
 function App() {
   return (
@@ -37,11 +37,9 @@ function App() {
         {/* REVIEW-02/03/04 — 계정 드롭다운(마이페이지) UI는 아직 없어서 라우트만 먼저 연다.
             REVIEW_SPEC.md "진입 경로 결정 (2026-09-25)" 절 참고. */}
         <Route path='/myreading' element={<MyReadingStatusPage />} />
+        <Route path='/mystats' element={<MyStatsPage />} />
         <Route path='/myreview' element={<MyReviewsPage />} />
         <Route path='/myreview/write/:isbn13' element={<ReviewFormPage />} />
-
-        {/* 검수용 임시 라우트 — 확인 끝나면 이 줄과 SubsidyCalloutPreviewPage import를 지워도 된다. */}
-        <Route path='/preview/subsidy-callout' element={<SubsidyCalloutPreviewPage />} />
       </Route>
     </Routes>
   );

@@ -4,6 +4,7 @@ import { initialAddresses, type Address } from '@/data/address';
 import { getItemEmployeePayment, getItemSubsidy } from '@/utils/subsidy';
 import { getShippingFee } from '@/utils/pricing';
 import { recommendedBookList } from '@/data/recommendedBookList';
+import { addPurchasedItems } from '@/data/readingStatusStore';
 
 export interface AddToCartInput {
   isbn13: string;
@@ -226,6 +227,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }));
     setItems((prev) => prev.filter((item) => !item.checked));
     setLastOrder(order);
+    // 나의 독서현황(/myreading)·독서 통계(/mystats)는 별도 목업 저장소(readingStatusStore)를 쓰므로,
+    // 결제 완료 시점에 여기서 직접 이어줘야 실제 구매가 그 화면들에도 반영된다.
+    addPurchasedItems(orderItems.map((item) => item.id));
     return order;
   };
 

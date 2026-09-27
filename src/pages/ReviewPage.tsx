@@ -66,7 +66,7 @@ export default function ReviewPage() {
         <div className='review-feed__head'>
           <h1>서평</h1>
           <Link to='/myreading' className='btn btn--secondary'>
-            마이페이지에서 내 서평 쓰기
+            서평 작성
           </Link>
         </div>
 

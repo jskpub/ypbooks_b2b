@@ -5,20 +5,8 @@
   margin-inline: auto;
   padding-block: $space-8;
 
-  &__summary {
-    display: flex;
-    gap: $space-8;
-    padding: $space-6;
-    margin-block: $space-6;
-    background-color: $color-surface-card;
-    border: $border-width-1 solid $color-border;
-    border-radius: $radius-lg;
-  }
-
-  &__stat {
-    display: flex;
-    flex-direction: column;
-    gap: $space-1;
+  & > h1 {
+    margin-bottom: $space-6;
   }
 
   &__tabs {
@@ -28,28 +16,34 @@
     margin-bottom: $space-6;
   }
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: $space-4;
+  // 모바일 앱에서 책 상태 목록은 표지가 우선 식별 요소라 세로 카드 그리드가 스캔하기 쉽다
+  // (가로 리스트는 표지가 작아져 뱃지/텍스트가 먼저 보임). 이 프로젝트는 1280px 고정 데스크톱
+  // 전용이라(breakpoints.scss 참고) 반응형 분기 없이 3열로 고정한다.
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-6;
   }
 
-  &__item {
+  &__card {
     display: flex;
-    align-items: center;
-    gap: $space-4;
+    flex-direction: column;
+    gap: $space-3;
     padding: $space-4;
     background-color: $color-surface-card;
     border: $border-width-1 solid $color-border;
     border-radius: $radius-lg;
   }
 
-  &__cover {
-    flex: 0 0 auto;
-    width: rem(56);
-    height: rem(78);
+  &__card-cover {
+    position: relative;
+    aspect-ratio: 5 / 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: $color-surface;
-    border-radius: $radius-sm;
+    border-radius: $radius-md;
+    color: $color-muted;
     overflow: hidden;
 
     img {
@@ -57,33 +51,60 @@
       height: 100%;
       object-fit: cover;
     }
+
+    .icon {
+      width: rem(40);
+      height: rem(40);
+    }
   }
 
-  &__info {
-    flex: 1 1 auto;
+  &__card-info {
     display: flex;
     flex-direction: column;
     gap: $space-1;
+  }
+
+  &__card-title {
+    color: $color-foreground;
   }
 
   &__author {
     color: $color-foreground-secondary;
   }
 
+  // "독서 기간" 줄이 상태에 따라 생겼다 없어졌다 하면 카드 높이가 흔들려서, 항상 렌더링하고
+  // 해당 없을 때만 visibility로 숨긴다(공간은 그대로 차지).
+  &__card-info .is-hidden {
+    visibility: hidden;
+  }
+
   &__badge {
-    flex: 0 0 auto;
-    font-size: $font-size-label-base;
-    line-height: $line-height-label-base;
-    font-weight: 500;
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    padding: $space-1 $space-2;
+    border-radius: $radius-full;
+    background-color: $color-surface-card;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    font-weight: 600;
     color: $color-foreground-secondary;
 
     &.is-done {
-      color: $color-primary;
-      font-weight: 700;
+      background-color: $color-primary;
+      color: $color-on-primary;
     }
   }
 
-  &__action {
-    flex: 0 0 auto;
+  // 제목 줄바꿈 등으로 카드 내용 높이가 조금씩 달라도, 그리드가 한 행의 카드 높이를 맞춰주므로
+  // 버튼 줄을 카드 하단에 고정해두면 버튼 위치가 나란히 맞는다.
+  &__card-actions {
+    display: flex;
+    gap: $space-2;
+    margin-top: auto;
+
+    .btn {
+      flex: 1 1 auto;
+    }
   }
 }

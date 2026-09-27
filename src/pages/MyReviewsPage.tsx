@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import EmptyState from '@/components/EmptyState';
-import { Icon } from '@/components/Icon';
+import ReviewCard from '@/components/Review/ReviewCard';
 import type { Review, ReviewVisibility } from '@/data/reviews';
-import { getMyReviews, saveReview } from '@/data/reviewStore';
+import { deleteReview, getMyReviews, saveReview } from '@/data/reviewStore';
 import { fetchBookDetail } from '@/services/aladinApi';
 
-const VISIBILITY_OPTIONS: { key: ReviewVisibility; label: string }[] = [
-  { key: 'private', label: '비공개' },
-  { key: 'public-anonymous', label: '익명 공개' },
-  { key: 'public-real', label: '실명 공개' },
-];
-
 // REVIEW-03. 계정 드롭다운(마이페이지) UI가 아직 없어서 /myreview로 직접 진입한다.
+// REVIEW-01(서평 피드)과 같은 ReviewCard를 재사용하되, 좋아요 대신 관리 메뉴(공개범위 설정/
+// 수정하기/삭제하기)를 노출하는 'mine' variant로 렌더링한다.
 export default function MyReviewsPage() {
+  const location = useLocation();
   const [reviews, setReviews] = useState<Review[]>(() => getMyReviews());
   const [covers, setCovers] = useState<Record<string, string>>({});
+  const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -41,10 +39,36 @@ export default function MyReviewsPage() {
     };
   }, [reviews]);
 
-  const handleVisibilityChange = (review: Review, visibility: ReviewVisibility) => {
-    const updated = { ...review, visibility };
-    saveReview(updated);
-    setReviews((prev) => prev.map((r) => (r.id === review.id ? updated : r)));
+  // 서평엔 개별 상세 페이지가 없어서, /myreading의 "서평 보기"는 #review-{id} 해시로 이 목록에
+  // 진입시킨다 — 여기서 그 해시를 보고 해당 카드로 스크롤하고 잠깐 강조 표시한다.
+  useEffect(() => {
+    // 리뷰 id에 한글이 섞여 있으면 주소창엔 퍼센트 인코딩(%EA%B7%B8...)된 채로 남는데,
+    // DOM의 id 속성은 원문 그대로라 디코딩하지 않으면 getElementById가 못 찾는다.
+    const hash = decodeURIComponent(location.hash.replace('#', ''));
+    if (!hash.startsWith('review-')) return;
+    const el = document.getElementById(hash);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const id = hash.slice('review-'.length);
+    setHighlightedId(id);
+    const timer = setTimeout(() => setHighlightedId(null), 1600);
+    return () => clearTimeout(timer);
+  }, [location.hash]);
+
+  const handleChangeVisibility = (id: string, visibility: ReviewVisibility) => {
+    setReviews((prev) =>
+      prev.map((review) => {
+        if (review.id !== id) return review;
+        const updated = { ...review, visibility };
+        saveReview(updated);
+        return updated;
+      }),
+    );
+  };
+
+  const handleDelete = (id: string) => {
+    deleteReview(id);
+    setReviews((prev) => prev.filter((review) => review.id !== id));
   };
 
   return (
@@ -53,32 +77,24 @@ export default function MyReviewsPage() {
         <h1 className='text-h1'>나의 서평</h1>
 
         {reviews.length === 0 ? (
-          <EmptyState icon='books' title='아직 작성한 서평이 없습니다' description='완독한 책의 서평을 남겨 보세요.' actionLabel='독서현황 보러가기' onAction={() => (window.location.href = '/myreading')} />
+          <EmptyState
+            icon='books'
+            title='아직 작성한 서평이 없습니다'
+            description='완독한 책의 서평을 남겨 보세요.'
+            actionLabel='독서현황 보러가기'
+            onAction={() => (window.location.href = '/myreading')}
+          />
         ) : (
-          <ul className='my-reviews__list'>
+          <ul className='review-feed__list'>
             {reviews.map((review) => (
-              <li key={review.id} className='my-reviews__item'>
-                <div className='my-reviews__cover'>{covers[review.isbn13] ? <img src={covers[review.isbn13]} alt='' /> : <Icon name='books' />}</div>
-                <div className='my-reviews__info'>
-                  <p className='text-h4'>{review.bookTitle}</p>
-                  <p className='caption'>
-                    {review.updatedAt ? `${review.updatedAt} 수정` : `${review.createdAt} 작성`} · 별점 {review.rating}
-                  </p>
-                  <p className='text-body-sm'>{review.oneLiner}</p>
-                </div>
-                <div className='my-reviews__actions'>
-                  <div className='my-reviews__visibility' role='radiogroup' aria-label='공개 범위'>
-                    {VISIBILITY_OPTIONS.map((option) => (
-                      <label key={option.key} className='my-reviews__visibility-option'>
-                        <input type='radio' name={`visibility-${review.id}`} checked={review.visibility === option.key} onChange={() => handleVisibilityChange(review, option.key)} />
-                        {option.label}
-                      </label>
-                    ))}
-                  </div>
-                  <Link to={`/myreview/write/${review.isbn13}`} className='btn btn--secondary'>
-                    서평 수정
-                  </Link>
-                </div>
+              <li key={review.id} id={`review-${review.id}`} className={highlightedId === review.id ? 'is-highlighted' : undefined}>
+                <ReviewCard
+                  review={review}
+                  coverSrc={covers[review.isbn13]}
+                  variant='mine'
+                  onChangeVisibility={handleChangeVisibility}
+                  onDelete={handleDelete}
+                />
               </li>
             ))}
           </ul>

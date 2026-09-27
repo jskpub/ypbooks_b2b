@@ -54,3 +54,7 @@ export function saveReview(review: Review): void {
   else all.unshift(review);
   writeAll(all);
 }
+
+export function deleteReview(id: string): void {
+  writeAll(readAll().filter((review) => review.id !== id));
+}

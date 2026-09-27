@@ -74,6 +74,7 @@
 // .card를 재사용하지 않는 이유: .card는 hover 시 그림자를 주는데, design-system.md는
 // 카드 hover를 테두리($color-border-control) 변화로만 표현하도록 정해 두었다.
 .review-card {
+  position: relative;
   display: flex;
   gap: $space-6;
   padding: $space-6;
@@ -197,6 +198,112 @@
     flex-direction: column;
     align-items: flex-end;
     gap: $space-3;
+  }
+
+  // REVIEW-03 "나의 서평" 전용 관리 메뉴(공개범위 설정/수정하기/삭제하기). REVIEW-01 피드에서는
+  // 렌더링되지 않는다(variant='mine'일 때만).
+  &__menu {
+    position: absolute;
+    top: $space-6;
+    right: $space-6;
+  }
+
+  &__menu-head {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  // 메뉴를 열지 않아도 지금 공개 범위가 뭔지 바로 보이게 트리거 옆에 상시 표시한다.
+  &__visibility-label {
+    color: $color-foreground-secondary;
+  }
+
+  &__menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(32);
+    height: rem(32);
+    border-radius: $radius-full;
+    color: $color-foreground-secondary;
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  &__menu-panel {
+    position: absolute;
+    top: calc(100% + #{$space-1});
+    right: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: rem(160);
+    padding: $space-2;
+    background-color: $color-surface-card;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-md;
+    box-shadow: $shadow-floating;
+  }
+
+  &__menu-item {
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    text-align: left;
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+    color: $color-foreground;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+
+    &.is-danger {
+      color: $color-danger;
+    }
+  }
+
+  &__menu-visibility {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    padding: $space-1;
+  }
+
+  &__menu-radio {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+    color: $color-foreground;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+  }
+
+  &__menu-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    padding: $space-2;
+  }
+
+  &__menu-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-2;
   }
 
   &__date {
