@@ -274,8 +274,19 @@
       font-weight: 700;
       color: $color-foreground-secondary;
 
+      &.cart-table__book-col {
+        text-align: left;
+        padding-left: rem(20);
+      }
+
+      &.cart-table__price-col,
+      &.cart-table__subsidy-col,
+      &.cart-table__payment-col {
+        text-align: right;
+      }
+
       &.cart-table__delivery-col {
-        >div {
+        > div {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -333,12 +344,16 @@
     width: rem(180);
   }
 
+  td.cart-table__subsidy-col {
+    text-align: right;
+  }
+
   &__payment-col {
     width: rem(150);
     position: relative;
   }
 
-  // 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
+  // 결제 페이지: 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
   td.cart-table__payment-col {
     text-align: right;
     padding-right: rem(48);

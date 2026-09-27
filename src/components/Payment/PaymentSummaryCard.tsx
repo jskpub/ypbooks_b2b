@@ -72,7 +72,8 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
       <label className='checkbox payment-summary__agree caption'>
         <input type='checkbox' checked={agreeTerms} onChange={(event) => onAgreeTermsChange(event.target.checked)} />
         <span>
-          주문 내용을 확인하였으며, <strong>개인정보 수집 및 제3자 제공 등</strong>에 동의합니다.
+          주문 내용을 확인하였으며, <br />
+          <strong>개인정보 수집 및 제3자 제공 등</strong>에 동의합니다.
         </span>
       </label>
 

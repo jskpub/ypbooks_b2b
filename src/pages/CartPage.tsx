@@ -95,9 +95,9 @@ export default function CartPage() {
                     </div>
                   </div>
                   {shippingShortfall > 0 && (
-                    <a href='javascript:;' className='btn btn--secondary btn--sm'>
+                    <Link to='/recommend' className='btn btn--secondary btn--sm'>
                       상품 더 담기
-                    </a>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function CartPage() {
               titleText='회사 100% 지원'
               titleNote={
                 <>
-                  *직원 부담금 <strong>0원</strong> (월 1권 한도)
+                  * 직원 부담금 <strong>0원</strong> (월 1권 한도)
                 </>
               }
               items={recommendedItems}
@@ -161,7 +161,7 @@ export default function CartPage() {
               titleText='도서 금액의 50% 지원'
               titleNote={
                 <>
-                  *1권 당 최대 <strong>10,000원</strong> 한도 지원 (월 1권 한도)
+                  * 1권 당 최대 <strong>10,000원</strong> 한도 지원 (월 1권 한도)
                 </>
               }
               items={personalItems}

@@ -63,7 +63,7 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
         <table className='cart-table'>
           <thead>
             <tr>
-              <th className='cart-table__book-col'>도서 정보</th>
+              <th className='cart-table__book-col'>상품 정보</th>
               <th className='cart-table__qty-col'>주문금액 / 수량</th>
               <th className='cart-table__delivery-col'>
                 <div>

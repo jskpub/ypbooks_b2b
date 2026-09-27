@@ -104,3 +104,29 @@
     top: 0;
   }
 }
+
+// 하이픈(-) 목록 스타일 공통 유틸리티 클래스
+.list-hyphen,
+.list-dash {
+  list-style: none;
+  padding-left: 0;
+  margin-top: $space-1;
+
+  > li {
+    position: relative;
+    padding-left: rem(10);
+
+    &::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: inherit;
+    }
+
+    + li {
+      margin-top: rem(2);
+    }
+  }
+}
+

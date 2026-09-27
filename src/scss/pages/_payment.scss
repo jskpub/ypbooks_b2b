@@ -48,6 +48,8 @@
     list-style: disc;
     padding-inline-start: $space-8;
     background-color: $color-surface;
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
 
     li + li {
       margin-top: $space-1;
@@ -345,6 +347,9 @@
     span {
       flex: 1 1 auto;
       min-width: 0;
+      font-size: $font-size-body-xs;
+      line-height: $line-height-body-xs;
+      word-break: keep-all;
     }
 
     strong {

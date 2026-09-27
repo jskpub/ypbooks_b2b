@@ -150,7 +150,7 @@ export default function PaymentPage() {
             <div className='layout-with-sidebar__main payment__main'>
               <SubsidyCallout recommendedUsed={subsidyLedger.recommendedUsed} personalUsed={subsidyLedger.personalUsed} hasRecommendedItems={recommendedItems.length > 0} hasPersonalItems={personalItems.length > 0} isMaxBenefitApplied={isMaxBenefitApplied} onApplyMaxBenefit={handleApplyMaxBenefit} />
 
-              <p className='payment__hint caption'>※ [지원금 적용하기] 버튼을 클릭하면 해당 도서에 지원금이 적용됩니다.</p>
+              <p className='payment__hint caption-lg'>※ [지원금 적용하기] 버튼을 클릭하면 해당 도서에 지원금이 적용됩니다.</p>
 
               <PaymentGroupSection
                 bodyId='payment-group-recommended-body'
@@ -160,7 +160,7 @@ export default function PaymentPage() {
                 titleText='회사 100% 지원'
                 titleNote={
                   <>
-                    *직원 부담금 <strong>0원</strong> (월 1권 한도)
+                    * 직원 부담금 <strong>0원</strong> (월 1권 한도)
                   </>
                 }
                 subsidyBtnClassName=''
@@ -182,7 +182,7 @@ export default function PaymentPage() {
                 titleText='도서 금액의 50% 지원'
                 titleNote={
                   <>
-                    *1권 당 최대 <strong>10,000원</strong> 한도 지원 (월 1권 한도)
+                    * 1권 당 최대 <strong>10,000원</strong> 한도 지원 (월 1권 한도)
                   </>
                 }
                 subsidyBtnClassName='subsidy-btn--personal'
@@ -258,7 +258,13 @@ export default function PaymentPage() {
                   <div className='cart-group__body' id='payment-info-delivery' hidden={!expanded.delivery}>
                     <ul className='payment__info-list caption'>
                       <li>재고 여부에 따라 품절/지연될 수 있으며, 이 경우 별도로 안내드립니다.</li>
-                      <li>당일배송은 서울 및 수도권 인근지역에서 12:00까지 주문 시 가능합니다.</li>
+                      <li>
+                        당일배송은 서울 및 수도권 인근지역에서 12:00까지 주문 시 가능합니다.
+                        <ul className='list-hyphen'>
+                          <li>네이버페이, 지마켓, 옥션, 쿠팡 등의 제휴사 주문은 연동시간에 따라 당일배송이 어려울 수 있습니다.</li>
+                          <li>직장, 기관 등의 배송지는 당일배송이 어려울 수 있으며, 학교 배송지는 당일배송이 불가합니다.</li>
+                        </ul>
+                      </li>
                       <li>배송지가 동일하더라도 여러 건으로 진행된 주문은 각각 배송료가 부과됩니다.</li>
                     </ul>
                   </div>
