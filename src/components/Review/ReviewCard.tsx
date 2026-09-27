@@ -59,49 +59,9 @@ export default function ReviewCard({ review, coverSrc, variant = 'public', isLik
 
   return (
     <article className='review-card'>
-      <div className='review-card__main'>
-        <p className='review-card__writer label-lg'>{authorLabel}</p>
-
-        <div>
-          <div className='review-card__title-row'>
-            <Link to={detailPath} className='review-card__title text-h4'>
-              {review.bookTitle}
-            </Link>
-            <span className='review-card__rating' role='img' aria-label={`별점 ${review.rating}점 (5점 만점)`}>
-              {Array.from({ length: MAX_RATING }, (_, index) => (
-                <Icon key={index} name='star' className={`icon review-card__star${index < review.rating ? ' is-filled' : ''}`} />
-              ))}
-            </span>
-          </div>
-          <p className='review-card__byline caption'>
-            {review.bookAuthor} · {review.publisher}
-          </p>
-        </div>
-
-        <p className='review-card__one-liner text-body-lg'>{review.oneLiner}</p>
-
-        <div className='review-card__detail'>
-          <p className='review-card__question caption-strong'>Q. {review.aiQuestion}</p>
-          <p className='review-card__answer text-body-sm'>{review.detail}</p>
-        </div>
-
-        {variant === 'public' && (
-          <button
-            type='button'
-            className={`review-card__like${isLiked ? ' is-active' : ''}`}
-            aria-pressed={isLiked}
-            aria-label={`좋아요 ${likeCount}`}
-            onClick={() => onToggleLike?.(review.id)}
-          >
-            <Icon name='heart' />
-            <span aria-hidden='true'>{likeCount}</span>
-          </button>
-        )}
-      </div>
-
-      <div className='review-card__aside'>
-        {variant === 'mine' && (
-          <div className='review-card__menu' ref={menuRef}>
+      {variant === 'mine' && (
+        <div className='review-card__topbar' ref={menuRef}>
+          <div className='review-card__menu'>
             <div className='review-card__menu-head'>
               <span className='review-card__visibility-label caption'>{visibilityLabel}</span>
               <button
@@ -174,13 +134,57 @@ export default function ReviewCard({ review, coverSrc, variant = 'public', isLik
               </div>
             )}
           </div>
-        )}
+        </div>
+      )}
 
-        <p className='review-card__date caption'>{review.updatedAt ? `${formatDate(review.updatedAt)} (수정)` : formatDate(review.createdAt)}</p>
-        {/* 표지는 제목과 같은 곳으로 가므로 탭 순서에서 뺀다. */}
-        <Link to={detailPath} className='review-card__cover' tabIndex={-1} aria-hidden='true'>
-          {coverSrc ? <img src={coverSrc} alt='' /> : <Icon name={review.coverIcon} />}
-        </Link>
+      <div className='review-card__body'>
+        <div className='review-card__main'>
+          <p className='review-card__writer label-lg'>{authorLabel}</p>
+
+          <div>
+            <div className='review-card__title-row'>
+              <Link to={detailPath} className='review-card__title text-h4'>
+                {review.bookTitle}
+              </Link>
+              <span className='review-card__rating' role='img' aria-label={`별점 ${review.rating}점 (5점 만점)`}>
+                {Array.from({ length: MAX_RATING }, (_, index) => (
+                  <Icon key={index} name='star' className={`icon review-card__star${index < review.rating ? ' is-filled' : ''}`} />
+                ))}
+              </span>
+            </div>
+            <p className='review-card__byline caption'>
+              {review.bookAuthor} · {review.publisher}
+            </p>
+          </div>
+
+          <p className='review-card__one-liner text-body-lg'>{review.oneLiner}</p>
+
+          <div className='review-card__detail'>
+            <p className='review-card__question caption-strong'>Q. {review.aiQuestion}</p>
+            <p className='review-card__answer text-body-sm'>{review.detail}</p>
+          </div>
+
+          {variant === 'public' && (
+            <button
+              type='button'
+              className={`review-card__like${isLiked ? ' is-active' : ''}`}
+              aria-pressed={isLiked}
+              aria-label={`좋아요 ${likeCount}`}
+              onClick={() => onToggleLike?.(review.id)}
+            >
+              <Icon name='heart' />
+              <span aria-hidden='true'>{likeCount}</span>
+            </button>
+          )}
+        </div>
+
+        <div className='review-card__aside'>
+          <p className='review-card__date caption'>{review.updatedAt ? `${formatDate(review.updatedAt)} (수정)` : formatDate(review.createdAt)}</p>
+          {/* 표지는 제목과 같은 곳으로 가므로 탭 순서에서 뺀다. */}
+          <Link to={detailPath} className='review-card__cover' tabIndex={-1} aria-hidden='true'>
+            {coverSrc ? <img src={coverSrc} alt='' /> : <Icon name={review.coverIcon} />}
+          </Link>
+        </div>
       </div>
     </article>
   );

@@ -74,9 +74,9 @@
 // .card를 재사용하지 않는 이유: .card는 hover 시 그림자를 주는데, design-system.md는
 // 카드 hover를 테두리($color-border-control) 변화로만 표현하도록 정해 두었다.
 .review-card {
-  position: relative;
   display: flex;
-  gap: $space-6;
+  flex-direction: column;
+  gap: $space-3;
   padding: $space-6;
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
@@ -85,6 +85,19 @@
 
   &:hover {
     border-color: $color-border-control;
+  }
+
+  // mine variant에서 메뉴를 담는 최상단 행
+  &__topbar {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  // topbar 아래, main + aside를 가로로 배치하는 컨테이너
+  &__body {
+    display: flex;
+    gap: $space-6;
   }
 
   &__main {
@@ -201,11 +214,9 @@
   }
 
   // REVIEW-03 "나의 서평" 전용 관리 메뉴(공개범위 설정/수정하기/삭제하기). REVIEW-01 피드에서는
-  // 렌더링되지 않는다(variant='mine'일 때만).
+  // 렌더링되지 않는다(variant='mine'일 때만). __topbar 안에서 일반 flow로 배치된다.
   &__menu {
-    position: absolute;
-    top: $space-6;
-    right: $space-6;
+    position: relative;
   }
 
   &__menu-head {

@@ -15,6 +15,10 @@ const VISIBILITY_OPTIONS: { key: ReviewVisibility; label: string }[] = [
   { key: 'public-real', label: '실명 공개' },
 ];
 
+function formatDate(isoDate: string) {
+  return isoDate.replaceAll('-', '.');
+}
+
 // REVIEW-04. 신규 작성/수정을 한 화면에서 처리한다(REVIEW_SPEC.md "화면 분리 원칙").
 // 공개범위는 스펙상 별도 모달이지만, 지금 단계에서는 폼 안 라디오로 간단히 둔다.
 export default function ReviewFormPage() {
@@ -42,7 +46,7 @@ export default function ReviewFormPage() {
     if (isEditing || !book) return;
     let cancelled = false;
     setAiLoading(true);
-    fetchAiQuestion({ title: book.title, author: book.author, category: book.categoryName })
+    fetchAiQuestion({ title: book.title, author: book.author, category: book.categoryName, description: book.description })
       .then((question) => {
         if (!cancelled) setAiQuestion(question);
       })
@@ -94,10 +98,14 @@ export default function ReviewFormPage() {
             <p className='text-h4'>{book?.title ?? '불러오는 중…'}</p>
             <p className='text-body-sm'>{book?.author}</p>
             {statusItem && (
-              <p className='caption'>
-                구매일 {statusItem.purchasedAt}
-                {statusItem.completedAt && ` · 독서완료일 ${statusItem.completedAt}`}
-              </p>
+              <>
+                <p className='caption'>구매일 {formatDate(statusItem.purchasedAt)}</p>
+                {statusItem.startedAt && statusItem.completedAt && (
+                  <p className='caption'>
+                    독서 기간 {formatDate(statusItem.startedAt)} ~ {formatDate(statusItem.completedAt)}
+                  </p>
+                )}
+              </>
             )}
             {isEditing && existing && (
               <p className='caption'>

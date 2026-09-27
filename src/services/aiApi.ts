@@ -7,13 +7,14 @@ const PROXY_BASE = import.meta.env.VITE_ALADIN_PROXY_URL as string | undefined;
 // REVIEW_SPEC.md 10.3 — AI 질문 생성 실패 시 노출할 대체 질문.
 export const FALLBACK_AI_QUESTION = '우리 회사 업무에 적용할 부분이 무엇인가요?';
 
-export async function fetchAiQuestion(book: { title: string; author?: string; category?: string }): Promise<string> {
+export async function fetchAiQuestion(book: { title: string; author?: string; category?: string; description?: string }): Promise<string> {
   if (!PROXY_BASE) return FALLBACK_AI_QUESTION;
   try {
     const url = new URL('/api/ai/question', PROXY_BASE);
     url.searchParams.set('title', book.title);
     if (book.author) url.searchParams.set('author', book.author);
     if (book.category) url.searchParams.set('category', book.category);
+    if (book.description) url.searchParams.set('description', book.description);
     const res = await fetch(url.toString());
     if (!res.ok) return FALLBACK_AI_QUESTION;
     const data: { question?: string } = await res.json();
