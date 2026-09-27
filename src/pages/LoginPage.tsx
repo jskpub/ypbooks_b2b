@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthLogo from '@/components/AuthLogo';
 import { Icon } from '@/components/Icon';
 import Spinner from '@/components/Spinner';
@@ -128,7 +128,13 @@ export default function LoginPage() {
         </div>
       </main>
 
-      <footer className='auth-login__copyright'>© 영풍문고 · 임직원 전용 시스템</footer>
+      <footer className='auth-login__copyright'>
+        <span>© 영풍문고 · 임직원 전용 시스템</span>
+        {/* 시연용: 가상 고객사 인트라넷(/intranet)으로 돌아가 SSO 진입 흐름을 다시 보여 준다. */}
+        <Link to='/intranet' className='btn btn--tertiary btn--sm'>
+          인트라넷으로 전환
+        </Link>
+      </footer>
     </div>
   );
 }

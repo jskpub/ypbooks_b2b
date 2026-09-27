@@ -189,6 +189,10 @@
 
   &__copyright {
     grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
     padding: $space-5 $space-10;
     border-top: $border-width-1 solid $color-border;
     font-size: $font-size-caption;

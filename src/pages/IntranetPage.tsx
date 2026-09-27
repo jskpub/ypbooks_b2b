@@ -75,6 +75,14 @@ export default function IntranetPage() {
               </ul>
             </section>
           </div>
+
+          {/* 로그인 화면 footer와 같은 스타일. 사이드바 아래로는 넘어가지 않도록 본문 영역 안에 둔다. */}
+          <footer className='intranet__footer'>
+            <span>© 한결그룹 · 임직원 전용 시스템</span>
+            <Link to='/login' className='btn btn--tertiary btn--sm'>
+              로그인으로 전환
+            </Link>
+          </footer>
         </main>
       </div>
     </div>
