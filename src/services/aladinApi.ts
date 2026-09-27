@@ -19,8 +19,19 @@ export interface AladinItem {
   pubDate: string;
   salesPoint: number;
   /** 알라딘 기본 응답에 포함된 책소개 요약. 목차/상세소개(OptResult=Toc,fulldescription)는
-   * 일반 TTBKey로 접근이 안 돼서(실측 확인) 이 필드가 AI 맞춤 질문에 쓸 수 있는 가장 상세한 정보다. */
+   * 일반 TTBKey로 접근이 안 돼서(실측 확인) 이 필드가 얻을 수 있는 가장 상세한 정보다.
+   * 항상 오는 필드지만 도서에 따라 빈 문자열일 수 있어 optional로 둔다. */
   description?: string;
+  /** OptResult=subInfo,packing으로 요청한 상세 조회(fetchBookDetail)에서만 채워진다. */
+  subInfo?: {
+    itemPage?: number;
+    packing?: {
+      styleDesc?: string;
+      sizeWidth?: number;
+      sizeHeight?: number;
+      sizeDepth?: number;
+    };
+  };
 }
 
 interface AladinListResponse {
@@ -117,6 +128,7 @@ export async function fetchBookDetail(isbn13: string): Promise<AladinItem | null
   const items = await callProxy('/api/aladin/lookup', {
     ItemId: isbn13,
     ItemIdType: 'ISBN13',
+    OptResult: 'subInfo,packing',
   });
   return items[0] ?? null;
 }

@@ -1,9 +1,63 @@
 @use '../abstracts' as *;
 
+// 브레드크럼 → (표지 | 정보) → 추천 이유 → 상품 정보 → 책 소개 순으로 세로로 쌓는다.
+// GNB/헤더는 1280px 그리드를 그대로 쓰고, 본문만 읽기 폭으로 좁힌다(review-feed/recommend와 동일 패턴).
 .book-detail {
   display: flex;
+  flex-direction: column;
   gap: $space-8;
+  max-width: $layout-reading-max-width;
+  margin-inline: auto;
   padding-block: $space-12;
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+  }
+
+  &__breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-2;
+    color: $color-foreground-secondary;
+  }
+
+  &__breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+
+    & + &::before {
+      content: '>';
+      color: $color-muted;
+    }
+
+    &--current {
+      color: $color-foreground;
+      font-weight: 500;
+    }
+  }
+
+  &__breadcrumb-link {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    color: $color-link;
+
+    .icon {
+      width: rem(16);
+      height: rem(16);
+    }
+  }
+
+  &__main {
+    display: flex;
+    gap: $space-8;
+  }
 
   &__cover {
     flex: 0 0 auto;
@@ -36,10 +90,6 @@
     padding-top: $space-2;
   }
 
-  &__category {
-    color: $color-foreground-secondary;
-  }
-
   &__author {
     color: $color-foreground-secondary;
     margin-bottom: $space-2;
@@ -70,5 +120,93 @@
     display: flex;
     align-items: center;
     gap: $space-3;
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__pubdate {
+    color: $color-foreground-secondary;
+  }
+
+  &__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    align-self: flex-start;
+    margin-bottom: $space-2;
+    color: $color-muted;
+
+    .icon {
+      width: rem(16);
+      height: rem(16);
+    }
+
+    &--link {
+      color: $color-foreground-secondary;
+
+      .icon {
+        color: $color-primary;
+      }
+
+      &:hover {
+        color: $color-link;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    padding-top: $space-8;
+    border-top: $border-width-1 solid $color-border;
+  }
+
+  &__section-title {
+    font-size: $font-size-h4;
+    line-height: $line-height-h4;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__reason {
+    padding: $space-5;
+    background-color: $color-surface;
+    border-radius: $radius-md;
+    color: $color-foreground;
+    white-space: pre-line;
+  }
+
+  // 상품 규격 정보 — 프로젝트에 table 패턴이 없어서 dl + grid(라벨 열 | 값 열)로 구성.
+  &__spec-table {
+    border-top: $border-width-1 solid $color-border-strong;
+  }
+
+  &__spec-row {
+    display: grid;
+    grid-template-columns: rem(140) 1fr;
+    border-bottom: $border-width-1 solid $color-border;
+  }
+
+  &__spec-th {
+    padding: $space-3 $space-4;
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+    font-weight: 500;
+  }
+
+  &__spec-td {
+    padding: $space-3 $space-4;
+    color: $color-foreground;
+  }
+
+  &__description {
+    color: $color-foreground;
+    white-space: pre-line;
   }
 }
