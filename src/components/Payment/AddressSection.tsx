@@ -22,7 +22,7 @@ export default function AddressSection({ isExpanded, onToggleExpand, address, on
   return (
     <div className='cart-group'>
       <button type='button' className='cart-group__header cart-group__toggle' aria-expanded={isExpanded} aria-controls='payment-address-body' onClick={onToggleExpand}>
-        <span className='cart-group__title text-body-sm'>배송지</span>
+        <span className='cart-group__title'>배송지</span>
         <span className='cart-group__header-right'>
           <span className='cart-group__chevron cart-group__chevron--down'>
             <Icon name='caret-down' />
@@ -51,18 +51,18 @@ export default function AddressSection({ isExpanded, onToggleExpand, address, on
 
           <div className='cart-address'>
             <div className='cart-address__head'>
-              <span className='cart-address__title text-body-sm'>
+              <span className='cart-address__title'>
                 {address.title} ({address.recipient})
               </span>
               <button type='button' className='btn btn--tertiary btn--sm' onClick={onOpenEditAddressForm}>
                 배송지 정보 수정
               </button>
             </div>
-            <p className='payment-address__phone caption'>{address.phone1}</p>
-            <p className='payment-address__line caption'>
+            <p className='payment-address__phone'>{address.phone1}</p>
+            <p className='payment-address__line'>
               ({address.postalCode}) {address.roadAddress} {address.detailAddress}
             </p>
-            <p className='payment-address__line payment-address__line--muted caption'>{address.jibunAddress}</p>
+            <p className='payment-address__line payment-address__line--muted'>{address.jibunAddress}</p>
           </div>
 
           <div className='payment-address__memo'>

@@ -24,8 +24,8 @@ function formatWon(amount: number) {
 export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedItems, hasPersonalItems, recommendedSubsidy, personalSubsidy, shippingFee, finalPaymentAmount, agreeTerms, onAgreeTermsChange, onBackToCart }: PaymentSummaryCardProps) {
   return (
     <div className='cart-summary'>
-      <p className='cart-summary__title text-body-base'>결제 정보</p>
-      <div className='cart-summary__rows text-body-sm'>
+      <p className='cart-summary__title'>결제 정보</p>
+      <div className='cart-summary__rows'>
         <div className='cart-summary__row'>
           <span>상품금액</span>
           <span>{formatWon(totalSellingPrice)}</span>
@@ -49,14 +49,14 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
       </div>
 
       <div className='cart-summary__total'>
-        <span className='cart-summary__total-label text-body-sm'>최종 결제금액</span>
+        <span className='cart-summary__total-label'>최종 결제금액</span>
         <span className='cart-summary__total-amount'>
           {finalPaymentAmount.toLocaleString('ko-KR')}
           <span className='cart-summary__total-unit'>원</span>
         </span>
       </div>
 
-      <label className='checkbox payment-summary__agree caption'>
+      <label className='checkbox payment-summary__agree'>
         <input type='checkbox' checked={agreeTerms} onChange={(event) => onAgreeTermsChange(event.target.checked)} />
         <span>
           주문 내용을 확인하였으며, <br />

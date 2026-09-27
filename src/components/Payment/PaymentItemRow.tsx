@@ -42,8 +42,8 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
               </span>
             </div>
             <div className='cart-book__contents'>
-              <h3 className='cart-book__title text-body-sm'>{item.title}</h3>
-              <p className='cart-book__byline caption'>{item.byline}</p>
+              <strong className='cart-book__title'>{item.title}</strong>
+              <p className='cart-book__byline'>{item.byline}</p>
             </div>
           </div>
         </div>

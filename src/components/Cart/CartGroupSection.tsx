@@ -34,8 +34,8 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
             <Icon name={badgeIcon} />
             {badgeLabel}
           </span>
-          <span className='cart-group__title text-body-sm'>
-            {titleText} <span className='cart-group__title-note caption'>{titleNote}</span>
+          <span className='cart-group__title'>
+            {titleText} <span className='cart-group__title-note'>{titleNote}</span>
           </span>
         </span>
         <span className='cart-group__header-right'>
