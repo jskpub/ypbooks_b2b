@@ -3,6 +3,16 @@ import { initialCartItems, type CartItem, type CartGroup } from '@/data/cartItem
 import { initialAddresses, type Address } from '@/data/address';
 import { getItemEmployeePayment, getItemSubsidy } from '@/utils/subsidy';
 import { getShippingFee } from '@/utils/pricing';
+import { recommendedBookList } from '@/data/recommendedBookList';
+
+export interface AddToCartInput {
+  isbn13: string;
+  title: string;
+  byline: string;
+  listPrice: number;
+  sellingPrice: number;
+  qty: number;
+}
 
 export interface OrderItem {
   id: string;
@@ -39,6 +49,7 @@ interface CartContextValue {
   items: CartItem[];
   subsidyLedger: SubsidyLedger;
   lastOrder: Order | null;
+  addToCart: (input: AddToCartInput) => void;
   toggleChecked: (id: string) => void;
   toggleAllChecked: (checked: boolean) => void;
   changeQty: (id: string, qty: number) => void;
@@ -110,6 +121,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
     setSelectedAddressId(id);
     setIsAddressModalOpen(false);
+  };
+
+  const addToCart = ({ isbn13, title, byline, listPrice, sellingPrice, qty }: AddToCartInput) => {
+    setItems((prev) => {
+      const existing = prev.find((item) => item.id === isbn13);
+      if (existing) {
+        return prev.map((item) => (item.id === isbn13 ? { ...item, qty: item.qty + qty } : item));
+      }
+      const isRecommended = recommendedBookList.some((book) => book.isbn13 === isbn13);
+      const newItem: CartItem = {
+        id: isbn13,
+        group: isRecommended ? 'recommended' : 'personal',
+        title,
+        byline,
+        formatLabel: '종이책',
+        formatBadgeClassName: 'badge--general',
+        coverIcon: 'book-open',
+        listPrice,
+        sellingPrice,
+        qty,
+        checked: true,
+        deliveryMain: '내일 출고 가능',
+        deliverySub: '영업일 기준 1~2일 이내 도착',
+      };
+      return [...prev, newItem];
+    });
   };
 
   const toggleChecked = (id: string) => {
@@ -197,6 +234,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       items,
       subsidyLedger,
       lastOrder,
+      addToCart,
       toggleChecked,
       toggleAllChecked,
       changeQty,
