@@ -2,6 +2,19 @@
 
 .utility-bar {
   border-bottom: $border-width-1 solid $color-border;
+  // height 대신 max-height — 실제 콘텐츠 높이만큼만 잡아뒀다가 스크롤 시 0으로 줄인다
+  // (height:auto는 트랜지션이 안 걸려서 max-height로 우회한다, test.html 참고).
+  max-height: rem(41); // 실측: padding(space-2×2=16) + 텍스트 줄(line-height 기준 caption) + 테두리
+  overflow: hidden;
+  transition:
+    max-height $motion-base,
+    opacity $motion-fast;
+
+  .header.is-scrolled & {
+    max-height: 0;
+    opacity: 0;
+    border-bottom-color: transparent;
+  }
 
   &__inner {
     display: flex;

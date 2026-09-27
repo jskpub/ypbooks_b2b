@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+// 도서별 지원금 사용 가능, 지원금 한도 소진 상태 표시.
+.subsidy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-3;
+  border-radius: $radius-md;
+  font-size: $font-size-label-base;
+  line-height: $line-height-label-base;
+  font-weight: 500;
+  cursor: default;
+
+  // design-system.md Imagery: "기본 20px, 소형 버튼·배지·칩 안에서는 16px"
+  .icon {
+    width: rem(16);
+    height: rem(16);
+  }
+
+  &--available {
+    background-color: $color-subsidy-company-soft;
+    // border: $border-width-1 solid $color-subsidy-company;
+    color: $color-subsidy-company;
+  }
+
+  &--renewal {
+    background-color: $color-surface;
+    // border: $border-width-1 solid $color-border;
+    color: $color-muted;
+  }
+
+  &--exhausted {
+    background-color: $color-surface;
+
+    // border: $border-width-1 solid $color-disabled-text;
+    color: $color-disabled-text;
+  }
+}

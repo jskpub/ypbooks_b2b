@@ -1,0 +1,416 @@
+@use '../abstracts' as *;
+
+// YP_PAYMENTS PaymentPage.tsx 이식 — CartPage와 같은 레이아웃 뼈대(.cart__head/__layout/__main,
+// layout-with-sidebar)를 그대로 따르되, 이 페이지 이름에 맞춰 .payment 블록으로 새로 둔다.
+// 기존 컴포넌트(.cart-group/.cart-table/.cart-address/.cart-summary/.subsidy-btn/.status-chip/
+// .alert/.modal/.radio/.field/.checkbox/.card)를 최대한 재사용하고, 이 페이지에서만 쓰는
+// 조합(결제 수단 그리드, 정산 배너, 처리중 스피너 등)만 새로 짰다.
+
+.payment {
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    padding-block: $space-8 $space-5;
+    border-bottom: $border-width-1 solid $color-border;
+  }
+
+  &__layout {
+    padding-block: $space-6;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__hint {
+    color: $color-primary;
+  }
+
+  &__info-group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  // 이 목록은 자체 회색 배경 박스라 .cart-group__body의 padding-block($space-5)이 그대로 더해지면
+  // 배경 위아래에 흰 여백만 남고 정작 박스 자체는 위아래로 눌린 것처럼 보인다. body가 주는 위아래
+  // 간격을 상쇄하고 이 박스만의 padding(위아래 $space-4)이 유일한 세로 여백이 되게 한다 — 가로는
+  // 좌우 인셋을 그대로 살려서 카드 안에 들어앉은 모양은 유지한다.
+  &__info-list {
+    padding: $space-4 $space-5;
+    margin-block: -$space-5;
+    color: $color-foreground-secondary;
+    list-style: disc;
+    padding-inline-start: $space-8;
+    background-color: $color-surface;
+
+    li + li {
+      margin-top: $space-1;
+    }
+
+    strong {
+      color: $color-foreground;
+      font-weight: 700;
+    }
+  }
+
+  &__back-link {
+    width: 100%;
+  }
+
+  &__back-icon {
+    transform: rotate(180deg); // caret-right를 뒤집어 "이전으로" 방향 표시
+  }
+}
+
+// 최대혜택 안내 배너 — .alert에 상태 칩/액션 버튼을 오른쪽에 얹는 가로 배치만 추가한다.
+.payment-callout {
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__chip,
+  &__action {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+}
+
+// 결제 상품 표 — 판매가/지원금/직원결제액 셀 안쪽 텍스트 조합.
+.payment-table {
+  &__discount {
+    color: $color-red-500;
+    font-weight: 700;
+  }
+
+  &__price {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  // 지원금 열(cart-table__subsidy-col) 안쪽 래퍼 — "적용됨" 상태만 금액 한 줄이 버튼 위에 더 붙어서
+  // (subsidy-btn 30px + gap 2px + price-sm 22px) 상태별로 셀 안 콘텐츠 높이가 다르다. justify-content:
+  // flex-end로 버튼을 항상 셀 아래쪽에 고정해, 지원금 적용/해제로 상태가 바뀌어도 버튼 위치(y좌표)는
+  // 그대로 두고 금액 줄만 위에서 나타나거나 사라지게 한다.
+  &__subsidy-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: rem(54); // 22(금액) + 2(gap) + 30(subsidy-btn: 20 line-height + 8 padding + 2 border)
+  }
+
+  &__subsidy-applied {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: rem(2);
+  }
+
+  &__subsidy-amount,
+  &__employee-payment {
+    font-weight: 700;
+    font-size: $font-size-price-sm;
+    line-height: $line-height-price-sm;
+  }
+  &__subsidy-amount {
+    color: $color-primary;
+  }
+
+  &__employee-payment {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+}
+
+// 배송지 — CartPage 사이드바의 .cart-address를 그대로 감싸 쓰고, 배송지 유형 라디오와
+// 배송 메모 입력만 이 페이지 전용으로 더한다.
+.payment-address {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding-inline: $space-5;
+
+  &__type {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-4;
+  }
+
+  // [배송지 목록]만 오른쪽 끝으로 밀어서 라디오 두 개와 분리한다.
+  &__list-btn {
+    margin-left: auto;
+  }
+
+  // 이 페이지 안에서는 CartPage 사이드바의 흰 카드(.cart-address)와 달리 옅은 배경으로
+  // 가라앉혀서(sunken) 위 라디오 줄·아래 배송 메모와 톤을 맞춘다 — CartPage 쪽은 그대로 둔다.
+  .cart-address {
+    border: none;
+    background-color: $color-surface;
+  }
+
+  &__phone {
+    color: $color-foreground-secondary;
+  }
+
+  &__line {
+    color: $color-foreground;
+  }
+
+  &__line--muted {
+    color: $color-foreground-secondary;
+  }
+
+  // 라벨은 왼쪽에 내용 폭만큼, 오른쪽은 select·직접입력 줄·도움말이 세로로 쌓이는 한 컬럼(아래
+  // &__memo-content) — 그 컬럼의 왼쪽 시작 위치에 맞춰 전부 정렬된다(참고 이미지 구조).
+  &__memo {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-3;
+    padding-right: rem(200);
+
+    select {
+      margin-right: 46px;
+    }
+
+    > .field__label {
+      flex: 0 0 auto;
+      padding-top: $space-3;
+      width: rem(70);
+    }
+  }
+
+  &__memo-content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  // 직접 입력 — 글자수 카운터를 입력 위에 겹치지 않고 오른쪽에 나란히 둔다(textarea → 한 줄 input).
+  &__custom-memo {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    .field__input {
+      flex: 1 1 auto;
+      min-width: 526px;
+    }
+  }
+
+  &__memo-count {
+    flex: 0 0 auto;
+    color: $color-foreground-secondary;
+  }
+}
+
+// 결제수단
+.payment-method {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  padding-inline: $space-5;
+  // __option/__other가 각자 hover 강조 박스용 padding($space-2)을 갖고 있어서, 이 블록을 그대로
+  // .cart-group__body(padding-block: $space-5)에 넣으면 첫/마지막 요소의 자체 padding만큼 위아래
+  // 간격이 8px씩 더 벌어진다. 그 초과분을 음수 margin으로 상쇄해 다른 아코디언(.payment-address 등
+  // 자체 세로 padding이 없는 것)과 위아래 간격을 맞춘다.
+  margin-block: -$space-2;
+
+  &__option {
+    padding: $space-2;
+    border-radius: $radius-sm;
+    transition: background-color $motion-fast;
+  }
+
+  &__option-label {
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__option-note {
+    color: $color-primary;
+    font-weight: 500;
+  }
+
+  &__other {
+    padding: $space-2;
+    border-top: $border-width-1 solid $color-border;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-2;
+    margin-top: $space-3;
+  }
+
+  &__grid-btn {
+    height: rem(44);
+    border-radius: $radius-sm;
+    border: $border-width-1 solid $color-border-control;
+    background-color: $color-surface-card;
+    color: $color-foreground-secondary;
+    font-size: $font-size-label-base;
+    font-weight: 500;
+    transition:
+      border-color $motion-fast,
+      color $motion-fast,
+      background-color $motion-fast;
+
+    &:hover {
+      border-color: $color-muted;
+    }
+
+    &.is-selected {
+      border-color: $color-primary;
+      background-color: $color-primary-soft;
+      color: $color-primary;
+    }
+  }
+}
+
+// 사이드바 — 주문자 정보 — design-system.md: "카드 안 요소 사이는 8~16px로 촘촘하게".
+// .card는 flex가 아니라서 이름/연락처/이메일 .field가 간격 없이 붙어 있었다 — 세로로 쌓고 16px씩
+// 띄운다. .card__title의 margin-bottom(8px)은 gap과 겹쳐 24px가 되므로 이 카드 안에서만 0으로 둔다.
+.orderer-info {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  .card__title {
+    margin-bottom: 0;
+  }
+
+  &__value {
+    font-weight: 600;
+    color: $color-foreground;
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+
+    .field__input {
+      width: auto;
+    }
+
+    // 왼쪽만 좁히고 오른쪽은 기본 select.field__input의 padding-right(캐럿 아이콘 자리)를 그대로 둔다.
+    select.field__input {
+      padding-left: $space-2;
+    }
+
+    input.field__input {
+      width: rem(64);
+      text-align: center;
+    }
+  }
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+// 사이드바 — 결제 정보(.cart-summary 재사용) 안의 지원금 소진 안내
+.payment-summary {
+  &__notice {
+    padding: $space-3;
+  }
+
+  &__agree {
+    display: flex;
+    align-items: flex-start;
+    color: $color-foreground-secondary;
+
+    // flex item의 기본 min-width는 auto(줄바꿈 없는 전체 문장 너비)라 이대로 두면 카드 폭을 넘겨
+    // 잘리거나 밀려난다 — 0으로 풀어줘야 정상적으로 줄바꿈된다.
+    span {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    strong {
+      text-decoration: underline;
+    }
+
+    input[type='checkbox'] {
+      margin-top: 2px;
+    }
+  }
+}
+
+// 최대혜택 미적용 확인 팝업 — 결제하기_예외상태케이스 Case 8-C: 아이콘 원 + 가운데 정렬 타이틀 +
+// 버튼 2개가 폭을 나눠 채우는 가로 배치, 본문 설명 문구는 없다.
+.subsidy-confirm {
+  text-align: center;
+
+  .modal__header {
+    justify-content: center;
+    position: relative;
+  }
+
+  .modal__close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .modal__title {
+    text-align: center;
+  }
+
+  .modal__footer {
+    justify-content: stretch;
+
+    .btn {
+      flex: 1 1 0;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(40);
+    height: rem(40);
+    border-radius: $radius-full;
+    background-color: $color-primary-soft;
+    color: $color-primary;
+  }
+}
+
+// 결제 진행중 팝업
+.payment-processing {
+  align-items: center;
+  text-align: center;
+
+  .modal__title {
+    margin-top: $space-2;
+  }
+
+  .modal__body {
+    text-align: center;
+  }
+
+  &__spinner {
+    width: rem(32);
+    height: rem(32);
+    margin-inline: auto;
+    color: $color-primary;
+    animation: payment-spin 1s linear infinite;
+  }
+}
+
+@keyframes payment-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

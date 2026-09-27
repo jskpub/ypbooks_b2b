@@ -1,29 +1,27 @@
 import type { ReactNode } from 'react';
-import { Icon, type IconName } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 import type { CartItem } from '@/data/cartItems';
-import CartItemRow from './CartItemRow';
+import PaymentItemRow from './PaymentItemRow';
 
-interface CartGroupSectionProps {
+interface PaymentGroupSectionProps {
   bodyId: string;
   badgeClassName: string;
-  badgeIcon: IconName;
+  badgeIcon: 'star' | 'books';
   badgeLabel: string;
   titleText: string;
   titleNote: ReactNode;
+  subsidyBtnClassName: string;
   items: CartItem[];
   isExpanded: boolean;
   onToggleExpand: () => void;
-  onToggleChecked: (id: string) => void;
-  onQtyChange: (id: string, qty: number) => void;
-  onRemove: (id: string) => void;
-  onDeliveryInfoOpen: () => void;
-  /** 이번 달 이 그룹(추천도서/개인도서)의 지원금 한도를 이미 다 썼는지. 소진되면 해당 그룹의
-   * 도서는 본인 부담으로 결제된다 — YP_PAYMENTS CartPage의 subsidyLedger 이식. */
-  isSubsidyExhausted?: boolean;
-  exhaustedMessage?: string;
+  isSubsidyExhausted: boolean;
+  exhaustedMessage: string;
+  onApplySubsidy: (id: string) => void;
+  onRemoveSubsidy: (id: string) => void;
+  onExclude: (item: CartItem) => void;
 }
 
-export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, badgeLabel, titleText, titleNote, items, isExpanded, onToggleExpand, onToggleChecked, onQtyChange, onRemove, onDeliveryInfoOpen, isSubsidyExhausted = false, exhaustedMessage }: CartGroupSectionProps) {
+export default function PaymentGroupSection({ bodyId, badgeClassName, badgeIcon, badgeLabel, titleText, titleNote, subsidyBtnClassName, items, isExpanded, onToggleExpand, isSubsidyExhausted, exhaustedMessage, onApplySubsidy, onRemoveSubsidy, onExclude }: PaymentGroupSectionProps) {
   if (items.length === 0) return null;
 
   return (
@@ -50,8 +48,8 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
       </button>
 
       <div className='cart-group__body' id={bodyId} hidden={!isExpanded}>
-        {isSubsidyExhausted && exhaustedMessage && (
-          <div className='alert alert--danger cart-group__alert'>
+        {isSubsidyExhausted && (
+          <div className='alert cart-group__alert'>
             <span className='alert__icon'>
               <Icon name='warning' />
             </span>
@@ -63,21 +61,27 @@ export default function CartGroupSection({ bodyId, badgeClassName, badgeIcon, ba
         <table className='cart-table'>
           <thead>
             <tr>
-              <th className='cart-table__book-col'>도서 정보</th>
-              <th className='cart-table__qty-col'>주문금액 / 수량</th>
-              <th className='cart-table__delivery-col'>
-                <div>
-                  배송일정
-                  <button type='button' className='cart-table__help' aria-label='배송일정 안내 보기' onClick={onDeliveryInfoOpen}>
-                    <Icon name='question' />
-                  </button>
-                </div>
-              </th>
+              <th className='cart-table__book-col'>상품정보</th>
+              <th className='cart-table__price-col'>판매가</th>
+              <th className='cart-table__num-col'>수량</th>
+              <th className='cart-table__subsidy-col'>회사 지원금</th>
+              <th className='cart-table__payment-col'>직원 결제액</th>
             </tr>
           </thead>
           <tbody>
             {items.map((item) => (
-              <CartItemRow key={item.id} item={item} groupBadgeClassName={badgeClassName} groupBadgeIcon={badgeIcon} groupBadgeLabel={badgeLabel} onToggleChecked={onToggleChecked} onQtyChange={onQtyChange} onRemove={onRemove} />
+              <PaymentItemRow
+                key={item.id}
+                item={item}
+                groupBadgeClassName={badgeClassName}
+                groupBadgeIcon={badgeIcon}
+                groupBadgeLabel={badgeLabel}
+                subsidyBtnClassName={subsidyBtnClassName}
+                isSubsidyExhausted={isSubsidyExhausted}
+                onApplySubsidy={onApplySubsidy}
+                onRemoveSubsidy={onRemoveSubsidy}
+                onExclude={onExclude}
+              />
             ))}
           </tbody>
         </table>

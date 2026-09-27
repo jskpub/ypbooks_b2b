@@ -1,0 +1,30 @@
+@use '../abstracts' as *;
+
+// 스토리보드(CART-01-2 Case 7-A, PAY-01-2 Case 8-A/8-B) — 화면 하단 중앙, 어두운 배경 pill.
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: $space-8;
+  transform: translateX(-50%);
+  z-index: $z-toast;
+  padding: $space-3 $space-5;
+  border-radius: $radius-full;
+  background-color: $color-neutral-900;
+  color: $color-on-primary;
+  font-size: $font-size-label-base;
+  font-weight: 500;
+  box-shadow: $shadow-lg;
+  white-space: nowrap;
+  animation: toast-in $motion-base;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, $space-2);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

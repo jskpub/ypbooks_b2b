@@ -1,0 +1,47 @@
+@use '../abstracts' as *;
+
+// AddressSearchModal(src/components/AddressSearchModal.tsx) — AddressModal의 [주소 검색] 버튼에서
+// 열리는 2단계 팝업. 카카오 우편번호 서비스를 iframe으로 그대로 embed한다 — 내부 콘텐츠 자체는
+// 커스터마이즈할 수 없어서, 감싸는 프레임(모서리 둥글림, 로딩/에러 상태)만 이 프로젝트 톤에 맞춘다.
+.address-search {
+  &__frame {
+    position: relative;
+    height: rem(460);
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+
+  &__iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    background-color: $color-surface-card;
+    color: $color-foreground-secondary;
+  }
+
+  &__spinner {
+    width: rem(24);
+    height: rem(24);
+    color: $color-primary;
+    animation: address-search-spin 1s linear infinite;
+  }
+}
+
+@keyframes address-search-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

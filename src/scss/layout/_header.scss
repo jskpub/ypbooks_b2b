@@ -1,11 +1,32 @@
 @use '../abstracts' as *;
 
 // 상단 헤더 전체 래퍼. utility-bar/brand-bar/gnb는 각자 파일에서 스타일을 담당하고
-// 여기서는 배경과 쌓임 맥락(stacking context)만 잡는다.
+// 여기서는 배경, 쌓임 맥락(stacking context), 스크롤 고정만 잡는다.
 // z-index가 category-menu 배경 딤(z-category-menu-backdrop)보다 높아야
 // 카테고리 메뉴가 열려도 헤더 자체는 어두워지지 않고 또렷하게 보인다.
+//
+// 예전엔 header-sticky라는 완전히 별도인 position:fixed 헤더를 display:none↔block으로
+// 통째로 켜고 껐다(트랜지션 없이 뚝 끊김). 지금은 헤더 하나가 계속 position:sticky로 붙어
+// 있고 .is-scrolled 클래스만 토글해서, 각 하위 블록(utility-bar/brand-bar/gnb)이 자기
+// 스타일 파일 안에서 부드럽게 줄어들도록 한다(test.html 참고). .is-scrolled일 때 하위
+// 블록들이 실제로 어떻게 바뀌는지는 각자 파일(_utility-bar.scss/_brand-bar.scss/_gnb.scss)
+// 안에 있다 — 한 블록에 속한 스타일이 흩어지지 않게 여기엔 안 둔다.
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: $z-header;
   background-color: $color-surface-card;
+  // 헤더 자신의 높이가 스크롤 상태에 따라 바뀌는데(약 94px), 브라우저의 스크롤 앵커링이
+  // 이 레이아웃 변화를 "보정"하려고 스크롤 위치를 같이 밀어버리면 hysteresis 임계값을
+  // 도로 넘어가 .is-scrolled가 켜졌다 꺼졌다를 무한 반복하는 문제가 있었다. 헤더 자신의
+  // 크기 변화 때문에 스크롤 위치가 흔들리지 않도록 꺼둔다.
+  overflow-anchor: none;
+
+  // box-shadow는 트랜지션 없이 즉시 적용 — 옅은 그림자라 즉시 붙어도 눈에 거슬리지 않고,
+  // transition을 걸면 다른 max-height/opacity 트랜지션과 타이밍이 어긋나 보인다(test.html 참고).
+  &.is-scrolled {
+    box-shadow: 0 rem(2) rem(20) rgba($color-neutral-900, 0.1);
+
+
+  }
 }

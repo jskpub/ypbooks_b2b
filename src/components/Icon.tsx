@@ -7,7 +7,9 @@ import CaretRightIcon from '@/assets/icons/caret-right.svg?react';
 import CaretUpIcon from '@/assets/icons/caret-up.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
+import CircleIcon from '@/assets/icons/circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
+import EqualsIcon from '@/assets/icons/equals.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
 import InfoIcon from '@/assets/icons/info.svg?react';
 import ListIcon from '@/assets/icons/list.svg?react';
@@ -25,8 +27,10 @@ import TruckIcon from '@/assets/icons/truck.svg?react';
 import UserIcon from '@/assets/icons/user.svg?react';
 import WalletIcon from '@/assets/icons/wallet.svg?react';
 import WarningIcon from '@/assets/icons/warning.svg?react';
+import WarningCircleIcon from '@/assets/icons/warning-circle.svg?react';
 import XCircleIcon from '@/assets/icons/x-circle.svg?react';
 import XIcon from '@/assets/icons/x.svg?react';
+import SparkleIcon from '@/assets/icons/sparkle.svg?react';
 
 const icons = {
   'arrows-clockwise': ArrowsClockwiseIcon,
@@ -36,8 +40,10 @@ const icons = {
   'caret-right': CaretRightIcon,
   'caret-up': CaretUpIcon,
   check: CheckIcon,
+  circle: CircleIcon,
   'check-circle': CheckCircleIcon,
   'device-mobile': DeviceMobileIcon,
+  equals: EqualsIcon,
   headset: HeadsetIcon,
   info: InfoIcon,
   list: ListIcon,
@@ -55,8 +61,10 @@ const icons = {
   user: UserIcon,
   wallet: WalletIcon,
   warning: WarningIcon,
+  'warning-circle': WarningCircleIcon,
   'x-circle': XCircleIcon,
   x: XIcon,
+  sparkle: SparkleIcon,
 } as const;
 
 export type IconName = keyof typeof icons;
@@ -69,5 +77,5 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 // <img src="*.svg">가 아니라 SVG를 컴포넌트로 렌더해야 currentColor로 글자색을 상속받는다.
 export function Icon({ name, className = 'icon', ...props }: IconProps) {
   const SvgIcon = icons[name];
-  return <SvgIcon className={className} aria-hidden="true" focusable={false} {...props} />;
+  return <SvgIcon className={className} aria-hidden='true' focusable={false} {...props} />;
 }

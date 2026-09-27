@@ -1,7 +1,29 @@
 @use '../abstracts' as *;
 
 // Figma node 1184:2269 (Component/Modal) — type=Default/Danger, customize=Show Close.
-// 배경 오버레이는 category-menu와 같은 패턴(고정+딤)을 그대로 재사용하면 되므로 여기서는 모달 박스 자체만 다룬다.
+// 오버레이(고정+딤)는 category-menu __backdrop / cart-modal-overlay와 같은 패턴 — 두 번째로
+// .modal을 쓰는 화면(결제)이 생겨서 이번엔 페이지에 새로 안 만들고 여기 공용으로 둔다.
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-category-menu-panel;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+  background-color: rgba($color-neutral-900, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity $motion-base, visibility $motion-base;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -56,5 +78,43 @@
   // type=Danger — "되돌릴 수 없는 작업"
   &--danger &__title {
     color: $color-danger;
+  }
+
+  // 헤더 자체가 브랜드 레드 타이틀 바인 변형 — cart-delivery-modal(배송 안내)과 같은 톤.
+  // subsidy-confirm처럼 헤더에 원형 아이콘만 얹고 제목을 바깥에 두는 모달엔 안 어울려서
+  // 옵트인 모디파이어로 뺐다 — 헤더 안에 실제 제목 텍스트가 들어가는 모달에서만 쓴다.
+  &--brand {
+    padding: 0;
+    padding-bottom: $space-6;
+    overflow: hidden;
+
+    > .modal__header {
+      padding: $space-4 $space-5;
+      background-color: $color-primary;
+      color: $color-on-primary;
+    }
+
+    > :not(.modal__header) {
+      padding-inline: $space-6;
+    }
+
+    .modal__title {
+      color: $color-on-primary;
+      font-weight: 700;
+    }
+
+    .modal__close {
+      color: $color-on-primary;
+
+      &:hover {
+        color: $color-on-primary;
+        opacity: 0.8;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-on-primary;
+        outline-offset: 2px;
+      }
+    }
   }
 }

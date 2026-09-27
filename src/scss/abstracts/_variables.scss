@@ -17,6 +17,8 @@ $color-neutral-100: #f5f4f4;
 $color-neutral-200: #e9e7e8;
 $color-neutral-300: #d6d3d4;
 $color-neutral-400: #aba6a7;
+
+$color-neutral-500: #948f90;
 $color-neutral-550: #6f696b;
 $color-neutral-600: #555152;
 $color-neutral-700: #3d3b3b;
@@ -228,3 +230,4 @@ $z-header: 41;
 $z-header-sticky: 42;
 $z-category-menu-backdrop: 40;
 $z-category-menu-panel: 43;
+$z-toast: 44; // 모달보다도 위 — 모달 위에서 뜨는 안내(약관 미동의 등)도 있다

@@ -118,6 +118,12 @@
     display: flex;
     align-items: center;
     gap: $space-3;
+
+    letter-spacing: rem(-1);
+    .checkbox {
+      cursor: pointer;
+      font-weight: 600;
+    }
   }
 
   &__divider {
@@ -127,6 +133,7 @@
   &__remove {
     color: $color-foreground-secondary;
     transition: color $motion-fast;
+    letter-spacing: rem(-0.5);
 
     &:hover {
       color: $color-danger;
@@ -159,7 +166,7 @@
     transition: background-color $motion-fast;
 
     &:hover {
-      background-color: $color-surface;
+      // background-color: $color-surface;
     }
 
     &:focus-visible {
@@ -230,6 +237,17 @@
     border-radius: 0;
     border-width: 0 0 $border-width-1 0;
   }
+
+  &__body {
+    padding-block: $space-5;
+
+    // 표(추천도서/개인도서 cart-table)를 감싼 body는 표 자체가 위아래 경계(thead 구분선,
+    // 마지막 행)를 갖고 있어서 body의 세로 padding까지 더해지면 표 위아래에 불필요한 여백이
+    // 생긴다 — 이 경우만 세로 padding을 0으로 없앤다.
+    &:has(.cart-table) {
+      padding-block: 0;
+    }
+  }
 }
 
 // 표
@@ -291,6 +309,38 @@
     position: relative;
   }
 
+  // 결제 페이지 상품 표(상품정보|판매가|수량|회사지원금|직원결제액) 전용 컬럼 — __qty-col(주문금액+스테퍼,
+  // 장바구니 전용)과는 폭이 달라서 새로 둔다. text-align은 th/td 공용 규칙(.cart-table th, .cart-table
+  // td)보다 특이도가 낮아 그대로 지면 안 먹으므로 태그를 같이 명시해 우선순위를 올린다.
+  &__price-col {
+    width: rem(140);
+    font-size: $font-size-price-sm;
+    line-height: $line-height-price-sm;
+  }
+
+  td.cart-table__price-col {
+    text-align: right;
+  }
+
+  &__num-col {
+    width: rem(64);
+  }
+
+  &__subsidy-col {
+    width: rem(180);
+  }
+
+  &__payment-col {
+    width: rem(150);
+    position: relative;
+  }
+
+  // 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
+  td.cart-table__payment-col {
+    text-align: right;
+    padding-right: rem(48);
+  }
+
   &__help {
     display: inline-flex;
     align-items: center;
@@ -311,6 +361,7 @@
 
   &__checkbox {
     margin-top: rem(4);
+    font-weight: 700;
   }
 
   // Figma node 44:3338(Cart Row) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
@@ -344,7 +395,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: $space-1;
+    gap: $space-2;
   }
 
   &__format {
@@ -365,10 +416,12 @@
     display: flex;
     align-items: center;
     gap: $space-2;
+    font-size: $font-size-price-sm;
+    line-height: $line-height-price-sm;
   }
 
   &__discount {
-    color: $color-danger;
+    color: $color-red-500;
     font-weight: 700;
   }
 
@@ -380,6 +433,9 @@
   &__list {
     color: $color-disabled-text;
     text-decoration: line-through;
+    color: $color-neutral-550;
+    font-weight: 400;
+    font-size: $font-size-body-xs;
   }
 
   &__contents {
@@ -416,8 +472,8 @@
   height: rem(32);
   color: $color-muted;
   position: absolute;
-  top: $space-2;
-  right: $space-2;
+  top: rem(6);
+  right: rem(6);
   border-radius: $radius-full;
   transition: background-color 0.3s;
   .icon {
@@ -460,10 +516,13 @@
     color: $color-foreground;
   }
 
+  // 배송지 주소를 누르면 배송지 목록 모달이 열린다 — 원래 div였던 걸 button으로 바꾸면서
+  // 브라우저 기본 버튼 스타일(테두리 없음, 배경 투명, 왼쪽 정렬)만 초기화한다.
   &__select {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     gap: $space-2;
     padding: $space-3;
     border: $border-width-1 solid $color-border;
@@ -471,6 +530,22 @@
     background-color: $color-surface;
     color: $color-foreground;
     font-weight: 600;
+    text-align: left;
+    transition: border-color $motion-fast;
+
+    &:hover {
+      border-color: $color-muted;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+
+    .text-truncate {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
 
     .icon {
       flex: 0 0 auto;
@@ -483,6 +558,25 @@
     flex-direction: column;
     gap: rem(2);
     color: $color-foreground-secondary;
+
+    li {
+      position: relative;
+      padding-left: rem(10);
+    }
+
+    // 텍스트로 "• "를 직접 넣으면 그 글자도 줄바꿈 계산에 포함돼서, 문장이 길어져 둘째 줄로
+    // 넘어갈 때 불릿 폭만큼 밀려 시작 위치가 첫 줄과 어긋난다. 가상 선택자 점으로 분리하면
+    // 텍스트 자체는 padding-left(10px)만큼의 고정 폭에서 시작해 줄바꿈돼도 정렬이 유지된다.
+    li::before {
+      content: '';
+      position: absolute;
+      top: calc(#{$line-height-caption} / 2 - #{rem(1.5)});
+      left: 0;
+      width: rem(3);
+      height: rem(3);
+      border-radius: $radius-full;
+      background-color: currentColor;
+    }
 
     li:first-child {
       color: $color-foreground;
@@ -500,7 +594,6 @@
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
   background-color: $color-surface-card;
-  box-shadow: $shadow-lg;
   margin-top: $space-5;
 
   &__title {
@@ -553,9 +646,22 @@
     color: $color-primary;
   }
 
+  // "원" 단위만 숫자보다 가볍게 — 색은 그대로 물려받고 굵기만 regular로 낮춘다.
+  &__total-unit {
+    font-weight: 400;
+  }
+
   // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
   > .btn {
     width: 100%;
+  }
+
+  // CART-01-2 Case 7-A — 선택 상품 없이 [주문하기]를 누르면 뜨는 인라인 경고.
+  // 상품을 하나라도 체크하면 같이 사라진다(토스트처럼 시간이 지나 강제로 없어지지 않는다).
+  &__warning {
+    color: $color-danger;
+    text-align: center;
+    margin-top: -#{$space-2};
   }
 }
 
