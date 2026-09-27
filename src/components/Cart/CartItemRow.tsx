@@ -6,7 +6,7 @@ interface CartItemRowProps {
   item: CartItem;
   /** 이 행이 속한 그룹(추천도서/개인도서)의 배지 — CartGroupSection 헤더와 같은 값을 그대로
    * 받아써서 도서 유형 배지가 이중으로 정의되지 않게 한다. Figma Cart Row(44:3338) 실측:
-   * 행마다 포맷(종이책/전자책)이 아니라 도서 유형 배지가 붙어있었다. */
+   * 행마다 포맷(종이도서/전자도서)이 아니라 도서 유형 배지가 붙어있었다. */
   groupBadgeClassName: string;
   groupBadgeIcon: IconName;
   groupBadgeLabel: string;

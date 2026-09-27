@@ -1,9 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import RequireAuth from '@/components/RequireAuth';
 import BestsellerPage from '@/pages/BestsellerPage';
 import BookDetailPage from '@/pages/BookDetailPage';
 import CartPage from '@/pages/CartPage';
 import HomePage from '@/pages/HomePage';
+import IntranetPage from '@/pages/IntranetPage';
+import LoginPage from '@/pages/LoginPage';
 import MyReadingStatusPage from '@/pages/MyReadingStatusPage';
 import MyReviewsPage from '@/pages/MyReviewsPage';
 import MyStatsPage from '@/pages/MyStatsPage';
@@ -14,32 +17,38 @@ import RecommendPage from '@/pages/RecommendPage';
 import ReviewFormPage from '@/pages/ReviewFormPage';
 import ReviewPage from '@/pages/ReviewPage';
 import SearchPage from '@/pages/SearchPage';
+import SsoPage from '@/pages/SsoPage';
 
 function App() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/search' element={<SearchPage />} />
-        <Route path='/cart' element={<CartPage />} />
-        <Route path='/payment' element={<PaymentPage />} />
-        <Route path='/payment/complete' element={<OrderCompletePage />} />
-        <Route path='/review' element={<ReviewPage />} />
+      <Route path='/intranet' element={<IntranetPage />} />
+      <Route path='/sso' element={<SsoPage />} />
+      <Route path='/login' element={<LoginPage />} />
+      <Route element={<RequireAuth />}>
+        <Route element={<Layout />}>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/search' element={<SearchPage />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/payment' element={<PaymentPage />} />
+          <Route path='/payment/complete' element={<OrderCompletePage />} />
+          <Route path='/review' element={<ReviewPage />} />
 
-        {/* BOOK-01/03/04 — Figma 84:50/84:648/84:1015 기준 전용 화면 (Picked Book / Book List) */}
-        <Route path='/recommend' element={<RecommendPage />} />
-        <Route path='/bestseller' element={<BestsellerPage />} />
-        <Route path='/new' element={<NewArrivalPage />} />
+          {/* BOOK-01/03/04 — Figma 84:50/84:648/84:1015 기준 전용 화면 (Picked Book / Book List) */}
+          <Route path='/recommend' element={<RecommendPage />} />
+          <Route path='/bestseller' element={<BestsellerPage />} />
+          <Route path='/new' element={<NewArrivalPage />} />
 
-        {/* BOOK-05 — 도서 상세 */}
-        <Route path='/books/:isbn13' element={<BookDetailPage />} />
+          {/* BOOK-05 — 도서 상세 */}
+          <Route path='/books/:isbn13' element={<BookDetailPage />} />
 
-        {/* REVIEW-02/03/04 — 계정 드롭다운(마이페이지) UI는 아직 없어서 라우트만 먼저 연다.
-            REVIEW_SPEC.md "진입 경로 결정 (2026-09-25)" 절 참고. */}
-        <Route path='/myreading' element={<MyReadingStatusPage />} />
-        <Route path='/mystats' element={<MyStatsPage />} />
-        <Route path='/myreview' element={<MyReviewsPage />} />
-        <Route path='/myreview/write/:isbn13' element={<ReviewFormPage />} />
+          {/* REVIEW-02/03/04/05 — 계정 드롭다운(마이페이지) UI는 아직 없어서 라우트만 먼저 연다.
+              REVIEW_SPEC.md "진입 경로 결정 (2026-09-25)" 절 참고. */}
+          <Route path='/myreading' element={<MyReadingStatusPage />} />
+          <Route path='/mystats' element={<MyStatsPage />} />
+          <Route path='/myreview' element={<MyReviewsPage />} />
+          <Route path='/myreview/write/:isbn13' element={<ReviewFormPage />} />
+        </Route>
       </Route>
     </Routes>
   );

@@ -148,6 +148,19 @@
     gap: $space-3;
   }
 
+  &__items {
+    .cart-table {
+      td.cart-table__payment-col {
+        padding-right: $space-3;
+      }
+
+      tbody tr:hover {
+        cursor: default;
+        background-color: transparent;
+      }
+    }
+  }
+
   &__delivery .card__title {
     display: flex;
     align-items: center;

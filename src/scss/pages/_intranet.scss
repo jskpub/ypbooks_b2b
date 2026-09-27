@@ -1,0 +1,169 @@
+@use '../abstracts' as *;
+
+// 시연용 가상 고객사 인트라넷(/intranet). 영풍문고 화면이 아니라서 무채색 토큰만 쓴다.
+.intranet {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: rem(56);
+    padding-inline: $space-6;
+    background-color: $color-foreground;
+    color: $color-on-primary;
+  }
+
+  &__brand {
+    font-size: $font-size-h4;
+    line-height: $line-height-h4;
+    font-weight: 700;
+  }
+
+  &__user {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: rem(240) 1fr;
+  }
+
+  &__nav {
+    padding: $space-6 $space-4;
+    background-color: $color-surface-card;
+    border-right: $border-width-1 solid $color-border;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  &__menu-item {
+    display: block;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    font-size: $font-size-label-lg;
+    line-height: $line-height-label-lg;
+    color: $color-foreground-secondary;
+
+    &.is-active {
+      background-color: $color-surface;
+      color: $color-foreground;
+      font-weight: 700;
+    }
+  }
+
+  &__menu-group {
+    margin-top: $space-8;
+    padding-inline: $space-3;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    font-weight: 700;
+    color: $color-muted;
+  }
+
+  // 이 화면에서 유일하게 동작하는 메뉴 — 버튼처럼 보이도록 테두리를 둔다.
+  &__bizmall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    margin-top: $space-2;
+    padding: $space-3;
+    border: $border-width-1 solid $color-border-control;
+    border-radius: $radius-md;
+    color: $color-foreground;
+    text-decoration: none;
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+  }
+
+  // BrandBar 로고는 120px — 사이드바 안쪽 폭(약 180px)에 배지와 한 줄로 들어가도록 96px로 줄인다.
+  &__bizmall-logo {
+    width: rem(96);
+    height: auto;
+  }
+
+  .logo__badge {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  // footer를 본문 영역 맨 아래에 붙이려고 세로 flex로 둔다.
+  &__main {
+    display: flex;
+    flex-direction: column;
+    padding: $space-8 $space-10;
+  }
+
+  &__title {
+    font-size: $font-size-h1;
+    line-height: $line-height-h1;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-6;
+    margin-top: $space-6;
+  }
+
+  // 누르는 카드가 아니라서 .card의 hover 그림자를 끈다.
+  &__card:hover {
+    box-shadow: none;
+  }
+
+  &__card-title {
+    font-size: $font-size-h3;
+    line-height: $line-height-h3;
+    font-weight: 500;
+    color: $color-foreground;
+  }
+
+  &__list {
+    margin-top: $space-4;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: $space-4;
+    padding-block: $space-3;
+    border-top: $border-width-1 solid $color-border;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground;
+  }
+
+  &__meta {
+    flex-shrink: 0;
+    color: $color-muted;
+  }
+
+  // .auth-login__copyright와 같은 모양으로 맞춘다. 본문 패딩을 음수 마진으로 상쇄해
+  // 구분선이 본문 영역 좌우 끝까지, footer가 화면 맨 아래까지 닿게 한다.
+  &__footer {
+    display: flex;
+    margin: auto (-$space-10) (-$space-8);
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+    padding: $space-5 $space-10;
+    border-top: $border-width-1 solid $color-border;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-muted;
+  }
+}

@@ -45,4 +45,9 @@
   &__name {
     font-weight: 700;
   }
+
+  &__cart-count {
+    color: $color-red-500;
+    font-weight: 700;
+  }
 }

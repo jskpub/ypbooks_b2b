@@ -6,6 +6,8 @@
 // 쓰는 조합(장바구니 그룹 아코디언, 표, 주문 요약)만 새로 짰다.
 
 .cart {
+  padding-bottom: $space-8;
+
   &__head {
     display: flex;
     flex-wrap: wrap;
@@ -28,7 +30,7 @@
   }
 
   &__layout {
-    padding-block: $space-6;
+    padding-top: $space-6;
   }
 
   &__main {
@@ -120,6 +122,7 @@
     gap: $space-3;
 
     letter-spacing: rem(-1);
+
     .checkbox {
       cursor: pointer;
       font-weight: 600;
@@ -271,6 +274,17 @@
       font-weight: 700;
       color: $color-foreground-secondary;
 
+      &.cart-table__book-col {
+        text-align: left;
+        padding-left: rem(20);
+      }
+
+      &.cart-table__price-col,
+      &.cart-table__subsidy-col,
+      &.cart-table__payment-col {
+        text-align: right;
+      }
+
       &.cart-table__delivery-col {
         > div {
           display: flex;
@@ -330,12 +344,16 @@
     width: rem(180);
   }
 
+  td.cart-table__subsidy-col {
+    text-align: right;
+  }
+
   &__payment-col {
     width: rem(150);
     position: relative;
   }
 
-  // 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
+  // 결제 페이지: 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
   td.cart-table__payment-col {
     text-align: right;
     padding-right: rem(48);
@@ -346,6 +364,7 @@
     align-items: center;
     color: $color-muted;
     margin-left: rem(4);
+
     .icon {
       width: rem(16);
       height: rem(16);
@@ -476,6 +495,7 @@
   right: rem(6);
   border-radius: $radius-full;
   transition: background-color 0.3s;
+
   .icon {
     width: rem(20);
     height: rem(20);
@@ -499,7 +519,7 @@
 .cart-address {
   display: flex;
   flex-direction: column;
-  gap: $space-3;
+  gap: rem(8);
   padding: $space-4;
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
@@ -652,16 +672,8 @@
   }
 
   // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
-  > .btn {
+  >.btn {
     width: 100%;
-  }
-
-  // CART-01-2 Case 7-A — 선택 상품 없이 [주문하기]를 누르면 뜨는 인라인 경고.
-  // 상품을 하나라도 체크하면 같이 사라진다(토스트처럼 시간이 지나 강제로 없어지지 않는다).
-  &__warning {
-    color: $color-danger;
-    text-align: center;
-    margin-top: -#{$space-2};
   }
 }
 
