@@ -3,6 +3,7 @@
 // design-system.md(Figma v2.3) 신규 — 목록이나 검색 결과가 비었을 때 화면이 비어 보이지 않게 채운다.
 // 구성은 아이콘 → 제목 한 줄 → 설명 한 줄 → 행동 버튼 하나뿐이고, 그 이상 넣지 않는다.
 // 배경은 투명이다. 카드 안에 넣을 때 카드가 배경을 맡는다.
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -16,7 +17,9 @@
   text-align: center;
   border: 1px solid $color-neutral-200;
   border-radius: rem(10);
-
+  .payment__head + & {
+    padding-top: $space-10;
+  }
   // .icon과 클래스 우선순위가 같아서(BEM 엘리먼트를 아이콘 자신에 직접 붙이면) SCSS 번들 순서상
   // utilities/_helpers.scss의 기본 20px에 나중에 덮어써진다 — 자식 선택자로 우선순위를 올려 피한다.
   .icon {

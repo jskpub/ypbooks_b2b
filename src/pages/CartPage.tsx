@@ -6,8 +6,10 @@ import EmptyState from '@/components/EmptyState';
 import CartGroupSection from '@/components/Cart/CartGroupSection';
 import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
 import AddressModal from '@/components/AddressModal';
+import Toast from '@/components/Toast';
 import type { CartGroup } from '@/data/cartItems';
 import { useCart } from '@/context/CartContext';
+import { useToast } from '@/hooks/useToast';
 import { FREE_SHIPPING_THRESHOLD, getShippingFee } from '@/utils/pricing';
 
 function formatWon(amount: number) {
@@ -16,7 +18,7 @@ function formatWon(amount: number) {
 
 export default function CartPage() {
   const { items, subsidyLedger, toggleChecked, toggleAllChecked, changeQty, removeItem, removeSelected, selectedAddress, openAddressList } = useCart();
-  const [showSelectWarning, setShowSelectWarning] = useState(false);
+  const { toastMessage, showToast } = useToast();
   const [expandedGroups, setExpandedGroups] = useState<Record<CartGroup, boolean>>({
     recommended: true,
     personal: true,
@@ -232,14 +234,9 @@ export default function CartPage() {
                   주문하기 <Icon name='caret-right' />
                 </Link>
               ) : (
-                <button type='button' className='btn btn--primary btn--lg' onClick={() => setShowSelectWarning(true)}>
+                <button type='button' className='btn btn--primary btn--lg' onClick={() => showToast('주문하실 상품을 선택해주세요.')}>
                   주문하기 <Icon name='caret-right' />
                 </button>
-              )}
-              {showSelectWarning && selectedCount === 0 && !isEmpty && (
-                <p className='cart-summary__warning caption' role='alert'>
-                  주문하실 상품을 선택해주세요.
-                </p>
               )}
             </div>
           </div>
@@ -248,6 +245,7 @@ export default function CartPage() {
 
       <DeliveryInfoModal isOpen={isDeliveryModalOpen} onClose={() => setIsDeliveryModalOpen(false)} />
       <AddressModal />
+      <Toast message={toastMessage} />
     </main>
   );
 }

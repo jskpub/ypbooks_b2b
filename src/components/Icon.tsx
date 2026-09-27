@@ -9,6 +9,7 @@ import CheckIcon from '@/assets/icons/check.svg?react';
 import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
 import CircleIcon from '@/assets/icons/circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
+import DeviceTabletSpeaker from '@/assets/icons/device-tablet-speaker.svg?react';
 import EqualsIcon from '@/assets/icons/equals.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
 import HeartIcon from '@/assets/icons/heart.svg?react';
@@ -67,6 +68,7 @@ const icons = {
   'x-circle': XCircleIcon,
   x: XIcon,
   sparkle: SparkleIcon,
+  'device-tablet-speaker': DeviceTabletSpeaker,
 } as const;
 
 export type IconName = keyof typeof icons;

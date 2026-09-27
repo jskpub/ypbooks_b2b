@@ -50,7 +50,10 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
 
       <div className='cart-summary__total'>
         <span className='cart-summary__total-label text-body-sm'>최종 결제금액</span>
-        <span className='cart-summary__total-amount text-h2'>{finalPaymentAmount.toLocaleString('ko-KR')}<span className='cart-summary__total-unit'>원</span></span>
+        <span className='cart-summary__total-amount text-h2'>
+          {finalPaymentAmount.toLocaleString('ko-KR')}
+          <span className='cart-summary__total-unit'>원</span>
+        </span>
       </div>
 
       {(recommendedUsed || personalUsed) && (
@@ -59,7 +62,9 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
             <Icon name='info' />
           </span>
           <div className='alert__body'>
-            <p className='alert__desc'>{recommendedUsed && personalUsed ? '추천도서 및 개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : recommendedUsed ? '추천도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : '개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.'}</p>
+            <p className='alert__desc'>
+              {recommendedUsed && personalUsed ? '추천도서 및 개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : recommendedUsed ? '추천도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : '개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.'}
+            </p>
           </div>
         </div>
       )}
@@ -78,7 +83,7 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
 
       <button type='button' className='btn btn--secondary payment__back-link' onClick={onBackToCart}>
         <Icon name='caret-right' className='icon payment__back-icon' />
-        장바구니로 돌아가 상품 수정
+        장바구니로 돌아가기
       </button>
     </div>
   );

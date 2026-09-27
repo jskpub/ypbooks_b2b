@@ -13,6 +13,7 @@ import RecommendPage from '@/pages/RecommendPage';
 import ReviewFormPage from '@/pages/ReviewFormPage';
 import ReviewPage from '@/pages/ReviewPage';
 import SearchPage from '@/pages/SearchPage';
+import SubsidyCalloutPreviewPage from '@/pages_temp/SubsidyCalloutPreviewPage';
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
         <Route path='/myreview' element={<MyReviewsPage />} />
         <Route path='/myreview/write/:isbn13' element={<ReviewFormPage />} />
 
+        {/* 검수용 임시 라우트 — 확인 끝나면 이 줄과 SubsidyCalloutPreviewPage import를 지워도 된다. */}
+        <Route path='/preview/subsidy-callout' element={<SubsidyCalloutPreviewPage />} />
       </Route>
     </Routes>
   );

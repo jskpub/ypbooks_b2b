@@ -499,7 +499,7 @@
 .cart-address {
   display: flex;
   flex-direction: column;
-  gap: $space-3;
+  gap: rem(8);
   padding: $space-4;
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
@@ -654,14 +654,6 @@
   // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
   > .btn {
     width: 100%;
-  }
-
-  // CART-01-2 Case 7-A — 선택 상품 없이 [주문하기]를 누르면 뜨는 인라인 경고.
-  // 상품을 하나라도 체크하면 같이 사라진다(토스트처럼 시간이 지나 강제로 없어지지 않는다).
-  &__warning {
-    color: $color-danger;
-    text-align: center;
-    margin-top: -#{$space-2};
   }
 }
 

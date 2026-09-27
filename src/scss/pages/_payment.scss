@@ -102,6 +102,11 @@
     align-items: center;
     justify-content: flex-end;
     min-height: rem(54); // 22(금액) + 2(gap) + 30(subsidy-btn: 20 line-height + 8 padding + 2 border)
+
+    td {
+      font-size: $font-size-body-sm;
+      line-height: $line-height-body-sm;
+    }
   }
 
   &__subsidy-applied {
@@ -117,6 +122,7 @@
     font-size: $font-size-price-sm;
     line-height: $line-height-price-sm;
   }
+
   &__subsidy-amount {
     color: $color-primary;
   }
@@ -198,6 +204,7 @@
     display: flex;
     align-items: center;
     gap: $space-3;
+
     .field__input {
       flex: 1 1 auto;
       min-width: 526px;
@@ -207,6 +214,11 @@
   &__memo-count {
     flex: 0 0 auto;
     color: $color-foreground-secondary;
+  }
+
+  .caption {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
   }
 }
 
@@ -311,6 +323,7 @@
       text-align: center;
     }
   }
+
   &:hover {
     box-shadow: none;
   }
@@ -410,6 +423,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

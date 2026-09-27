@@ -28,7 +28,7 @@ export default function SubsidyConfirmModal({ isOpen, onClose, onProceedWithoutS
       <div className='modal subsidy-confirm' role='dialog' aria-modal='true' aria-labelledby='subsidy-confirm-title'>
         <div className='modal__header'>
           <span className='subsidy-confirm__icon'>
-            <Icon name='star' />
+            <Icon name='sparkle' />
           </span>
           <button type='button' className='modal__close' aria-label='닫기' onClick={onClose}>
             <Icon name='x' />
