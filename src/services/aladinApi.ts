@@ -18,18 +18,6 @@ export interface AladinItem {
   publisher: string;
   pubDate: string;
   salesPoint: number;
-  /** 책 소개글. 항상 오는 필드지만 도서에 따라 빈 문자열일 수 있다. */
-  description: string;
-  /** OptResult=subInfo,packing으로 요청한 상세 조회(fetchBookDetail)에서만 채워진다. */
-  subInfo?: {
-    itemPage?: number;
-    packing?: {
-      styleDesc?: string;
-      sizeWidth?: number;
-      sizeHeight?: number;
-      sizeDepth?: number;
-    };
-  };
 }
 
 interface AladinListResponse {
@@ -126,7 +114,6 @@ export async function fetchBookDetail(isbn13: string): Promise<AladinItem | null
   const items = await callProxy('/api/aladin/lookup', {
     ItemId: isbn13,
     ItemIdType: 'ISBN13',
-    OptResult: 'subInfo,packing',
   });
   return items[0] ?? null;
 }
