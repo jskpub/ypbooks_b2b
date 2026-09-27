@@ -1,5 +1,19 @@
 @use '../abstracts' as *;
 
+.logo {
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: rem(2) $space-2;
+    border-radius: $radius-sm;
+    background-color: $color-primary;
+    color: $color-on-primary;
+    font-size: $font-size-label-sm;
+    font-weight: 700;
+    height: 20px;
+  }
+}
+
 // Phosphor Icons(Regular) 전용 — 기본 20px, 색은 놓이는 자리의 글자색(currentColor)을 따른다.
 // SVG 자체가 이미 fill="currentColor"라 별도 색 지정 없이 부모 text color를 그대로 상속한다.
 .icon {
