@@ -5,7 +5,8 @@ import StepIndicator from '@/components/StepIndicator';
 import EmptyState from '@/components/EmptyState';
 import CartGroupSection from '@/components/Cart/CartGroupSection';
 import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
-import { initialCartItems, type CartGroup } from '@/data/cartItems';
+import { useCart } from '@/contexts/CartContext';
+import type { CartGroup } from '@/data/cartItems';
 
 const FREE_SHIPPING_THRESHOLD = 10000;
 const SHIPPING_FEE = 2500;
@@ -20,7 +21,7 @@ function formatWon(amount: number) {
 // 계산 로직)은 동일하게 유지하고 주소 선택 모달처럼 이 프로젝트에 아직 없는 기능은 자리만
 // 잡아두고 연결하지 않았다(아래 주석 참고).
 export default function CartPage() {
-  const [items, setItems] = useState(initialCartItems);
+  const { items, toggleChecked, toggleAllChecked, changeQty, removeItem, removeSelected } = useCart();
   const [expandedGroups, setExpandedGroups] = useState<Record<CartGroup, boolean>>({
     recommended: true,
     personal: true,
@@ -31,26 +32,6 @@ export default function CartPage() {
   // 실제 지원금 사용량을 계산하는 백엔드/전역 상태가 아직 없어서 기본값 false(소진 안 됨)로 시작한다.
   const [recommendedSubsidyExhausted] = useState(false);
   const [personalSubsidyExhausted] = useState(false);
-
-  const toggleChecked = (id: string) => {
-    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)));
-  };
-
-  const toggleAllChecked = (checked: boolean) => {
-    setItems((prev) => prev.map((item) => ({ ...item, checked })));
-  };
-
-  const changeQty = (id: string, qty: number) => {
-    setItems((prev) => prev.map((item) => (item.id === id ? { ...item, qty } : item)));
-  };
-
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const removeSelected = () => {
-    setItems((prev) => prev.filter((item) => !item.checked));
-  };
 
   const toggleGroupExpanded = (group: CartGroup) => {
     setExpandedGroups((prev) => ({ ...prev, [group]: !prev[group] }));

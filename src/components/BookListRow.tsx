@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/contexts/ToastContext';
 
 interface BookListRowProps {
   isbn13: string;
@@ -29,6 +31,19 @@ export default function BookListRow({ isbn13, title, author, publisher, pubDate,
   const [qty, setQty] = useState(1);
   const discountRate = Math.round((1 - sellingPrice / listPrice) * 100);
   const categoryPath = categoryName.split('>').slice(1, 3).join(' > ') || categoryName;
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty });
+    showToast('장바구니에 담았습니다');
+  };
+
+  const handleBuyNow = () => {
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty });
+    navigate('/payment');
+  };
 
   return (
     <div className="book-list-row">
@@ -87,10 +102,10 @@ export default function BookListRow({ isbn13, title, author, publisher, pubDate,
             <Icon name="plus" />
           </button>
         </div>
-        <button type="button" className="btn btn--secondary">
+        <button type="button" className="btn btn--secondary" onClick={handleAddToCart}>
           장바구니 담기
         </button>
-        <button type="button" className="btn btn--primary">
+        <button type="button" className="btn btn--primary" onClick={handleBuyNow}>
           바로 구매
         </button>
       </div>

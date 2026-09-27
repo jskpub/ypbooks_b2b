@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import EmptyState from '@/components/EmptyState';
 import { Icon } from '@/components/Icon';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/contexts/ToastContext';
 import { fetchBookDetail, type AladinItem } from '@/services/aladinApi';
 
 function formatWon(amount: number) {
@@ -15,6 +17,9 @@ export default function BookDetailPage() {
   const [book, setBook] = useState<AladinItem | null>(null);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');
   const [qty, setQty] = useState(1);
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let cancelled = false;
@@ -58,6 +63,16 @@ export default function BookDetailPage() {
   const discountRate = Math.round((1 - book.priceSales / book.priceStandard) * 100);
   const category = book.categoryName?.split('>').pop()?.trim();
 
+  const handleAddToCart = () => {
+    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty });
+    showToast('장바구니에 담았습니다');
+  };
+
+  const handleBuyNow = () => {
+    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty });
+    navigate('/payment');
+  };
+
   return (
     <main id='main' className='main'>
       <div className='container book-detail'>
@@ -100,10 +115,10 @@ export default function BookDetailPage() {
                 <Icon name='plus' />
               </button>
             </div>
-            <button type='button' className='btn btn--secondary btn--lg'>
+            <button type='button' className='btn btn--secondary btn--lg' onClick={handleAddToCart}>
               장바구니 담기
             </button>
-            <button type='button' className='btn btn--primary btn--lg'>
+            <button type='button' className='btn btn--primary btn--lg' onClick={handleBuyNow}>
               바로 구매
             </button>
           </div>

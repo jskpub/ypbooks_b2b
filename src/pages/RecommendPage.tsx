@@ -63,6 +63,8 @@ export default function RecommendPage() {
               reason={selected.recommendReason}
               ratingAverage={stats.average}
               reviewCount={stats.count}
+              sellingPrice={selected.priceSales}
+              listPrice={selected.priceStandard}
               badgeLabel={selected.badgeLabel}
               badgeColor={selected.badgeColor}
             />

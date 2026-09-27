@@ -1,0 +1,30 @@
+@use '../abstracts' as *;
+
+// 장바구니 담기 등 짧은 액션 확인용 — design-system.md에 아직 정의되지 않은 패턴이라
+// 버튼의 다크 톤(색 대비)에 맞춰 최소 형태로 구성한다. 화면당 한 번에 하나만 뜬다.
+.toast {
+  position: fixed;
+  bottom: $space-8;
+  left: 50%;
+  z-index: $z-toast;
+  padding: $space-3 $space-6;
+  background-color: $color-neutral-900;
+  color: $color-neutral-0;
+  font-size: $font-size-body-sm;
+  line-height: $line-height-body-sm;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  transform: translateX(-50%);
+  animation: toast-in $motion-base;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, $space-3);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
