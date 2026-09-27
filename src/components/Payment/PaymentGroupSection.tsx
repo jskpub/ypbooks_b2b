@@ -15,13 +15,28 @@ interface PaymentGroupSectionProps {
   isExpanded: boolean;
   onToggleExpand: () => void;
   isSubsidyExhausted: boolean;
-  exhaustedMessage: string;
+  exhaustedMessage?: string;
   onApplySubsidy: (id: string) => void;
   onRemoveSubsidy: (id: string) => void;
   onExclude: (item: CartItem) => void;
 }
 
-export default function PaymentGroupSection({ bodyId, badgeClassName, badgeIcon, badgeLabel, titleText, titleNote, subsidyBtnClassName, items, isExpanded, onToggleExpand, isSubsidyExhausted, exhaustedMessage, onApplySubsidy, onRemoveSubsidy, onExclude }: PaymentGroupSectionProps) {
+export default function PaymentGroupSection({
+  bodyId,
+  badgeClassName,
+  badgeIcon,
+  badgeLabel,
+  titleText,
+  titleNote,
+  subsidyBtnClassName,
+  items,
+  isExpanded,
+  onToggleExpand,
+  isSubsidyExhausted,
+  onApplySubsidy,
+  onRemoveSubsidy,
+  onExclude,
+}: PaymentGroupSectionProps) {
   if (items.length === 0) return null;
 
   return (
@@ -48,16 +63,6 @@ export default function PaymentGroupSection({ bodyId, badgeClassName, badgeIcon,
       </button>
 
       <div className='cart-group__body' id={bodyId} hidden={!isExpanded}>
-        {isSubsidyExhausted && (
-          <div className='alert cart-group__alert'>
-            <span className='alert__icon'>
-              <Icon name='warning' />
-            </span>
-            <div className='alert__body'>
-              <p className='alert__desc'>{exhaustedMessage}</p>
-            </div>
-          </div>
-        )}
         <table className='cart-table'>
           <thead>
             <tr>

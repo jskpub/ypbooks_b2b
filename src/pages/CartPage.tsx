@@ -141,7 +141,7 @@ export default function CartPage() {
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
               isSubsidyExhausted={subsidyLedger.recommendedUsed}
-              exhaustedMessage='추천도서의 지원 한도가 소진되어, 추천 도서는 본인 부담으로 결제됩니다.'
+            // exhaustedMessage='추천도서의 지원 한도가 소진되어, 추천 도서는 본인 부담으로 결제됩니다.'
             />
 
             <CartGroupSection
@@ -163,7 +163,7 @@ export default function CartPage() {
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
               isSubsidyExhausted={subsidyLedger.personalUsed}
-              exhaustedMessage='개인도서의 지원 한도가 소진되어, 개인 도서는 본인 부담으로 결제됩니다.'
+            // exhaustedMessage='개인도서의 지원 한도가 소진되어, 개인 도서는 본인 부담으로 결제됩니다.'
             />
 
             <div className='cart-actions'>
