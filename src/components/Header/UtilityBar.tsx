@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import { getSessionUser, signOut } from '@/data/auth';
 
 export default function UtilityBar() {
+  const user = getSessionUser();
+
   return (
     <div className="utility-bar">
       <div className="utility-bar__inner container">
         <ul className="utility-bar__menu">
           <li>
             <a href="javascript:;" className="utility-bar__link">
-              <strong className="utility-bar__name">김민서</strong>님
+              <strong className="utility-bar__name">{user?.name}</strong>님
             </a>
           </li>
           <li>
@@ -21,9 +24,9 @@ export default function UtilityBar() {
             </a>
           </li>
           <li>
-            <a href="javascript:;" className="utility-bar__link">
+            <Link to="/login" className="utility-bar__link" onClick={signOut}>
               로그아웃
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

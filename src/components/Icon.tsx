@@ -10,6 +10,8 @@ import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
 import CircleIcon from '@/assets/icons/circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
 import EqualsIcon from '@/assets/icons/equals.svg?react';
+import EyeIcon from '@/assets/icons/eye.svg?react';
+import EyeSlashIcon from '@/assets/icons/eye-slash.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
 import HeartIcon from '@/assets/icons/heart.svg?react';
 import InfoIcon from '@/assets/icons/info.svg?react';
@@ -45,6 +47,8 @@ const icons = {
   'check-circle': CheckCircleIcon,
   'device-mobile': DeviceMobileIcon,
   equals: EqualsIcon,
+  eye: EyeIcon,
+  'eye-slash': EyeSlashIcon,
   headset: HeadsetIcon,
   heart: HeartIcon,
   info: InfoIcon,
