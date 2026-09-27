@@ -186,7 +186,7 @@ export default function AddressModal() {
                         ({address.postalCode}) {address.roadAddress} {address.detailAddress}
                       </span>
                     </button>
-                    <button type='button' className='btn btn--secondary btn--sm address-modal__item-edit' onClick={() => openAddressForm(address.id)}>
+                    <button type='button' className='btn btn--secondary btn--md address-modal__item-edit' onClick={() => openAddressForm(address.id)}>
                       수정
                     </button>
                   </div>

@@ -135,7 +135,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         group: isRecommended ? 'recommended' : 'personal',
         title,
         byline,
-        formatLabel: '종이책',
+        formatLabel: '종이도서',
         formatBadgeClassName: 'badge--general',
         coverIcon: 'book-open',
         listPrice,

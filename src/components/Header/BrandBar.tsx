@@ -2,6 +2,7 @@ import type { Ref } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
+import { useCart } from '@/contexts/CartContext';
 
 interface BrandBarProps {
   isMenuOpen?: boolean;
@@ -12,6 +13,11 @@ interface BrandBarProps {
 export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: BrandBarProps = {}) {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  const { items, subsidyLedger } = useCart();
+  const totalCartCount = items.reduce((sum, item) => sum + item.qty, 0);
+
+  const recRemaining = subsidyLedger.recommendedUsed ? 0 : 1;
+  const perRemaining = subsidyLedger.personalUsed ? 0 : 1;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,7 +70,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           </span>
           <div className='brand-bar__subsidy-text'>
             <p className='brand-bar__subsidy-title'>2026.09 지원금 현황</p>
-            <p className='brand-bar__subsidy-lines'>추천 도서 1권 · 개인 도서 1권</p>
+            <p className='brand-bar__subsidy-lines'>
+              추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
+            </p>
           </div>
         </div>
 
@@ -75,8 +83,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
             </a>
           </li>
           <li>
-            <Link to='/cart' aria-label='장바구니'>
+            <Link to='/cart' aria-label='장바구니' className='brand-bar__icon-link'>
               <Icon name='shopping-cart-simple' />
+              {totalCartCount > 0 && <span className='brand-bar__cart-badge'>{totalCartCount}</span>}
             </Link>
           </li>
           <li>
