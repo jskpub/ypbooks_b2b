@@ -19,6 +19,8 @@
   }
 
   &__head-desc {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
     color: $color-foreground-secondary;
     margin-top: $space-1;
   }
@@ -73,6 +75,8 @@
     display: flex;
     align-items: center;
     gap: $space-1;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
     font-weight: 700;
     color: $color-foreground;
   }
@@ -82,6 +86,8 @@
   }
 
   &__sub {
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
     color: $color-foreground-secondary;
     margin-top: rem(2);
   }
@@ -115,11 +121,11 @@
     align-items: center;
     gap: $space-3;
 
-    letter-spacing: rem(-1);
-
     .checkbox {
       cursor: pointer;
-      font-weight: 600;
+      font-size: $font-size-label-base;
+      line-height: $line-height-label-base;
+      font-weight: 500;
       gap: rem(2);
 
       input {
@@ -133,9 +139,10 @@
   }
 
   &__remove {
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
     color: $color-foreground-secondary;
     transition: color $motion-fast;
-    letter-spacing: rem(-0.5);
 
     &:hover {
       color: $color-danger;
@@ -143,6 +150,8 @@
   }
 
   &__note {
+    font-size: $font-size-body-xs;
+    line-height: $line-height-body-xs;
     color: $color-foreground-secondary;
   }
 }
@@ -167,10 +176,6 @@
     text-align: left;
     transition: background-color $motion-fast;
 
-    &:hover {
-      // background-color: $color-surface;
-    }
-
     &:focus-visible {
       outline: 2px solid $color-focus-ring;
       outline-offset: -2px;
@@ -187,12 +192,16 @@
     display: flex;
     align-items: baseline;
     gap: $space-1;
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
     font-weight: 700;
-    color: $color-foreground;
+    color: $color-neutral-700;
   }
 
   &__title-note {
     font-weight: 400;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
     color: $color-foreground-secondary;
 
     strong {
@@ -243,9 +252,6 @@
   &__body {
     padding-block: $space-5;
 
-    // 표(추천도서/개인도서 cart-table)를 감싼 body는 표 자체가 위아래 경계(thead 구분선,
-    // 마지막 행)를 갖고 있어서 body의 세로 padding까지 더해지면 표 위아래에 불필요한 여백이
-    // 생긴다 — 이 경우만 세로 padding을 0으로 없앤다.
     &:has(.cart-table) {
       padding-block: 0;
     }
@@ -269,8 +275,9 @@
     border-bottom: $border-width-1 solid $color-border;
 
     th {
-      font-size: $font-size-caption;
-      font-weight: 700;
+      font-size: $font-size-label-base;
+      line-height: $line-height-label-base;
+      font-weight: 500;
       color: $color-foreground-secondary;
 
       &.cart-table__book-col {
@@ -314,11 +321,10 @@
   &__delivery-col {
     width: rem(200);
     position: relative;
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
   }
 
-  // 결제 페이지 상품 표(상품정보|판매가|수량|회사지원금|직원결제액) 전용 컬럼 — __qty-col(주문금액+스테퍼,
-  // 장바구니 전용)과는 폭이 달라서 새로 둔다. text-align은 th/td 공용 규칙(.cart-table th, .cart-table
-  // td)보다 특이도가 낮아 그대로 지면 안 먹으므로 태그를 같이 명시해 우선순위를 올린다.
   &__price-col {
     width: rem(140);
     font-size: $font-size-price-sm;
@@ -342,7 +348,6 @@
     position: relative;
   }
 
-  // 결제 페이지: 코너의 절대 위치 제외(x) 버튼과 금액 텍스트가 겹치지 않도록 오른쪽에 여유를 둔다.
   td.cart-table__payment-col {
     text-align: right;
     padding-right: rem(48);
@@ -372,8 +377,6 @@
     font-weight: 700;
   }
 
-  // Figma node 44:3338(Cart Row) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
-  // 56×80, radius-md(6px), 테두리 없음(기존엔 64×96·radius-sm·테두리 있었음).
   &__cover {
     flex: 0 0 auto;
     display: flex;
@@ -383,7 +386,7 @@
     height: rem(80);
     border-radius: $radius-md;
     background-color: $color-surface;
-    color: $color-muted; // 표지 아이콘 실측 fill #6f696b = $color-muted(neutral-550), disabled-text 아님
+    color: $color-muted;
 
     .icon {
       width: rem(24);
@@ -398,7 +401,6 @@
     min-width: 0;
   }
 
-  // 도서 유형 배지(그룹) + 포맷 배지를 한 줄에 나란히.
   &__badges {
     display: flex;
     align-items: center;
@@ -411,11 +413,15 @@
   }
 
   &__title {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
     font-weight: 700;
     color: $color-foreground;
   }
 
   &__byline {
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
     color: $color-foreground-secondary;
     margin-top: rem(2);
   }
@@ -429,21 +435,22 @@
   }
 
   &__discount {
-    color: $color-red-500;
+    color: $color-primary;
     font-weight: 700;
   }
 
   &__selling {
     font-weight: 700;
     color: $color-foreground;
+    font-variant-numeric: tabular-nums;
   }
 
   &__list {
     color: $color-disabled-text;
     text-decoration: line-through;
-    color: $color-neutral-550;
     font-weight: 400;
     font-size: $font-size-body-xs;
+    line-height: $line-height-body-xs;
   }
 
   &__contents {
@@ -452,8 +459,11 @@
 }
 
 .cart-order-amount {
-  font-weight: 500;
+  font-size: $font-size-price-sm;
+  line-height: $line-height-price-sm;
+  font-weight: 700;
   color: $color-foreground;
+  font-variant-numeric: tabular-nums;
   margin-bottom: $space-2;
 
   strong {
@@ -463,7 +473,7 @@
 
 .cart-delivery-eta {
   &__main {
-    font-weight: 600;
+    font-weight: 500;
     color: $color-foreground;
   }
 
@@ -473,7 +483,6 @@
   }
 }
 
-// Figma node 44:3352(remove, Cart Row 44:3338 안) 실측 — 32×32 안에 20px 아이콘(기존 16px).
 .cart-remove-btn {
   @include icon-button;
   width: rem(32);
@@ -504,15 +513,22 @@
   gap: $space-3;
 }
 
-// 사이드바 — 배송지 위젯
+// 사이드바 — 배송지 위젯 & 주문 요약
+.cart__layout .layout-with-sidebar__sidebar {
+  position: sticky;
+  top: rem(24);
+}
+
 .cart-address {
   display: flex;
   flex-direction: column;
-  gap: rem(8);
+  gap: $space-1;
   padding: $space-4;
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
   background-color: $color-surface-card;
+  font-size: $font-size-body-sm;
+  line-height: $line-height-body-sm;
 
   &__head {
     display: flex;
@@ -521,12 +537,12 @@
   }
 
   &__title {
+    font-size: $font-size-h4;
+    line-height: $line-height-h4;
     font-weight: 700;
     color: $color-foreground;
   }
 
-  // 배송지 주소를 누르면 배송지 목록 모달이 열린다 — 원래 div였던 걸 button으로 바꾸면서
-  // 브라우저 기본 버튼 스타일(테두리 없음, 배경 투명, 왼쪽 정렬)만 초기화한다.
   &__select {
     display: flex;
     align-items: center;
@@ -538,7 +554,9 @@
     border-radius: $radius-sm;
     background-color: $color-surface;
     color: $color-foreground;
-    font-weight: 600;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    font-weight: 500;
     text-align: left;
     transition: border-color $motion-fast;
 
@@ -566,6 +584,8 @@
     display: flex;
     flex-direction: column;
     gap: rem(2);
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
     color: $color-foreground-secondary;
 
     li {
@@ -573,9 +593,6 @@
       padding-left: rem(10);
     }
 
-    // 텍스트로 "• "를 직접 넣으면 그 글자도 줄바꿈 계산에 포함돼서, 문장이 길어져 둘째 줄로
-    // 넘어갈 때 불릿 폭만큼 밀려 시작 위치가 첫 줄과 어긋난다. 가상 선택자 점으로 분리하면
-    // 텍스트 자체는 padding-left(10px)만큼의 고정 폭에서 시작해 줄바꿈돼도 정렬이 유지된다.
     li::before {
       content: '';
       position: absolute;
@@ -608,6 +625,8 @@
   &__title {
     padding-bottom: $space-3;
     border-bottom: $border-width-1 solid $color-border;
+    font-size: $font-size-h4;
+    line-height: $line-height-h4;
     font-weight: 700;
     color: $color-foreground;
   }
@@ -616,6 +635,8 @@
     display: flex;
     flex-direction: column;
     gap: $space-2;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
   }
 
   &__row {
@@ -623,6 +644,13 @@
     align-items: center;
     justify-content: space-between;
     color: $color-foreground-secondary;
+
+    span:last-child {
+      font-size: $font-size-price-sm;
+      line-height: $line-height-price-sm;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
   }
 
   &__row--discount {
@@ -639,6 +667,8 @@
   }
 
   &__total-label {
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
     font-weight: 700;
     color: $color-foreground;
   }
@@ -651,12 +681,12 @@
     display: inline-flex;
     align-items: baseline;
     gap: rem(2);
+    font-variant-numeric: tabular-nums;
   }
 
-  // "원" 단위 스타일 — 금액 숫자와 동일한 메인 시그니처 색상($color-primary: red) 및 일관된 크기/굵기 적용
   &__total-unit {
-    font-size: rem(16);
-    font-weight: 500;
+    font-size: $font-size-body-base;
+    font-weight: 700;
     color: $color-primary;
   }
 
@@ -760,26 +790,62 @@
     display: flex;
     flex-direction: column;
     gap: $space-5;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
   }
 
   &__section-title {
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
     font-weight: 700;
     color: $color-foreground;
-    margin-bottom: $space-1;
+    margin-bottom: $space-2;
   }
 
-  &__section p {
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: rem(6);
     color: $color-foreground-secondary;
-    margin-top: rem(2);
+    line-height: $line-height-body-sm;
+  }
+
+  &__num {
+    flex: 0 0 auto;
+    font-weight: 500;
+    color: $color-foreground-secondary;
+  }
+
+  &__text {
+    flex: 1 1 auto;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: rem(4);
   }
 
   &__note {
+    margin-top: $space-2;
     color: $color-danger;
     font-weight: 500;
   }
 
   &__example {
-    padding-left: $space-4;
+    margin-top: rem(2);
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
     color: $color-muted;
   }
 }

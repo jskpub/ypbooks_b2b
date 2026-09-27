@@ -53,10 +53,10 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
               </span>
             </div>
             <div className='cart-book__contents'>
-              <h3 className='cart-book__title text-body-sm'>{item.title}</h3>
-              <p className='cart-book__byline caption'>{item.byline}</p>
+              <strong className='cart-book__title'>{item.title}</strong>
+              <p className='cart-book__byline'>{item.byline}</p>
             </div>
-            <div className='cart-book__price caption'>
+            <div className='cart-book__price'>
               <span className='cart-book__discount'>{discountRate}%</span>
               <span className='cart-book__selling'>{formatWon(item.sellingPrice)}</span>
               <span className='cart-book__list'>{formatWon(item.listPrice)}</span>
@@ -96,7 +96,7 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
         </div>
       </td>
       <td className='cart-table__delivery-col'>
-        <div className='cart-delivery-eta caption'>
+        <div className='cart-delivery-eta'>
           <p className='cart-delivery-eta__main'>{item.deliveryMain}</p>
           <p className='cart-delivery-eta__sub'>{item.deliverySub}</p>
         </div>

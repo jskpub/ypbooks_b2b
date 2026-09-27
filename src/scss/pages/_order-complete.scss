@@ -40,6 +40,8 @@
   }
 
   &__hero-desc {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
     color: $color-foreground-secondary;
   }
 
@@ -53,13 +55,17 @@
     border-radius: $radius-md;
     background-color: $color-surface;
     color: $color-foreground-secondary;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
   }
 
   &__id-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: $space-2;
+    gap: $space-1;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
 
     & + & {
       margin-top: rem(2);
@@ -110,11 +116,17 @@
     text-align: center;
 
     span {
+      font-size: $font-size-caption;
+      line-height: $line-height-caption;
       color: $color-foreground-secondary;
     }
 
     strong {
+      font-size: $font-size-price;
+      line-height: $line-height-price;
+      font-weight: 700;
       color: $color-foreground;
+      font-variant-numeric: tabular-nums;
     }
 
     &--subsidy strong {
@@ -139,6 +151,8 @@
     border-radius: $radius-sm;
     background-color: $color-surface;
     color: $color-foreground-secondary;
+    font-size: $font-size-caption-lg;
+    line-height: $line-height-caption-lg;
   }
 
   &__items,
@@ -175,6 +189,8 @@
       }
 
       td {
+        font-size: $font-size-body-sm;
+        line-height: $line-height-body-sm;
         &.cart-table__book-col {
           text-align: left;
         }
@@ -204,6 +220,8 @@
     }
   }
 
+  &__delivery {
+  }
   &__delivery .card__title {
     display: flex;
     align-items: center;
