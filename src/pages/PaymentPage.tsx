@@ -287,6 +287,8 @@ export default function PaymentPage() {
                 finalPaymentAmount={finalPaymentAmount}
                 recommendedUsed={subsidyLedger.recommendedUsed}
                 personalUsed={subsidyLedger.personalUsed}
+                isMaxBenefitApplied={isMaxBenefitApplied}
+                onApplyMaxBenefit={handleApplyMaxBenefit}
                 agreeTerms={agreeTerms}
                 onAgreeTermsChange={setAgreeTerms}
                 onBackToCart={() => navigate('/cart')}

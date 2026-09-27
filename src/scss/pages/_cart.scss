@@ -631,6 +631,72 @@
     color: $color-foreground;
   }
 
+  &__subsidy-stack {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    padding: $space-3;
+    border-radius: $radius-md;
+    background-color: $color-primary-soft;
+    border: $border-width-1 solid $color-danger-border;
+
+    &.is-applied {
+      background-color: $color-surface;
+      border-color: $color-border;
+    }
+  }
+
+  &__subsidy-row {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+
+    &--exhausted {
+      color: $color-foreground-secondary;
+
+      .cart-summary__subsidy-row-icon {
+        color: $color-muted;
+      }
+    }
+
+    &--benefit {
+      color: $color-foreground;
+      font-weight: 500;
+
+      .cart-summary__subsidy-row-icon {
+        color: $color-primary;
+      }
+
+      .is-applied & {
+        font-weight: 700;
+
+        .cart-summary__subsidy-row-icon {
+          color: $color-subsidy-company;
+        }
+      }
+    }
+  }
+
+  &__subsidy-row-icon {
+    width: rem(16);
+    height: rem(16);
+    flex-shrink: 0;
+  }
+
+  &__subsidy-row-text {
+    flex: 1 1 auto;
+  }
+
+  &__subsidy-btn {
+    width: 100%;
+    margin-top: rem(2);
+    justify-content: center;
+    font-size: $font-size-caption;
+    font-weight: 700;
+  }
+
   &__rows {
     display: flex;
     flex-direction: column;
