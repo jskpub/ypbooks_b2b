@@ -62,7 +62,6 @@ export default function CartPage() {
           <div>
             <h1>장바구니</h1>
             <p className='cart__head-desc text-body-sm'>선택하신 도서 목록과 수량을 확인해 주세요.</p>
-            <p className='cart__head-note text-body-sm'>※ 회사 지원금은 다음 단계인 결제 페이지에서 적용할 수 있습니다.</p>
           </div>
           <StepIndicator currentStep='cart' />
         </div>
@@ -121,15 +120,7 @@ export default function CartPage() {
               </div>
             )}
 
-            {isEmpty && (
-              <EmptyState
-                icon='shopping-cart-simple'
-                title='장바구니에 담긴 상품이 없습니다.'
-                description='마음에 드는 도서를 담아 보세요.'
-                actionLabel='추천도서 둘러보기'
-                onAction={() => navigate('/recommend')}
-              />
-            )}
+            {isEmpty && <EmptyState icon='shopping-cart-simple' title='장바구니에 담긴 상품이 없습니다.' description='마음에 드는 도서를 담아 보세요.' actionLabel='추천도서 둘러보기' onAction={() => navigate('/recommend')} />}
 
             <CartGroupSection
               bodyId='cart-group-recommended-body'
@@ -226,13 +217,16 @@ export default function CartPage() {
                 </div>
               </div>
               <div className='cart-summary__total'>
-                <span className='cart-summary__total-label text-body-sm'>
-                  결제 예정 금액
-                  <span className='cart-summary__total-note caption'>(지원금 미반영)</span>
+                <span className='cart-summary__total-label text-body-sm'>결제 예정 금액</span>
+                <span className='cart-summary__total-amount'>
+                  {finalTotal.toLocaleString('ko-KR')}
+                  <span className='cart-summary__total-unit'>원</span>
                 </span>
-                <span className='text-h2'>
-                  <span className='cart-summary__total-amount'>{finalTotal.toLocaleString('ko-KR')}</span>원
-                </span>
+              </div>
+
+              <div className='cart-summary__helper-text'>
+                <Icon name='info' aria-hidden='true' />
+                <p>회사 지원금은 다음 결제 단계에서 적용됩니다.</p>
               </div>
               {isEmpty ? (
                 <button type='button' className='btn btn--primary btn--lg is-disabled' disabled>

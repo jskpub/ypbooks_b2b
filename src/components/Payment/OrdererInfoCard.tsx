@@ -54,10 +54,10 @@ export default function OrdererInfoCard({ phonePrefix, phoneMid, phoneEnd, email
         <input id='orderer-email' type='email' className='field__input' value={email} onChange={(event) => onEmailChange(event.target.value)} />
       </div>
 
-      <p className='field__help'>
-        • 주문자 연락처로 주문 관련 알림톡이 발송되므로 <br />
-        정확한 주문자 정보를 입력해 주세요.
-      </p>
+      <ul className='field__help list-disc caption'>
+        <li>주문자 연락처로 주문 관련 알림톡이 발송되므로 <br />정확한 주문자 정보를 입력해 주세요.</li>
+        <li>변경한 연락처/이메일은 회원정보에 반영되지 않습니다.</li>
+      </ul>
     </div>
   );
 }

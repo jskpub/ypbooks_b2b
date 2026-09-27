@@ -161,7 +161,7 @@ export default function OrderCompletePage() {
         <div className='order-complete__actions'>
           {/* 원본은 마이페이지 주문 탭으로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
           <a href='javascript:;' className='btn btn--secondary'>
-            <Icon name='list' />
+            <Icon name='receipt' />
             주문/배송내역 조회
           </a>
           <Link to='/' className='btn btn--secondary'>

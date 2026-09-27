@@ -94,7 +94,7 @@ export default function AddressSection({ isExpanded, onToggleExpand, address, on
                 </div>
               )}
 
-              <p className='field__help'>• 택배사 송장에 표기되는 메시지입니다.</p>
+              <p className='field__help'>택배사 송장에 표기되는 메시지입니다.</p>
             </div>
           </div>
         </div>
