@@ -286,10 +286,13 @@
       transform: translateX(0);
     }
 
-    a {
+    a,
+    .brand-bar__icon-link {
       @include icon-button;
+      position: relative;
       flex: 0 0 auto;
       border-radius: $radius-full;
+      position: relative;
 
       &:hover {
         background-color: $color-surface;
@@ -301,5 +304,24 @@
         outline-offset: 2px;
       }
     }
+  }
+  &__cart-badge {
+    position: absolute;
+    top: rem(8);
+    right: rem(8);
+    min-width: rem(14);
+    height: rem(14);
+    padding-inline: rem(3);
+    border-radius: $radius-full;
+    background-color: $color-red-500;
+    color: $color-neutral-0;
+    font-size: rem(10);
+    font-weight: 700;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    box-sizing: border-box;
   }
 }

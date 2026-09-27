@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import StepIndicator from '@/components/StepIndicator';
 import EmptyState from '@/components/EmptyState';
@@ -17,6 +17,7 @@ function formatWon(amount: number) {
 }
 
 export default function CartPage() {
+  const navigate = useNavigate();
   const { items, subsidyLedger, toggleChecked, toggleAllChecked, changeQty, removeItem, removeSelected, selectedAddress, openAddressList } = useCart();
   const { toastMessage, showToast } = useToast();
   const [expandedGroups, setExpandedGroups] = useState<Record<CartGroup, boolean>>({
@@ -120,7 +121,15 @@ export default function CartPage() {
               </div>
             )}
 
-            {isEmpty && <EmptyState icon='shopping-cart-simple' title='장바구니에 담긴 상품이 없습니다.' description='마음에 드는 도서를 담아 보세요.' actionLabel='추천도서 둘러보기' />}
+            {isEmpty && (
+              <EmptyState
+                icon='shopping-cart-simple'
+                title='장바구니에 담긴 상품이 없습니다.'
+                description='마음에 드는 도서를 담아 보세요.'
+                actionLabel='추천도서 둘러보기'
+                onAction={() => navigate('/recommend')}
+              />
+            )}
 
             <CartGroupSection
               bodyId='cart-group-recommended-body'

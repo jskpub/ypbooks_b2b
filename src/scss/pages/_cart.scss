@@ -6,6 +6,8 @@
 // 쓰는 조합(장바구니 그룹 아코디언, 표, 주문 요약)만 새로 짰다.
 
 .cart {
+  padding-bottom: $space-8;
+
   &__head {
     display: flex;
     flex-wrap: wrap;
@@ -28,7 +30,7 @@
   }
 
   &__layout {
-    padding-block: $space-6;
+    padding-top: $space-6;
   }
 
   &__main {
@@ -120,6 +122,7 @@
     gap: $space-3;
 
     letter-spacing: rem(-1);
+
     .checkbox {
       cursor: pointer;
       font-weight: 600;
@@ -272,7 +275,7 @@
       color: $color-foreground-secondary;
 
       &.cart-table__delivery-col {
-        > div {
+        >div {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -346,6 +349,7 @@
     align-items: center;
     color: $color-muted;
     margin-left: rem(4);
+
     .icon {
       width: rem(16);
       height: rem(16);
@@ -476,6 +480,7 @@
   right: rem(6);
   border-radius: $radius-full;
   transition: background-color 0.3s;
+
   .icon {
     width: rem(20);
     height: rem(20);
@@ -652,7 +657,7 @@
   }
 
   // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
-  > .btn {
+  >.btn {
     width: 100%;
   }
 }
