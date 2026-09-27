@@ -112,7 +112,7 @@
   padding-left: 0;
   margin-top: $space-1;
 
-  > li {
+  >li {
     position: relative;
     padding-left: rem(10);
 
@@ -124,7 +124,7 @@
       color: inherit;
     }
 
-    + li {
+    +li {
       margin-top: rem(2);
     }
   }
@@ -136,7 +136,7 @@
   list-style: none;
   padding-left: 0;
 
-  > li {
+  >li {
     position: relative;
     padding-left: rem(10);
 
@@ -148,10 +148,8 @@
       color: inherit;
     }
 
-    + li {
+    +li {
       margin-top: rem(2);
     }
   }
 }
-
-
