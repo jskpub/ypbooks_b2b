@@ -26,8 +26,10 @@ const CARD_WIDTH_PX = 240;
 const CARD_GAP_PX = 24;
 
 // design-system.md "side-button" 패턴 — 가로 스크롤 도서 목록 양옆의 50×50 원형 버튼으로
-// perPage(기본 5)개씩 페이지 단위로 넘긴다. 첫 페이지에선 이전, 마지막 페이지에선 다음을 Disabled.
-export default function BookCarousel({ items, variant, showPrice = true, perPage = 5 }: BookCarouselProps) {
+// perPage(기본 4)개씩 페이지 단위로 넘긴다. 첫 페이지에선 이전, 마지막 페이지에선 다음을 Disabled.
+// 기본값 5는 side-button(50px)×2 + gap(16px)×2를 더하면 1428px가 필요해 컨테이너 폭(1240px)을
+// 넘어서서 5번째 카드가 잘렸다 — 4로 낮춰 필요한 폭(1164px)이 컨테이너 안에 들어오게 한다.
+export default function BookCarousel({ items, variant, showPrice = true, perPage = 4 }: BookCarouselProps) {
   const [page, setPage] = useState(0);
   const pageCount = Math.max(1, Math.ceil(items.length / perPage));
   const atStart = page <= 0;
