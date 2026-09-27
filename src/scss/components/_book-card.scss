@@ -79,4 +79,24 @@
     color: $color-muted;
     text-decoration: line-through;
   }
+
+  &__target {
+    color: $color-muted;
+    text-align: center;
+    word-break: keep-all; // 한 단어 중간에서 줄바꿈되지 않게(짧은 문구라 대부분 한 줄에 들어간다)
+  }
+
+  // Figma node 1190:134(past-card) 실측 — 지난 추천 도서 전용. 가격/평점 없이
+  // 표지(104×139) + 추천대상 + 도서명 + 작가만 표시(design-system.md "past-recomment").
+  &--past-recomment {
+    width: rem(104);
+    padding: 0;
+    gap: $space-1;
+    background-color: transparent;
+
+    .book-card__cover {
+      width: rem(104);
+      height: rem(139);
+    }
+  }
 }

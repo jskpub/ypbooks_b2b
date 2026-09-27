@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 
-export type BookCardVariant = 'home_bookcard' | 'home_best';
+export type BookCardVariant = 'home_bookcard' | 'home_best' | 'past-recomment';
 
 interface BookCardProps {
   variant: BookCardVariant;
@@ -11,6 +11,8 @@ interface BookCardProps {
   coverSrc?: string;
   /** home_best 전용 — home_bookcard는 순위 배지 자체가 없다(Figma 컴포넌트에 prop 없음). */
   rank?: number;
+  /** past-recomment 전용 — Figma "추천 대상" 캡션(design-system.md: 도서 제목·작가·추천대상 3개 필드만 표시). */
+  target?: string;
   sellingPrice?: number;
   listPrice?: number;
   showPrice?: boolean;
@@ -29,15 +31,18 @@ export default function BookCard({
   author,
   coverSrc,
   rank,
+  target,
   sellingPrice,
   listPrice,
   showPrice = true,
   showRank = variant === 'home_best',
 }: BookCardProps) {
   const displayRank = variant === 'home_best' && showRank && rank != null;
+  const isPastRecomment = variant === 'past-recomment';
 
   return (
     <Link to={`/books/${isbn13}`} className={`book-card book-card--${variant}`}>
+      {isPastRecomment && target && <p className='book-card__target caption'>{target}</p>}
       <div className='book-card__cover'>
         {coverSrc ? <img src={coverSrc} alt='' /> : <Icon name='books' />}
         {displayRank && <span className='book-card__rank'>{rank}</span>}
@@ -46,7 +51,7 @@ export default function BookCard({
         <p className='book-card__title text-h4'>{title}</p>
         <p className='book-card__author text-body-sm'>{author}</p>
       </div>
-      {showPrice && sellingPrice != null && (
+      {!isPastRecomment && showPrice && sellingPrice != null && (
         <div className='book-card__price-row'>
           <span className='book-card__selling price'>{formatWon(sellingPrice)}</span>
           {listPrice != null && <span className='book-card__list text-body-xs'>{formatWon(listPrice)}</span>}

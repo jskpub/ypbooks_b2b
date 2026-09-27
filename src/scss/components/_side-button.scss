@@ -30,4 +30,16 @@
     color: $color-disabled-text;
     cursor: not-allowed;
   }
+
+  // Figma "추천 도서 목록 캐러셀"(28px) / "지난 추천 도서" 월별 페이징(26px) 전용 — 50px 원본보다 작다.
+  &--sm {
+    width: rem(28);
+    height: rem(28);
+    box-shadow: none;
+
+    .icon {
+      width: rem(14);
+      height: rem(14);
+    }
+  }
 }

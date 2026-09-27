@@ -1,10 +1,18 @@
 @use '../abstracts' as *;
 
+// 서평 페이지(.review-feed)와 같은 읽기 폭 래퍼 — GNB/헤더는 1280px 그리드를 유지하고
+// 본문만 960px로 좁힌다.
 .recommend-page {
+  max-width: $layout-reading-max-width;
+  margin-inline: auto;
   padding-block: $space-8;
 
-  &__section-title {
-    margin-bottom: $space-4;
+  // 이 페이지에서만 장바구니/구매 버튼을 위 추천 사유 박스와 같은 폭(두 버튼 + 간격 합)으로 늘린다.
+  // PickedBook 컴포넌트(picked-book__actions .btn)는 다른 화면에서도 쓰일 수 있어 그대로 두고,
+  // 여기서만 더 구체적인 선택자로 덮어쓴다.
+  .picked-book__actions .btn {
+    flex: 1 1 0;
+    min-width: 0;
   }
 }
 
@@ -28,12 +36,25 @@
   }
 }
 
-.recommend-thumbs {
-  display: flex;
-  gap: $space-3;
+// Figma marker 11 "추천 도서 목록 캐러셀" — 연속 스크롤 + 하단 진행바(marker 10)로 위치를 보여준다.
+.recommend-carousel {
   margin-top: $space-6;
   margin-bottom: $space-12;
-  overflow-x: auto;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__track {
+    display: flex;
+    flex: 1 1 auto;
+    gap: $space-3;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    min-width: 0;
+  }
 
   &__item {
     flex: 0 0 auto;
@@ -54,11 +75,47 @@
       border-color: $color-primary;
     }
   }
+
+  &__progress {
+    position: relative;
+    height: rem(3);
+    margin-top: $space-4;
+    background-color: $color-border;
+    border-radius: $radius-full;
+    overflow: hidden;
+  }
+
+  &__progress-fill {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: $color-muted;
+    border-radius: $radius-full;
+    transition: left $motion-fast, width $motion-fast;
+  }
 }
 
 .past-recommendations {
   &__title {
     margin-bottom: $space-6;
+  }
+
+  // Figma rec-more-btn — 기본 3개월 → 클릭 시 3개월씩 추가, 더 없으면 버튼이 사라진다.
+  &__more {
+    display: block;
+    margin-inline: auto;
+    margin-top: $space-8;
+    padding: $space-2 $space-6;
+    background-color: $color-surface-card;
+    border: $border-width-1 solid $color-border-control;
+    border-radius: $radius-sm;
+    color: $color-foreground;
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+
+    &:hover {
+      background-color: $color-surface;
+    }
   }
 }
 
@@ -72,47 +129,17 @@
     color: $color-foreground-secondary;
   }
 
-  &__track {
-    display: flex;
-    gap: $space-4;
-    overflow-x: auto;
-  }
-}
-
-.past-card {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: $space-1;
-  width: rem(104);
-
-  &__cover {
+  &__nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: rem(104);
-    height: rem(139);
-    background-color: $color-surface;
-    border-radius: $radius-sm;
-    color: $color-muted;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    gap: $space-4;
   }
 
-  &__target {
-    color: $color-muted;
-  }
-
-  &__title {
-    color: $color-foreground;
-  }
-
-  &__author {
-    color: $color-foreground-secondary;
+  &__track {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: space-between;
+    gap: $space-4;
+    min-width: 0;
   }
 }

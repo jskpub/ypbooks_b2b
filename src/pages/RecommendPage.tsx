@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
 import PastRecommendationRow from '@/components/PastRecommendationRow';
 import PickedBook from '@/components/PickedBook';
+import RecommendThumbCarousel from '@/components/RecommendThumbCarousel';
 import { pastRecommendations } from '@/data/pastRecommendations';
 import { getReviewStatsByIsbn } from '@/data/reviewStore';
 import { fetchRecommendedBooks, type RecommendedAladinItem } from '@/services/aladinApi';
 
 const CURRENT_MONTH_LABEL = `${new Date().getMonth() + 1}월`;
 
+// 더보기(⑮) 스펙: 기본 3개월 노출 → 클릭 시 3개월씩 추가, 더 없으면 버튼 숨김.
+const MONTHS_PAGE_SIZE = 3;
+
 // BOOK-01. Figma node 84:50 기준 — 배너 + Picked Book(대표 도서, 썸네일로 전환) + 지난 추천 도서.
 export default function RecommendPage() {
   const [books, setBooks] = useState<RecommendedAladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [visibleMonths, setVisibleMonths] = useState(MONTHS_PAGE_SIZE);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +51,6 @@ export default function RecommendPage() {
 
         {selected && (
           <>
-            <p className='recommend-page__section-title text-h2'>추천대상</p>
             <PickedBook
               isbn13={selected.isbn13}
               title={selected.title}
@@ -59,30 +63,28 @@ export default function RecommendPage() {
               reason={selected.recommendReason}
               ratingAverage={stats.average}
               reviewCount={stats.count}
+              badgeLabel={selected.badgeLabel}
+              badgeColor={selected.badgeColor}
             />
 
-            <div className='recommend-thumbs' role='tablist' aria-label='추천도서 목록'>
-              {books.map((book, index) => (
-                <button
-                  key={book.isbn13}
-                  type='button'
-                  role='tab'
-                  aria-selected={index === selectedIndex}
-                  className={`recommend-thumbs__item${index === selectedIndex ? ' is-active' : ''}`}
-                  onClick={() => setSelectedIndex(index)}
-                >
-                  {book.cover ? <img src={book.cover} alt={book.title} /> : null}
-                </button>
-              ))}
-            </div>
+            <RecommendThumbCarousel
+              items={books.map((book) => ({ isbn13: book.isbn13, title: book.title, cover: book.cover }))}
+              selectedIndex={selectedIndex}
+              onSelect={setSelectedIndex}
+            />
           </>
         )}
 
         <section className='past-recommendations'>
           <h2 className='past-recommendations__title text-h2'>지난 추천 도서</h2>
-          {pastRecommendations.map((month) => (
+          {pastRecommendations.slice(0, visibleMonths).map((month) => (
             <PastRecommendationRow key={month.month} month={month.month} books={month.books} />
           ))}
+          {visibleMonths < pastRecommendations.length && (
+            <button type='button' className='past-recommendations__more' onClick={() => setVisibleMonths((v) => v + MONTHS_PAGE_SIZE)}>
+              더보기
+            </button>
+          )}
         </section>
       </div>
     </main>

@@ -47,6 +47,9 @@ async function callProxy(path: string, params: Record<string, string>): Promise<
 export interface RecommendedAladinItem extends AladinItem {
   target: string;
   recommendReason: string;
+  /** design-system.md Bookmark — 큐레이션 목록 외 B2B 관리자가 직접 추가한 도서에만 존재. */
+  badgeLabel: string | undefined;
+  badgeColor: 'gray' | 'orange' | 'green' | 'teal' | 'blue' | 'purple' | 'pink' | undefined;
 }
 
 // 홈/추천도서(BOOK-01) 화면용.
@@ -55,13 +58,13 @@ export interface RecommendedAladinItem extends AladinItem {
 // 이 목록의 ISBN이 곧 "지원금 100% 적용 대상" 판정 기준이 된다(장바구니/결제 로직에서 재사용).
 export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> {
   const results = await Promise.all(
-    recommendedBookList.map(async ({ isbn13, target, recommendReason }) => {
+    recommendedBookList.map(async ({ isbn13, target, recommendReason, badgeLabel, badgeColor }) => {
       const items = await callProxy('/api/aladin/lookup', {
         ItemId: isbn13,
         ItemIdType: 'ISBN13',
       });
       const item = items[0];
-      return item ? { ...item, target, recommendReason } : null;
+      return item ? { ...item, target, recommendReason, badgeLabel, badgeColor } : null;
     }),
   );
   return results.filter((item): item is RecommendedAladinItem => item !== null);

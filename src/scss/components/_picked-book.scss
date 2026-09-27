@@ -1,5 +1,17 @@
 @use '../abstracts' as *;
 
+// Figma feat-target(node 1190:53) — feat-wrap 전체 위에 중앙 정렬로 얹힌다.
+// 와이어프레임엔 "추천대상"이라는 라벨 그대로 박혀 있었지만 실제로는 큐레이터가 쓴
+// 값("마케팅·기획 담당자에게" 등)이 여기 들어간다.
+.picked-book__target-label {
+  margin-bottom: $space-4;
+  color: $color-primary;
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
+  font-weight: 700;
+  text-align: center;
+}
+
 // design-system.md "Picked Book" 패턴 구현 — Figma node 84:105(feat-wrap) 실측 기준.
 .picked-book {
   display: flex;
@@ -10,6 +22,7 @@
   border-radius: $radius-lg;
 
   &__cover {
+    position: relative;
     flex: 0 0 auto;
     display: flex;
     align-items: center;
@@ -19,7 +32,7 @@
     background-color: $color-surface;
     border-radius: $radius-md;
     color: $color-muted;
-    overflow: hidden;
+    overflow: visible; // bookmark-chip이 표지 가장자리 밖으로 살짝 걸치므로 클립하지 않는다
 
     img {
       width: 100%;
@@ -41,8 +54,10 @@
     min-width: 0;
   }
 
-  &__target {
-    color: $color-primary;
+  // 전역 a{color:$color-link}(빨강) 기본값을 덮어써서 검정으로 — "추천대상" 강조는
+  // 위 target-label(빨강)이 이미 하고 있으니 제목은 검정으로 구분한다.
+  &__title {
+    color: $color-foreground;
   }
 
   &__byline {
@@ -60,8 +75,13 @@
     margin-top: $space-2;
   }
 
+  // Figma feat-reason(#f7f7f7 박스) 실측 — 지금까지는 배경 없는 텍스트로만 떠 있었다.
+  // review-card__detail과 같은 처리(surface 배경 + radius-md)로 통일한다.
   &__reason {
     margin-top: $space-2;
+    padding: $space-4;
+    background-color: $color-surface;
+    border-radius: $radius-md;
     color: $color-foreground;
     white-space: pre-line;
   }
