@@ -1,0 +1,198 @@
+@use '../abstracts' as *;
+
+// AUTH-01(SSO 자동 로그인) / AUTH-02(사번 로그인). 헤더·푸터가 붙는 Layout 밖에서 화면 전체를 쓴다.
+// 기존 컴포넌트(.card/.field/.btn/.alert/.logo__badge)를 재사용하고, 화면 배치만 여기서 잡는다.
+
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+
+  &__img {
+    width: rem(120);
+    height: auto;
+  }
+}
+
+// ---- AUTH-01 SSO 자동 로그인 ----
+.auth-sso {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-6 $space-10;
+  }
+
+  &__service {
+    font-size: $font-size-label-lg;
+    line-height: $line-height-label-lg;
+    font-weight: 500;
+    color: $color-foreground;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    padding-bottom: $space-16;
+    text-align: center;
+  }
+
+  &__title {
+    margin-top: $space-3;
+    font-size: $font-size-h2;
+    line-height: $line-height-h2;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__desc {
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
+    color: $color-foreground-secondary;
+  }
+
+  &__note {
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-muted;
+  }
+
+  &__alert {
+    width: rem(480);
+    margin-bottom: $space-3;
+    text-align: left;
+
+    .alert__title {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ---- AUTH-02 사번 로그인 ----
+.auth-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+
+  // 위아래 행을 같은 높이(1fr)로 두어 가운데 행의 태그라인이 패널 세로 중앙에 오게 한다.
+  &__brand {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    align-items: start;
+    padding: $space-10;
+    border-right: $border-width-1 solid $color-border;
+  }
+
+  &__tagline {
+    font-size: $font-size-display;
+    line-height: $line-height-display;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-10;
+    background-color: $color-primary; // #e01e1a
+  }
+
+  &__card {
+    width: rem(480);
+    padding: $space-10;
+    border: $border-width-1 solid $color-border;
+
+    // 누르는 카드가 아니라서 .card의 hover 그림자를 끈다.
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-h1;
+    line-height: $line-height-h1;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__desc {
+    margin-top: $space-2;
+    font-size: $font-size-body-base;
+    line-height: $line-height-body-base;
+    color: $color-foreground-secondary;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+    margin-top: $space-8;
+  }
+
+  // 비밀번호 보기/숨기기 버튼을 입력창 오른쪽 안에 겹쳐 둔다.
+  &__password {
+    position: relative;
+
+    .field__input {
+      width: 100%;
+      padding-right: rem(52);
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    top: 50%;
+    right: $space-1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(36);
+    height: rem(36);
+    border-radius: $radius-sm;
+    color: $color-foreground-secondary;
+    transform: translateY(-50%);
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0;
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    margin-top: $space-3;
+    gap: $space-2;
+  }
+
+  &__help {
+    margin-top: $space-5;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+    text-align: center;
+  }
+
+  &__copyright {
+    grid-column: 1 / -1;
+    padding: $space-5 $space-10;
+    border-top: $border-width-1 solid $color-border;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+    color: $color-muted;
+  }
+}

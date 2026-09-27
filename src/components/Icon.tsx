@@ -8,6 +8,8 @@ import CaretUpIcon from '@/assets/icons/caret-up.svg?react';
 import CheckIcon from '@/assets/icons/check.svg?react';
 import CheckCircleIcon from '@/assets/icons/check-circle.svg?react';
 import DeviceMobileIcon from '@/assets/icons/device-mobile.svg?react';
+import EyeIcon from '@/assets/icons/eye.svg?react';
+import EyeSlashIcon from '@/assets/icons/eye-slash.svg?react';
 import HeadsetIcon from '@/assets/icons/headset.svg?react';
 import InfoIcon from '@/assets/icons/info.svg?react';
 import ListIcon from '@/assets/icons/list.svg?react';
@@ -38,6 +40,8 @@ const icons = {
   check: CheckIcon,
   'check-circle': CheckCircleIcon,
   'device-mobile': DeviceMobileIcon,
+  eye: EyeIcon,
+  'eye-slash': EyeSlashIcon,
   headset: HeadsetIcon,
   info: InfoIcon,
   list: ListIcon,

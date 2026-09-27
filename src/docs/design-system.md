@@ -418,7 +418,7 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### Brand & Accent
 
-- **YP Red** (`{colors.primary}` — #e01e1a): 주요 버튼, 선택 상태, 강조 금액, 필수 표시, 지원금 적용됨 상태. 흰 배경 대비 4.81:1. 장식·일러스트·배경 면적에는 쓰지 않는다.
+- **YP Red** (`{colors.primary}` — #e01e1a): 주요 버튼, 선택 상태, 강조 금액, 필수 표시, 지원금 적용됨 상태. 흰 배경 대비 4.81:1. 장식·일러스트·배경 면적에는 쓰지 않는다. **예외는 사번 로그인 화면(AUTH-02) 오른쪽 영역 배경 하나뿐이다**(Screen Patterns → Login Form 참고).
 - **Red Hover** (`{colors.primary-hover}` — #c61a17): 주요 버튼 hover.
 - **Red Pressed** (`{colors.primary-pressed}` — #aa1714): 주요 버튼 눌림.
 - **Red Soft** (`{colors.primary-soft}` — #ffeeed): 추천도서 배지 배경, 연한 강조 배경, Tertiary 버튼 눌림.
@@ -812,7 +812,9 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 
 ### Login Form — 로그인
 
-사번 + 비밀번호. 오류는 입력 아래에서 알린다. 안내 문구: "회사에서 받은 사번으로 로그인하세요."
+사번 + 비밀번호. 오류는 입력 아래에서 알린다. 안내 문구: "사번과 비밀번호를 입력해 로그인하세요."
+
+- **배경 예외:** 로그인 카드가 놓인 오른쪽 영역 배경은 `{colors.primary}`(#e01e1a)로 채운다. YP Red를 배경 면적에 쓰는 유일한 예외다. 카드는 흰색(`{colors.surface-card}`)을 유지해 카드 안 로그인 버튼(Primary)이 빨강 배경과 섞이지 않게 한다. 다른 화면에는 이 예외를 넓히지 않는다.
 
 ### Subsidy Limit Card — 마이페이지 지원금 관리
 
@@ -879,3 +881,4 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 | 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm).     | 이하준 |
 | 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |
 | 2.3  | 2026-09-25 | `caption-lg-strong`(14/20, Bold) 추가 — 평점 등 강조가 필요한 도서 메타.                               | 이하준 |
+| 2.4  | 2026-09-27 | Login Form 안내 문구를 화면설계서(AUTH-02)에 맞추고, 로그인 화면 오른쪽 영역 `{colors.primary}` 배경 예외 추가. | 이하준 |
