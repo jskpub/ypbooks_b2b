@@ -60,6 +60,7 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
             <div className='payment-table__subsidy-applied'>
               <span className='payment-table__subsidy-amount'>-{formatWon(subsidy)}</span>
               <button type='button' className={`subsidy-btn ${subsidyBtnClassName} is-applied`} onClick={() => onRemoveSubsidy(item.id)}>
+                <Icon name='check' />
                 지원금 적용됨
               </button>
             </div>

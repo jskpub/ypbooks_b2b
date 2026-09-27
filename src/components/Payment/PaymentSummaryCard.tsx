@@ -50,7 +50,7 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
 
       <div className='cart-summary__total'>
         <span className='cart-summary__total-label text-body-sm'>최종 결제금액</span>
-        <span className='cart-summary__total-amount text-h2'>
+        <span className='cart-summary__total-amount'>
           {finalPaymentAmount.toLocaleString('ko-KR')}
           <span className='cart-summary__total-unit'>원</span>
         </span>

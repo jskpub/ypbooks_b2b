@@ -23,12 +23,6 @@
     margin-top: $space-1;
   }
 
-  &__head-note {
-    color: $color-danger;
-    font-weight: 700;
-    margin-top: $space-1;
-  }
-
   &__layout {
     padding-top: $space-6;
   }
@@ -126,6 +120,11 @@
     .checkbox {
       cursor: pointer;
       font-weight: 600;
+      gap: rem(2);
+
+      input {
+        margin-right: $space-1;
+      }
     }
   }
 
@@ -276,13 +275,7 @@
 
       &.cart-table__book-col {
         text-align: left;
-        padding-left: rem(20);
-      }
-
-      &.cart-table__price-col,
-      &.cart-table__subsidy-col,
-      &.cart-table__payment-col {
-        text-align: right;
+        padding-left: rem(22);
       }
 
       &.cart-table__delivery-col {
@@ -342,10 +335,6 @@
 
   &__subsidy-col {
     width: rem(180);
-  }
-
-  td.cart-table__subsidy-col {
-    text-align: right;
   }
 
   &__payment-col {
@@ -654,25 +643,45 @@
     color: $color-foreground;
   }
 
-  &__total-note {
-    display: block;
-    margin-top: rem(2);
-    font-weight: 400;
-    color: $color-foreground-secondary;
+  &__total-amount {
+    font-size: $font-size-price-lg;
+    line-height: $line-height-price-lg;
+    font-weight: 700;
+    color: $color-primary;
+    display: inline-flex;
+    align-items: baseline;
+    gap: rem(2);
   }
 
-  &__total-amount {
-    font-weight: 900;
+  // "원" 단위 스타일 — 금액 숫자와 동일한 메인 시그니처 색상($color-primary: red) 및 일관된 크기/굵기 적용
+  &__total-unit {
+    font-size: rem(16);
+    font-weight: 500;
     color: $color-primary;
   }
 
-  // "원" 단위만 숫자보다 가볍게 — 색은 그대로 물려받고 굵기만 regular로 낮춘다.
-  &__total-unit {
-    font-weight: 400;
+  // KRDS / KWCAG 2.2 표준 준수 인라인 도움말 (Helper Text / Notice)
+  &__helper-text {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    padding: rem(8) $space-3;
+    border-radius: $radius-sm;
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+
+    .icon {
+      width: rem(16);
+      height: rem(16);
+      color: $color-focus-ring;
+      flex-shrink: 0;
+    }
   }
 
   // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
-  >.btn {
+  > .btn {
     width: 100%;
   }
 }
