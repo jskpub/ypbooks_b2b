@@ -4,8 +4,8 @@ export type OrderStep = 'cart' | 'payment' | 'complete';
 
 const steps: { key: OrderStep; label: string }[] = [
   { key: 'cart', label: '장바구니' },
-  { key: 'payment', label: '결제' },
-  { key: 'complete', label: '완료' },
+  { key: 'payment', label: '결제하기' },
+  { key: 'complete', label: '주문 완료' },
 ];
 
 interface StepIndicatorProps {

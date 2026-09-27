@@ -1,0 +1,175 @@
+@use '../abstracts' as *;
+
+// YP_PAYMENTS OrderCompletePage.tsx 이식. 기존 .card/.cart-table/.cart-book/.status-chip을
+// 재사용하고, 이 페이지에서만 쓰는 히어로 박스·정산 3분할 그리드만 새로 짰다.
+.order-complete {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  padding-block: $space-6;
+  max-width: rem(840);
+  margin-inline: auto;
+
+  &__step {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-3;
+    text-align: center;
+  }
+
+  &__hero-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(72);
+    height: rem(72);
+    border-radius: $radius-full;
+    background-color: $color-surface;
+    color: $color-primary;
+
+    .icon {
+      width: rem(48);
+      height: rem(48);
+    }
+  }
+
+  &__hero-desc {
+    color: $color-foreground-secondary;
+  }
+
+  &__id-box {
+    width: 100%;
+    max-width: rem(420);
+    display: flex;
+    flex-direction: column;
+    gap: rem(2);
+    padding: $space-4;
+    border-radius: $radius-md;
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+  }
+
+  &__id-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-2;
+
+    & + & {
+      margin-top: rem(2);
+    }
+  }
+
+  &__id-value {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    color: $color-foreground;
+  }
+
+  &__copy-btn {
+    padding: rem(2) $space-2;
+    border-radius: $radius-sm;
+    border: $border-width-1 solid $color-border;
+    color: $color-foreground-secondary;
+    font-size: $font-size-caption;
+    transition: background-color $motion-fast;
+
+    &:hover {
+      background-color: $color-surface;
+    }
+  }
+
+  &__settlement {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__settlement-grid {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__settlement-box {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: rem(4);
+    align-items: center;
+    padding: $space-4;
+    border-radius: $radius-md;
+    background-color: $color-surface;
+    text-align: center;
+
+    span {
+      color: $color-foreground-secondary;
+    }
+
+    strong {
+      color: $color-foreground;
+    }
+
+    &--subsidy strong {
+      color: $color-subsidy-company;
+    }
+
+    &--final strong {
+      color: $color-primary;
+    }
+  }
+
+  &__settlement-op {
+    flex: 0 0 auto;
+    color: $color-foreground-secondary;
+  }
+
+  &__settlement-rows {
+    display: flex;
+    flex-direction: column;
+    gap: rem(4);
+    padding: $space-3;
+    border-radius: $radius-sm;
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+  }
+
+  &__items,
+  &__delivery {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  &__delivery .card__title {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $space-3;
+    padding-top: $space-2;
+  }
+
+  .card {
+    &:hover {
+      box-shadow: none;
+      cursor: default;
+    }
+  }
+}

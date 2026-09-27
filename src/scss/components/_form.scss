@@ -1,4 +1,9 @@
+@use 'sass:string';
 @use '../abstracts' as *;
+
+// select 화살표 아이콘(아래)을 인라인 SVG data URI의 fill로 넣으려면 '#'을 '%23'으로 직접 써야 해서
+// $color-border-control 값을 그대로 끼워 넣는다 — 테두리 색이 바뀌면 화살표도 같이 바뀐다.
+$select-caret-hex: string.slice('#{$color-border-control}', 2);
 
 .field {
   display: flex;
@@ -11,15 +16,26 @@
     font-weight: 500;
   }
 
+  // design-system.md Colors → Brand & Accent: "YP Red — 필수 표시"에 쓰라고 명시된 용도다.
+  // 오류(danger)와는 다른 의미라 $color-primary를 쓴다. 시각 표시만 하고 SR에는 안 읽히게
+  // aria-hidden과 짝을 맞춰 쓴다 — 실제 필수 여부는 입력 쪽 aria-required로 알린다.
+  &__required {
+    color: $color-primary;
+  }
+
   &__input {
-    // 세로 패딩 12px(space-3)은 Figma Spacing 문서에 "입력 안쪽 세로"로 명시된 값
-    padding: $space-3 $space-4;
+    // Figma 실측(Component/Input field): 세로 패딩이 아니라 height 44px 고정 + 텍스트 세로 중앙
+    // 정렬로 만들어져 있다. 세로 패딩(예전 space-3=12px)까지 같이 주면 line-height(24)+패딩
+    // 24+테두리 2로 쌓여 ~50px가 되므로, 좌우만 패딩하고 높이를 직접 고정한다(box-sizing:
+    // border-box라 44px 안에 테두리까지 포함된다 — textarea는 아래 별도 규칙으로 다시 푼다).
+    height: rem(44);
+    padding-inline: $space-2;
     border: $border-width-1 solid $color-border-control; // --color-border-control, 폼 전용 테두리색
     border-radius: $radius-sm; // 4px — Figma Radius: "입력, 소형 버튼, 툴팁"
     background-color: $color-surface-card;
     // v2.3 Hierarchy 표가 body를 "기본 본문, 입력값"으로 명시 — 이전의 body-sm 추정을 대체한다
-    font-size: $font-size-body-base;
-    line-height: $line-height-body-base;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
 
     &:focus-visible {
       outline: 2px solid $color-focus-ring; // --color-focus-ring, 항상 파랑
@@ -46,6 +62,31 @@
       color: $color-danger;
     }
   }
+}
+
+// Figma Component/Select — input-field와 같은 토큰을 쓰고 오른쪽에 caret-down만 얹는다.
+// 브라우저 기본 화살표를 지우고(appearance:none) Icon/caret-down(Phosphor Regular)을
+// $color-muted로 고정한 인라인 SVG로 대체한다 — currentColor를 쓸 수 없는 background-image라
+// .checkbox의 체크 아이콘과 같은 방식(고정 색 데이터 URI)을 따른다.
+select.field__input {
+  appearance: none;
+  padding-right: $space-8; // 텍스트가 오른쪽 아이콘과 겹치지 않도록 여유를 둔다
+  background-repeat: no-repeat;
+  background-position: right $space-2 center;
+  background-size: rem(16);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%23#{$select-caret-hex}'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+  cursor: pointer;
+}
+
+// Figma Component/Textarea — input-field와 같은 토큰이되 세로로 늘어나고 아이콘이 없다. 여러 줄
+// 텍스트라 input의 "height 고정 + 세로 중앙 정렬" 트릭 대신 height:auto + 세로 패딩(space-2,
+// Figma 실측)으로 위쪽 정렬한다. 96px(3줄 기준)은 Figma 실측값. 리사이즈는 세로만 허용해
+// 사용자가 필요하면 더 늘릴 수 있게 둔다.
+textarea.field__input {
+  height: auto;
+  min-height: rem(96);
+  padding-block: $space-2;
+  resize: vertical;
 }
 
 .radio {
@@ -110,7 +151,9 @@ input[type='checkbox'].checkbox {
   background-position: center;
   background-size: rem(16) rem(16);
   cursor: pointer;
-  transition: background-color $motion-fast, border-color $motion-fast;
+  transition:
+    background-color $motion-fast,
+    border-color $motion-fast;
 
   &:checked {
     background-color: $color-primary;

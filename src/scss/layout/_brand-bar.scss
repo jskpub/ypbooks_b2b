@@ -1,12 +1,83 @@
 @use '../abstracts' as *;
 
+// 스크롤에 따라 줄어드는 축약형(.is-scrolled)까지 이 파일 하나에서 다룬다 — 예전엔 축약형이
+// header-sticky라는 완전히 별도 컴포넌트/파일이었지만, 지금은 헤더 하나가 계속 떠 있으면서
+// (position:sticky) 자기 자신을 줄이는 방식(test.html 참고)이라 같은 블록 안에 상태만 더한다.
 .brand-bar {
   &__inner {
     display: flex;
     align-items: center;
     gap: $space-6;
     padding-block: $space-4;
-    justify-content: space-between;
+    // justify-content: space-between;
+    transition: padding-block $motion-base;
+
+    .header.is-scrolled & {
+      padding-block: $space-5;
+      gap: rem(24);
+    }
+  }
+
+  // 전체카테고리 햄버거 — 평소엔 gnb 쪽 트리거가 보이니 숨겨두고, 스크롤로 gnb가 접히면
+  // 이 자리에 fade in 한다. opacity/visibility뿐 아니라 width도 0→44px로 같이 움직이는 게
+  // 중요하다 — width를 안 움직이면 평소에도 이 버튼이 보이지 않을 뿐 자리(44px)는 항상
+  // 차지하고 있어서, 옆의 __search가 그만큼 항상 좁아진 채로 있다가 스크롤해도 폭이 거의
+  // 안 바뀌어 보이는 문제가 있었다.
+  &__hamburger {
+    @include icon-button;
+    flex: 0 0 auto;
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    margin-right: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-#{$space-2});
+    transition:
+      width $motion-base,
+      opacity $motion-base,
+      visibility $motion-base,
+      transform $motion-base,
+      margin-right $motion-base,
+      background-color $motion-fast;
+    border-radius: $radius-full;
+
+    .header.is-scrolled & {
+      width: rem(44);
+      // __inner의 gap($space-4)을 여기서만 줄여서 햄버거-로고는 바짝 붙이고, 나머지 간격은 그대로 둔다.
+      margin-right: -$space-2;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    &[aria-expanded='true'] {
+      background-color: $color-surface;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
+
+    &:hover {
+      background-color: $color-red-50;
+    }
+  }
+
+  &__hamburger-icon--close {
+    display: none;
+  }
+
+  &__hamburger[aria-expanded='true'] {
+    .brand-bar__hamburger-icon--menu {
+      display: none;
+    }
+
+    .brand-bar__hamburger-icon--close {
+      display: inline-flex;
+    }
   }
 
   &__logo {
@@ -14,8 +85,15 @@
     display: inline-flex;
     height: auto;
     gap: 0.8rem;
-    padding-left: 54px;
+    padding-left: 25px;
     align-items: center;
+    transition: padding-left $motion-base;
+
+    .header.is-scrolled & {
+      // 스크롤 시엔 햄버거가 왼쪽에 붙으므로 로고 자체의 여백은 비운다(예전 header-sticky와 동일).
+      padding-left: 0;
+    }
+
     &:focus-visible {
       outline: 2px solid $color-focus-ring;
       outline-offset: 2px;
@@ -30,13 +108,22 @@
   }
 
   &__search {
-    flex: 1 1 auto;
+    flex: 0 1 rem(500);
     display: flex;
     align-items: center;
-    max-width: rem(640);
+    max-width: rem(500);
     border: $border-width-1 solid $color-border-control;
     border-radius: $radius-full;
     padding-inline: $space-4;
+    transition: max-width $motion-base;
+
+    // 480px은 예전 header-sticky(축약형 전용 헤더였을 때)가 쓰던 값을 그대로 이어받았다.
+    // __hamburger/__icons가 이제 평소엔 폭을 0으로 접어두기 때문에(위 참고), 펼침 상태에서
+    // max-width:640이 실제로 여유 폭 안에서 걸리는 상한이 되고, 축약 상태로 갈 때도 두 값이
+    // 서로 자리를 뺏고 뺏기는 일 없이 이 박스 혼자 640→480으로 매끄럽게 줄어든다.
+    .header.is-scrolled & {
+      max-width: rem(480);
+    }
 
     &:focus-within {
       border-color: $color-primary;
@@ -50,6 +137,11 @@
     padding-block: $space-3;
     font-size: $font-size-label-lg;
     background: none;
+    transition: padding-block $motion-base;
+
+    .header.is-scrolled & {
+      padding-block: $space-2;
+    }
 
     &:focus-visible {
       outline: none;
@@ -67,6 +159,8 @@
   }
 
   // 카드형 배지 — 연한 브랜드 배경 + 왼쪽 원형 아이콘 + 오른쪽 2줄(작은 제목 / 굵은 강조 내용).
+  // 스크롤 시에도 같은 엘리먼트가 그대로 남아 줄어들 뿐이다(예전엔 header-sticky에 아예 없어서
+  // 스크롤하면 사라졌는데, 이제는 계속 보인다 — 이번에 바뀐 유일한 내용).
   &__subsidy {
     flex: 0 0 auto;
     display: flex;
@@ -76,6 +170,17 @@
     border-radius: $radius-md;
     padding: $space-2 $space-4 $space-2 $space-2;
     white-space: nowrap;
+    transition:
+      padding $motion-base,
+      gap $motion-base;
+
+    .header.is-scrolled & {
+      padding: $space-1 $space-3;
+      gap: $space-1;
+      background-color: #f2f5f3;
+      color: #2b4336;
+      border: 1px solid #dce5e0;
+    }
   }
 
   &__subsidy-icon {
@@ -88,10 +193,23 @@
     border-radius: $radius-full;
     background-color: $color-primary;
     color: $color-on-primary;
+    transition:
+      width $motion-base,
+      height $motion-base;
 
     .icon {
       width: rem(18);
       height: rem(18);
+    }
+
+    .header.is-scrolled & {
+      width: rem(24);
+      height: rem(24);
+
+      .icon {
+        width: rem(14);
+        height: rem(14);
+      }
     }
   }
 
@@ -106,6 +224,18 @@
     line-height: $line-height-caption;
     font-weight: 400;
     color: $color-foreground-secondary;
+    overflow: hidden;
+    max-height: rem(18);
+    transition:
+      max-height $motion-base,
+      opacity $motion-fast;
+
+    // 스크롤 시엔 강조 문구(subsidy-lines) 한 줄만 남기고 제목 줄은 접는다(test.html의
+    // .support-banner__date와 동일하게 처리).
+    .header.is-scrolled & {
+      max-height: 0;
+      opacity: 0;
+    }
   }
 
   &__subsidy-lines {
@@ -113,5 +243,63 @@
     line-height: $line-height-label-base;
     font-weight: 700;
     color: $color-primary;
+    transition:
+      font-size $motion-base,
+      line-height $motion-base;
+
+    // 축약 상태에서 살짝 더 작게 — krds-yp-custom.md 11번 규칙상 한글에 음수 자간은 안 쓰므로
+    // (letter-spacing 축소 대신) 디자인 토큰에 있는 한 단계 작은 크기(caption)로 낮춘다.
+    .header.is-scrolled & {
+      font-size: $font-size-caption;
+      line-height: $line-height-caption;
+      font-weight: 500;
+      color: $color-neutral-900;
+      letter-spacing: rem(-0.5);
+    }
+  }
+
+  // 마이페이지/장바구니/주문/로그아웃 아이콘 — 예전엔 header-sticky 전용이었지만 이제 여기 항상
+  // 있고, 평소엔 숨겨져 있다가 스크롤 시 utility-bar 자리를 대신해 fade in 한다(test.html의
+  // .header-icons 패턴). __hamburger와 같은 이유로 평소엔 width도 0으로 접어서 자리를
+  // 차지하지 않게 한다 — 4개 아이콘(44px) + 사이 gap 3개($space-1=4px) = 188px.
+  &__icons {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 0;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX($space-2);
+    transition:
+      width $motion-base,
+      gap $motion-base,
+      opacity $motion-base,
+      visibility $motion-base,
+      transform $motion-base;
+
+    .header.is-scrolled & {
+      width: rem(188);
+      gap: $space-1;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    a {
+      @include icon-button;
+      flex: 0 0 auto;
+      border-radius: $radius-full;
+
+      &:hover {
+        background-color: $color-surface;
+        transition: background-color $motion-base;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-focus-ring;
+        outline-offset: 2px;
+      }
+    }
   }
 }

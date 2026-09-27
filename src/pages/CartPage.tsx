@@ -5,33 +5,23 @@ import StepIndicator from '@/components/StepIndicator';
 import EmptyState from '@/components/EmptyState';
 import CartGroupSection from '@/components/Cart/CartGroupSection';
 import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
-import { useCart } from '@/contexts/CartContext';
+import AddressModal from '@/components/AddressModal';
 import type { CartGroup } from '@/data/cartItems';
-
-const FREE_SHIPPING_THRESHOLD = 10000;
-const SHIPPING_FEE = 2500;
+import { useCart } from '@/context/CartContext';
+import { FREE_SHIPPING_THRESHOLD, getShippingFee } from '@/utils/pricing';
 
 function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// YP_PAYMENTS CartPage(E:\YP_PAYMENTS\src\pages\CartPage.tsx) 이식.
-// 원본은 전역 ShopContext(useShop)로 cart/subsidyLedger/selectedAddress를 관리하지만,
-// 이 프로젝트엔 그런 전역 상태가 없어서 전부 이 페이지의 로컬 state로 옮겼다 — 동작(상태 전이,
-// 계산 로직)은 동일하게 유지하고 주소 선택 모달처럼 이 프로젝트에 아직 없는 기능은 자리만
-// 잡아두고 연결하지 않았다(아래 주석 참고).
 export default function CartPage() {
-  const { items, toggleChecked, toggleAllChecked, changeQty, removeItem, removeSelected } = useCart();
+  const { items, subsidyLedger, toggleChecked, toggleAllChecked, changeQty, removeItem, removeSelected, selectedAddress, openAddressList } = useCart();
+  const [showSelectWarning, setShowSelectWarning] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<Record<CartGroup, boolean>>({
     recommended: true,
     personal: true,
   });
   const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false);
-
-  // 이번 달 그룹별 지원금 한도 소진 여부 — 원본의 subsidyLedger.recommendedUsed/personalUsed에 대응.
-  // 실제 지원금 사용량을 계산하는 백엔드/전역 상태가 아직 없어서 기본값 false(소진 안 됨)로 시작한다.
-  const [recommendedSubsidyExhausted] = useState(false);
-  const [personalSubsidyExhausted] = useState(false);
 
   const toggleGroupExpanded = (group: CartGroup) => {
     setExpandedGroups((prev) => ({ ...prev, [group]: !prev[group] }));
@@ -54,7 +44,7 @@ export default function CartPage() {
   }, [items]);
 
   const discount = totalList - totalSelling;
-  const shippingFee = totalSelling === 0 || totalSelling >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shippingFee = getShippingFee(totalSelling);
   const finalTotal = totalSelling + shippingFee;
   const shippingProgress = Math.min(100, (totalSelling / FREE_SHIPPING_THRESHOLD) * 100);
   const shippingShortfall = FREE_SHIPPING_THRESHOLD - totalSelling;
@@ -76,36 +66,39 @@ export default function CartPage() {
 
         <div className='layout-with-sidebar cart__layout'>
           <div className='layout-with-sidebar__main cart__main'>
-            <div className='shipping-card'>
-              <div className='shipping-card__left'>
-                <span className='shipping-card__icon'>
-                  <Icon name='truck' />
-                </span>
-                <div>
-                  <p className='shipping-card__message text-body-sm'>
-                    {shippingShortfall > 0 ? (
-                      <>
-                        <span className='shipping-card__amount'>{formatWon(shippingShortfall)}</span> 더 담으면 <strong>무료배송!</strong>
-                      </>
-                    ) : (
-                      '무료배송 달성!'
-                    )}
-                  </p>
-                  <p className='shipping-card__sub caption'>10,000원 이상 결제 시 기본 배송비 무료 (미만 시 2,500원)</p>
-                </div>
-              </div>
-              <div className='shipping-card__right'>
-                <div className='progress shipping-card__track'>
-                  <div className='progress__track'>
-                    <div className='progress__fill' style={{ width: `${shippingProgress}%` }} />
+            {!isEmpty && (
+              <div className='shipping-card'>
+                <div className='shipping-card__left'>
+                  <span className='shipping-card__icon'>
+                    <Icon name='truck' />
+                  </span>
+                  <div>
+                    <p className='shipping-card__message text-body-sm'>
+                      {shippingShortfall > 0 ? (
+                        <>
+                          <span className='shipping-card__amount'>{formatWon(shippingShortfall)}</span> 더 담으면 <strong>무료배송!</strong>
+                        </>
+                      ) : (
+                        '무료배송 달성!'
+                      )}
+                    </p>
+                    <p className='shipping-card__sub caption'>10,000원 이상 결제 시 기본 배송비 무료 (미만 시 2,500원)</p>
                   </div>
                 </div>
-                {/* 원본은 추천도서 목록 페이지('recommended')로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
-                <a href='javascript:;' className='btn btn--secondary btn--sm'>
-                  상품 더 담기
-                </a>
+                <div className='shipping-card__right'>
+                  <div className='progress shipping-card__track'>
+                    <div className='progress__track'>
+                      <div className='progress__fill' style={{ width: `${shippingProgress}%` }} />
+                    </div>
+                  </div>
+                  {shippingShortfall > 0 && (
+                    <a href='javascript:;' className='btn btn--secondary btn--sm'>
+                      상품 더 담기
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {!isEmpty && (
               <div className='cart-controls'>
@@ -125,7 +118,6 @@ export default function CartPage() {
               </div>
             )}
 
-            {/* 원본은 추천도서 목록 페이지로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
             {isEmpty && <EmptyState icon='shopping-cart-simple' title='장바구니에 담긴 상품이 없습니다.' description='마음에 드는 도서를 담아 보세요.' actionLabel='추천도서 둘러보기' />}
 
             <CartGroupSection
@@ -146,7 +138,7 @@ export default function CartPage() {
               onQtyChange={changeQty}
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
-              isSubsidyExhausted={recommendedSubsidyExhausted}
+              isSubsidyExhausted={subsidyLedger.recommendedUsed}
               exhaustedMessage='추천도서의 지원 한도가 소진되어, 추천 도서는 본인 부담으로 결제됩니다.'
             />
 
@@ -168,7 +160,7 @@ export default function CartPage() {
               onQtyChange={changeQty}
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
-              isSubsidyExhausted={personalSubsidyExhausted}
+              isSubsidyExhausted={subsidyLedger.personalUsed}
               exhaustedMessage='개인도서의 지원 한도가 소진되어, 개인 도서는 본인 부담으로 결제됩니다.'
             />
 
@@ -184,21 +176,23 @@ export default function CartPage() {
           </div>
 
           <div className='layout-with-sidebar__sidebar'>
-            {/* 원본은 클릭 시 배송지 선택 모달(setIsAddressModalOpen)을 여는데, 이 프로젝트엔 아직
-                그 모달 컴포넌트가 없어서 우선 정적으로만 둔다. */}
-            <div className='cart-address'>
-              <div className='cart-address__head'>
-                <span className='cart-address__title text-body-sm'>배송지</span>
+            {!isEmpty && (
+              <div className='cart-address'>
+                <div className='cart-address__head'>
+                  <span className='cart-address__title text-body-sm'>배송지</span>
+                </div>
+                <button type='button' className='cart-address__select caption' onClick={openAddressList}>
+                  <span className='text-truncate'>
+                    {selectedAddress.title} · {selectedAddress.roadAddress}
+                  </span>
+                  <Icon name='caret-down' />
+                </button>
+                <ul className='cart-address__notes caption'>
+                  <li>내일 출고 가능</li>
+                  <li>상품별 배송 예상일이 다른 경우, 가장 늦은 상품에 맞춰 함께 배송됩니다.</li>
+                </ul>
               </div>
-              <div className='cart-address__select caption'>
-                <span className='text-truncate'>서울특별시 종로구 청계천로 41...</span>
-                <Icon name='caret-down' />
-              </div>
-              <ul className='cart-address__notes caption'>
-                <li>• 내일 출고 가능</li>
-                <li>• 상품별 배송 예상일이 다른 경우, 가장 늦은 상품에 맞춰 함께 배송됩니다.</li>
-              </ul>
-            </div>
+            )}
 
             <div className='cart-summary'>
               <p className='cart-summary__title text-body-base'>주문 합계</p>
@@ -229,15 +223,31 @@ export default function CartPage() {
                   <span className='cart-summary__total-amount'>{finalTotal.toLocaleString('ko-KR')}</span>원
                 </span>
               </div>
-              <Link to='/payment' className='btn btn--primary btn--lg'>
-                주문하기 <Icon name='caret-right' />
-              </Link>
+              {isEmpty ? (
+                <button type='button' className='btn btn--primary btn--lg is-disabled' disabled>
+                  주문하기 <Icon name='caret-right' />
+                </button>
+              ) : selectedCount > 0 ? (
+                <Link to='/payment' className='btn btn--primary btn--lg'>
+                  주문하기 <Icon name='caret-right' />
+                </Link>
+              ) : (
+                <button type='button' className='btn btn--primary btn--lg' onClick={() => setShowSelectWarning(true)}>
+                  주문하기 <Icon name='caret-right' />
+                </button>
+              )}
+              {showSelectWarning && selectedCount === 0 && !isEmpty && (
+                <p className='cart-summary__warning caption' role='alert'>
+                  주문하실 상품을 선택해주세요.
+                </p>
+              )}
             </div>
           </div>
         </div>
       </div>
 
       <DeliveryInfoModal isOpen={isDeliveryModalOpen} onClose={() => setIsDeliveryModalOpen(false)} />
+      <AddressModal />
     </main>
   );
 }

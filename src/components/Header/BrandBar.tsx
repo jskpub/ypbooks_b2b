@@ -1,23 +1,44 @@
+import type { Ref } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 
-export default function BrandBar() {
+interface BrandBarProps {
+  isMenuOpen?: boolean;
+  onToggleMenu?: () => void;
+  triggerRef?: Ref<HTMLButtonElement>;
+}
+
+export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: BrandBarProps = {}) {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+    }
   };
 
   return (
     <div className='brand-bar'>
       <div className='brand-bar__inner container'>
+        <button type='button' ref={triggerRef} className='brand-bar__hamburger category-menu-trigger' aria-haspopup='true' aria-expanded={isMenuOpen} aria-controls='category-menu' onClick={onToggleMenu}>
+          <span className='sr-only'>전체 카테고리 열기</span>
+          <span className='brand-bar__hamburger-icon brand-bar__hamburger-icon--menu'>
+            <Icon name='list' />
+          </span>
+          <span className='brand-bar__hamburger-icon brand-bar__hamburger-icon--close'>
+            <Icon name='x' />
+          </span>
+        </button>
+
         <a href='javascript:;' className='brand-bar__logo'>
           <img className='brand-bar__logo-img' src='https://cdn.ypbooks.co.kr/image/logo/202512/d4bd4b8c-948f-4703-9cd2-0be0cccadf27.png' alt='영풍문고' />
           <span className='logo__badge'>비즈몰</span>
         </a>
+
+        {/* origin/master의 SPA 검색 이동 기능 적용 */}
         <form className='brand-bar__search' role='search' onSubmit={handleSubmit}>
           <label htmlFor='site-search' className='sr-only'>
             도서 검색
@@ -36,6 +57,7 @@ export default function BrandBar() {
             <Icon name='magnifying-glass' />
           </button>
         </form>
+
         <div className='brand-bar__subsidy'>
           <span className='brand-bar__subsidy-icon'>
             <Icon name='wallet' />
@@ -45,6 +67,29 @@ export default function BrandBar() {
             <p className='brand-bar__subsidy-lines'>추천 도서 1권 · 개인 도서 1권</p>
           </div>
         </div>
+
+        <ul className='brand-bar__icons'>
+          <li>
+            <a href='javascript:;' aria-label='마이페이지'>
+              <Icon name='user' />
+            </a>
+          </li>
+          <li>
+            <Link to='/cart' aria-label='장바구니'>
+              <Icon name='shopping-cart-simple' />
+            </Link>
+          </li>
+          <li>
+            <a href='javascript:;' aria-label='주문'>
+              <Icon name='truck' />
+            </a>
+          </li>
+          <li>
+            <a href='javascript:;' aria-label='로그아웃'>
+              <Icon name='sign-out' />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

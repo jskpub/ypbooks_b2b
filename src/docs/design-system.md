@@ -290,6 +290,30 @@ components:
     borderWidth: 2px
     helperTextColor: '{colors.danger}'
     helperTypography: '{typography.caption}'
+  select-field:
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.body}'
+    rounded: '{rounded.sm}'
+    height: 44px
+    padding: 16px
+  select-field-error:
+    borderColor: '{colors.danger}'
+    borderWidth: 2px
+    helperTextColor: '{colors.danger}'
+    helperTypography: '{typography.caption}'
+  textarea-field:
+    backgroundColor: '{colors.surface-card}'
+    textColor: '{colors.foreground}'
+    typography: '{typography.body}'
+    rounded: '{rounded.sm}'
+    height: 96px
+    padding: 8px 16px
+  textarea-field-error:
+    borderColor: '{colors.danger}'
+    borderWidth: 2px
+    helperTextColor: '{colors.danger}'
+    helperTypography: '{typography.caption}'
   stepper:
     backgroundColor: '{colors.surface-card}'
     textColor: '{colors.foreground}'
@@ -669,6 +693,15 @@ UI는 차분하고 사무적이다. 밝은 회색 페이지(`{colors.canvas}`) �
 - Focus: 테두리 2px `{colors.focus-ring}`.
 - Error(`input-field-error`): 테두리 2px `{colors.danger}` + 입력창 아래 8px 띄우고 오류 문구 `{colors.danger}` `{typography.caption}`. 문구는 "무엇을 어떻게 고치면 되는지"로 쓴다(기본값 "입력한 내용을 다시 확인해 주세요."). 오류 문구가 붙으면 전체 높이가 70px에서 96px로 늘어난다. State 속성은 Default / Focus / Error 세 가지.
 
+**`select-field`** — 옵션 중 하나를 고르는 한 줄 필드. `input-field`와 같은 라벨·테두리·라운드·높이(44px)를 쓰고 앞쪽 아이콘 대신 오른쪽에 `caret-down`(20px)으로 펼침을 표시한다. 캐럿은 select의 필수 표시라 껐다 켤 수 없다(`input-field`의 "아이콘 보이기" 토글이 없다).
+- Focus: 테두리 2px `{colors.focus-ring}`.
+- Error(`select-field-error`): 테두리 2px `{colors.danger}` + 오류 문구 `{colors.danger}` `{typography.caption}`. State는 Default / Focus / Error.
+- 용도: 주문자 정보 통신사 코드, 배송 메모 프리셋 선택.
+
+**`textarea-field`** — 여러 줄을 입력하는 필드. `input-field`와 같은 배경·테두리·라운드·placeholder 색을 쓰되 아이콘이 없고 세로로 늘어난다. 높이 96px(3줄 기준), 좌우 16px·상하 8px 패딩, 텍스트는 위쪽 정렬로 줄바꿈된다.
+- Focus / Error(`textarea-field-error`)는 `input-field`와 동일하게 동작한다.
+- 용도: 배송 메모 직접 입력.
+
 **`stepper`** — 수량 1권 단위 증감. Medium 160×34, Small 88×28. `{rounded.sm}`, 1px `{colors.border-control}`, 좌우 32px 버튼(minus/plus 16px) + 가운데 숫자. 최소 수량 1에서는 빼기 버튼만 흐리게(Minimum), 수량을 바꿀 수 없는 도서는 전체 Disabled.
 
 ### Content
@@ -916,6 +949,6 @@ Figma variant(`Property 1`):
 | 2.0  | 2026-09-25 | 색·간격·컴포넌트 v2.3 기준 갱신(state 색 삭제, Alert 아이콘 구분, empty-state 추가).                   | 이하준 |
 | 2.1  | 2026-09-25 | 타이포그래피를 전달받은 스펙으로 확정(h1 26/34 · body 17/26 · body-xs 복귀 · price-base/price-sm).     | 이하준 |
 | 2.2  | 2026-09-25 | Figma v2/Display/Large·Base 확인 후 `display-lg`(32/42) · `display`(28/36) · `caption-lg`(14/20) 추가. | 이하준 |
-| 2.3  | 2026-09-25 | `caption-lg-strong`(14/20, Bold) 추가 — 평점 등 강조가 필요한 도서 메타.                               | 이하준 |
-| 2.4  | 2026-09-25 | Book Card(node 87:3024) 실제 컴포넌트 기준으로 정정 — `home_bookcard`/`home_best` variant, 순위·가격 옵션 토글 반영. 문서에만 있던 caption·Badge·Button 삭제. | 이수현 |
-| 2.5  | 2026-09-27 | 신규 컴포넌트 토큰 추가(`book-list-row`, `book-list-row-cover`, `book-list-row-rank`, `category-sidebar`) — 베스트/신상품(BOOK-03/04) 재구현. 기존 항목은 수정하지 않음. | 이수현 |
+| 2.3  | 2026-09-25 | `caption-lg-strong`(14/20, Bold) 및 `select-field` · `textarea-field` 추가. | 이하준, 김지선 |
+| 2.4  | 2026-09-25 | Book Card(node 87:3024) 실제 컴포넌트 기준으로 정정. | 이수현 |
+| 2.5  | 2026-09-27 | 신규 컴포넌트 토큰 추가(`book-list-row`, `category-sidebar` 등). | 이수현 |

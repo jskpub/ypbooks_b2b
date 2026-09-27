@@ -36,7 +36,7 @@
   // status=Exhausted(한도 소진) — YP_PAYMENTS CartPage 이식(장바구니 그룹 지원금 소진 표시)에서 추가.
   &--exhausted {
     background-color: $color-danger-soft;
-    border: $border-width-1 solid $color-danger-border;
+    // border: $border-width-1 solid $color-danger-border;
     color: $color-danger;
   }
 }

@@ -1,0 +1,191 @@
+@use '../abstracts' as *;
+
+// AddressModal(src/components/AddressModal.tsx) 전용 — .modal-overlay/.modal 공용 셸(_modal.scss) 위에
+// 탭(목록/신규 등록), 주소 카드 목록, 등록 폼만 이 파일에서 얹는다. Cart/Payment 페이지가 공유하는
+// 컴포넌트라 특정 페이지 scss가 아니라 여기 components/에 둔다.
+.address-modal {
+  width: rem(520);
+
+  &__tabs {
+    display: flex;
+    gap: $space-2;
+    border-bottom: $border-width-1 solid $color-border;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    max-height: rem(420);
+    overflow-y: auto;
+  }
+
+  &__item {
+    display: flex;
+    align-items: stretch;
+    gap: $space-3;
+    padding: $space-4;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-md;
+    background-color: $color-surface-card;
+    transition:
+      border-color $motion-fast,
+      background-color $motion-fast,
+      box-shadow $motion-fast;
+
+    &:hover {
+      border-color: $color-muted;
+      box-shadow: $shadow-floating;
+    }
+
+    &.is-selected {
+      border-color: $color-primary;
+      background-color: $color-primary-soft;
+    }
+  }
+
+  &__item-select {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(4);
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+  }
+
+  &__item-head {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__item-title {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(4);
+    font-weight: 700;
+    font-size: $font-size-body-sm;
+    color: $color-foreground;
+  }
+
+  &__item-check {
+    color: $color-primary;
+  }
+
+  &__item-line {
+    display: inline-flex;
+    align-items: center;
+    gap: rem(4);
+    color: $color-foreground-secondary;
+  }
+
+  &__item-icon {
+    width: rem(14);
+    height: rem(14);
+    color: $color-muted;
+  }
+
+  &__item-edit {
+    flex: 0 0 auto;
+    align-self: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  // 라벨(왼쪽 고정폭)-입력(오른쪽 가변폭) 2열 그리드. 모든 필드 줄이 이 그리드를 써서
+  // "수령인/연락처/배송지 주소" 라벨이 세로로 한 줄에 맞춰진다(참고 이미지 구조).
+  &__row {
+    display: grid;
+    grid-template-columns: rem(92) 1fr;
+    align-items: start;
+    gap: $space-3;
+  }
+
+  &__row-label {
+    padding-top: $space-3;
+  }
+
+  &__row-content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    min-width: 0;
+  }
+
+  &__phone-group {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+
+    // 왼쪽만 좁히고 오른쪽은 기본 select.field__input의 padding-right(캐럿 아이콘 자리)를 그대로 둔다.
+    select.field__input {
+      padding-left: $space-2;
+    }
+
+    input.field__input {
+      width: rem(64);
+      text-align: center;
+    }
+  }
+
+  &__postal-row {
+    display: flex;
+    gap: $space-2;
+
+    .field__input {
+      flex: 1 1 auto;
+    }
+
+    .btn {
+      flex: 0 0 auto;
+    }
+  }
+
+  // 도움말 — 아이콘과 문장을 span 하나로 묶어야 줄바꿈돼도 아이콘 폭만큼 안 밀리고 정렬이 유지된다.
+  &__hint {
+    display: flex;
+    align-items: flex-start;
+    gap: rem(4);
+    color: $color-foreground-secondary;
+  }
+
+  &__hint-icon {
+    flex: 0 0 auto;
+    width: rem(14);
+    height: rem(14);
+    margin-top: rem(2);
+    color: $color-muted;
+  }
+
+  // 도로명/지번/상세주소 — 배송지 주소 안에서 한 단계 더 들어가는 작은 라벨+입력 줄.
+  &__sub-row {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__sub-label {
+    flex: 0 0 auto;
+    width: rem(56);
+    color: $color-foreground-secondary;
+    font-size: $font-size-label-base;
+    font-weight: 500;
+  }
+
+  // .field.is-error와 같은 시각 규칙을 .field 래퍼 없이 __row 단위로 적용한다.
+  &__row.is-error {
+    .field__input {
+      border-width: $border-width-2;
+      border-color: $color-danger;
+    }
+
+    .field__help {
+      color: $color-danger;
+    }
+  }
+}

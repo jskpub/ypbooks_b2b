@@ -6,6 +6,19 @@
 .gnb {
   border-top: $border-width-1 solid $color-border;
   border-bottom: $border-width-1 solid $color-border;
+  // 스크롤 시 접히는 트랜지션(test.html 참고) — max-height는 category-menu.scss의
+  // "gnb 실측 54px" 주석과 맞춰둔 값이다. 헤더 구성이 바뀌면 같이 갱신해야 한다.
+  max-height: rem(54);
+  overflow: hidden;
+  transition:
+    max-height $motion-base,
+    opacity $motion-fast;
+
+  .header.is-scrolled & {
+    max-height: 0;
+    opacity: 0;
+    border-color: transparent;
+  }
 
   &__list {
     display: flex;

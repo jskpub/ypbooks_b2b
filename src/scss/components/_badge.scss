@@ -25,13 +25,7 @@
     color: $color-on-primary-soft; // "추천도서"
   }
 
-  &--general {
-    background-color: $color-surface;
-    color: $color-foreground-secondary; // "일반도서"
-  }
-
-  // Figma에 Tone=Delivery가 추가로 있었으나 문서 설명(Recommended/General 두 가지)과는 안 맞아
-  // 배송 관련 상태 배지로 추정 — 흰 배경 + 테두리(다른 두 톤과 달리 유일하게 테두리가 있음).
+  &--general,
   &--delivery {
     background-color: $color-surface-card;
     border: $border-width-1 solid $color-border;
