@@ -5,14 +5,12 @@
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg; // 10px — Figma Radius 문서: "카드, 모달"
   background-color: $color-surface-card; // --color-surface-card, 순백
-  transition: border-color $motion-fast, box-shadow $motion-fast;
+  transition:
+    border-color $motion-fast,
+    box-shadow $motion-fast;
 
   &--sm {
     padding: $space-4; // padding=Small
-  }
-
-  &:hover {
-    box-shadow: $shadow-lg;
   }
 
   &__title {
