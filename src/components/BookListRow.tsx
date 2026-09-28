@@ -36,12 +36,12 @@ export default function BookListRow({ isbn13, title, author, publisher, pubDate,
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty });
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty, coverSrc });
     showToast('장바구니에 담았습니다');
   };
 
   const handleBuyNow = () => {
-    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty });
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty, coverSrc });
     navigate('/payment');
   };
 

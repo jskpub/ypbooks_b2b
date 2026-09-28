@@ -1,0 +1,51 @@
+@use '../abstracts' as *;
+
+// 스크롤을 충분히 내렸을 때만 뜨는 "맨 위로" 플로팅 버튼. 화면 우하단 고정.
+// Side Button(가로 스크롤 화살표, _side-button.scss)과 같은 원형 버튼 톤(테두리·배경·그림자)을
+// 재사용하되, 크기(44px)와 위치(fixed)가 달라 별도 클래스로 둔다.
+.go-to-top {
+  position: fixed;
+  right: $space-8;
+  bottom: $space-8;
+  z-index: $z-go-to-top;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(50);
+  height: rem(50);
+  border-radius: $radius-full;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-neutral-500;
+  color: $color-neutral-500;
+  box-shadow: $shadow-floating;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(rem(8));
+  transition:
+    box-shadow $motion-fast,
+    opacity $motion-base,
+    visibility $motion-base,
+    transform $motion-base;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-focus-ring;
+    outline-offset: 2px;
+  }
+
+  .icon {
+    width: rem(26);
+    height: rem(26);
+  }
+}

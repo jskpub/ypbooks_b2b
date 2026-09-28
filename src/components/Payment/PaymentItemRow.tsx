@@ -27,9 +27,7 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
     <tr>
       <td className='cart-table__book-col'>
         <div className='cart-book'>
-          <span className='cart-book__cover'>
-            <Icon name='books' />
-          </span>
+          <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
           <div className='cart-book__info'>
             <div className='cart-book__badges'>
               <span className={`badge ${groupBadgeClassName}`}>
@@ -42,14 +40,18 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
               </span>
             </div>
             <div className='cart-book__contents'>
-              <h3 className='cart-book__title text-body-sm'>{item.title}</h3>
-              <p className='cart-book__byline caption'>{item.byline}</p>
+              <strong className='cart-book__title'>{item.title}</strong>
+              <p className='cart-book__byline'>{item.byline}</p>
             </div>
           </div>
         </div>
       </td>
       <td className='cart-table__price-col'>
-        <span className='payment-table__discount'>{discountRate}%</span> <span className='payment-table__price'>{formatWon(item.sellingPrice * item.qty)}</span>
+        <div className='payment-table__price-cell'>
+          {discountRate > 0 && <span className='payment-table__discount'>{discountRate}%</span>}
+          <span className='payment-table__price'>{formatWon(item.sellingPrice * item.qty)}</span>
+          <span className='payment-table__list-price'>{formatWon(item.listPrice * item.qty)}</span>
+        </div>
       </td>
       <td className='cart-table__num-col'>{item.qty}</td>
       <td className='cart-table__subsidy-col'>
@@ -60,6 +62,7 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
             <div className='payment-table__subsidy-applied'>
               <span className='payment-table__subsidy-amount'>-{formatWon(subsidy)}</span>
               <button type='button' className={`subsidy-btn ${subsidyBtnClassName} is-applied`} onClick={() => onRemoveSubsidy(item.id)}>
+                <Icon name='check' />
                 지원금 적용됨
               </button>
             </div>

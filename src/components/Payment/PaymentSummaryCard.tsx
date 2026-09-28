@@ -8,8 +8,10 @@ interface PaymentSummaryCardProps {
   personalSubsidy: number;
   shippingFee: number;
   finalPaymentAmount: number;
-  recommendedUsed: boolean;
-  personalUsed: boolean;
+  recommendedUsed?: boolean;
+  personalUsed?: boolean;
+  isMaxBenefitApplied?: boolean;
+  onApplyMaxBenefit?: () => void;
   agreeTerms: boolean;
   onAgreeTermsChange: (value: boolean) => void;
   onBackToCart: () => void;
@@ -19,13 +21,116 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
+function renderRightSubsidyCallout({
+  recommendedUsed = false,
+  personalUsed = false,
+  hasRecommendedItems = false,
+  hasPersonalItems = false,
+  isMaxBenefitApplied = false,
+  onApplyMaxBenefit,
+}: {
+  recommendedUsed?: boolean;
+  personalUsed?: boolean;
+  hasRecommendedItems?: boolean;
+  hasPersonalItems?: boolean;
+  isMaxBenefitApplied?: boolean;
+  onApplyMaxBenefit?: () => void;
+}) {
+  // [Case 2-A] 모두 소진 -> 전체 미노출
+  if (recommendedUsed && personalUsed) return null;
+
+  // 한쪽 유형만 소진된 경우 (Case 2-B / Case 2-C)
+  if (recommendedUsed || personalUsed) {
+    const usedLabel = recommendedUsed ? '추천도서' : '개인도서';
+    const otherLabel = recommendedUsed ? '개인도서' : '추천도서';
+    const hasOtherItems = recommendedUsed ? hasPersonalItems : hasRecommendedItems;
+
+    // [Case 2-B] 대체 적용 가능한 다른 도서가 없으면 미노출
+    if (!hasOtherItems) return null;
+
+    // [Case 2-C] 소진 + 대체 적용 가능 도서 존재
+    return (
+      <div className={`cart-summary__subsidy-stack${isMaxBenefitApplied ? ' is-applied' : ''}`}>
+        {/* ① 1행: 소진 내역 안내 */}
+        <div className='cart-summary__subsidy-row cart-summary__subsidy-row--exhausted'>
+          <Icon name='x-circle' className='cart-summary__subsidy-row-icon' />
+          <span className='cart-summary__subsidy-row-text'>{usedLabel} 지원금 이번 달 사용 완료</span>
+        </div>
+
+        {/* ② 2행: 적용 가능/완료 혜택 안내 */}
+        <div className='cart-summary__subsidy-row cart-summary__subsidy-row--benefit'>
+          <Icon name={isMaxBenefitApplied ? 'check-circle' : 'sparkle'} className='cart-summary__subsidy-row-icon' />
+          <span className='cart-summary__subsidy-row-text'>
+            {isMaxBenefitApplied ? `${otherLabel} 지원금 최대 적용 완료` : `${otherLabel} 지원금 적용 가능`}
+          </span>
+        </div>
+
+        {/* ③ 3행: 최대혜택 적용 액션 버튼 (적용 전만 전폭 100% 노출) */}
+        {!isMaxBenefitApplied && (
+          <button type='button' className='btn btn--secondary btn--sm cart-summary__subsidy-btn' onClick={onApplyMaxBenefit}>
+            최대혜택 적용하기 <Icon name='caret-right' />
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  // 추천/개인 도서 상품이 없는 경우 -> 미노출
+  if (!hasRecommendedItems && !hasPersonalItems) return null;
+
+  // 소진된 지원금 없이 모두 정상 상태 (Case 2-D 또는 적용 완료)
+  return (
+    <div className={`cart-summary__subsidy-stack${isMaxBenefitApplied ? ' is-applied' : ''}`}>
+      {/* ② 2행: 적용 가능/완료 혜택 안내 (1행 소진 안내 생략) */}
+      <div className='cart-summary__subsidy-row cart-summary__subsidy-row--benefit'>
+        <Icon name={isMaxBenefitApplied ? 'check-circle' : 'sparkle'} className='cart-summary__subsidy-row-icon' />
+        <span className='cart-summary__subsidy-row-text'>
+          {isMaxBenefitApplied ? '도서 지원금 최대 적용 완료' : '적용 가능한 도서 지원금이 있습니다'}
+        </span>
+      </div>
+
+      {/* ③ 3행: 최대혜택 적용 액션 버튼 (적용 전만 전폭 100% 노출) */}
+      {!isMaxBenefitApplied && (
+        <button type='button' className='btn btn--secondary btn--sm cart-summary__subsidy-btn' onClick={onApplyMaxBenefit}>
+          최대혜택 적용하기 <Icon name='caret-right' />
+        </button>
+      )}
+    </div>
+  );
+}
+
 // design-system.md "Payment Sidebar" 패턴(상품금액 → 지원금 차감 줄 → 구분선 → 최종 결제 금액 →
 // 전체 폭 결제 버튼) 그대로. CartPage 사이드바의 .cart-summary를 그대로 재사용한다.
-export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedItems, hasPersonalItems, recommendedSubsidy, personalSubsidy, shippingFee, finalPaymentAmount, recommendedUsed, personalUsed, agreeTerms, onAgreeTermsChange, onBackToCart }: PaymentSummaryCardProps) {
+export default function PaymentSummaryCard({
+  totalSellingPrice,
+  hasRecommendedItems,
+  hasPersonalItems,
+  recommendedSubsidy,
+  personalSubsidy,
+  shippingFee,
+  finalPaymentAmount,
+  recommendedUsed,
+  personalUsed,
+  isMaxBenefitApplied,
+  onApplyMaxBenefit,
+  agreeTerms,
+  onAgreeTermsChange,
+  onBackToCart,
+}: PaymentSummaryCardProps) {
   return (
     <div className='cart-summary'>
-      <p className='cart-summary__title text-body-base'>결제 정보</p>
-      <div className='cart-summary__rows text-body-sm'>
+      <p className='cart-summary__title'>결제 정보</p>
+
+      {renderRightSubsidyCallout({
+        recommendedUsed,
+        personalUsed,
+        hasRecommendedItems,
+        hasPersonalItems,
+        isMaxBenefitApplied,
+        onApplyMaxBenefit,
+      })}
+
+      <div className='cart-summary__rows'>
         <div className='cart-summary__row'>
           <span>상품금액</span>
           <span>{formatWon(totalSellingPrice)}</span>
@@ -49,27 +154,14 @@ export default function PaymentSummaryCard({ totalSellingPrice, hasRecommendedIt
       </div>
 
       <div className='cart-summary__total'>
-        <span className='cart-summary__total-label text-body-sm'>최종 결제금액</span>
-        <span className='cart-summary__total-amount text-h2'>
+        <span className='cart-summary__total-label'>최종 결제금액</span>
+        <span className='cart-summary__total-amount'>
           {finalPaymentAmount.toLocaleString('ko-KR')}
           <span className='cart-summary__total-unit'>원</span>
         </span>
       </div>
 
-      {(recommendedUsed || personalUsed) && (
-        <div className='alert payment-summary__notice'>
-          <span className='alert__icon'>
-            <Icon name='info' />
-          </span>
-          <div className='alert__body'>
-            <p className='alert__desc'>
-              {recommendedUsed && personalUsed ? '추천도서 및 개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : recommendedUsed ? '추천도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.' : '개인도서의 경우 지원금 한도가 소진되어 직원 부담금으로 결제됩니다.'}
-            </p>
-          </div>
-        </div>
-      )}
-
-      <label className='checkbox payment-summary__agree caption'>
+      <label className='checkbox payment-summary__agree'>
         <input type='checkbox' checked={agreeTerms} onChange={(event) => onAgreeTermsChange(event.target.checked)} />
         <span>
           주문 내용을 확인하였으며, <br />

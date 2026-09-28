@@ -51,9 +51,9 @@ export default function OrderCompletePage() {
           </span>
           <span className='status-chip status-chip--available'>B2B 복합결제 정상 승인 완료</span>
           <h1>주문이 성공적으로 완료되었습니다!</h1>
-          <p className='order-complete__hero-desc text-body-sm'>주문하신 상품의 배송 준비가 시작되며, 알림톡으로 배송 정보를 안내해 드립니다.</p>
+          <p className='order-complete__hero-desc'>주문하신 상품의 배송 준비가 시작되며, 알림톡으로 배송 정보를 안내해 드립니다.</p>
 
-          <div className='order-complete__id-box caption'>
+          <div className='order-complete__id-box'>
             <div className='order-complete__id-row'>
               <span>통합 주문번호</span>
               <span className='order-complete__id-value'>
@@ -74,21 +74,21 @@ export default function OrderCompletePage() {
           <p className='card__title'>복합결제 정산 내역</p>
           <div className='order-complete__settlement-grid'>
             <div className='order-complete__settlement-box'>
-              <span className='caption'>총 도서 금액</span>
-              <strong className='text-h4'>{formatWon(lastOrder.totalSellingPrice)}</strong>
+              <span>총 도서 금액</span>
+              <strong>{formatWon(lastOrder.totalSellingPrice)}</strong>
             </div>
             <Icon name='minus' className='icon order-complete__settlement-op' />
             <div className='order-complete__settlement-box order-complete__settlement-box--subsidy'>
-              <span className='caption'>회사 지원금</span>
-              <strong className='text-h4'>{formatWon(lastOrder.totalCompanySubsidy)}</strong>
+              <span>회사 지원금</span>
+              <strong>{formatWon(lastOrder.totalCompanySubsidy)}</strong>
             </div>
             <Icon name='equals' className='icon order-complete__settlement-op' />
             <div className='order-complete__settlement-box order-complete__settlement-box--final'>
-              <span className='caption'>직원 결제금액</span>
-              <strong className='text-h4'>{formatWon(lastOrder.finalPaidAmount)}</strong>
+              <span>직원 결제금액</span>
+              <strong>{formatWon(lastOrder.finalPaidAmount)}</strong>
             </div>
           </div>
-          <div className='order-complete__settlement-rows caption'>
+          <div className='order-complete__settlement-rows'>
             <div className='order-complete__id-row'>
               <span>직원 결제수단</span>
               <span>{lastOrder.paymentMethod}</span>
@@ -117,12 +117,10 @@ export default function OrderCompletePage() {
                 <tr key={item.id}>
                   <td className='cart-table__book-col'>
                     <div className='cart-book'>
-                      <span className='cart-book__cover'>
-                        <Icon name='books' />
-                      </span>
+                      <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
                       <div className='cart-book__contents'>
-                        <h3 className='cart-book__title text-body-sm'>{item.title}</h3>
-                        <p className='cart-book__byline caption'>{item.formatLabel}</p>
+                        <strong className='cart-book__title'>{item.title}</strong>
+                        <p className='cart-book__byline'>{item.formatLabel}</p>
                       </div>
                     </div>
                   </td>
@@ -137,9 +135,7 @@ export default function OrderCompletePage() {
         </div>
 
         <div className='card order-complete__delivery'>
-          <p className='card__title'>
-            <Icon name='truck' /> 배송지 정보
-          </p>
+          <p className='card__title'>배송지 정보</p>
           <div className='order-complete__id-row'>
             <span>수령인</span>
             <span>
@@ -161,7 +157,7 @@ export default function OrderCompletePage() {
         <div className='order-complete__actions'>
           {/* 원본은 마이페이지 주문 탭으로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
           <a href='javascript:;' className='btn btn--secondary'>
-            <Icon name='list' />
+            <Icon name='receipt' />
             주문/배송내역 조회
           </a>
           <Link to='/' className='btn btn--secondary'>

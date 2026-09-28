@@ -88,12 +88,12 @@ export default function BookDetailPage() {
   const description = book.description?.trim() ?? '';
 
   const handleAddToCart = () => {
-    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty });
+    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty, coverSrc: book.cover });
     showToast('장바구니에 담았습니다');
   };
 
   const handleBuyNow = () => {
-    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty });
+    addToCart({ isbn13, title: book.title, byline: `${book.author} · ${book.publisher}`, listPrice: book.priceStandard, sellingPrice: book.priceSales, qty, coverSrc: book.cover });
     navigate('/payment');
   };
 

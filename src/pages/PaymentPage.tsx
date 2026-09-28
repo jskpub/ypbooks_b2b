@@ -150,7 +150,9 @@ export default function PaymentPage() {
             <div className='layout-with-sidebar__main payment__main'>
               <SubsidyCallout recommendedUsed={subsidyLedger.recommendedUsed} personalUsed={subsidyLedger.personalUsed} hasRecommendedItems={recommendedItems.length > 0} hasPersonalItems={personalItems.length > 0} isMaxBenefitApplied={isMaxBenefitApplied} onApplyMaxBenefit={handleApplyMaxBenefit} />
 
-              <p className='payment__hint caption-lg'>※ [지원금 적용하기] 버튼을 클릭하면 해당 도서에 지원금이 적용됩니다.</p>
+              <p className='payment__hint caption-lg'>
+                <Icon name='info' aria-hidden='true' /> 다른 도서에 혜택을 적용하려면 [지원금 적용하기]를 선택해 주세요.
+              </p>
 
               <PaymentGroupSection
                 bodyId='payment-group-recommended-body'
@@ -219,7 +221,7 @@ export default function PaymentPage() {
               <div className='payment__info-group'>
                 <div className='cart-group'>
                   <button type='button' className='cart-group__header cart-group__toggle' aria-expanded={expanded.b2b} aria-controls='payment-info-b2b' onClick={() => toggleExpanded('b2b')}>
-                    <span className='cart-group__title text-body-sm'>B2B 복합결제 및 주문 안내사항</span>
+                    <span className='cart-group__title'>B2B 복합결제 및 주문 안내사항</span>
                     <span className='cart-group__header-right'>
                       <span className='cart-group__chevron cart-group__chevron--down'>
                         <Icon name='caret-down' />
@@ -230,7 +232,7 @@ export default function PaymentPage() {
                     </span>
                   </button>
                   <div className='cart-group__body' id='payment-info-b2b' hidden={!expanded.b2b}>
-                    <ul className='payment__info-list caption'>
+                    <ul className='payment__info-list'>
                       <li>
                         <strong>추천도서</strong>: 100% 회사 지원 (월 1권 한도, 종이도서만 지원)
                       </li>
@@ -245,7 +247,7 @@ export default function PaymentPage() {
 
                 <div className='cart-group'>
                   <button type='button' className='cart-group__header cart-group__toggle' aria-expanded={expanded.delivery} aria-controls='payment-info-delivery' onClick={() => toggleExpanded('delivery')}>
-                    <span className='cart-group__title text-body-sm'>일반배송상품(택배수령) 안내사항</span>
+                    <span className='cart-group__title'>일반배송상품(택배수령) 안내사항</span>
                     <span className='cart-group__header-right'>
                       <span className='cart-group__chevron cart-group__chevron--down'>
                         <Icon name='caret-down' />
@@ -256,7 +258,7 @@ export default function PaymentPage() {
                     </span>
                   </button>
                   <div className='cart-group__body' id='payment-info-delivery' hidden={!expanded.delivery}>
-                    <ul className='payment__info-list caption'>
+                    <ul className='payment__info-list'>
                       <li>재고 여부에 따라 품절/지연될 수 있으며, 이 경우 별도로 안내드립니다.</li>
                       <li>
                         당일배송은 서울 및 수도권 인근지역에서 12:00까지 주문 시 가능합니다.
@@ -285,6 +287,8 @@ export default function PaymentPage() {
                 finalPaymentAmount={finalPaymentAmount}
                 recommendedUsed={subsidyLedger.recommendedUsed}
                 personalUsed={subsidyLedger.personalUsed}
+                isMaxBenefitApplied={isMaxBenefitApplied}
+                onApplyMaxBenefit={handleApplyMaxBenefit}
                 agreeTerms={agreeTerms}
                 onAgreeTermsChange={setAgreeTerms}
                 onBackToCart={() => navigate('/cart')}

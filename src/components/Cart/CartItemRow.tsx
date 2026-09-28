@@ -36,11 +36,7 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
       <td>
         <div className='cart-book'>
           <input type='checkbox' className='cart-book__checkbox checkbox' aria-label={`${item.title} 선택`} checked={item.checked} onChange={() => onToggleChecked(item.id)} />
-          {/* Figma Cart Row 실측(44:3302/44:3318/44:3338): 표지는 도서 유형·포맷과 무관하게
-              항상 고정된 "books" 아이콘 — item별로 바뀌지 않는다. */}
-          <span className='cart-book__cover'>
-            <Icon name='books' />
-          </span>
+          <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
           <div className='cart-book__info'>
             <div className='cart-book__badges'>
               <span className={`badge ${groupBadgeClassName}`}>
@@ -53,10 +49,10 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
               </span>
             </div>
             <div className='cart-book__contents'>
-              <h3 className='cart-book__title text-body-sm'>{item.title}</h3>
-              <p className='cart-book__byline caption'>{item.byline}</p>
+              <strong className='cart-book__title'>{item.title}</strong>
+              <p className='cart-book__byline'>{item.byline}</p>
             </div>
-            <div className='cart-book__price caption'>
+            <div className='cart-book__price'>
               <span className='cart-book__discount'>{discountRate}%</span>
               <span className='cart-book__selling'>{formatWon(item.sellingPrice)}</span>
               <span className='cart-book__list'>{formatWon(item.listPrice)}</span>
@@ -96,7 +92,7 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
         </div>
       </td>
       <td className='cart-table__delivery-col'>
-        <div className='cart-delivery-eta caption'>
+        <div className='cart-delivery-eta'>
           <p className='cart-delivery-eta__main'>{item.deliveryMain}</p>
           <p className='cart-delivery-eta__sub'>{item.deliverySub}</p>
         </div>

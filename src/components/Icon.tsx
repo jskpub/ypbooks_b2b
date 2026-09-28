@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react';
+import ArrowUpIcon from '@/assets/icons/arrow-up.svg?react';
 import ArrowsClockwiseIcon from '@/assets/icons/arrows-clockwise.svg?react';
 import BookOpenIcon from '@/assets/icons/book-open.svg?react';
 import BooksIcon from '@/assets/icons/books.svg?react';
@@ -23,10 +24,12 @@ import MedalIcon from '@/assets/icons/medal.svg?react';
 import MinusIcon from '@/assets/icons/minus.svg?react';
 import PlusIcon from '@/assets/icons/plus.svg?react';
 import QuestionIcon from '@/assets/icons/question.svg?react';
+import ReceiptIcon from '@/assets/icons/receipt.svg?react';
 import ShoppingBagIcon from '@/assets/icons/shopping-bag.svg?react';
 import ShoppingCartSimpleIcon from '@/assets/icons/shopping-cart-simple.svg?react';
 import SignOutIcon from '@/assets/icons/sign-out.svg?react';
 import StarIcon from '@/assets/icons/star.svg?react';
+import SparkleIcon from '@/assets/icons/sparkle.svg?react';
 import TrashIcon from '@/assets/icons/trash.svg?react';
 import TruckIcon from '@/assets/icons/truck.svg?react';
 import UserIcon from '@/assets/icons/user.svg?react';
@@ -35,9 +38,9 @@ import WarningIcon from '@/assets/icons/warning.svg?react';
 import WarningCircleIcon from '@/assets/icons/warning-circle.svg?react';
 import XCircleIcon from '@/assets/icons/x-circle.svg?react';
 import XIcon from '@/assets/icons/x.svg?react';
-import SparkleIcon from '@/assets/icons/sparkle.svg?react';
 
 const icons = {
+  'arrow-up': ArrowUpIcon,
   'arrows-clockwise': ArrowsClockwiseIcon,
   'book-open': BookOpenIcon,
   books: BooksIcon,
@@ -61,6 +64,7 @@ const icons = {
   minus: MinusIcon,
   plus: PlusIcon,
   question: QuestionIcon,
+  receipt: ReceiptIcon,
   'shopping-bag': ShoppingBagIcon,
   'shopping-cart-simple': ShoppingCartSimpleIcon,
   'sign-out': SignOutIcon,

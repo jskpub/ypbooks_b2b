@@ -61,8 +61,7 @@ export default function CartPage() {
         <div className='cart__head'>
           <div>
             <h1>장바구니</h1>
-            <p className='cart__head-desc text-body-sm'>선택하신 도서 목록과 수량을 확인해 주세요.</p>
-            <p className='cart__head-note text-body-sm'>※ 회사 지원금은 다음 단계인 결제 페이지에서 적용할 수 있습니다.</p>
+            <p className='cart__head-desc'>선택하신 도서 목록과 수량을 확인해 주세요.</p>
           </div>
           <StepIndicator currentStep='cart' />
         </div>
@@ -76,7 +75,7 @@ export default function CartPage() {
                     <Icon name='truck' />
                   </span>
                   <div>
-                    <p className='shipping-card__message text-body-sm'>
+                    <p className='shipping-card__message'>
                       {shippingShortfall > 0 ? (
                         <>
                           <span className='shipping-card__amount'>{formatWon(shippingShortfall)}</span> 더 담으면 <strong>무료배송!</strong>
@@ -85,7 +84,7 @@ export default function CartPage() {
                         '무료배송 달성!'
                       )}
                     </p>
-                    <p className='shipping-card__sub caption'>10,000원 이상 결제 시 기본 배송비 무료 (미만 시 2,500원)</p>
+                    <p className='shipping-card__sub'>10,000원 이상 결제 시 기본 배송비 무료 (미만 시 2,500원)</p>
                   </div>
                 </div>
                 <div className='shipping-card__right'>
@@ -113,23 +112,15 @@ export default function CartPage() {
                   <span className='cart-controls__divider' aria-hidden='true'>
                     |
                   </span>
-                  <button type='button' className='cart-controls__remove text-body-sm' onClick={removeSelected}>
+                  <button type='button' className='cart-controls__remove' onClick={removeSelected}>
                     선택 상품 삭제
                   </button>
                 </div>
-                <p className='cart-controls__note caption'>서울/수도권 인근 월~토 12시까지 주문 시 당일배송</p>
+                <p className='cart-controls__note'>서울/수도권 인근 월~토 12시까지 주문 시 당일배송</p>
               </div>
             )}
 
-            {isEmpty && (
-              <EmptyState
-                icon='shopping-cart-simple'
-                title='장바구니에 담긴 상품이 없습니다.'
-                description='마음에 드는 도서를 담아 보세요.'
-                actionLabel='추천도서 둘러보기'
-                onAction={() => navigate('/recommend')}
-              />
-            )}
+            {isEmpty && <EmptyState icon='shopping-cart-simple' title='장바구니에 담긴 상품이 없습니다.' description='마음에 드는 도서를 담아 보세요.' actionLabel='추천도서 둘러보기' onAction={() => navigate('/recommend')} />}
 
             <CartGroupSection
               bodyId='cart-group-recommended-body'
@@ -150,7 +141,7 @@ export default function CartPage() {
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
               isSubsidyExhausted={subsidyLedger.recommendedUsed}
-              exhaustedMessage='추천도서의 지원 한도가 소진되어, 추천 도서는 본인 부담으로 결제됩니다.'
+            // exhaustedMessage='추천도서의 지원 한도가 소진되어, 추천 도서는 본인 부담으로 결제됩니다.'
             />
 
             <CartGroupSection
@@ -172,7 +163,7 @@ export default function CartPage() {
               onRemove={removeItem}
               onDeliveryInfoOpen={() => setIsDeliveryModalOpen(true)}
               isSubsidyExhausted={subsidyLedger.personalUsed}
-              exhaustedMessage='개인도서의 지원 한도가 소진되어, 개인 도서는 본인 부담으로 결제됩니다.'
+            // exhaustedMessage='개인도서의 지원 한도가 소진되어, 개인 도서는 본인 부담으로 결제됩니다.'
             />
 
             <div className='cart-actions'>
@@ -190,15 +181,15 @@ export default function CartPage() {
             {!isEmpty && (
               <div className='cart-address'>
                 <div className='cart-address__head'>
-                  <span className='cart-address__title text-body-sm'>배송지</span>
+                  <span className='cart-address__title'>배송지</span>
                 </div>
-                <button type='button' className='cart-address__select caption' onClick={openAddressList}>
+                <button type='button' className='cart-address__select' onClick={openAddressList}>
                   <span className='text-truncate'>
                     {selectedAddress.title} · {selectedAddress.roadAddress}
                   </span>
                   <Icon name='caret-down' />
                 </button>
-                <ul className='cart-address__notes caption'>
+                <ul className='cart-address__notes'>
                   <li>내일 출고 가능</li>
                   <li>상품별 배송 예상일이 다른 경우, 가장 늦은 상품에 맞춰 함께 배송됩니다.</li>
                 </ul>
@@ -206,8 +197,8 @@ export default function CartPage() {
             )}
 
             <div className='cart-summary'>
-              <p className='cart-summary__title text-body-base'>주문 합계</p>
-              <div className='cart-summary__rows text-body-sm'>
+              <p className='cart-summary__title'>주문 합계</p>
+              <div className='cart-summary__rows'>
                 <div className='cart-summary__row'>
                   <span>총 도서 정가</span>
                   <span>{formatWon(totalList)}</span>
@@ -226,13 +217,16 @@ export default function CartPage() {
                 </div>
               </div>
               <div className='cart-summary__total'>
-                <span className='cart-summary__total-label text-body-sm'>
-                  결제 예정 금액
-                  <span className='cart-summary__total-note caption'>(지원금 미반영)</span>
+                <span className='cart-summary__total-label'>결제 예정 금액</span>
+                <span className='cart-summary__total-amount'>
+                  {finalTotal.toLocaleString('ko-KR')}
+                  <span className='cart-summary__total-unit'>원</span>
                 </span>
-                <span className='text-h2'>
-                  <span className='cart-summary__total-amount'>{finalTotal.toLocaleString('ko-KR')}</span>원
-                </span>
+              </div>
+
+              <div className='cart-summary__helper-text'>
+                <Icon name='info' aria-hidden='true' />
+                <p>회사 지원금은 다음 결제 단계에서 적용됩니다.</p>
               </div>
               {isEmpty ? (
                 <button type='button' className='btn btn--primary btn--lg is-disabled' disabled>
