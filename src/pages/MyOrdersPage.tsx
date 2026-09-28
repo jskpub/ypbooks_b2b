@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
 import { useCart } from '@/context/CartContext';
@@ -6,6 +7,52 @@ export default function MyOrdersPage() {
   const user = getSessionUser();
   const { orderHistory } = useCart();
 
+  const [period, setPeriod] = useState('1m');
+  const [group, setGroup] = useState('all');
+  const [status, setStatus] = useState('all');
+
+  const now = new Date();
+  
+  // orderDate는 '2026. 09. 12.' 형태이므로 변환 필요
+  const parseDate = (dateStr: string) => {
+    // "2026. 09. 12. 오후 3:45:00" 같은 형태를 감안하여 숫자로 파싱
+    const match = dateStr.match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\./);
+    if (match) {
+      return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    }
+    return new Date();
+  };
+
+  const filteredOrders = orderHistory.map(order => {
+    // 그룹 및 상태 필터링은 개별 아이템 단위로 될 수도 있고, 주문 단위일 수도 있습니다.
+    // 여기서는 아이템을 필터링하여 일치하는 아이템이 있는 주문만 노출합니다.
+    const filteredItems = order.items.filter(item => {
+      const matchGroup = group === 'all' || item.group === group;
+      // 현재 하드코딩 상태 '배송준비중' 
+      const itemStatus = 'ready'; // 실제라면 item.status 연동 필요
+      const matchStatus = status === 'all' || status === itemStatus;
+      return matchGroup && matchStatus;
+    });
+    return { ...order, items: filteredItems };
+  }).filter(order => {
+    if (order.items.length === 0) return false;
+
+    const orderDate = parseDate(order.orderDate);
+    if (period === '1m') {
+      const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+      if (orderDate < oneMonthAgo) return false;
+    } else if (period === '3m') {
+      const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+      if (orderDate < threeMonthsAgo) return false;
+    } else if (period === '6m') {
+      const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+      if (orderDate < sixMonthsAgo) return false;
+    } else if (period === 'all') {
+      // 전부
+    }
+    return true;
+  });
+
   return (
     <main id='main' className='main my-page-layout'>
       <div className='container my-page-layout__inner'>
@@ -13,8 +60,8 @@ export default function MyOrdersPage() {
         {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
-            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
-            <p className='caption'>(주)한글과컴퓨터</p>
+            <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
+            <p className='caption'>한결그룹</p>
           </div>
           
           <nav className='my-page-nav'>
@@ -60,36 +107,41 @@ export default function MyOrdersPage() {
               <div className='filter-row'>
                 <span className='filter-label'>조회 기간</span>
                 <div className='filter-options'>
-                  <button className='filter-btn is-active'>1개월</button>
-                  <button className='filter-btn'>3개월</button>
-                  <button className='filter-btn'>6개월</button>
-                  <button className='filter-btn'>2026년 전체</button>
+                  <button className={`filter-btn ${period === '1m' ? 'is-active' : ''}`} onClick={() => setPeriod('1m')}>1개월</button>
+                  <button className={`filter-btn ${period === '3m' ? 'is-active' : ''}`} onClick={() => setPeriod('3m')}>3개월</button>
+                  <button className={`filter-btn ${period === '6m' ? 'is-active' : ''}`} onClick={() => setPeriod('6m')}>6개월</button>
+                  <button className={`filter-btn ${period === 'all' ? 'is-active' : ''}`} onClick={() => setPeriod('all')}>2026년 전체</button>
                 </div>
                 <button className='btn btn--secondary filter-submit'>필터 적용</button>
               </div>
               <div className='filter-row'>
                 <span className='filter-label'>주문 구분</span>
-                <select className='select-box'>
-                  <option>도서 구분 전체 (추천/개인)</option>
+                <select className='select-box' value={group} onChange={(e) => setGroup(e.target.value)}>
+                  <option value="all">도서 구분 전체 (추천/개인)</option>
+                  <option value="recommended">추천도서</option>
+                  <option value="personal">개인도서</option>
                 </select>
                 
                 <span className='filter-label'>배송 상태</span>
-                <select className='select-box'>
-                  <option>전체 상태</option>
+                <select className='select-box' value={status} onChange={(e) => setStatus(e.target.value)}>
+                  <option value="all">전체 상태</option>
+                  <option value="ready">배송준비중</option>
+                  <option value="shipping">배송중</option>
+                  <option value="done">배송완료</option>
                 </select>
               </div>
             </div>
 
             <div className='my-orders__list-header'>
-              <h3 className='text-h3'>도서 주문 목록 (총 {orderHistory.length}건)</h3>
+              <h3 className='text-h3'>도서 주문 목록 (총 {filteredOrders.length}건)</h3>
             </div>
 
             {/* 도서 주문 목록 */}
             <div className='order-list'>
-              {orderHistory.length === 0 ? (
-                <div className="text-center" style={{padding: '2rem'}}>주문 내역이 없습니다.</div>
+              {filteredOrders.length === 0 ? (
+                <div className="text-center" style={{padding: '2rem'}}>조건에 맞는 주문 내역이 없습니다.</div>
               ) : (
-                orderHistory.map((order) => (
+                filteredOrders.map((order) => (
                   <div className='order-card' key={order.orderId}>
                     <div className='order-card__header'>
                       <span className='order-card__title'><strong>{order.orderDate.split(' ')[0]}</strong> | 주문번호: {order.orderId}</span>

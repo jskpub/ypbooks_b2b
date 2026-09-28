@@ -1,17 +1,47 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
 import { useCart } from '@/context/CartContext';
 
 export default function MySubsidyPage() {
   const user = getSessionUser();
-  const { orderHistory } = useCart();
+  const { orderHistory, subsidyLedger } = useCart();
+  const navigate = useNavigate();
+
+  const [period, setPeriod] = useState('all');
+  const [group, setGroup] = useState('all');
+
+  const now = new Date();
+
+  const parseDate = (dateStr: string) => {
+    const match = dateStr.match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\./);
+    if (match) {
+      return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    }
+    return new Date();
+  };
   
   // 주문 내역 중 지원금이 적용된 항목들만 추출
   const subsidyItems = orderHistory.flatMap(order => 
     order.items
       .filter(item => item.subsidy > 0)
       .map(item => ({ ...item, orderId: order.orderId, orderDate: order.orderDate }))
-  );
+  ).filter(item => {
+    if (group !== 'all' && item.group !== group) return false;
+    
+    const orderDate = parseDate(item.orderDate);
+    if (period === '1m') {
+      const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+      if (orderDate < oneMonthAgo) return false;
+    } else if (period === '3m') {
+      const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+      if (orderDate < threeMonthsAgo) return false;
+    } else if (period === '6m') {
+      const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+      if (orderDate < sixMonthsAgo) return false;
+    }
+    return true;
+  });
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -20,8 +50,8 @@ export default function MySubsidyPage() {
         {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
-            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
-            <p className='caption'>(주)한글과컴퓨터</p>
+            <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
+            <p className='caption'>한결그룹</p>
           </div>
           
           <nav className='my-page-nav'>
@@ -73,31 +103,39 @@ export default function MySubsidyPage() {
                 {/* 추천도서 지원금 */}
                 <div className='subsidy-rule-box'>
                   <div className='subsidy-rule-box__header'>
-                    <span className='badge badge--available'>사용 가능</span>
-                    <strong className='text-blue'>월 1권 전액 지원</strong>
+                    {subsidyLedger.recommendedUsed ? (
+                      <span className='badge badge--disabled'>한도 소진</span>
+                    ) : (
+                      <span className='badge badge--available'>사용 가능</span>
+                    )}
+                    <strong className={subsidyLedger.recommendedUsed ? 'text-red' : 'text-blue'}>월 1권 전액 지원</strong>
                   </div>
                   <h4 className='text-h3'>이달의 추천도서 지원금</h4>
                   <ul className='subsidy-rule-box__list'>
                     <li>지원 정책: 도서 정가 100% 회사 지원 (직원부담 0원)</li>
                     <li>대상 도서: 종이도서 한정 (영풍/기업 선정 10종)</li>
-                    <li>당월 잔여: <strong className='text-blue'>1권 사용 가능</strong></li>
+                    <li>당월 잔여: <strong className={subsidyLedger.recommendedUsed ? 'text-red' : 'text-blue'}>{subsidyLedger.recommendedUsed ? '0권 사용 가능' : '1권 사용 가능'}</strong></li>
                   </ul>
-                  <button className='btn btn--primary subsidy-rule-box__btn'>추천도서 바로가기 &gt;</button>
+                  <button className='btn btn--primary subsidy-rule-box__btn' onClick={() => navigate('/recommend')}>추천도서 바로가기 &gt;</button>
                 </div>
                 
                 {/* 개인 자유도서 지원금 */}
                 <div className='subsidy-rule-box'>
                   <div className='subsidy-rule-box__header'>
-                    <span className='badge badge--disabled'>한도 소진</span>
-                    <strong className='text-red'>월 1권 (최대 1만원)</strong>
+                    {subsidyLedger.personalUsed ? (
+                      <span className='badge badge--disabled'>한도 소진</span>
+                    ) : (
+                      <span className='badge badge--available'>사용 가능</span>
+                    )}
+                    <strong className={subsidyLedger.personalUsed ? 'text-red' : 'text-blue'}>월 1권 (최대 1만원)</strong>
                   </div>
                   <h4 className='text-h3'>개인 자유도서 지원금</h4>
                   <ul className='subsidy-rule-box__list'>
                     <li>지원 정책: 도서가의 50% 지원 (최대 10,000원 한도)</li>
                     <li>대상 도서: 종이도서 / 전자도서(eBook) 선택 가능</li>
-                    <li>당월 잔여: <strong className='text-red'>0권 (9/12 사용 완료)</strong></li>
+                    <li>당월 잔여: <strong className={subsidyLedger.personalUsed ? 'text-red' : 'text-blue'}>{subsidyLedger.personalUsed ? '0권 사용 가능' : '1권 사용 가능'}</strong></li>
                   </ul>
-                  <button className='btn btn--disabled subsidy-rule-box__btn' disabled>당월 한도 소진 (10/1 갱신)</button>
+                  <button className={subsidyLedger.personalUsed ? 'btn btn--disabled subsidy-rule-box__btn' : 'btn btn--primary subsidy-rule-box__btn'} disabled={subsidyLedger.personalUsed} onClick={() => navigate('/')}>{subsidyLedger.personalUsed ? '당월 한도 소진 (다음달 갱신)' : '개인도서 둘러보기 &gt;'}</button>
                 </div>
               </div>
             </div>
@@ -111,12 +149,17 @@ export default function MySubsidyPage() {
               <div className='subsidy-ledger-filter'>
                 <div className='filter-group'>
                   <span className='filter-label'>조회 기간:</span>
-                  <select className='select-box'>
-                    <option>2026년 전체</option>
+                  <select className='select-box' value={period} onChange={(e) => setPeriod(e.target.value)}>
+                    <option value="all">2026년 전체</option>
+                    <option value="1m">최근 1개월</option>
+                    <option value="3m">최근 3개월</option>
+                    <option value="6m">최근 6개월</option>
                   </select>
                   <span className='filter-label'>구분:</span>
-                  <select className='select-box'>
-                    <option>전체 (추천/개인)</option>
+                  <select className='select-box' value={group} onChange={(e) => setGroup(e.target.value)}>
+                    <option value="all">전체 (추천/개인)</option>
+                    <option value="recommended">추천도서</option>
+                    <option value="personal">개인도서</option>
                   </select>
                 </div>
                 <div className='filter-result'>

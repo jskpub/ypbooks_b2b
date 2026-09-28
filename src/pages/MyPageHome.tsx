@@ -16,8 +16,8 @@ export default function MyPageHome() {
         {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
-            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
-            <p className='caption'>(주)한글과컴퓨터</p>
+            <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
+            <p className='caption'>한결그룹</p>
           </div>
           
           <nav className='my-page-nav'>
@@ -67,11 +67,11 @@ export default function MyPageHome() {
                   <tbody>
                     <tr>
                       <th>소속 기업</th>
-                      <td>(주)한글과컴퓨터</td>
+                      <td>한결그룹</td>
                     </tr>
                     <tr>
                       <th>사번 / 이름</th>
-                      <td>{user?.employeeId ?? '20240108'} / {user?.name ?? '홍길동'}</td>
+                      <td>{user?.employeeId ?? '20240108'} / {user?.name ?? '김민서'}</td>
                     </tr>
                     <tr>
                       <th>소속 부서</th>
