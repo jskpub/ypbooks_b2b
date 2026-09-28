@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react';
+import ArrowUpIcon from '@/assets/icons/arrow-up.svg?react';
 import ArrowsClockwiseIcon from '@/assets/icons/arrows-clockwise.svg?react';
 import BookOpenIcon from '@/assets/icons/book-open.svg?react';
 import BooksIcon from '@/assets/icons/books.svg?react';
@@ -39,6 +40,7 @@ import XCircleIcon from '@/assets/icons/x-circle.svg?react';
 import XIcon from '@/assets/icons/x.svg?react';
 
 const icons = {
+  'arrow-up': ArrowUpIcon,
   'arrows-clockwise': ArrowsClockwiseIcon,
   'book-open': BookOpenIcon,
   books: BooksIcon,
