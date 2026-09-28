@@ -1,4 +1,4 @@
-import type { IconName } from '@/components/Icon';
+﻿import type { IconName } from '@/components/Icon';
 
 export type ReviewVisibility = 'public-real' | 'public-anonymous' | 'private';
 
@@ -39,7 +39,7 @@ export const reviews: Review[] = [
     aiQuestion: '독고 씨가 편의점 사람들과 관계를 맺어 가는 과정에서 가장 인상 깊었던 장면은 무엇인가요?',
     detail:
       '말수가 적은 독고 씨가 손님 한 명 한 명의 사정을 알아채고 조용히 돕는 장면들이 좋았습니다. 팀에서도 먼저 묻기 전에 동료의 상황을 살피는 태도가 필요하다는 생각이 들었습니다.',
-    createdAt: '2026-09-22',
+    createdAt: '2026-08-22',
     likeCount: 12,
     likedByMe: false,
   },
@@ -57,7 +57,7 @@ export const reviews: Review[] = [
     aiQuestion: '우리 회사 업무에 적용할 부분이 무엇인가요?',
     detail:
       '"1% 개선" 개념을 주간 회고에 적용해 보기로 했습니다. 큰 목표 대신 매일 반복할 수 있는 작은 행동을 정하니 부담이 줄었고, 체크리스트로 진행 상황을 눈에 보이게 만드는 방법이 특히 유용했습니다.',
-    createdAt: '2026-09-24',
+    createdAt: '2026-08-24',
     likeCount: 27,
     likedByMe: true,
   },
@@ -75,8 +75,8 @@ export const reviews: Review[] = [
     aiQuestion: '영혜의 선택을 바라보는 주변 인물들의 시선에서 무엇을 느꼈나요?',
     detail:
       '가족들이 영혜를 이해하려 하기보다 설득하고 고치려 드는 모습이 마음에 걸렸습니다. 다른 사람의 선택을 판단하기 전에 그 이유를 먼저 들어 보는 연습이 필요하다고 느꼈습니다.',
-    createdAt: '2026-09-18',
-    updatedAt: '2026-09-23',
+    createdAt: '2026-08-18',
+    updatedAt: '2026-08-23',
     likeCount: 8,
     likedByMe: false,
   },
@@ -94,7 +94,7 @@ export const reviews: Review[] = [
     aiQuestion: '소개된 트렌드 중 우리 팀 업무와 가장 가까운 키워드는 무엇인가요?',
     detail:
       '고객 경험을 개인화하는 흐름이 우리 서비스에도 해당된다고 봤습니다. 다만 키워드마다 사례가 짧아서 실제 기획에 쓰려면 추가 자료를 찾아봐야 할 것 같습니다.',
-    createdAt: '2026-09-20',
+    createdAt: '2026-08-20',
     likeCount: 15,
     likedByMe: false,
   },
@@ -111,7 +111,7 @@ export const reviews: Review[] = [
     oneLiner: '비공개 서평 — 피드에 노출되지 않아야 한다',
     aiQuestion: '우리 회사 업무에 적용할 부분이 무엇인가요?',
     detail: '비공개로 설정한 서평입니다.',
-    createdAt: '2026-09-25',
+    createdAt: '2026-08-25',
     likeCount: 0,
     likedByMe: false,
   },
@@ -130,7 +130,7 @@ export const reviews: Review[] = [
     oneLiner: '재능보다 끈기, 결국 끝까지 하는 사람이 이긴다',
     aiQuestion: '우리 회사 업무에 적용할 부분이 무엇인가요?',
     detail: '장기 프로젝트를 진행하며 중간에 흔들릴 때마다 "왜 시작했는지"를 다시 떠올리는 습관을 들이게 됐습니다. 목표를 잘게 쪼개서 작은 성취를 자주 확인하는 방식이 특히 도움이 됐습니다.',
-    createdAt: '2026-09-09',
+    createdAt: '2026-08-09',
     likeCount: 4,
     likedByMe: false,
   },

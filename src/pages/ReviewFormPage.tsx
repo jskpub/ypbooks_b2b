@@ -76,8 +76,16 @@ export default function ReviewFormPage() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (rating === 0 || !detail.trim()) {
-      setError('별점과 답변을 입력해주세요.');
+    if (rating === 0) {
+      setError('별점을 입력해주세요.');
+      return;
+    }
+    if (oneLiner.length < 2 || oneLiner.length > 50) {
+      setError('한줄평은 최소 2자, 최대 50자까지 입력 가능합니다.');
+      return;
+    }
+    if (detail.length < 50 || detail.length > 200) {
+      setError('AI 맞춤 질문 답변은 최소 50자, 최대 200자까지 입력 가능합니다.');
       return;
     }
     const now = new Date().toISOString().slice(0, 10);
@@ -162,6 +170,7 @@ export default function ReviewFormPage() {
               id='oneLiner'
               type='text'
               className='review-form__input'
+              minLength={2}
               maxLength={50}
               value={oneLiner}
               onChange={(event) => setOneLiner(event.target.value)}
@@ -182,6 +191,8 @@ export default function ReviewFormPage() {
             <textarea
               className='review-form__textarea'
               rows={5}
+              minLength={50}
+              maxLength={200}
               value={detail}
               onChange={(event) => setDetail(event.target.value)}
               placeholder='자유롭게 답변해 주세요.'

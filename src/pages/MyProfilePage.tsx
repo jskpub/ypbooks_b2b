@@ -48,7 +48,7 @@ export default function MyProfilePage() {
 
         <div className='my-page-content'>
           <div className='my-page-content__header'>
-            <h1 className='text-h1'>회원 정보 조회 (View-Only)</h1>
+            <h1 className='text-h1'>회원 정보 조회</h1>
           </div>
 
           <div className='my-profile'>
