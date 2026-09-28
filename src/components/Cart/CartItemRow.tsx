@@ -36,11 +36,7 @@ export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon,
       <td>
         <div className='cart-book'>
           <input type='checkbox' className='cart-book__checkbox checkbox' aria-label={`${item.title} 선택`} checked={item.checked} onChange={() => onToggleChecked(item.id)} />
-          {/* Figma Cart Row 실측(44:3302/44:3318/44:3338): 표지는 도서 유형·포맷과 무관하게
-              항상 고정된 "books" 아이콘 — item별로 바뀌지 않는다. */}
-          <span className='cart-book__cover'>
-            <Icon name='books' />
-          </span>
+          <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
           <div className='cart-book__info'>
             <div className='cart-book__badges'>
               <span className={`badge ${groupBadgeClassName}`}>

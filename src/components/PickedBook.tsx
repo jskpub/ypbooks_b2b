@@ -31,12 +31,12 @@ export default function PickedBook({ isbn13, title, author, publisher, pubDate, 
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty: 1 });
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty: 1, coverSrc });
     showToast('장바구니에 담았습니다');
   };
 
   const handleBuyNow = () => {
-    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty: 1 });
+    addToCart({ isbn13, title, byline: `${author} · ${publisher}`, listPrice, sellingPrice, qty: 1, coverSrc });
     navigate('/payment');
   };
 

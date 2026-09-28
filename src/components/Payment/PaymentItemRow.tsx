@@ -27,9 +27,7 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
     <tr>
       <td className='cart-table__book-col'>
         <div className='cart-book'>
-          <span className='cart-book__cover'>
-            <Icon name='books' />
-          </span>
+          <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
           <div className='cart-book__info'>
             <div className='cart-book__badges'>
               <span className={`badge ${groupBadgeClassName}`}>
