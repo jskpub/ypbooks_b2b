@@ -28,7 +28,14 @@ function saveSession(user: SessionUser) {
 
 export function getSessionUser(): SessionUser | null {
   const saved = sessionStorage.getItem(SESSION_KEY);
-  return saved ? (JSON.parse(saved) as SessionUser) : null;
+  if (!saved) return null;
+  // 값이 손상돼 JSON.parse가 실패하면 앱 전체가 흰 화면으로 멈추므로, 비로그인으로 처리하고 값을 지운다.
+  try {
+    return JSON.parse(saved) as SessionUser;
+  } catch {
+    sessionStorage.removeItem(SESSION_KEY);
+    return null;
+  }
 }
 
 export function signOut() {
