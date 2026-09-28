@@ -158,39 +158,46 @@ export default function BookDetailPage() {
               <span className='book-detail__list text-body-xs'>{formatWon(book.priceStandard)}</span>
             </div>
 
-            <div className='book-detail__actions'>
-              <div className='stepper'>
-                <button type='button' className='stepper__btn' aria-label='수량 감소' disabled={qty <= 1} onClick={() => setQty((q) => Math.max(1, q - 1))}>
-                  <Icon name='minus' />
+            <div className='book-detail__order-box'>
+              <div className='book-detail__order-top'>
+                <div className='stepper'>
+                  <button type='button' className='stepper__btn' aria-label='수량 감소' disabled={qty <= 1} onClick={() => setQty((q) => Math.max(1, q - 1))}>
+                    <Icon name='minus' />
+                  </button>
+                  <input
+                    type='number'
+                    min={1}
+                    step={1}
+                    className='stepper__value'
+                    value={qty}
+                    aria-label='수량'
+                    onChange={(event) => {
+                      const raw = event.target.value;
+                      if (raw === '') return;
+                      const value = Number(raw);
+                      if (Number.isInteger(value) && value >= 1) setQty(value);
+                    }}
+                    onBlur={(event) => {
+                      const value = Number(event.target.value);
+                      if (!Number.isInteger(value) || value < 1) setQty(1);
+                    }}
+                  />
+                  <button type='button' className='stepper__btn' aria-label='수량 증가' onClick={() => setQty((q) => q + 1)}>
+                    <Icon name='plus' />
+                  </button>
+                </div>
+                <div className='book-detail__total-price'>
+                  {formatWon(book.priceSales * qty)}
+                </div>
+              </div>
+              <div className='book-detail__actions'>
+                <button type='button' className='btn btn--secondary btn--lg' onClick={handleAddToCart}>
+                  장바구니 담기
                 </button>
-                <input
-                  type='number'
-                  min={1}
-                  step={1}
-                  className='stepper__value'
-                  value={qty}
-                  aria-label='수량'
-                  onChange={(event) => {
-                    const raw = event.target.value;
-                    if (raw === '') return;
-                    const value = Number(raw);
-                    if (Number.isInteger(value) && value >= 1) setQty(value);
-                  }}
-                  onBlur={(event) => {
-                    const value = Number(event.target.value);
-                    if (!Number.isInteger(value) || value < 1) setQty(1);
-                  }}
-                />
-                <button type='button' className='stepper__btn' aria-label='수량 증가' onClick={() => setQty((q) => q + 1)}>
-                  <Icon name='plus' />
+                <button type='button' className='btn btn--primary btn--lg' onClick={handleBuyNow}>
+                  바로 구매
                 </button>
               </div>
-              <button type='button' className='btn btn--secondary btn--lg' onClick={handleAddToCart}>
-                장바구니 담기
-              </button>
-              <button type='button' className='btn btn--primary btn--lg' onClick={handleBuyNow}>
-                바로 구매
-              </button>
             </div>
           </div>
         </div>

@@ -116,10 +116,32 @@
     text-decoration: line-through;
   }
 
-  &__actions {
+  &__order-box {
+    margin-top: $space-6;
+    padding: $space-4;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-md;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__order-top {
     display: flex;
     align-items: center;
-    gap: $space-3;
+    justify-content: space-between;
+  }
+
+  &__total-price {
+    font-size: $font-size-h4;
+    font-weight: 700;
+    color: $color-foreground;
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-2;
   }
 
   &__badges {
