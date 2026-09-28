@@ -57,17 +57,19 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           </button>
         </form>
 
-        <div className='brand-bar__subsidy'>
+        <Link to='/subsidy' aria-label='나의 지원금 현황' className='brand-bar__subsidy'>
           <span className='brand-bar__subsidy-icon'>
             <Icon name='wallet' />
           </span>
-          <div className='brand-bar__subsidy-text'>
-            <p className='brand-bar__subsidy-title'>2026.09 지원 도서 잔여 권수</p>
-            <p className='brand-bar__subsidy-lines'>
-              추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
-            </p>
+          <div className='brand-bar__icon-link'>
+            <div className='brand-bar__subsidy-text'>
+              <p className='brand-bar__subsidy-title'>2026.09 지원 도서 잔여 권수</p>
+              <p className='brand-bar__subsidy-lines'>
+                추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
+              </p>
+            </div>
           </div>
-        </div>
+        </Link>
 
         <ul className='brand-bar__icons'>
           <li>
