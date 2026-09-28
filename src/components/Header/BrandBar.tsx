@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { useCart } from '@/contexts/CartContext';
+import { signOut } from '@/data/auth';
 
 interface BrandBarProps {
   isMenuOpen?: boolean;
@@ -39,10 +40,10 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           </span>
         </button>
 
-        <a href='javascript:;' className='brand-bar__logo'>
+        <Link to='/' className='brand-bar__logo'>
           <img className='brand-bar__logo-img' src='https://cdn.ypbooks.co.kr/image/logo/202512/d4bd4b8c-948f-4703-9cd2-0be0cccadf27.png' alt='영풍문고' />
           <span className='logo__badge'>비즈몰</span>
-        </a>
+        </Link>
 
         {/* origin/master의 SPA 검색 이동 기능 적용 */}
         <form className='brand-bar__search' role='search' onSubmit={handleSubmit}>
@@ -94,9 +95,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
             </a>
           </li>
           <li>
-            <a href='javascript:;' aria-label='로그아웃'>
+            <Link to='/login' aria-label='로그아웃' onClick={signOut}>
               <Icon name='sign-out' />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

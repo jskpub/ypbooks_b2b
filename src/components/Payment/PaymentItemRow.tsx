@@ -47,7 +47,11 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
         </div>
       </td>
       <td className='cart-table__price-col'>
-        <span className='payment-table__discount'>{discountRate}%</span> <span className='payment-table__price'>{formatWon(item.sellingPrice * item.qty)}</span>
+        <div className='payment-table__price-cell'>
+          {discountRate > 0 && <span className='payment-table__discount'>{discountRate}%</span>}
+          <span className='payment-table__price'>{formatWon(item.sellingPrice * item.qty)}</span>
+          <span className='payment-table__list-price'>{formatWon(item.listPrice * item.qty)}</span>
+        </div>
       </td>
       <td className='cart-table__num-col'>{item.qty}</td>
       <td className='cart-table__subsidy-col'>

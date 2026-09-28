@@ -21,8 +21,19 @@
     min-width: 0;
   }
 
+  // 스크롤해도 사이드바(주문 합계/결제 요약 카드)가 본문을 따라오도록 고정한다. top 값은
+  // 헤더(_category-menu.scss와 동일한 실측 상수: 펼침 181px/축약 87px)에 가려 잘리지 않도록
+  // 헤더의 현재 높이 + 여백(space-4)만큼 띄운다 — 헤더가 sticky top:0으로 항상 뷰포트 위에
+  // 붙어있어서, 그보다 작은 top 값을 쓰면 사이드바 위쪽이 헤더 뒤로 숨어 잘려 보인다.
   &__sidebar {
     flex: 0 0 $layout-sidebar-width;
     width: $layout-sidebar-width;
+    position: sticky;
+    top: calc(#{rem(181)} + #{$space-4}); // 펼침 상태 헤더 높이 + 여백
+    transition: top $motion-base;
   }
+}
+
+body:has(.header.is-scrolled) .layout-with-sidebar__sidebar {
+  top: calc(#{rem(87)} + #{$space-4}); // 축약 상태 헤더 높이 + 여백
 }

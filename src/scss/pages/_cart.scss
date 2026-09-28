@@ -520,11 +520,10 @@
   gap: $space-3;
 }
 
-// 사이드바 — 배송지 위젯 & 주문 요약
-.cart__layout .layout-with-sidebar__sidebar {
-  position: sticky;
-  top: rem(24);
-}
+// 사이드바(배송지 위젯 & 주문 요약) 스크롤 고정은 .layout-with-sidebar__sidebar 공용 규칙
+// (_grid.scss)이 헤더 높이까지 감안해서 처리한다 — 여기서 top을 고정값으로 다시 정의하면
+// 헤더가 축약(.is-scrolled)됐을 때 그 값이 우선 적용되어(선택자 특이도가 더 높음) 사이드바
+// 위쪽이 헤더 뒤로 가려 잘려 보이는 문제가 있었다.
 
 .cart-address {
   display: flex;

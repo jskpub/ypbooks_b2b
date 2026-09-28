@@ -98,15 +98,36 @@
 }
 
 // 결제 상품 표 — 판매가/지원금/직원결제액 셀 안쪽 텍스트 조합.
+// 판매가 열: 할인율(위) → 판매가(가운데, 강조) → 정가(아래, 취소선) 세로 배치.
+// cart-table__price-col이 text-align:right이라 flex도 오른쪽 정렬로 맞춘다.
 .payment-table {
+  &__price-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: rem(2);
+  }
+
   &__discount {
     color: $color-red-500;
     font-weight: 700;
+    font-size: $font-size-body-xs;
+    line-height: $line-height-body-xs;
   }
 
   &__price {
     font-weight: 700;
     color: $color-foreground;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__list-price {
+    color: $color-disabled-text;
+    text-decoration: line-through;
+    font-weight: 400;
+    font-size: $font-size-body-xs;
+    line-height: $line-height-body-xs;
+    font-variant-numeric: tabular-nums;
   }
 
   // 지원금 열(cart-table__subsidy-col) 안쪽 래퍼 — "적용됨" 상태만 금액 한 줄이 버튼 위에 더 붙어서
