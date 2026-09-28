@@ -11,8 +11,8 @@ export default function MyProfilePage() {
         {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
-            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
-            <p className='caption'>(주)한글과컴퓨터</p>
+            <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
+            <p className='caption'>한결그룹</p>
           </div>
           
           <nav className='my-page-nav'>
@@ -64,19 +64,19 @@ export default function MyProfilePage() {
                 <tbody>
                   <tr>
                     <th>소속 기업명</th>
-                    <td>(주)한글과컴퓨터</td>
+                    <td>한결그룹</td>
                   </tr>
                   <tr>
                     <th>사번 (Employee ID)</th>
-                    <td>20240108</td>
+                    <td>26020045</td>
                   </tr>
                   <tr>
                     <th>성명 / 직급</th>
-                    <td>홍길동 (책임연구원)</td>
+                    <td>김민서 (대리)</td>
                   </tr>
                   <tr>
                     <th>소속 부서</th>
-                    <td>플랫폼 개발본부 &gt; 서비스 개발팀</td>
+                    <td>사업본부 &gt; 경영지원팀</td>
                   </tr>
                   <tr>
                     <th>재직 상태</th>
@@ -101,7 +101,7 @@ export default function MyProfilePage() {
                 <tbody>
                   <tr>
                     <th>사내 이메일 주소</th>
-                    <td>gildong.hong@hancom.com</td>
+                    <td>minseo.kim@hangyeol.com</td>
                   </tr>
                   <tr>
                     <th>휴대폰 번호</th>

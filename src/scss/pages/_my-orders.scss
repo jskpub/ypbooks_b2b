@@ -18,6 +18,7 @@
   background-color: $color-surface-card;
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
+  box-shadow: none !important;
 
   .filter-row {
     display: flex;
