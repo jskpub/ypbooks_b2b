@@ -55,17 +55,21 @@ export default function PaymentItemRow({ item, groupBadgeClassName, groupBadgeIc
       </td>
       <td className='cart-table__num-col'>{item.qty}</td>
       <td className='cart-table__subsidy-col'>
+        {/* 금액 줄을 상태와 무관하게 항상 렌더링해(적용 전엔 비워두고 visibility만 숨김) 그 자리가
+            항상 같은 높이를 차지하게 한다 — 지원금 적용/해제로 금액 줄이 생겼다 사라졌다 하면
+            버튼 자리가 셀 높이에 맞춰 위아래로 밀리는 문제(min-height로 셀 전체를 늘리는 대신)를
+            버튼과 금액 줄을 항상 같은 두 자리로 고정해서 막는다. */}
         <div className='payment-table__subsidy-cell'>
+          <span className='payment-table__subsidy-amount' aria-hidden={!item.isSubsidyApplied}>
+            {item.isSubsidyApplied ? `-${formatWon(subsidy)}` : ' '}
+          </span>
           {isSubsidyExhausted ? (
             <span className={`subsidy-btn ${subsidyBtnClassName} is-exhausted`}>지원금 적용불가</span>
           ) : item.isSubsidyApplied ? (
-            <div className='payment-table__subsidy-applied'>
-              <span className='payment-table__subsidy-amount'>-{formatWon(subsidy)}</span>
-              <button type='button' className={`subsidy-btn ${subsidyBtnClassName} is-applied`} onClick={() => onRemoveSubsidy(item.id)}>
-                <Icon name='check' />
-                지원금 적용됨
-              </button>
-            </div>
+            <button type='button' className={`subsidy-btn ${subsidyBtnClassName} is-applied`} onClick={() => onRemoveSubsidy(item.id)}>
+              <Icon name='check' />
+              지원금 적용됨
+            </button>
           ) : (
             <button type='button' className={`subsidy-btn ${subsidyBtnClassName}`} onClick={() => onApplySubsidy(item.id)}>
               지원금 적용하기

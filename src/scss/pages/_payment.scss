@@ -130,28 +130,20 @@
     font-variant-numeric: tabular-nums;
   }
 
-  // 지원금 열(cart-table__subsidy-col) 안쪽 래퍼 — "적용됨" 상태만 금액 한 줄이 버튼 위에 더 붙어서
-  // (subsidy-btn 30px + gap 2px + price-sm 22px) 상태별로 셀 안 콘텐츠 높이가 다르다. justify-content:
-  // flex-end로 버튼을 항상 셀 아래쪽에 고정해, 지원금 적용/해제로 상태가 바뀌어도 버튼 위치(y좌표)는
-  // 그대로 두고 금액 줄만 위에서 나타나거나 사라지게 한다.
+  // 지원금 열(cart-table__subsidy-col) 안쪽 래퍼 — 금액 줄(PaymentItemRow.tsx에서 지원금
+  // 적용 여부와 무관하게 항상 렌더링, 비적용 시 visibility만 숨김)을 버튼 위 고정 자리로 두어,
+  // min-height로 셀 전체 높이를 늘리는 대신 금액 줄 + 버튼 두 자리 자체를 항상 같은 높이로
+  // 유지한다 — 지원금 적용/해제로 상태가 바뀌어도 버튼이 위아래로 밀리지 않는다.
   &__subsidy-cell {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    min-height: rem(54); // 22(금액) + 2(gap) + 30(subsidy-btn: 20 line-height + 8 padding + 2 border)
+    gap: rem(2);
 
     td {
       font-size: $font-size-body-sm;
       line-height: $line-height-body-sm;
     }
-  }
-
-  &__subsidy-applied {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: rem(2);
   }
 
   &__subsidy-amount,
@@ -163,6 +155,10 @@
 
   &__subsidy-amount {
     color: $color-primary;
+
+    &[aria-hidden='true'] {
+      visibility: hidden;
+    }
   }
 
   &__employee-payment {
