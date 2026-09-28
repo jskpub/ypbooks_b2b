@@ -6,6 +6,10 @@ import { recommendedBookList } from '@/data/recommendedBookList';
 
 const PROXY_BASE = import.meta.env.VITE_ALADIN_PROXY_URL as string | undefined;
 
+// 세션 내 중복 API 호출 방지용 인메모리 캐시. 키: 완성된 요청 URL, 값: 응답 item 배열.
+// 페이지 새로고침 전까지 유효하며, 동일한 요청은 네트워크 없이 즉시 반환된다.
+const apiCache = new Map<string, AladinItem[]>();
+
 export interface AladinItem {
   title: string;
   author: string;
@@ -47,7 +51,14 @@ async function callProxy(path: string, params: Record<string, string>): Promise<
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, value);
   }
-  const res = await fetch(url.toString());
+  const cacheKey = url.toString();
+
+  // 세션 내 캐시 히트 시 API를 재호출하지 않는다.
+  if (apiCache.has(cacheKey)) {
+    return apiCache.get(cacheKey)!;
+  }
+
+  const res = await fetch(cacheKey);
   if (!res.ok) {
     throw new Error(`알라딘 프록시 호출 실패 (status ${res.status})`);
   }
@@ -55,7 +66,9 @@ async function callProxy(path: string, params: Record<string, string>): Promise<
   if (data.errorMessage) {
     throw new Error(data.errorMessage);
   }
-  return data.item ?? [];
+  const items = data.item ?? [];
+  apiCache.set(cacheKey, items);
+  return items;
 }
 
 export interface RecommendedAladinItem extends AladinItem {
