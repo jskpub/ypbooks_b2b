@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
-import { AladinItem, fetchBestsellerBooks } from '@/services/aladinApi';
+import { useCart } from '@/context/CartContext';
 
 export default function MyPageHome() {
   const user = getSessionUser();
-  const [recentOrders, setRecentOrders] = useState<AladinItem[]>([]);
-
-  useEffect(() => {
-    fetchBestsellerBooks(2).then(setRecentOrders);
-  }, []);
+  const { orderHistory } = useCart();
+  
+  // 최근 주문 2건만 가져오기
+  const recentOrders = orderHistory.slice(0, 2);
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -158,42 +156,48 @@ export default function MyPageHome() {
                 <tbody>
                   {recentOrders.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="text-center">로딩중...</td>
+                      <td colSpan={5} className="text-center" style={{padding: '2rem'}}>최근 주문 내역이 없습니다.</td>
                     </tr>
                   ) : (
-                    recentOrders.map((book, idx) => (
-                      <tr key={book.itemId}>
-                        <td className='order-table__date'>
-                          <strong>2026.09.12</strong>
-                          <span className='caption'>ORD-20260912-008{idx + 1}</span>
-                        </td>
-                        <td className='order-table__info'>
-                          <div className='order-table__info-wrap'>
-                            <img src={book.cover} alt={book.title} className='book-thumb' style={{width: 44, height: 64, objectFit: 'cover'}} />
-                            <div className='book-details'>
-                              <div className='book-details__title'>
-                                <span className={`badge ${idx === 0 ? 'badge--general' : 'badge--recommend'}`}>{idx === 0 ? '개인도서' : '추천도서'}</span>
-                                <strong>{book.title} (1권)</strong>
+                    recentOrders.flatMap((order) => 
+                      order.items.map((book, idx) => (
+                        <tr key={`${order.orderId}-${book.id}-${idx}`}>
+                          <td className='order-table__date'>
+                            <strong>{order.orderDate.split(' ')[0]}</strong>
+                            <span className='caption'>{order.orderId}</span>
+                          </td>
+                          <td className='order-table__info'>
+                            <div className='order-table__info-wrap'>
+                              {book.coverSrc ? (
+                                <img src={book.coverSrc} alt={book.title} className='book-thumb' style={{width: 44, height: 64, objectFit: 'cover'}} />
+                              ) : (
+                                <div className='book-thumb'>표지</div>
+                              )}
+                              <div className='book-details'>
+                                <div className='book-details__title'>
+                                  <span className={`badge ${book.group === 'recommended' ? 'badge--recommend' : 'badge--general'}`}>{book.group === 'recommended' ? '추천도서' : '개인도서'}</span>
+                                  <strong>{book.title} ({book.qty}권)</strong>
+                                </div>
+                                <span className='caption'>정가 {book.sellingPrice.toLocaleString()}원 | {book.formatLabel}</span>
                               </div>
-                              <span className='caption'>정가 {book.priceStandard.toLocaleString()}원 | 종이도서</span>
                             </div>
-                          </div>
-                        </td>
-                        <td className='order-table__price'>
-                          <span>회사지원: -{Math.floor(book.priceStandard / 2).toLocaleString()}원</span>
-                          <strong>본인부담: {Math.ceil(book.priceStandard / 2).toLocaleString()}원</strong>
-                          <span className='caption'>(신용카드 복합결제)</span>
-                        </td>
-                        <td className='order-table__status'>
-                          <strong className='status-success'>배송완료</strong>
-                          <span className='caption'>CJ대한통운</span>
-                        </td>
-                        <td className='order-table__actions'>
-                          <button className='btn btn--secondary btn--sm'>배송조회</button>
-                          <button className='btn btn--secondary btn--sm'>주문상세</button>
-                        </td>
-                      </tr>
-                    ))
+                          </td>
+                          <td className='order-table__price'>
+                            <span>회사지원: -{book.subsidy.toLocaleString()}원</span>
+                            <strong>본인부담: {book.employeePayment.toLocaleString()}원</strong>
+                            <span className='caption'>(신용카드 복합결제)</span>
+                          </td>
+                          <td className='order-table__status'>
+                            <strong className='status-success'>결제완료</strong>
+                            <span className='caption'>배송준비중</span>
+                          </td>
+                          <td className='order-table__actions'>
+                            <button className='btn btn--secondary btn--sm' disabled>배송조회</button>
+                            <button className='btn btn--secondary btn--sm'>주문상세</button>
+                          </td>
+                        </tr>
+                      ))
+                    )
                   )}
                 </tbody>
               </table>

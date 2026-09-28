@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
-import { AladinItem, fetchBestsellerBooks } from '@/services/aladinApi';
+import { useCart } from '@/context/CartContext';
 
 export default function MyOrdersPage() {
   const user = getSessionUser();
-  const [orders, setOrders] = useState<AladinItem[]>([]);
-
-  useEffect(() => {
-    fetchBestsellerBooks(2).then(setOrders);
-  }, []);
+  const { orderHistory } = useCart();
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -86,49 +81,55 @@ export default function MyOrdersPage() {
             </div>
 
             <div className='my-orders__list-header'>
-              <h3 className='text-h3'>도서 주문 목록 (총 2건)</h3>
+              <h3 className='text-h3'>도서 주문 목록 (총 {orderHistory.length}건)</h3>
             </div>
 
             {/* 도서 주문 목록 */}
             <div className='order-list'>
-              {orders.length === 0 ? (
-                <div className="text-center" style={{padding: '2rem'}}>로딩중...</div>
+              {orderHistory.length === 0 ? (
+                <div className="text-center" style={{padding: '2rem'}}>주문 내역이 없습니다.</div>
               ) : (
-                orders.map((book, idx) => (
-                  <div className='order-card' key={book.itemId}>
+                orderHistory.map((order) => (
+                  <div className='order-card' key={order.orderId}>
                     <div className='order-card__header'>
-                      <span className='order-card__title'><strong>2026.09.12</strong> | 주문번호: ORD-20260912-008{idx + 1}</span>
+                      <span className='order-card__title'><strong>{order.orderDate.split(' ')[0]}</strong> | 주문번호: {order.orderId}</span>
                       <Link to='#' className='order-card__link'>[주문상세 보기 &gt;]</Link>
                     </div>
                     <div className='order-card__body'>
-                      <div className='order-card__book'>
-                        <img src={book.cover} alt={book.title} className='book-thumb' style={{width: 64, height: 92, objectFit: 'cover'}} />
-                        <div className='book-info'>
-                          <div className='book-info__title'>
-                            <span className={`badge ${idx === 0 ? 'badge--general' : 'badge--recommend'}`}>{idx === 0 ? '개인도서' : '추천도서'}</span>
-                            <strong>{book.title}</strong>
+                      <div className='order-card__items' style={{display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%'}}>
+                        {order.items.map((book) => (
+                          <div key={book.id} style={{display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '1rem', alignItems: 'center'}}>
+                            <div className='order-card__book'>
+                              {book.coverSrc ? (
+                                <img src={book.coverSrc} alt={book.title} className='book-thumb' style={{width: 64, height: 92, objectFit: 'cover'}} />
+                              ) : (
+                                <div className='book-thumb'>표지</div>
+                              )}
+                              <div className='book-info'>
+                                <div className='book-info__title'>
+                                  <span className={`badge ${book.group === 'recommended' ? 'badge--recommend' : 'badge--general'}`}>{book.group === 'recommended' ? '추천도서' : '개인도서'}</span>
+                                  <strong>{book.title}</strong>
+                                </div>
+                                <span className='caption'>| {book.formatLabel} ({book.qty}권)</span>
+                                <div className='book-info__meta caption'>
+                                  <span>정가: {book.sellingPrice.toLocaleString()}원</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className='order-card__payment' style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                              <span className='text-blue'>회사지원: -{book.subsidy.toLocaleString()}원</span>
+                              <strong className='text-red'>본인결제: {book.employeePayment.toLocaleString()}원</strong>
+                            </div>
+                            <div className='order-card__status' style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                              <strong className='text-green'>결제완료</strong>
+                              <span className='caption'>배송준비중</span>
+                            </div>
+                            <div className='order-card__actions' style={{display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center'}}>
+                              <button className='btn btn--primary btn--sm' disabled>배송조회</button>
+                              <button className='btn btn--secondary btn--sm'>주문상세</button>
+                            </div>
                           </div>
-                          <span className='caption'>| 종이도서 (1권)</span>
-                          <div className='book-info__meta caption'>
-                            <span>저자: {book.author}</span>
-                            <span>출판사: {book.publisher}</span>
-                            <span>정가: {book.priceStandard.toLocaleString()}원</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className='order-card__payment'>
-                        <span className='text-blue'>회사지원: -{Math.floor(book.priceStandard / 2).toLocaleString()}원 (50%)</span>
-                        <strong className='text-red'>본인결제: {Math.ceil(book.priceStandard / 2).toLocaleString()}원</strong>
-                        <span className='caption'>(신용카드 결제)</span>
-                      </div>
-                      <div className='order-card__status'>
-                        <strong className='text-green'>배송완료</strong>
-                        <span className='caption'>CJ대한통운</span>
-                        <span className='caption'>682-1920-334{idx + 1}</span>
-                      </div>
-                      <div className='order-card__actions'>
-                        <button className='btn btn--primary btn--sm'>배송조회</button>
-                        <button className='btn btn--secondary btn--sm'>주문상세</button>
+                        ))}
                       </div>
                     </div>
                   </div>

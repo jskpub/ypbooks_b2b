@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
-import { AladinItem, fetchBestsellerBooks } from '@/services/aladinApi';
+import { useCart } from '@/context/CartContext';
 
 export default function MySubsidyPage() {
   const user = getSessionUser();
-  const [orders, setOrders] = useState<AladinItem[]>([]);
-
-  useEffect(() => {
-    fetchBestsellerBooks(2).then(setOrders);
-  }, []);
+  const { orderHistory } = useCart();
+  
+  // 주문 내역 중 지원금이 적용된 항목들만 추출
+  const subsidyItems = orderHistory.flatMap(order => 
+    order.items
+      .filter(item => item.subsidy > 0)
+      .map(item => ({ ...item, orderId: order.orderId, orderDate: order.orderDate }))
+  );
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -118,7 +120,7 @@ export default function MySubsidyPage() {
                   </select>
                 </div>
                 <div className='filter-result'>
-                  <span className='caption'>총 3건의 내역이 조회되었습니다.</span>
+                  <span className='caption'>총 {subsidyItems.length}건의 내역이 조회되었습니다.</span>
                 </div>
               </div>
 
@@ -134,22 +136,22 @@ export default function MySubsidyPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.length === 0 ? (
+                  {subsidyItems.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center" style={{padding: '2rem'}}>로딩중...</td>
+                      <td colSpan={6} className="text-center" style={{padding: '2rem'}}>지원금 사용 내역이 없습니다.</td>
                     </tr>
                   ) : (
-                    orders.map((book, idx) => (
-                      <tr key={book.itemId}>
-                        <td className='text-center'>2026.09.12</td>
-                        <td className='text-center'><strong>{idx === 0 ? '개인도서' : '추천도서'}</strong></td>
+                    subsidyItems.map((item, idx) => (
+                      <tr key={`${item.orderId}-${item.id}-${idx}`}>
+                        <td className='text-center'>{item.orderDate.split(' ')[0]}</td>
+                        <td className='text-center'><strong>{item.group === 'recommended' ? '추천도서' : '개인도서'}</strong></td>
                         <td className='text-left'>
-                          <strong>{book.title}</strong>
-                          <span className='caption block'>ORD-20260912-008{idx + 1}</span>
+                          <strong>{item.title}</strong>
+                          <span className='caption block'>{item.orderId}</span>
                         </td>
-                        <td className='text-right'>{book.priceStandard.toLocaleString()}원</td>
+                        <td className='text-right'>{item.sellingPrice.toLocaleString()}원</td>
                         <td className='text-right'>
-                          <strong className='text-blue'>-{Math.floor(book.priceStandard / (idx === 0 ? 2 : 1)).toLocaleString()}원 ({idx === 0 ? '50%' : '100%'})</strong>
+                          <strong className='text-blue'>-{item.subsidy.toLocaleString()}원 ({item.group === 'recommended' ? '100%' : '50%'})</strong>
                         </td>
                         <td className='text-center'>
                           <strong className='text-green'>지원 적용 완료</strong>
@@ -158,23 +160,6 @@ export default function MySubsidyPage() {
                       </tr>
                     ))
                   )}
-                  {/* 취소된 건도 하나 하드코딩해서 형태를 보여줌 */}
-                  <tr>
-                    <td className='text-center'>2026.07.18</td>
-                    <td className='text-center'><strong>개인도서</strong></td>
-                    <td className='text-left'>
-                      <strong>초생산성 (주문취소 환수)</strong>
-                      <span className='caption block'>ORD-20260718-0004</span>
-                    </td>
-                    <td className='text-right'>18,000원</td>
-                    <td className='text-right'>
-                      <strong className='text-red'>+9,000원 (환수)</strong>
-                    </td>
-                    <td className='text-center'>
-                      <strong className='text-red'>한도 원복 완료</strong>
-                      <span className='caption block'>(주문취소에 따른 복원)</span>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
