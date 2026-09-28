@@ -107,23 +107,18 @@
     width: rem(120);
   }
 
+  // 고정 폭 없이 남는 자리를 모두 채워서, 펼침 상태에서도 __subsidy 오른쪽 끝이 container 라인에 맞는다.
+  // 스크롤 시 __hamburger/__icons의 width가 0에서 펼쳐지는 만큼(둘 다 $motion-base로 transition)
+  // 이 박스가 매 프레임 flex로 다시 계산되며 줄어들어서, 따로 폭을 애니메이션하지 않아도 자연스럽게 줄어든다.
+  // min-width:0이 없으면 input의 기본 최소 폭에 걸려 끝까지 줄어들지 못한다.
   &__search {
-    flex: 0 1 rem(500);
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     align-items: center;
-    max-width: rem(500);
     border: $border-width-1 solid $color-border-control;
     border-radius: $radius-full;
     padding-inline: $space-4;
-    transition: max-width $motion-base;
-
-    // 480px은 예전 header-sticky(축약형 전용 헤더였을 때)가 쓰던 값을 그대로 이어받았다.
-    // __hamburger/__icons가 이제 평소엔 폭을 0으로 접어두기 때문에(위 참고), 펼침 상태에서
-    // max-width:640이 실제로 여유 폭 안에서 걸리는 상한이 되고, 축약 상태로 갈 때도 두 값이
-    // 서로 자리를 뺏고 뺏기는 일 없이 이 박스 혼자 640→480으로 매끄럽게 줄어든다.
-    .header.is-scrolled & {
-      max-width: rem(480);
-    }
 
     &:focus-within {
       border-color: $color-primary;
@@ -163,6 +158,8 @@
   // 스크롤하면 사라졌는데, 이제는 계속 보인다 — 이번에 바뀐 유일한 내용).
   &__subsidy {
     flex: 0 0 auto;
+    // __search가 남는 폭을 채우므로, 이 여백만큼 검색창이 줄어든다(펼침·축약 상태 모두 동일).
+    margin-left: $space-8;
     display: flex;
     align-items: center;
     gap: $space-2;
@@ -245,7 +242,8 @@
     color: $color-primary;
     transition:
       font-size $motion-base,
-      line-height $motion-base;
+      line-height $motion-base,
+      letter-spacing $motion-base;
 
     // 축약 상태에서 살짝 더 작게 — krds-yp-custom.md 11번 규칙상 한글에 음수 자간은 안 쓰므로
     // (letter-spacing 축소 대신) 디자인 토큰에 있는 한 단계 작은 크기(caption)로 낮춘다.
@@ -267,12 +265,15 @@
     display: flex;
     gap: 0;
     width: 0;
+    // 폭이 0이어도 앞의 __inner gap은 남아서 __subsidy가 container 라인보다 그만큼 안쪽에서 끝나므로, 평소엔 음수 margin으로 상쇄한다.
+    margin-left: -$space-6;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
     transform: translateX($space-2);
     transition:
       width $motion-base,
+      margin-left $motion-base,
       gap $motion-base,
       opacity $motion-base,
       visibility $motion-base,
@@ -280,6 +281,7 @@
 
     .header.is-scrolled & {
       width: rem(188);
+      margin-left: 0;
       gap: $space-1;
       opacity: 1;
       visibility: visible;
