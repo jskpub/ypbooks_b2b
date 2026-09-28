@@ -50,7 +50,7 @@ export default function MyOrdersPage() {
 
         <div className='my-page-content'>
           <div className='my-page-content__header'>
-            <h1 className='text-h1'>주문 / 배송 조회 (Order & Delivery History)</h1>
+            <h1 className='text-h1'>주문 / 배송 조회</h1>
           </div>
 
           <div className='my-orders'>

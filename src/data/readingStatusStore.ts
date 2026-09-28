@@ -17,10 +17,10 @@ export interface ReadingStatusItem {
 // 구매한 책(unread) 1건 + 읽는 중 1건 + 완독·서평 미작성 1건 + 완독·서평 작성됨 1건 — REVIEW-02의
 // 모든 분기(읽기 시작/독서 완료/서평 쓰기/서평 보기)를 구경할 수 있게 구성했다.
 const SEED_ITEMS: ReadingStatusItem[] = [
-  { isbn13: '9791187444725', status: 'unread', purchasedAt: '2026-09-24' }, // 재무 설계 추천도서(아직 안 읽음)
-  { isbn13: '9791162540640', status: 'reading', purchasedAt: '2026-09-20', startedAt: '2026-09-21' }, // 아주 작은 습관의 힘
-  { isbn13: '9791187142560', status: 'done', purchasedAt: '2026-09-05', startedAt: '2026-09-06', completedAt: '2026-09-12' }, // 데일 카네기 인간관계론(서평 미작성)
-  { isbn13: '9791162540633', status: 'done', purchasedAt: '2026-09-01', startedAt: '2026-09-02', completedAt: '2026-09-08' }, // 그릿 GRIT(서평 작성됨, reviews.ts 시드와 연동)
+  { isbn13: '9791187444725', status: 'unread', purchasedAt: '2026-05-15' }, // 5월 구매, 아직 안 읽음
+  { isbn13: '9791162540640', status: 'reading', purchasedAt: '2026-07-10', startedAt: '2026-07-12' }, // 7월 구매, 읽는 중
+  { isbn13: '9791187142560', status: 'done', purchasedAt: '2026-07-25', startedAt: '2026-07-26', completedAt: '2026-07-30' }, // 7월 구매, 7월 완독 (서평 미작성)
+  { isbn13: '9791162540633', status: 'done', purchasedAt: '2026-08-01', startedAt: '2026-08-02', completedAt: '2026-08-10' }, // 8월 구매, 8월 완독 (서평 작성됨)
 ];
 
 function readAll(): ReadingStatusItem[] {

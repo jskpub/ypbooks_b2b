@@ -243,7 +243,16 @@ export default function MyStatsPage() {
                       <span className='caption'>{row.date}</span>
                     </>
                   );
-                  // 구매는 아직 전용 구매내역 페이지가 없어서 링크를 걸지 않는다 — 페이지가 생기면 그때 연결.
+                  // 구매 내역은 주문/배송 현황 페이지로 연결.
+                  if (row.type === '구매') {
+                    return (
+                      <li key={row.key}>
+                        <Link to='/orders' className='my-stats__list-item is-link'>
+                          {content}
+                        </Link>
+                      </li>
+                    );
+                  }
                   if (row.type === '완독') {
                     return (
                       <li key={row.key}>

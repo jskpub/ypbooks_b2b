@@ -1,11 +1,20 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
 import { useCart } from '@/context/CartContext';
+import { getReadingStatusList, type ReadingStatusItem } from '@/data/readingStatusStore';
 
 export default function MyPageHome() {
   const user = getSessionUser();
   const { orderHistory } = useCart();
   
+  const [readingItems] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
+
+  // 통계 수치 계산
+  const totalPurchased = readingItems.length;
+  const currentlyReading = readingItems.filter(item => item.status === 'reading').length;
+  const completedReading = readingItems.filter(item => item.status === 'done').length;
+
   // 최근 주문 2건만 가져오기
   const recentOrders = orderHistory.slice(0, 2);
 
@@ -54,7 +63,7 @@ export default function MyPageHome() {
         {/* 메인 콘텐츠 영역 */}
         <div className='my-page-content'>
           <div className='my-page-content__header'>
-            <h1 className='text-h1'>마이페이지 (My Page)</h1>
+            <h1 className='text-h1'>마이페이지</h1>
           </div>
 
           <div className='my-page-dashboard'>
@@ -122,16 +131,16 @@ export default function MyPageHome() {
               <h3 className='text-h3 dashboard-card__title'>나의 독서 활동 요약 (My Library)</h3>
               <div className='library-stats'>
                 <div className='library-stats__item'>
-                  <span className='caption'>누적 지원 구매</span>
-                  <strong className='text-h2'>8권</strong>
+                  <span className='caption'>누적 구매</span>
+                  <strong className='text-h2'>{totalPurchased}권</strong>
                 </div>
                 <div className='library-stats__item'>
                   <span className='caption'>현재 읽는 중</span>
-                  <strong className='text-h2'>1권</strong>
+                  <strong className='text-h2'>{currentlyReading}권</strong>
                 </div>
                 <div className='library-stats__item'>
                   <span className='caption'>완독 도서</span>
-                  <strong className='text-h2'>7권</strong>
+                  <strong className='text-h2'>{completedReading}권</strong>
                 </div>
               </div>
             </div>

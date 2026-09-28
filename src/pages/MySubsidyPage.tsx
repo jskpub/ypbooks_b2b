@@ -57,7 +57,7 @@ export default function MySubsidyPage() {
 
         <div className='my-page-content'>
           <div className='my-page-content__header'>
-            <h1 className='text-h1'>나의 지원금 현황 (Subsidy Ledger)</h1>
+            <h1 className='text-h1'>나의 지원금 현황</h1>
           </div>
 
           <div className='my-subsidy'>
