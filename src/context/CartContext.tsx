@@ -52,6 +52,7 @@ interface CartContextValue {
   items: CartItem[];
   subsidyLedger: SubsidyLedger;
   lastOrder: Order | null;
+  orderHistory: Order[];
   addToCart: (input: AddToCartInput) => void;
   toggleChecked: (id: string) => void;
   toggleAllChecked: (checked: boolean) => void;
@@ -87,6 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [subsidyLedger, setSubsidyLedger] = useState<SubsidyLedger>({ recommendedUsed: false, personalUsed: false });
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
+  const [orderHistory, setOrderHistory] = useState<Order[]>([]);
 
   const [addresses, setAddresses] = useState<Address[]>(initialAddresses);
   const [selectedAddressId, setSelectedAddressId] = useState(initialAddresses[0].id);
@@ -231,6 +233,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }));
     setItems((prev) => prev.filter((item) => !item.checked));
     setLastOrder(order);
+    setOrderHistory((prev) => [order, ...prev]);
     // 나의 독서현황(/myreading)·독서 통계(/mystats)는 별도 목업 저장소(readingStatusStore)를 쓰므로,
     // 결제 완료 시점에 여기서 직접 이어줘야 실제 구매가 그 화면들에도 반영된다.
     addPurchasedItems(orderItems.map((item) => item.id));
@@ -242,6 +245,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       items,
       subsidyLedger,
       lastOrder,
+      orderHistory,
       addToCart,
       toggleChecked,
       toggleAllChecked,

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import EmptyState from '@/components/EmptyState';
 import ReviewCard from '@/components/Review/ReviewCard';
 import type { Review, ReviewVisibility } from '@/data/reviews';
 import { deleteReview, getMyReviews, saveReview } from '@/data/reviewStore';
 import { fetchBookDetail } from '@/services/aladinApi';
+import { getSessionUser } from '@/data/auth';
 
 // REVIEW-03. 계정 드롭다운(마이페이지) UI가 아직 없어서 /myreview로 직접 진입한다.
 // REVIEW-01(서평 피드)과 같은 ReviewCard를 재사용하되, 좋아요 대신 관리 메뉴(공개범위 설정/
 // 수정하기/삭제하기)를 노출하는 'mine' variant로 렌더링한다.
 export default function MyReviewsPage() {
+  const user = getSessionUser();
   const location = useLocation();
   const [reviews, setReviews] = useState<Review[]>(() => getMyReviews());
   const [covers, setCovers] = useState<Record<string, string>>({});
@@ -72,9 +74,51 @@ export default function MyReviewsPage() {
   };
 
   return (
-    <main id='main' className='main'>
-      <div className='container my-reviews'>
-        <h1 className='text-h1'>나의 서평</h1>
+    <main id='main' className='main my-page-layout'>
+      <div className='container my-page-layout__inner'>
+        <aside className='my-page-sidebar'>
+          <div className='my-page-sidebar__user'>
+            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
+            <p className='caption'>(주)한글과컴퓨터</p>
+          </div>
+          
+          <nav className='my-page-nav'>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>쇼핑 & 주문 관리</h4>
+              <ul>
+                <li><Link to="/mypage">마이페이지 홈</Link></li>
+                <li><Link to="/orders">주문 / 배송 조회</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>복지 혜택</h4>
+              <ul>
+                <li><Link to="/subsidy">나의 지원금 현황</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>독서 서재</h4>
+              <ul>
+                <li><Link to="/myreading">나의 독서현황</Link></li>
+                <li className='is-active'><Link to="/myreview">나의 서평</Link></li>
+                <li><Link to="/mystats">독서 통계</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>계정 & 설정</h4>
+              <ul>
+                <li><Link to="/profile">회원 정보 조회</Link></li>
+              </ul>
+            </div>
+          </nav>
+        </aside>
+
+        <div className='my-page-content'>
+          <div className='my-page-content__header'>
+            <h1 className='text-h1'>나의 서평</h1>
+          </div>
+
+          <div className='my-reviews'>
 
         {reviews.length === 0 ? (
           <EmptyState
@@ -99,6 +143,8 @@ export default function MyReviewsPage() {
             ))}
           </ul>
         )}
+          </div>
+        </div>
       </div>
     </main>
   );

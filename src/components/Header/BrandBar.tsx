@@ -50,38 +50,32 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           <label htmlFor='site-search' className='sr-only'>
             도서 검색
           </label>
-          <input
-            type='search'
-            id='site-search'
-            name='q'
-            className='brand-bar__search-input'
-            placeholder='도서명, 저자명, 카드번호를 검색해 보세요'
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
+          <input type='search' id='site-search' name='q' className='brand-bar__search-input' placeholder='도서명, 저자명, 카드번호를 검색해 보세요' value={query} onChange={(event) => setQuery(event.target.value)} />
           <button type='submit' className='brand-bar__search-submit'>
             <span className='sr-only'>검색</span>
             <Icon name='magnifying-glass' />
           </button>
         </form>
 
-        <div className='brand-bar__subsidy'>
+        <Link to='/subsidy' aria-label='나의 지원금 현황' className='brand-bar__subsidy'>
           <span className='brand-bar__subsidy-icon'>
             <Icon name='wallet' />
           </span>
-          <div className='brand-bar__subsidy-text'>
-            <p className='brand-bar__subsidy-title'>2026.09 지원금 현황</p>
-            <p className='brand-bar__subsidy-lines'>
-              추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
-            </p>
+          <div className='brand-bar__icon-link'>
+            <div className='brand-bar__subsidy-text'>
+              <p className='brand-bar__subsidy-title'>2026.09 지원 도서 잔여 권수</p>
+              <p className='brand-bar__subsidy-lines'>
+                추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
+              </p>
+            </div>
           </div>
-        </div>
+        </Link>
 
         <ul className='brand-bar__icons'>
           <li>
-            <a href='javascript:;' aria-label='마이페이지'>
+            <Link to='/mypage' aria-label='마이페이지'>
               <Icon name='user' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/cart' aria-label='장바구니' className='brand-bar__icon-link'>
@@ -90,9 +84,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
             </Link>
           </li>
           <li>
-            <a href='javascript:;' aria-label='주문'>
+            <Link to='/orders' aria-label='주문'>
               <Icon name='truck' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/login' aria-label='로그아웃' onClick={signOut}>

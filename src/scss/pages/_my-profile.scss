@@ -1,0 +1,61 @@
+@use '../abstracts' as *;
+
+.my-profile {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  padding: $space-6;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-4;
+
+    .text-red {
+      color: $color-primary; // Using primary for red text based on the image
+    }
+    .text-gray {
+      color: $color-foreground-secondary;
+    }
+  }
+
+  &__note {
+    margin-top: $space-4;
+    color: $color-foreground-secondary;
+  }
+}
+
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: $border-width-2 solid $color-foreground;
+
+  th, td {
+    padding: $space-4;
+    border-bottom: $border-width-1 solid $color-border;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    width: rem(240);
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+    font-size: $font-size-body-sm;
+    font-weight: 600;
+  }
+
+  td {
+    font-size: $font-size-body-sm;
+    color: $color-foreground;
+  }
+}

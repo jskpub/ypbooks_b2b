@@ -4,6 +4,7 @@ import { getReadingStatusList, type ReadingStatusItem } from '@/data/readingStat
 import type { Review } from '@/data/reviews';
 import { getMyReviews } from '@/data/reviewStore';
 import { fetchBookDetail, type AladinItem } from '@/services/aladinApi';
+import { getSessionUser } from '@/data/auth';
 
 type ReadingStatusDone = ReadingStatusItem & { completedAt: string };
 
@@ -54,6 +55,7 @@ function monthsElapsedSince(startKey: string, currentYear: string, currentMonthN
 // 요약 카드 + 통합 활동 리스트)로 구성 — 참고한 통계 대시보드들의 레이아웃 패턴을 그대로 쓰되,
 // 데이터가 풍부하지 않은 이 서비스 특성상 게이지·퍼센트 카드는 넣지 않았다.
 export default function MyStatsPage() {
+  const user = getSessionUser();
   const [items] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
   const [reviews] = useState<Review[]>(() => getMyReviews());
   const [books, setBooks] = useState<Record<string, AladinItem | null>>({});
@@ -107,9 +109,51 @@ export default function MyStatsPage() {
   const barHeight = (value: number) => (value === 0 ? 2 : Math.max(8, Math.round((value / chartMax) * 96)));
 
   return (
-    <main id='main' className='main'>
-      <div className='container my-stats'>
-        <h1 className='text-h1'>독서 통계</h1>
+    <main id='main' className='main my-page-layout'>
+      <div className='container my-page-layout__inner'>
+        <aside className='my-page-sidebar'>
+          <div className='my-page-sidebar__user'>
+            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
+            <p className='caption'>(주)한글과컴퓨터</p>
+          </div>
+          
+          <nav className='my-page-nav'>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>쇼핑 & 주문 관리</h4>
+              <ul>
+                <li><Link to="/mypage">마이페이지 홈</Link></li>
+                <li><Link to="/orders">주문 / 배송 조회</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>복지 혜택</h4>
+              <ul>
+                <li><Link to="/subsidy">나의 지원금 현황</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>독서 서재</h4>
+              <ul>
+                <li><Link to="/myreading">나의 독서현황</Link></li>
+                <li><Link to="/myreview">나의 서평</Link></li>
+                <li className='is-active'><Link to="/mystats">독서 통계</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>계정 & 설정</h4>
+              <ul>
+                <li><Link to="/profile">회원 정보 조회</Link></li>
+              </ul>
+            </div>
+          </nav>
+        </aside>
+
+        <div className='my-page-content'>
+          <div className='my-page-content__header'>
+            <h1 className='text-h1'>독서 통계</h1>
+          </div>
+
+          <div className='my-stats'>
 
         <div className='my-stats__bento'>
           <div className='my-stats__hero'>
@@ -226,6 +270,8 @@ export default function MyStatsPage() {
                 })}
               </ul>
             )}
+          </div>
+        </div>
           </div>
         </div>
       </div>
