@@ -79,9 +79,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
 
         <ul className='brand-bar__icons'>
           <li>
-            <a href='javascript:;' aria-label='마이페이지'>
+            <Link to='/mypage' aria-label='마이페이지'>
               <Icon name='user' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/cart' aria-label='장바구니' className='brand-bar__icon-link'>
@@ -90,9 +90,9 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
             </Link>
           </li>
           <li>
-            <a href='javascript:;' aria-label='주문'>
+            <Link to='/orders' aria-label='주문'>
               <Icon name='truck' />
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/login' aria-label='로그아웃' onClick={signOut}>

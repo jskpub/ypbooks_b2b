@@ -23,9 +23,9 @@ export default function UtilityBar() {
             </Link>
           </li>
           <li>
-            <a href="javascript:;" className="utility-bar__link">
+            <Link to="/orders" className="utility-bar__link">
               주문
-            </a>
+            </Link>
           </li>
           <li>
             <Link to="/login" className="utility-bar__link" onClick={signOut}>
