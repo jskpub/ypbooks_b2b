@@ -11,6 +11,7 @@
     padding-block: $space-4;
     // justify-content: space-between;
     transition: padding-block $motion-base;
+    justify-content: space-between;
 
     .header.is-scrolled & {
       padding-block: $space-5;
@@ -112,13 +113,14 @@
   // 이 박스가 매 프레임 flex로 다시 계산되며 줄어들어서, 따로 폭을 애니메이션하지 않아도 자연스럽게 줄어든다.
   // min-width:0이 없으면 input의 기본 최소 폭에 걸려 끝까지 줄어들지 못한다.
   &__search {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-width: 0;
     display: flex;
     align-items: center;
     border: $border-width-1 solid $color-border-control;
     border-radius: $radius-full;
     padding-inline: $space-4;
+    width: rem(520);
 
     &:focus-within {
       border-color: $color-primary;
@@ -158,8 +160,6 @@
   // 스크롤하면 사라졌는데, 이제는 계속 보인다 — 이번에 바뀐 유일한 내용).
   &__subsidy {
     flex: 0 0 auto;
-    // __search가 남는 폭을 채우므로, 이 여백만큼 검색창이 줄어든다(펼침·축약 상태 모두 동일).
-    margin-left: $space-8;
     display: flex;
     align-items: center;
     gap: $space-2;
