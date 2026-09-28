@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import { initialCartItems, type CartItem, type CartGroup } from '@/data/cartItems';
+import type { CartItem, CartGroup } from '@/data/cartItems';
 import { initialAddresses, type Address } from '@/data/address';
 import { getItemEmployeePayment, getItemSubsidy } from '@/utils/subsidy';
 import { getShippingFee } from '@/utils/pricing';
@@ -13,6 +13,7 @@ export interface AddToCartInput {
   listPrice: number;
   sellingPrice: number;
   qty: number;
+  coverSrc?: string;
 }
 
 export interface OrderItem {
@@ -24,6 +25,7 @@ export interface OrderItem {
   qty: number;
   subsidy: number;
   employeePayment: number;
+  coverSrc?: string;
 }
 
 export interface Order {
@@ -82,7 +84,7 @@ function generateOrderId() {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(initialCartItems);
+  const [items, setItems] = useState<CartItem[]>([]);
   const [subsidyLedger, setSubsidyLedger] = useState<SubsidyLedger>({ recommendedUsed: false, personalUsed: false });
   const [lastOrder, setLastOrder] = useState<Order | null>(null);
 
@@ -124,7 +126,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsAddressModalOpen(false);
   };
 
-  const addToCart = ({ isbn13, title, byline, listPrice, sellingPrice, qty }: AddToCartInput) => {
+  const addToCart = ({ isbn13, title, byline, listPrice, sellingPrice, qty, coverSrc }: AddToCartInput) => {
     setItems((prev) => {
       const existing = prev.find((item) => item.id === isbn13);
       if (existing) {
@@ -139,6 +141,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         formatLabel: '종이도서',
         formatBadgeClassName: 'badge--general',
         coverIcon: 'book-open',
+        coverSrc,
         listPrice,
         sellingPrice,
         qty,
@@ -199,6 +202,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       qty: item.qty,
       subsidy: getItemSubsidy(item),
       employeePayment: getItemEmployeePayment(item),
+      coverSrc: item.coverSrc,
     }));
 
     const totalSellingPrice = orderItems.reduce((sum, item) => sum + item.sellingPrice * item.qty, 0);

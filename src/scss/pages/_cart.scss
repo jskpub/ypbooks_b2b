@@ -387,10 +387,17 @@
     border-radius: $radius-md;
     background-color: $color-surface;
     color: $color-muted;
+    overflow: hidden;
 
     .icon {
       width: rem(24);
       height: rem(24);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 

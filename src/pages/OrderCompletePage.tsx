@@ -117,9 +117,7 @@ export default function OrderCompletePage() {
                 <tr key={item.id}>
                   <td className='cart-table__book-col'>
                     <div className='cart-book'>
-                      <span className='cart-book__cover'>
-                        <Icon name='books' />
-                      </span>
+                      <span className='cart-book__cover'>{item.coverSrc ? <img src={item.coverSrc} alt='' /> : <Icon name='books' />}</span>
                       <div className='cart-book__contents'>
                         <strong className='cart-book__title'>{item.title}</strong>
                         <p className='cart-book__byline'>{item.formatLabel}</p>

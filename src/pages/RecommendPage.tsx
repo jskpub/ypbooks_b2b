@@ -77,17 +77,19 @@ export default function RecommendPage() {
           </>
         )}
 
-        <section className='past-recommendations'>
-          <h2 className='past-recommendations__title text-h2'>지난 추천 도서</h2>
-          {pastRecommendations.slice(0, visibleMonths).map((month) => (
-            <PastRecommendationRow key={month.month} month={month.month} books={month.books} />
-          ))}
-          {visibleMonths < pastRecommendations.length && (
-            <button type='button' className='past-recommendations__more' onClick={() => setVisibleMonths((v) => v + MONTHS_PAGE_SIZE)}>
-              더보기
-            </button>
-          )}
-        </section>
+        {pastRecommendations.length > 0 && (
+          <section className='past-recommendations'>
+            <h2 className='past-recommendations__title text-h2'>지난 추천 도서</h2>
+            {pastRecommendations.slice(0, visibleMonths).map((month) => (
+              <PastRecommendationRow key={month.month} month={month.month} books={month.books} />
+            ))}
+            {visibleMonths < pastRecommendations.length && (
+              <button type='button' className='past-recommendations__more' onClick={() => setVisibleMonths((v) => v + MONTHS_PAGE_SIZE)}>
+                더보기
+              </button>
+            )}
+          </section>
+        )}
       </div>
     </main>
   );
