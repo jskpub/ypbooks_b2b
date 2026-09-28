@@ -1,8 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
+import { AladinItem, fetchBestsellerBooks } from '@/services/aladinApi';
 
 export default function MyOrdersPage() {
   const user = getSessionUser();
+  const [orders, setOrders] = useState<AladinItem[]>([]);
+
+  useEffect(() => {
+    fetchBestsellerBooks(2).then(setOrders);
+  }, []);
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -49,10 +56,6 @@ export default function MyOrdersPage() {
         <div className='my-page-content'>
           <div className='my-page-content__header'>
             <h1 className='text-h1'>주문 / 배송 조회 (Order & Delivery History)</h1>
-            <div className='my-page-content__actions'>
-              <Link to='/cart' className='btn btn--secondary btn--sm'>장바구니 (2)</Link>
-              <Link to='/' className='btn btn--primary btn--sm'>도서 둘러보기</Link>
-            </div>
           </div>
 
           <div className='my-orders'>
@@ -88,83 +91,49 @@ export default function MyOrdersPage() {
 
             {/* 도서 주문 목록 */}
             <div className='order-list'>
-              {/* Order Card 1 */}
-              <div className='order-card'>
-                <div className='order-card__header'>
-                  <span className='order-card__title'><strong>2026.09.12</strong> | 주문번호: ORD-20260912-0081</span>
-                  <Link to='#' className='order-card__link'>[주문상세 보기 &gt;]</Link>
-                </div>
-                <div className='order-card__body'>
-                  <div className='order-card__book'>
-                    <div className='book-thumb'>표지</div>
-                    <div className='book-info'>
-                      <div className='book-info__title'>
-                        <span className='badge badge--general'>개인도서</span>
-                        <strong>트렌드 코리아 2027</strong>
+              {orders.length === 0 ? (
+                <div className="text-center" style={{padding: '2rem'}}>로딩중...</div>
+              ) : (
+                orders.map((book, idx) => (
+                  <div className='order-card' key={book.itemId}>
+                    <div className='order-card__header'>
+                      <span className='order-card__title'><strong>2026.09.12</strong> | 주문번호: ORD-20260912-008{idx + 1}</span>
+                      <Link to='#' className='order-card__link'>[주문상세 보기 &gt;]</Link>
+                    </div>
+                    <div className='order-card__body'>
+                      <div className='order-card__book'>
+                        <img src={book.cover} alt={book.title} className='book-thumb' style={{width: 64, height: 92, objectFit: 'cover'}} />
+                        <div className='book-info'>
+                          <div className='book-info__title'>
+                            <span className={`badge ${idx === 0 ? 'badge--general' : 'badge--recommend'}`}>{idx === 0 ? '개인도서' : '추천도서'}</span>
+                            <strong>{book.title}</strong>
+                          </div>
+                          <span className='caption'>| 종이도서 (1권)</span>
+                          <div className='book-info__meta caption'>
+                            <span>저자: {book.author}</span>
+                            <span>출판사: {book.publisher}</span>
+                            <span>정가: {book.priceStandard.toLocaleString()}원</span>
+                          </div>
+                        </div>
                       </div>
-                      <span className='caption'>| 종이도서 (1권)</span>
-                      <div className='book-info__meta caption'>
-                        <span>저자: 김난도, 전미영 외</span>
-                        <span>출판사: 미래의창</span>
-                        <span>정가: 19,000원</span>
+                      <div className='order-card__payment'>
+                        <span className='text-blue'>회사지원: -{Math.floor(book.priceStandard / 2).toLocaleString()}원 (50%)</span>
+                        <strong className='text-red'>본인결제: {Math.ceil(book.priceStandard / 2).toLocaleString()}원</strong>
+                        <span className='caption'>(신용카드 결제)</span>
+                      </div>
+                      <div className='order-card__status'>
+                        <strong className='text-green'>배송완료</strong>
+                        <span className='caption'>CJ대한통운</span>
+                        <span className='caption'>682-1920-334{idx + 1}</span>
+                      </div>
+                      <div className='order-card__actions'>
+                        <button className='btn btn--primary btn--sm'>배송조회</button>
+                        <button className='btn btn--secondary btn--sm'>주문상세</button>
                       </div>
                     </div>
                   </div>
-                  <div className='order-card__payment'>
-                    <span className='text-blue'>회사지원: -9,500원 (50%)</span>
-                    <strong className='text-red'>본인결제: 9,500원</strong>
-                    <span className='caption'>(신용카드 결제)</span>
-                  </div>
-                  <div className='order-card__status'>
-                    <strong className='text-green'>배송완료</strong>
-                    <span className='caption'>CJ대한통운</span>
-                    <span className='caption'>682-1920-3341</span>
-                  </div>
-                  <div className='order-card__actions'>
-                    <button className='btn btn--primary btn--sm'>배송조회</button>
-                    <button className='btn btn--secondary btn--sm'>주문상세</button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Card 2 */}
-              <div className='order-card'>
-                <div className='order-card__header'>
-                  <span className='order-card__title'><strong>2026.08.05</strong> | 주문번호: ORD-20260805-0019</span>
-                  <Link to='#' className='order-card__link'>[주문상세 보기 &gt;]</Link>
-                </div>
-                <div className='order-card__body'>
-                  <div className='order-card__book'>
-                    <div className='book-thumb'>표지</div>
-                    <div className='book-info'>
-                      <div className='book-info__title'>
-                        <span className='badge badge--recommend'>추천도서</span>
-                        <strong>AI 에이전트 혁명</strong>
-                      </div>
-                      <span className='caption'>| 종이도서 (1권)</span>
-                      <div className='book-info__meta caption'>
-                        <span>선정: 영풍문고 큐레이션</span>
-                        <span>분야: 경제경영</span>
-                        <span>정가: 22,000원</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='order-card__payment'>
-                    <span className='text-blue'>회사지원: -22,000원 (100%)</span>
-                    <strong>본인결제: 0원 (전액지원)</strong>
-                    <span className='caption'>(회사 잔액지원)</span>
-                  </div>
-                  <div className='order-card__status'>
-                    <strong className='text-green'>배송완료</strong>
-                    <span className='caption'>한진택배</span>
-                    <span className='caption'>418-9012-7718</span>
-                  </div>
-                  <div className='order-card__actions'>
-                    <button className='btn btn--primary btn--sm'>배송조회</button>
-                    <button className='btn btn--secondary btn--sm'>주문상세</button>
-                  </div>
-                </div>
-              </div>
+                ))
+              )}
             </div>
 
             {/* 도서 배송 및 취소/환불 정책 안내 */}

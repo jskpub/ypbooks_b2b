@@ -151,10 +151,6 @@ export default function MyStatsPage() {
         <div className='my-page-content'>
           <div className='my-page-content__header'>
             <h1 className='text-h1'>독서 통계</h1>
-            <div className='my-page-content__actions'>
-              <Link to='/cart' className='btn btn--secondary btn--sm'>장바구니 (2)</Link>
-              <Link to='/' className='btn btn--primary btn--sm'>도서 둘러보기</Link>
-            </div>
           </div>
 
           <div className='my-stats'>

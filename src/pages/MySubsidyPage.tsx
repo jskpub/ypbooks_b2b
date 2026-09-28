@@ -1,8 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
+import { AladinItem, fetchBestsellerBooks } from '@/services/aladinApi';
 
 export default function MySubsidyPage() {
   const user = getSessionUser();
+  const [orders, setOrders] = useState<AladinItem[]>([]);
+
+  useEffect(() => {
+    fetchBestsellerBooks(2).then(setOrders);
+  }, []);
 
   return (
     <main id='main' className='main my-page-layout'>
@@ -49,10 +56,6 @@ export default function MySubsidyPage() {
         <div className='my-page-content'>
           <div className='my-page-content__header'>
             <h1 className='text-h1'>나의 지원금 현황 (Subsidy Ledger)</h1>
-            <div className='my-page-content__actions'>
-              <Link to='/cart' className='btn btn--secondary btn--sm'>장바구니 (2)</Link>
-              <Link to='/' className='btn btn--primary btn--sm'>도서 둘러보기</Link>
-            </div>
           </div>
 
           <div className='my-subsidy'>
@@ -131,38 +134,31 @@ export default function MySubsidyPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className='text-center'>2026.09.12</td>
-                    <td className='text-center'><strong>개인도서</strong></td>
-                    <td className='text-left'>
-                      <strong>트렌드 코리아 2027</strong>
-                      <span className='caption block'>ORD-20260912-0081</span>
-                    </td>
-                    <td className='text-right'>19,000원</td>
-                    <td className='text-right'>
-                      <strong className='text-blue'>-9,500원 (50%)</strong>
-                    </td>
-                    <td className='text-center'>
-                      <strong className='text-green'>지원 적용 완료</strong>
-                      <span className='caption block'>(당월 한도 1권 차감)</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='text-center'>2026.08.05</td>
-                    <td className='text-center'><strong>추천도서</strong></td>
-                    <td className='text-left'>
-                      <strong>AI 에이전트 혁명과 미래</strong>
-                      <span className='caption block'>ORD-20260805-0019</span>
-                    </td>
-                    <td className='text-right'>22,000원</td>
-                    <td className='text-right'>
-                      <strong className='text-blue'>-22,000원 (100%)</strong>
-                    </td>
-                    <td className='text-center'>
-                      <strong className='text-green'>지원 적용 완료</strong>
-                      <span className='caption block'>(당월 한도 1권 차감)</span>
-                    </td>
-                  </tr>
+                  {orders.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="text-center" style={{padding: '2rem'}}>로딩중...</td>
+                    </tr>
+                  ) : (
+                    orders.map((book, idx) => (
+                      <tr key={book.itemId}>
+                        <td className='text-center'>2026.09.12</td>
+                        <td className='text-center'><strong>{idx === 0 ? '개인도서' : '추천도서'}</strong></td>
+                        <td className='text-left'>
+                          <strong>{book.title}</strong>
+                          <span className='caption block'>ORD-20260912-008{idx + 1}</span>
+                        </td>
+                        <td className='text-right'>{book.priceStandard.toLocaleString()}원</td>
+                        <td className='text-right'>
+                          <strong className='text-blue'>-{Math.floor(book.priceStandard / (idx === 0 ? 2 : 1)).toLocaleString()}원 ({idx === 0 ? '50%' : '100%'})</strong>
+                        </td>
+                        <td className='text-center'>
+                          <strong className='text-green'>지원 적용 완료</strong>
+                          <span className='caption block'>(당월 한도 1권 차감)</span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                  {/* 취소된 건도 하나 하드코딩해서 형태를 보여줌 */}
                   <tr>
                     <td className='text-center'>2026.07.18</td>
                     <td className='text-center'><strong>개인도서</strong></td>
