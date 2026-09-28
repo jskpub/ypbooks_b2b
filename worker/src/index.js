@@ -4,6 +4,11 @@
 // 시크릿(ALADIN_TTBKEY, GEMINI_API_KEY)은 여기(Worker Secret)에만 있고 클라이언트로는 절대 전달하지 않는다.
 
 const ALADIN_BASE = 'https://www.aladin.co.kr/ttb/api';
+// 알라딘 응답(도서 정보)은 하루 안에 거의 안 바뀌는데 캐싱 없이 매 렌더마다 재호출하다 보니
+// 지난 추천 도서(월별 최대 10권 x 노출 개월 수) + 이달의 추천도서만으로도 페이지 한 번에 수십 건씩
+// 호출돼 일일 한도가 금방 소진됐다(실측 확인). ALADIN_CACHE(KV) 바인딩이 있으면 동일 요청을
+// 24시간 캐싱해서 호출량을 줄인다. 바인딩이 없으면(로컬 dev 등) 캐싱 없이 기존처럼 동작한다.
+const CACHE_TTL_SECONDS = 60 * 60 * 24;
 // gemini-2.0-flash는 단종(404)됐고, 후속으로 안내받은 gemini-3.8-flash는 응답이 5~20초+로 느리고
 // (thinking 토큰 소모) 가끔 503 과부하까지 떴다. 짧은 질문 1개 생성엔 무거운 모델이 필요 없어서
 // lite 라인으로 교체 — 실측 2~3초, thinking 없이도 완결된 문장이 나온다.
@@ -40,10 +45,39 @@ function buildAladinUrl(endpoint, allowedParams, searchParams, env) {
   return url;
 }
 
-async function proxyToAladin(aladinUrl) {
+// 클라이언트가 실제로 지정한 파라미터만으로 키를 만든다(ttbkey/output/Version/Cover 같은 서버 고정값 제외)
+// — 같은 조회는 파라미터 순서와 무관하게 같은 키를 가리키도록 정렬한다.
+function cacheKeyFor(pathname, searchParams) {
+  const sorted = [...searchParams.entries()].sort(([a], [b]) => a.localeCompare(b));
+  return `${pathname}?${new URLSearchParams(sorted).toString()}`;
+}
+
+async function proxyToAladin(aladinUrl, cacheKey, env) {
   if (!aladinUrl) return jsonError('ALADIN_TTBKEY 시크릿이 설정되지 않았습니다. wrangler secret put ALADIN_TTBKEY 실행 필요.', 500);
+
+  const cache = env.ALADIN_CACHE;
+  if (cache) {
+    const cached = await cache.get(cacheKey);
+    if (cached !== null) return withCors(cached, { status: 200 });
+  }
+
   const res = await fetch(aladinUrl, { headers: { 'User-Agent': 'ypbooks-b2b-prototype-proxy' } });
   const text = await res.text();
+
+  if (cache && res.ok) {
+    // errorMessage(호출량 초과 등 일시적 오류)는 캐싱하지 않는다 — 캐싱하면 오류가 TTL 내내 고정된다.
+    let hasError = false;
+    try {
+      hasError = Boolean(JSON.parse(text).errorMessage);
+    } catch {
+      // 알라딘이 JSON이 아닌 응답을 준 경우도 캐싱하지 않는다.
+      hasError = true;
+    }
+    if (!hasError) {
+      await cache.put(cacheKey, text, { expirationTtl: CACHE_TTL_SECONDS });
+    }
+  }
+
   return withCors(text, { status: res.status });
 }
 
@@ -95,13 +129,22 @@ async function handleAiQuestion(searchParams, env) {
 const ROUTE_HANDLERS = {
   // 이달의 추천도서(홈 위젯) 등 목록성 조회 - QueryType=Bestseller/ItemNewAll 등
   '/api/aladin/list': (searchParams, env) =>
-    proxyToAladin(buildAladinUrl('ItemList.aspx', ['QueryType', 'SearchTarget', 'MaxResults', 'start', 'CategoryId', 'Year', 'Month', 'Week'], searchParams, env)),
+    proxyToAladin(
+      buildAladinUrl('ItemList.aspx', ['QueryType', 'SearchTarget', 'MaxResults', 'start', 'CategoryId', 'Year', 'Month', 'Week'], searchParams, env),
+      cacheKeyFor('/api/aladin/list', searchParams),
+      env,
+    ),
   // 개인도서 자유 검색
   '/api/aladin/search': (searchParams, env) =>
-    proxyToAladin(buildAladinUrl('ItemSearch.aspx', ['Query', 'QueryType', 'SearchTarget', 'MaxResults', 'start', 'Sort', 'CategoryId'], searchParams, env)),
-  // 도서 상세
-  '/api/aladin/lookup': (searchParams, env) => proxyToAladin(buildAladinUrl('ItemLookUp.aspx', ['ItemId', 'ItemIdType', 'OptResult'], searchParams, env)),
-  // 서평 작성 AI 맞춤 질문(REVIEW-04)
+    proxyToAladin(
+      buildAladinUrl('ItemSearch.aspx', ['Query', 'QueryType', 'SearchTarget', 'MaxResults', 'start', 'Sort', 'CategoryId'], searchParams, env),
+      cacheKeyFor('/api/aladin/search', searchParams),
+      env,
+    ),
+  // 도서 상세 — 지난 추천 도서/추천도서 목록에서 ISBN마다 반복 호출되는 지점이라 캐싱 효과가 가장 크다.
+  '/api/aladin/lookup': (searchParams, env) =>
+    proxyToAladin(buildAladinUrl('ItemLookUp.aspx', ['ItemId', 'ItemIdType', 'OptResult'], searchParams, env), cacheKeyFor('/api/aladin/lookup', searchParams), env),
+  // 서평 작성 AI 맞춤 질문(REVIEW-04) — 매번 새로 생성하는 게 의도된 동작이라 캐싱하지 않는다.
   '/api/ai/question': (searchParams, env) => handleAiQuestion(searchParams, env),
 };
 

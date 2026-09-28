@@ -6,3 +6,12 @@ compatibility_date = "2025-01-01"
 # 배포 후에는 아래 명령으로 등록한다:
 #   wrangler secret put ALADIN_TTBKEY
 #   wrangler secret put GEMINI_API_KEY   # REVIEW-04 AI 맞춤 질문용
+
+# 알라딘 호출량(일일 한도) 절약용 캐시. 아래 두 명령으로 네임스페이스를 만들고 나온 id/preview_id를
+# 채운 뒤 주석을 해제한다. 바인딩이 없으면 index.js는 캐싱 없이 기존처럼 매번 알라딘을 직접 호출한다.
+#   wrangler kv namespace create ALADIN_CACHE
+#   wrangler kv namespace create ALADIN_CACHE --preview
+# [[kv_namespaces]]
+# binding = "ALADIN_CACHE"
+# id = "<위 명령 결과의 id>"
+# preview_id = "<위 명령 결과의 preview id>"
