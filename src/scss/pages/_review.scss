@@ -173,6 +173,11 @@
     color: $color-foreground-secondary;
   }
 
+  &__ai-badge {
+    margin-inline-start: $space-2;
+    vertical-align: middle;
+  }
+
   &__answer {
     color: $color-foreground;
   }

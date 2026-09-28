@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import type { Review, ReviewVisibility } from '@/data/reviews';
+import { isAiGeneratedQuestion } from '@/services/aiApi';
 
 const MAX_RATING = 5;
 
@@ -160,7 +161,15 @@ export default function ReviewCard({ review, coverSrc, variant = 'public', isLik
           <p className='review-card__one-liner text-body-lg'>{review.oneLiner}</p>
 
           <div className='review-card__detail'>
-            <p className='review-card__question caption-strong'>Q. {review.aiQuestion}</p>
+            <p className='review-card__question caption-strong'>
+              Q. {review.aiQuestion}
+              {isAiGeneratedQuestion(review.aiQuestion) && (
+                <span className='badge badge--general review-card__ai-badge'>
+                  <Icon name='sparkle' />
+                  AI 생성
+                </span>
+              )}
+            </p>
             <p className='review-card__answer text-body-sm'>{review.detail}</p>
           </div>
 

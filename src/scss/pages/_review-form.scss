@@ -54,6 +54,11 @@
     color: $color-foreground;
   }
 
+  &__ai-badge {
+    margin-inline-start: $space-2;
+    vertical-align: middle;
+  }
+
   &__stars {
     display: flex;
     gap: $space-1;

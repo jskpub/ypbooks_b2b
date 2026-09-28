@@ -5,7 +5,7 @@ import { CURRENT_USER_NAME } from '@/data/currentUser';
 import { getReadingStatusList } from '@/data/readingStatusStore';
 import type { ReviewVisibility } from '@/data/reviews';
 import { getMyReviewByIsbn, saveReview } from '@/data/reviewStore';
-import { fetchAiQuestion, FALLBACK_AI_QUESTION } from '@/services/aiApi';
+import { fetchAiQuestion, FALLBACK_AI_QUESTION, isAiGeneratedQuestion } from '@/services/aiApi';
 import { fetchBookDetail, type AladinItem } from '@/services/aladinApi';
 
 const MAX_RATING = 5;
@@ -30,6 +30,7 @@ export default function ReviewFormPage() {
   const statusItem = getReadingStatusList().find((item) => item.isbn13 === isbn13);
 
   const [book, setBook] = useState<AladinItem | null>(null);
+  const [bookLoadFailed, setBookLoadFailed] = useState(false);
   const [rating, setRating] = useState(existing?.rating ?? 0);
   const [oneLiner, setOneLiner] = useState(existing?.oneLiner ?? '');
   const [detail, setDetail] = useState(existing?.detail ?? '');
@@ -39,11 +40,25 @@ export default function ReviewFormPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchBookDetail(isbn13).then(setBook);
+    let cancelled = false;
+    fetchBookDetail(isbn13)
+      .then((detail) => {
+        if (!cancelled) setBook(detail);
+      })
+      .catch(() => {
+        if (!cancelled) setBookLoadFailed(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [isbn13]);
 
   useEffect(() => {
-    if (isEditing || !book) return;
+    if (isEditing || (!book && !bookLoadFailed)) return;
+    if (!book) {
+      setAiLoading(false);
+      return;
+    }
     let cancelled = false;
     setAiLoading(true);
     fetchAiQuestion({ title: book.title, author: book.author, category: book.categoryName, description: book.description })
@@ -57,7 +72,7 @@ export default function ReviewFormPage() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [book, isEditing]);
+  }, [book, bookLoadFailed, isEditing]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -95,7 +110,7 @@ export default function ReviewFormPage() {
         <div className='review-form__book'>
           <div className='review-form__cover'>{book?.cover ? <img src={book.cover} alt='' /> : <Icon name='books' />}</div>
           <div>
-            <p className='text-h4'>{book?.title ?? '불러오는 중…'}</p>
+            <p className='text-h4'>{book?.title ?? (bookLoadFailed ? '도서 정보를 불러오지 못했습니다' : '불러오는 중…')}</p>
             <p className='text-body-sm'>{book?.author}</p>
             {statusItem && (
               <>
@@ -155,7 +170,15 @@ export default function ReviewFormPage() {
           </div>
 
           <div className='review-form__field'>
-            <span className='review-form__label caption-strong'>Q. {aiLoading ? 'AI가 질문을 생성하는 중…' : aiQuestion || FALLBACK_AI_QUESTION}</span>
+            <span className='review-form__label caption-strong'>
+              Q. {aiLoading ? 'AI가 질문을 생성하는 중…' : aiQuestion || FALLBACK_AI_QUESTION}
+              {!aiLoading && isAiGeneratedQuestion(aiQuestion) && (
+                <span className='badge badge--general review-form__ai-badge'>
+                  <Icon name='sparkle' />
+                  AI 생성
+                </span>
+              )}
+            </span>
             <textarea
               className='review-form__textarea'
               rows={5}
