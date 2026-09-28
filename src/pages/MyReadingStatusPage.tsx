@@ -5,6 +5,7 @@ import { Icon } from '@/components/Icon';
 import { getReadingStatusList, markCompleted, markReading, markStarted, type ReadingStatus, type ReadingStatusItem } from '@/data/readingStatusStore';
 import { getMyReviews } from '@/data/reviewStore';
 import { fetchBookDetail, type AladinItem } from '@/services/aladinApi';
+import { getSessionUser } from '@/data/auth';
 
 type Tab = 'all' | ReadingStatus;
 
@@ -34,6 +35,7 @@ function formatDot(isoDate: string): string {
 // 통계(구매/서평/독서 권수)는 REVIEW-05(/mystats, 독서 통계)로 분리했다 — 이 페이지는 "지금 상태
 // 관리"만 다루고, 과거 기간 집계는 다루지 않는다.
 export default function MyReadingStatusPage() {
+  const user = getSessionUser();
   const [tab, setTab] = useState<Tab>('all');
   const [items, setItems] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
   const [books, setBooks] = useState<Record<string, AladinItem | null>>({});
@@ -89,9 +91,51 @@ export default function MyReadingStatusPage() {
   };
 
   return (
-    <main id='main' className='main'>
-      <div className='container reading-status'>
-        <h1 className='text-h1'>나의 독서현황</h1>
+    <main id='main' className='main my-page-layout'>
+      <div className='container my-page-layout__inner'>
+        <aside className='my-page-sidebar'>
+          <div className='my-page-sidebar__user'>
+            <p className='text-h3'>{user?.name ?? '홍길동'} 님</p>
+            <p className='caption'>(주)한글과컴퓨터</p>
+          </div>
+          
+          <nav className='my-page-nav'>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>쇼핑 & 주문 관리</h4>
+              <ul>
+                <li><Link to="/mypage">마이페이지 홈</Link></li>
+                <li><Link to="/orders">주문 / 배송 조회</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>복지 혜택</h4>
+              <ul>
+                <li><Link to="/subsidy">나의 지원금 현황</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>독서 서재</h4>
+              <ul>
+                <li className='is-active'><Link to="/myreading">나의 독서현황</Link></li>
+                <li><Link to="/myreview">나의 서평</Link></li>
+                <li><Link to="/mystats">독서 통계</Link></li>
+              </ul>
+            </div>
+            <div className='my-page-nav__group'>
+              <h4 className='my-page-nav__title'>계정 & 설정</h4>
+              <ul>
+                <li><Link to="/profile">회원 정보 조회</Link></li>
+              </ul>
+            </div>
+          </nav>
+        </aside>
+
+        <div className='my-page-content'>
+          <div className='my-page-content__header'>
+            <h1 className='text-h1'>나의 독서현황</h1>
+          </div>
+
+          <div className='reading-status'>
 
         <div className='reading-status__tabs' role='tablist'>
           {TABS.map((t) => (
@@ -158,6 +202,8 @@ export default function MyReadingStatusPage() {
             })}
           </ul>
         )}
+          </div>
+        </div>
       </div>
     </main>
   );

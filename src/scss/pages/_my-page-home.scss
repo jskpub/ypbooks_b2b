@@ -1,0 +1,323 @@
+@use '../abstracts' as *;
+
+.my-page-layout {
+  padding-block: $space-8;
+  
+  &__inner {
+    display: flex;
+    gap: $space-8;
+  }
+}
+
+.my-page-sidebar {
+  flex: 0 0 rem(220);
+
+  &__user {
+    padding: $space-4;
+    background-color: $color-surface-card;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+    
+    .text-h3 { margin-bottom: $space-1; }
+  }
+}
+
+.my-page-nav {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  &__title {
+    font-size: $font-size-label-sm;
+    color: $color-foreground-secondary;
+    margin-bottom: $space-2;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+  }
+
+  li {
+    a {
+      display: block;
+      padding: $space-2 $space-3;
+      border-radius: $radius-sm;
+      color: $color-foreground;
+      text-decoration: none;
+      font-size: $font-size-body-sm;
+      
+      &:hover {
+        background-color: $color-primary-soft;
+      }
+    }
+    &.is-active a {
+      background-color: $color-primary-soft;
+      font-weight: 700;
+    }
+  }
+}
+
+.my-page-content {
+  flex: 1;
+  min-width: 0;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $space-6;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-2;
+  }
+}
+
+.my-page-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.dashboard-row--2col {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: $space-6;
+}
+
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-6;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__note {
+    color: $color-foreground-secondary;
+    margin-top: $space-2;
+  }
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: $space-2 0;
+    text-align: left;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+  }
+  
+  th {
+    width: rem(100);
+    color: $color-foreground-secondary;
+    font-weight: 500;
+  }
+  
+  td {
+    color: $color-foreground;
+    font-weight: 600;
+  }
+}
+
+.subsidy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+}
+
+.subsidy-box {
+  padding: $space-4;
+  border: $border-width-1 dashed $color-border-strong;
+  border-radius: $radius-md;
+  
+  &__badge {
+    display: inline-block;
+    padding: $space-1 $space-2;
+    background-color: $color-primary;
+    color: $color-on-primary;
+    border-radius: $radius-sm;
+    font-size: $font-size-caption;
+    font-weight: 700;
+    margin-bottom: $space-2;
+    
+    &.is-disabled {
+      background-color: $color-surface;
+      color: $color-foreground-secondary;
+      border: $border-width-1 solid $color-border;
+    }
+  }
+  
+  &__list {
+    margin-top: $space-3;
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    font-size: $font-size-caption;
+    
+    li {
+      position: relative;
+      padding-left: $space-2;
+      color: $color-foreground;
+      
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: $color-foreground-secondary;
+      }
+      
+      &.caption {
+        padding-left: 0;
+        color: $color-foreground-secondary;
+        margin-top: $space-1;
+        &::before { content: none; }
+      }
+    }
+  }
+}
+
+.library-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-4;
+  
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-5;
+    background-color: $color-surface;
+    border-radius: $radius-md;
+    border: $border-width-1 solid $color-border;
+    
+    .caption {
+      margin-bottom: $space-2;
+      color: $color-foreground-secondary;
+    }
+  }
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: $border-width-2 solid $color-foreground;
+  
+  th, td {
+    padding: $space-4;
+    border-bottom: $border-width-1 solid $color-border;
+    vertical-align: middle;
+  }
+  
+  th {
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+    font-size: $font-size-caption;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: $border-width-1 solid $color-border-strong;
+  }
+  
+  td {
+    font-size: $font-size-body-sm;
+  }
+  
+  &__date {
+    text-align: center;
+    strong { display: block; margin-bottom: $space-1; }
+  }
+  
+  &__info {
+    text-align: left !important;
+
+    &-wrap {
+      display: flex;
+      gap: $space-4;
+      align-items: flex-start;
+    }
+    
+    .book-thumb {
+      flex: 0 0 rem(44);
+      height: rem(64);
+      background-color: $color-surface;
+      border: $border-width-1 solid $color-border;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-size-caption;
+      color: $color-foreground-secondary;
+      border-radius: $radius-sm;
+    }
+    
+    .book-details {
+      display: flex;
+      flex-direction: column;
+      gap: $space-1;
+      
+      &__title {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+      }
+      
+      .badge {
+        display: inline-block;
+        padding: $space-1 $space-2;
+        border-radius: $radius-sm;
+        font-size: $font-size-caption;
+        font-weight: 600;
+        
+        &--general {
+          background-color: $color-surface;
+          border: $border-width-1 solid $color-border;
+          color: $color-foreground-secondary;
+        }
+        &--recommend {
+          background-color: $color-primary;
+          color: $color-on-primary;
+        }
+      }
+    }
+  }
+  
+  &__price {
+    text-align: left;
+    span, strong { display: block; margin-bottom: rem(2); }
+  }
+  
+  &__status {
+    text-align: center;
+    
+    strong, span { display: block; margin-bottom: rem(2); }
+    .status-success { color: $color-bookmark-green; } // 녹색
+  }
+  
+  &__actions {
+    text-align: center;
+    
+    .btn { 
+      width: 100%; 
+      min-width: rem(80); 
+      display: block;
+      margin-bottom: $space-1;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

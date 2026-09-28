@@ -13,9 +13,9 @@ export default function UtilityBar() {
       <div className='utility-bar__inner container'>
         <ul className='utility-bar__menu'>
           <li>
-            <a href="javascript:;" className="utility-bar__link">
+            <Link to="/mypage" className="utility-bar__link">
               <strong className="utility-bar__name">{user?.name}</strong>님
-            </a>
+            </Link>
           </li>
           <li>
             <Link to='/cart' className='utility-bar__link'>

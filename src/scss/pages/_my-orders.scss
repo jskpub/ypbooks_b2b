@@ -1,0 +1,245 @@
+@use '../abstracts' as *;
+
+.my-orders {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  &__list-header {
+    margin-top: $space-4;
+  }
+}
+
+.filter-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-5;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+
+    .filter-submit {
+      margin-left: auto;
+    }
+  }
+
+  .filter-label {
+    width: rem(80);
+    font-size: $font-size-body-sm;
+    color: $color-foreground-secondary;
+    font-weight: 500;
+  }
+
+  .filter-options {
+    display: flex;
+    gap: rem(4);
+  }
+
+  .filter-btn {
+    padding: $space-2 $space-4;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-sm;
+    background-color: $color-surface-card;
+    color: $color-foreground-secondary;
+    font-size: $font-size-body-sm;
+    cursor: pointer;
+
+    &.is-active {
+      background-color: $color-neutral-700;
+      color: $color-neutral-0;
+      border-color: $color-neutral-700;
+      font-weight: 700;
+    }
+  }
+
+  .select-box {
+    padding: $space-2 $space-4;
+    border: $border-width-1 solid $color-border;
+    border-radius: $radius-sm;
+    background-color: $color-surface-card;
+    font-size: $font-size-body-sm;
+    color: $color-foreground;
+  }
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  border-top: $border-width-2 solid $color-foreground;
+}
+
+.order-card {
+  border-bottom: $border-width-1 solid $color-border;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-3 $space-4;
+    background-color: $color-surface;
+    border-bottom: $border-width-1 solid $color-border;
+  }
+
+  &__title {
+    font-size: $font-size-body-sm;
+    color: $color-foreground-secondary;
+
+    strong {
+      color: $color-foreground;
+      font-size: $font-size-body-base;
+    }
+  }
+
+  &__link {
+    font-size: $font-size-caption;
+    color: $color-foreground-secondary;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__body {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__book {
+    flex: 2.5;
+    display: flex;
+    gap: $space-4;
+    padding: $space-4;
+    border-right: $border-width-1 solid $color-border;
+    align-items: flex-start;
+
+    .book-thumb {
+      flex: 0 0 rem(44);
+      height: rem(64);
+      background-color: $color-surface;
+      border: $border-width-1 solid $color-border;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-size-caption;
+      color: $color-foreground-secondary;
+      border-radius: $radius-sm;
+    }
+
+    .book-info {
+      display: flex;
+      flex-direction: column;
+      gap: $space-1;
+
+      &__title {
+        display: flex;
+        align-items: center;
+        gap: $space-2;
+        
+        .badge {
+          display: inline-block;
+          padding: $space-1 $space-2;
+          border-radius: $radius-sm;
+          font-size: $font-size-caption;
+          font-weight: 600;
+
+          &--general {
+            background-color: $color-surface;
+            border: $border-width-1 solid $color-border;
+            color: $color-foreground-secondary;
+          }
+          &--recommend {
+            background-color: $color-primary;
+            color: $color-on-primary;
+          }
+        }
+      }
+
+      &__meta {
+        display: flex;
+        gap: $space-3;
+        color: $color-foreground-secondary;
+        margin-top: $space-1;
+      }
+    }
+  }
+
+  &__payment {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $space-4;
+    border-right: $border-width-1 solid $color-border;
+    gap: rem(2);
+    font-size: $font-size-body-sm;
+
+    .text-blue { color: $color-bookmark-blue; }
+    .text-red { color: $color-primary; }
+  }
+
+  &__status {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-4;
+    border-right: $border-width-1 solid $color-border;
+    gap: rem(2);
+    text-align: center;
+
+    .text-green { color: $color-bookmark-green; }
+  }
+
+  &__actions {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $space-4;
+    gap: $space-2;
+
+    .btn { width: 100%; min-width: rem(80); }
+  }
+}
+
+.policy-notice {
+  padding: $space-5;
+  background-color: $color-surface;
+  border: $border-width-1 dashed $color-border-strong;
+  border-radius: $radius-md;
+  margin-top: $space-2;
+
+  .text-h4 {
+    margin-bottom: $space-3;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    color: $color-foreground-secondary;
+    
+    li {
+      position: relative;
+      padding-left: $space-3;
+      line-height: $line-height-caption;
+      
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+}

@@ -9,6 +9,10 @@ import HomePage from '@/pages/HomePage';
 import IntranetPage from '@/pages/IntranetPage';
 import LoginPage from '@/pages/LoginPage';
 import MyReadingStatusPage from '@/pages/MyReadingStatusPage';
+import MyPageHome from '@/pages/MyPageHome';
+import MyOrdersPage from '@/pages/MyOrdersPage';
+import MySubsidyPage from '@/pages/MySubsidyPage';
+import MyProfilePage from '@/pages/MyProfilePage';
 import MyReviewsPage from '@/pages/MyReviewsPage';
 import MyStatsPage from '@/pages/MyStatsPage';
 import NewArrivalPage from '@/pages/NewArrivalPage';
@@ -47,6 +51,10 @@ function App() {
 
             {/* REVIEW-02/03/04/05 — 계정 드롭다운(마이페이지) UI는 아직 없어서 라우트만 먼저 연다.
                 REVIEW_SPEC.md "진입 경로 결정 (2026-09-25)" 절 참고. */}
+            <Route path='/mypage' element={<MyPageHome />} />
+            <Route path='/orders' element={<MyOrdersPage />} />
+            <Route path='/subsidy' element={<MySubsidyPage />} />
+            <Route path='/profile' element={<MyProfilePage />} />
             <Route path='/myreading' element={<MyReadingStatusPage />} />
             <Route path='/mystats' element={<MyStatsPage />} />
             <Route path='/myreview' element={<MyReviewsPage />} />
