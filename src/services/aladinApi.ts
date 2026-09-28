@@ -84,17 +84,13 @@ export interface RecommendedAladinItem extends AladinItem {
 // 도서 정보(제목/저자/표지/가격)는 ISBN마다 알라딘 ItemLookUp으로 조회해 채운다.
 // 이 목록의 ISBN이 곧 "지원금 100% 적용 대상" 판정 기준이 된다(장바구니/결제 로직에서 재사용).
 export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> {
-  const results = await Promise.all(
-    recommendedBookList.map(async ({ isbn13, target, recommendReason, badgeLabel, badgeColor }) => {
-      const items = await callProxy('/api/aladin/lookup', {
-        ItemId: isbn13,
-        ItemIdType: 'ISBN13',
-      });
-      const item = items[0];
-      return item ? { ...item, target, recommendReason, badgeLabel, badgeColor } : null;
-    }),
-  );
-  return results.filter((item): item is RecommendedAladinItem => item !== null);
+  // 추천도서는 추천사유와 함께 도서 상세 정보(title, cover 등)를 recommendedBookList.ts에 직접 정적 데이터로 저장하여,
+  // 홈 방문 시마다 10회의 알라딘 API 개별 조회가 발생하는 것을 방지함.
+  return recommendedBookList.map(entry => ({
+    ...entry,
+    badgeLabel: entry.badgeLabel ?? undefined,
+    badgeColor: entry.badgeColor ?? undefined,
+  }));
 }
 
 // 홈 화면 "주간 베스트셀러" 위젯용. categoryId=0이면 전체 조회.
