@@ -237,18 +237,18 @@
   }
   
   &__date {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $space-1;
     text-align: center;
+    strong { display: block; margin-bottom: $space-1; }
   }
   
   &__info {
     text-align: left !important;
-    display: flex;
-    gap: $space-4;
-    align-items: flex-start;
+
+    &-wrap {
+      display: flex;
+      gap: $space-4;
+      align-items: flex-start;
+    }
     
     .book-thumb {
       flex: 0 0 rem(44);
@@ -295,28 +295,29 @@
   }
   
   &__price {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: rem(2);
+    text-align: left;
+    span, strong { display: block; margin-bottom: rem(2); }
   }
   
   &__status {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: rem(2);
     text-align: center;
     
+    strong, span { display: block; margin-bottom: rem(2); }
     .status-success { color: $color-bookmark-green; } // 녹색
   }
   
   &__actions {
-    display: flex;
-    flex-direction: column;
-    gap: $space-1;
-    align-items: center;
+    text-align: center;
     
-    .btn { width: 100%; min-width: rem(80); }
+    .btn { 
+      width: 100%; 
+      min-width: rem(80); 
+      display: block;
+      margin-bottom: $space-1;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }

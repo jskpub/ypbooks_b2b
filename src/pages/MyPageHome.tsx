@@ -159,13 +159,15 @@ export default function MyPageHome() {
                       <span className='caption'>ORD-20260912-0081</span>
                     </td>
                     <td className='order-table__info'>
-                      <div className='book-thumb'>표지</div>
-                      <div className='book-details'>
-                        <div className='book-details__title'>
-                          <span className='badge badge--general'>개인도서</span>
-                          <strong>트렌드 코리아 2027 (1권)</strong>
+                      <div className='order-table__info-wrap'>
+                        <div className='book-thumb'>표지</div>
+                        <div className='book-details'>
+                          <div className='book-details__title'>
+                            <span className='badge badge--general'>개인도서</span>
+                            <strong>트렌드 코리아 2027 (1권)</strong>
+                          </div>
+                          <span className='caption'>정가 19,000원 | 종이도서</span>
                         </div>
-                        <span className='caption'>정가 19,000원 | 종이도서</span>
                       </div>
                     </td>
                     <td className='order-table__price'>
@@ -188,13 +190,15 @@ export default function MyPageHome() {
                       <span className='caption'>ORD-20260805-0019</span>
                     </td>
                     <td className='order-table__info'>
-                      <div className='book-thumb'>표지</div>
-                      <div className='book-details'>
-                        <div className='book-details__title'>
-                          <span className='badge badge--recommend'>추천도서</span>
-                          <strong>AI 에이전트 혁명 (1권)</strong>
+                      <div className='order-table__info-wrap'>
+                        <div className='book-thumb'>표지</div>
+                        <div className='book-details'>
+                          <div className='book-details__title'>
+                            <span className='badge badge--recommend'>추천도서</span>
+                            <strong>AI 에이전트 혁명 (1권)</strong>
+                          </div>
+                          <span className='caption'>정가 22,000원 | 종이도서</span>
                         </div>
-                        <span className='caption'>정가 22,000원 | 종이도서</span>
                       </div>
                     </td>
                     <td className='order-table__price'>
