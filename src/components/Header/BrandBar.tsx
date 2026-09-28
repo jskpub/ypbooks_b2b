@@ -50,15 +50,7 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           <label htmlFor='site-search' className='sr-only'>
             도서 검색
           </label>
-          <input
-            type='search'
-            id='site-search'
-            name='q'
-            className='brand-bar__search-input'
-            placeholder='도서명, 저자명, 카드번호를 검색해 보세요'
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
+          <input type='search' id='site-search' name='q' className='brand-bar__search-input' placeholder='도서명, 저자명, 카드번호를 검색해 보세요' value={query} onChange={(event) => setQuery(event.target.value)} />
           <button type='submit' className='brand-bar__search-submit'>
             <span className='sr-only'>검색</span>
             <Icon name='magnifying-glass' />
@@ -70,7 +62,7 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
             <Icon name='wallet' />
           </span>
           <div className='brand-bar__subsidy-text'>
-            <p className='brand-bar__subsidy-title'>2026.09 지원금 현황</p>
+            <p className='brand-bar__subsidy-title'>2026.09 지원 도서 잔여 권수</p>
             <p className='brand-bar__subsidy-lines'>
               추천 도서 {recRemaining}권 · 개인 도서 {perRemaining}권
             </p>
