@@ -4,7 +4,7 @@ import { useCart } from '@/context/CartContext';
 
 export default function MyPageHome() {
   const user = getSessionUser();
-  const { orderHistory } = useCart();
+  const { orderHistory, subsidyLedger } = useCart();
   
   // 최근 주문 2건만 가져오기
   const recentOrders = orderHistory.slice(0, 2);
@@ -95,21 +95,25 @@ export default function MyPageHome() {
                 
                 <div className='subsidy-grid'>
                   <div className='subsidy-box'>
-                    <div className='subsidy-box__badge'>사용 가능</div>
+                    <div className={`subsidy-box__badge ${subsidyLedger.recommendedUsed ? 'is-disabled' : ''}`}>
+                      {subsidyLedger.recommendedUsed ? '한도 소진' : '사용 가능'}
+                    </div>
                     <p className='label-lg'>이달의 추천도서</p>
                     <ul className='subsidy-box__list'>
                       <li>지원율: 회사 100% 지원</li>
-                      <li>한도: 월 1권 (잔여 1권)</li>
+                      <li>한도: 월 1권 (잔여 {subsidyLedger.recommendedUsed ? '0' : '1'}권{subsidyLedger.recommendedUsed ? ' - 소진' : ''})</li>
                       <li className='caption'>* 종이책 전용 / 본인부담 0원</li>
                     </ul>
                   </div>
                   
                   <div className='subsidy-box'>
-                    <div className='subsidy-box__badge is-disabled'>한도 소진</div>
+                    <div className={`subsidy-box__badge ${subsidyLedger.personalUsed ? 'is-disabled' : ''}`}>
+                      {subsidyLedger.personalUsed ? '한도 소진' : '사용 가능'}
+                    </div>
                     <p className='label-lg'>개인 자유도서</p>
                     <ul className='subsidy-box__list'>
                       <li>지원율: 50% (최대 1만원)</li>
-                      <li>한도: 월 1권 (잔여 0권 - 소진)</li>
+                      <li>한도: 월 1권 (잔여 {subsidyLedger.personalUsed ? '0' : '1'}권{subsidyLedger.personalUsed ? ' - 소진' : ''})</li>
                       <li className='caption'>* 종이책/전자책 가능</li>
                     </ul>
                   </div>
