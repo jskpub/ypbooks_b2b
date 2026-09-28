@@ -84,33 +84,39 @@ export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> 
   return results.filter((item): item is RecommendedAladinItem => item !== null);
 }
 
-// 홈 화면 "주간 베스트셀러" 위젯용.
-export function fetchBestsellerBooks(maxResults = 8): Promise<AladinItem[]> {
-  return callProxy('/api/aladin/list', {
+// 홈 화면 "주간 베스트셀러" 위젯용. categoryId=0이면 전체 조회.
+export function fetchBestsellerBooks(maxResults = 8, categoryId = 0): Promise<AladinItem[]> {
+  const params: Record<string, string> = {
     QueryType: 'Bestseller',
     SearchTarget: 'Book',
     MaxResults: String(maxResults),
-  });
+  };
+  if (categoryId > 0) params.CategoryId = String(categoryId);
+  return callProxy('/api/aladin/list', params);
 }
 
-// 홈 화면 "신간 도서" 위젯 / 신상품(BOOK-04) "새로 나온 도서" 탭.
-export function fetchNewArrivalBooks(maxResults = 8): Promise<AladinItem[]> {
-  return callProxy('/api/aladin/list', {
+// 홈 화면 "신간 도서" 위젯 / 신상품(BOOK-04) "새로 나온 도서" 탭. categoryId=0이면 전체 조회.
+export function fetchNewArrivalBooks(maxResults = 8, categoryId = 0): Promise<AladinItem[]> {
+  const params: Record<string, string> = {
     QueryType: 'ItemNewAll',
     SearchTarget: 'Book',
     MaxResults: String(maxResults),
-  });
+  };
+  if (categoryId > 0) params.CategoryId = String(categoryId);
+  return callProxy('/api/aladin/list', params);
 }
 
 // 신상품(BOOK-04) "화제의 신간" 탭. 알라딘엔 출간 전 예약판매 전용 리스트가 없어서, 대신
 // "주목할 만한 신간"(ItemNewSpecial)을 쓴다. Year/Month/Week 같은 기간 파라미터는 Bestseller
-// 전용이라 여기선 필요 없다 — 알라딘이 알아서 최신 기준으로 준다.
-export function fetchNewSpecialBooks(maxResults = 8): Promise<AladinItem[]> {
-  return callProxy('/api/aladin/list', {
+// 전용이라 여기선 필요 없다 — 알라딘이 알아서 최신 기준으로 준다. categoryId=0이면 전체 조회.
+export function fetchNewSpecialBooks(maxResults = 8, categoryId = 0): Promise<AladinItem[]> {
+  const params: Record<string, string> = {
     QueryType: 'ItemNewSpecial',
     SearchTarget: 'Book',
     MaxResults: String(maxResults),
-  });
+  };
+  if (categoryId > 0) params.CategoryId = String(categoryId);
+  return callProxy('/api/aladin/list', params);
 }
 
 // 개인도서 자유 검색.
@@ -119,6 +125,17 @@ export function searchBooks(query: string, maxResults = 20): Promise<AladinItem[
     Query: query,
     QueryType: 'Keyword',
     SearchTarget: 'Book',
+    MaxResults: String(maxResults),
+  });
+}
+
+// 카테고리별 도서 목록 조회. CategoryId(알라딘 CID) 하나로 1회 호출한다 — 상위 CID를 넘기면
+// 하위 카테고리 도서까지 포함된다.
+export function fetchBooksByCategory(categoryId: number, maxResults = 50): Promise<AladinItem[]> {
+  return callProxy('/api/aladin/list', {
+    QueryType: 'Bestseller',
+    SearchTarget: 'Book',
+    CategoryId: String(categoryId),
     MaxResults: String(maxResults),
   });
 }

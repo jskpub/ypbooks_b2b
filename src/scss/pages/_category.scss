@@ -1,0 +1,129 @@
+@use '../abstracts' as *;
+
+// CategoryPage — 카테고리별 도서 목록 페이지.
+// 레이아웃: 카테고리 사이드바(좌) + 메인 영역(우).
+// 메인: 카테고리명 h1 + 섹션 구분선 + BookCard 5개 1행.
+
+.category-page {
+  display: flex;
+  gap: $space-10;
+  padding-block: $space-8;
+
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title {
+    margin-bottom: $space-6;
+  }
+
+  // 섹션 하나 = 섹션 제목 + BookCard 최대 5개 1행 + 구분선
+  &__section {
+    & + & {
+      margin-top: $space-8;
+      padding-top: $space-8;
+      border-top: 1px solid $color-border;
+    }
+  }
+
+  &__section-title {
+    margin-bottom: $space-4;
+    color: $color-foreground;
+  }
+
+  &__row {
+    display: flex;
+    gap: $space-6;
+  }
+
+  &__loading {
+    display: flex;
+    gap: $space-6;
+  }
+
+  &__error,
+  &__empty {
+    color: $color-foreground-secondary;
+    margin-top: $space-4;
+  }
+}
+
+// 카테고리 사이드바 — 국내/외국 탭 추가 버전
+.category-sidebar {
+  width: 160px;
+  flex-shrink: 0;
+
+  &__tabs {
+    display: flex;
+    gap: $space-2;
+    margin-bottom: $space-4;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__tab {
+    padding: $space-2 $space-3;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+
+    &.is-active {
+      color: $color-foreground;
+      font-weight: 700;
+      border-bottom-color: $color-primary;
+    }
+  }
+
+  &__title {
+    margin-bottom: $space-3;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    width: 100%;
+    text-align: left;
+    padding: $space-2 $space-3;
+    font-size: $font-size-body-sm;
+    line-height: $line-height-body-sm;
+    color: $color-foreground-secondary;
+    border-radius: $radius-sm;
+
+    &:hover {
+      background-color: $color-surface;
+      color: $color-foreground;
+    }
+
+    &.is-active {
+      background-color: $color-primary-soft;
+      color: $color-primary;
+      font-weight: 700;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
+
+// 로딩 중 스켈레톤 카드
+.book-card-skeleton {
+  width: 240px;
+  flex-shrink: 0;
+  height: 360px;
+  border-radius: $radius-md;
+  background: linear-gradient(90deg, $color-surface 25%, $color-border 50%, $color-surface 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.4s infinite;
+}
+
+@keyframes skeleton-loading {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

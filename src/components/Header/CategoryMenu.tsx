@@ -1,4 +1,6 @@
 import type { Ref } from 'react';
+import { Link } from 'react-router-dom';
+import { DOMESTIC_CATEGORIES, FOREIGN_CATEGORIES } from '@/constants/categories';
 
 export type CategoryTab = 'domestic' | 'foreign';
 
@@ -10,12 +12,23 @@ interface CategoryMenuProps {
   menuRef: Ref<HTMLDivElement>;
 }
 
+// label → CID 빠른 조회용 맵 (카테고리 상수에 없는 레이블은 undefined → cid=0(종합)으로 fallback)
+const labelToCid = new Map([
+  ...DOMESTIC_CATEGORIES.map(({ label, cid }) => [label, cid] as [string, number]),
+  ...FOREIGN_CATEGORIES.map(({ label, cid }) => [label, cid] as [string, number]),
+]);
+
+function categoryLink(label: string): string {
+  const cid = labelToCid.get(label) ?? 0;
+  return `/category?cid=${cid}`;
+}
+
 const domesticColumns = [
-  ['소설/에세이/시', '유아/어린이/초등학습', '인문/역사', '예술', '종교', '경제/자기계발', '정치/사회', '수험서/자격증', '사전'],
-  ['자녀교육/건강/여행/요리', '중/고학습', '외국어', '컴퓨터/IT', '기술/공학', '자연/과학', '의학', '잡지'],
+  ['소설/에세이/시', '유아/어린이', '인문/역사', '예술', '종교', '경제/자기계발', '정치/사회', '수험서/자격증'],
+  ['건강/여행/요리', '중/고학습', '외국어', '컴퓨터/IT', '자연/과학', '잡지'],
 ];
 
-const foreignItems = ['외서 일반서적', '외서 컴퓨터', '외서 전문서적'];
+const foreignItems = ['외서 종합', '외서 일반서적', '외서 컴퓨터', '외서 전문서적'];
 
 export default function CategoryMenu({ isOpen, activeTab, onTabChange, onClose, menuRef }: CategoryMenuProps) {
   return (
@@ -51,7 +64,7 @@ export default function CategoryMenu({ isOpen, activeTab, onTabChange, onClose, 
                 <ul className="category-menu__sub-list" key={column[0]}>
                   {column.map((label) => (
                     <li key={label}>
-                      <a href="javascript:;">{label}</a>
+                      <Link to={categoryLink(label)} onClick={onClose}>{label}</Link>
                     </li>
                   ))}
                 </ul>
@@ -61,7 +74,7 @@ export default function CategoryMenu({ isOpen, activeTab, onTabChange, onClose, 
               <ul className="category-menu__sub-list">
                 {foreignItems.map((label) => (
                   <li key={label}>
-                    <a href="javascript:;">{label}</a>
+                    <Link to={categoryLink(label)} onClick={onClose}>{label}</Link>
                   </li>
                 ))}
               </ul>

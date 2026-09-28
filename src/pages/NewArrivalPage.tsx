@@ -24,6 +24,7 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 export default function NewArrivalPage() {
   const [tab, setTab] = useState<Tab>('all');
   const [sortKey, setSortKey] = useState<SortKey>('salesPoint');
+  const [activeCid, setActiveCid] = useState(0); // 0 = 종합(전체)
   const [books, setBooks] = useState<AladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');
 
@@ -31,7 +32,7 @@ export default function NewArrivalPage() {
     let cancelled = false;
     setStatus('loading');
     const fetcher = tab === 'special' ? fetchNewSpecialBooks : fetchNewArrivalBooks;
-    fetcher(20)
+    fetcher(20, activeCid)
       .then((items) => {
         if (!cancelled) {
           setBooks(items);
@@ -44,7 +45,7 @@ export default function NewArrivalPage() {
     return () => {
       cancelled = true;
     };
-  }, [tab]);
+  }, [tab, activeCid]);
 
   const sortedBooks = useMemo(() => {
     const copy = [...books];
@@ -56,7 +57,7 @@ export default function NewArrivalPage() {
   return (
     <main id='main' className='main'>
       <div className='container catalog-page'>
-        <CategorySidebar />
+        <CategorySidebar activeCid={activeCid} onSelect={setActiveCid} />
 
         <div className='catalog-page__main'>
           <h1 className='catalog-page__title text-h1'>신상품</h1>

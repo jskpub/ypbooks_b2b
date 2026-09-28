@@ -3,6 +3,7 @@ import Layout from '@/components/Layout';
 import RequireAuth from '@/components/RequireAuth';
 import ScrollToTop from '@/components/ScrollToTop';
 import BestsellerPage from '@/pages/BestsellerPage';
+import CategoryPage from '@/pages/CategoryPage';
 import BookDetailPage from '@/pages/BookDetailPage';
 import CartPage from '@/pages/CartPage';
 import HomePage from '@/pages/HomePage';
@@ -45,6 +46,7 @@ function App() {
             <Route path='/recommend' element={<RecommendPage />} />
             <Route path='/bestseller' element={<BestsellerPage />} />
             <Route path='/new' element={<NewArrivalPage />} />
+            <Route path='/category' element={<CategoryPage />} />
 
             {/* BOOK-05 — 도서 상세 */}
             <Route path='/books/:isbn13' element={<BookDetailPage />} />

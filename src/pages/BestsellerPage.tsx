@@ -12,13 +12,14 @@ type Period = 'week' | 'month';
 // 같은 호출을 재사용한다(정확한 월간 집계는 알라딘 API로는 불가능).
 export default function BestsellerPage() {
   const [period, setPeriod] = useState<Period>('week');
+  const [activeCid, setActiveCid] = useState(0); // 0 = 종합(전체)
   const [books, setBooks] = useState<AladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');
 
   useEffect(() => {
     let cancelled = false;
     setStatus('loading');
-    fetchBestsellerBooks(20)
+    fetchBestsellerBooks(20, activeCid)
       .then((items) => {
         if (!cancelled) {
           setBooks(items);
@@ -31,12 +32,12 @@ export default function BestsellerPage() {
     return () => {
       cancelled = true;
     };
-  }, [period]);
+  }, [period, activeCid]);
 
   return (
     <main id='main' className='main'>
       <div className='container catalog-page'>
-        <CategorySidebar />
+        <CategorySidebar activeCid={activeCid} onSelect={setActiveCid} />
 
         <div className='catalog-page__main'>
           <h1 className='catalog-page__title text-h1'>베스트</h1>
