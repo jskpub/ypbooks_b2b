@@ -1,0 +1,193 @@
+@use '../abstracts' as *;
+
+.my-subsidy {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.subsidy-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-6;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .caption {
+      color: $color-foreground-secondary;
+    }
+  }
+}
+
+.subsidy-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+}
+
+.subsidy-rule-box {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  padding: $space-5;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-md;
+  background-color: $color-surface-card;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .badge {
+      display: inline-block;
+      padding: $space-1 $space-2;
+      border-radius: $radius-sm;
+      font-size: $font-size-caption;
+      font-weight: 600;
+
+      &--available {
+        background-color: $color-primary-soft;
+        color: $color-primary; // Or any suitable blue/primary
+      }
+      &--disabled {
+        background-color: $color-surface;
+        color: $color-foreground-secondary;
+        border: $border-width-1 solid $color-border;
+      }
+    }
+
+    .text-blue {
+      color: $color-bookmark-blue;
+      font-weight: 700;
+      font-size: $font-size-body-sm;
+    }
+    .text-red {
+      color: $color-primary;
+      font-weight: 700;
+      font-size: $font-size-body-sm;
+    }
+  }
+
+  .text-h3 {
+    margin-top: $space-1;
+    margin-bottom: $space-1;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-1;
+    font-size: $font-size-body-sm;
+    color: $color-foreground-secondary;
+    flex: 1;
+
+    li {
+      position: relative;
+      padding-left: $space-2;
+      
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+      }
+
+      .text-blue { color: $color-bookmark-blue; font-weight: 700; }
+      .text-red { color: $color-primary; font-weight: 700; }
+    }
+  }
+
+  &__btn {
+    width: 100%;
+    margin-top: $space-2;
+  }
+}
+
+.subsidy-ledger-card {
+  display: flex;
+  flex-direction: column;
+  padding: $space-6;
+  background-color: $color-surface-card;
+  border: $border-width-1 solid $color-border;
+  border-radius: $radius-lg;
+
+  &__header {
+    margin-bottom: $space-4;
+  }
+}
+
+.subsidy-ledger-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $space-4;
+  padding-bottom: $space-4;
+  border-bottom: $border-width-2 solid $color-foreground;
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+
+    .filter-label {
+      font-size: $font-size-body-sm;
+      font-weight: 500;
+      color: $color-foreground;
+    }
+
+    .select-box {
+      padding: $space-1 $space-2;
+      border: $border-width-1 solid $color-border;
+      border-radius: $radius-sm;
+      font-size: $font-size-body-sm;
+    }
+  }
+
+  .filter-result {
+    color: $color-foreground-secondary;
+  }
+}
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: $space-4 $space-2;
+    border-bottom: $border-width-1 solid $color-border;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: $color-surface;
+    color: $color-foreground-secondary;
+    font-size: $font-size-caption;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: $border-width-1 solid $color-border-strong;
+  }
+
+  td {
+    font-size: $font-size-body-sm;
+  }
+
+  .text-center { text-align: center; }
+  .text-left { text-align: left; }
+  .text-right { text-align: right; }
+
+  .text-blue { color: $color-bookmark-blue; font-weight: 700; }
+  .text-red { color: $color-primary; font-weight: 700; }
+  .text-green { color: $color-bookmark-green; font-weight: 700; }
+
+  .block {
+    display: block;
+    margin-top: rem(2);
+  }
+}
