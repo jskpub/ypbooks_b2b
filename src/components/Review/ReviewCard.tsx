@@ -16,9 +16,9 @@ type MenuMode = 'root' | 'visibility' | 'delete';
 
 interface ReviewCardProps {
   review: Review;
-  /** 알라딘 ItemLookUp으로 가져온 실제 표지 — 조회 실패/로딩 중엔 review.coverIcon으로 대체한다. */
+  /** 알라딘 ItemLookUp 조회 실패/로딩 중 review.coverIcon으로 대체 */
   coverSrc?: string;
-  /** 'public': GNB 서평 피드(REVIEW-01, 좋아요). 'mine': 나의 서평(REVIEW-03, 관리 메뉴). */
+  /** 'public': GNB 서평 피드(좋아요), 'mine': 나의 서평(관리 메뉴) */
   variant?: 'public' | 'mine';
   isLiked?: boolean;
   onToggleLike?: (id: string) => void;
@@ -31,9 +31,8 @@ function formatDate(isoDate: string) {
 }
 
 export default function ReviewCard({ review, coverSrc, variant = 'public', isLiked = false, onToggleLike, onChangeVisibility, onDelete }: ReviewCardProps) {
-  // 'mine'(나의 서평)은 항상 본인 글이라 실명으로 보여준다 — 자기 자신에게 "익명"으로 마스킹해봤자
-  // 헷갈리기만 하고, 공개 범위는 메뉴 옆 라벨로 따로 보여준다. 'public'(다른 사람이 보는 GNB 피드)만
-  // 공개 범위에 따라 실제로 이름을 가린다.
+  // 'mine'은 항상 본인 글이라 실명 표시, 자기 자신 대상 익명 마스킹은 혼란만 유발해 제외 (공개 범위는 라벨로 별도 표시)
+  // 'public'(GNB 피드)만 공개 범위에 따라 실제 이름 마스킹 적용
   const authorLabel = variant === 'mine' ? review.authorName : review.visibility === 'public-anonymous' ? '익명' : review.authorName;
   const visibilityLabel = VISIBILITY_OPTIONS.find((option) => option.key === review.visibility)?.label;
   const likeCount = review.likeCount + (isLiked ? 1 : 0);
@@ -187,7 +186,7 @@ export default function ReviewCard({ review, coverSrc, variant = 'public', isLik
 
         <div className='review-card__aside'>
           <p className='review-card__date caption'>{review.updatedAt ? `${formatDate(review.updatedAt)} (수정)` : formatDate(review.createdAt)}</p>
-          {/* 표지는 제목과 같은 곳으로 가므로 탭 순서에서 뺀다. */}
+          {/* 표지 링크는 제목과 동일 목적지, 탭 순서 중복 방지 위해 제외 */}
           <Link to={detailPath} className='review-card__cover' tabIndex={-1} aria-hidden='true'>
             {coverSrc ? <img src={coverSrc} alt='' /> : <Icon name={review.coverIcon} />}
           </Link>

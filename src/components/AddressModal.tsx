@@ -48,10 +48,7 @@ interface FormErrors {
   roadAddress?: string;
 }
 
-// YP_PAYMENTS DeliveryModal(E:\YP_PAYMENTS\src\components\DeliveryModal.tsx) 이식. 원본은 주소록/최근배송지/
-// 신규등록 3탭이지만 이 프로젝트는 "최근 배송지"가 목록과 같은 데이터를 재사용하는 가짜 탭이라 빼고
-// 목록/등록 2탭으로 단순화했다. 주소 검색은 카카오(다음) 우편번호 서비스(usePostcodeSearch)를
-// AddressSearchModal에서 그대로 embed해서 쓴다.
+// 최근 배송지 탭은 목록과 데이터가 중복돼 제외, 목록/등록 2탭 구성으로 단순화함
 export default function AddressModal() {
   const { addresses, selectedAddress, isAddressModalOpen, addressModalMode, editingAddressId, openAddressList, openAddressForm, closeAddressModal, selectAddress, saveAddress } = useCart();
   const editingAddress = addresses.find((address) => address.id === editingAddressId) ?? null;
@@ -63,7 +60,6 @@ export default function AddressModal() {
   const phoneMidRef = useRef<HTMLInputElement>(null);
   const addressSearchBtnRef = useRef<HTMLButtonElement>(null);
 
-  // 모달이 열리거나 목록/등록 탭이 바뀔 때마다 폼을 다시 채운다 — 수정 진입 시 기존 값을, 신규 진입 시 빈 값을.
   useEffect(() => {
     if (!isAddressModalOpen || addressModalMode !== 'form') return;
     if (editingAddress) {
@@ -136,10 +132,8 @@ export default function AddressModal() {
   return (
     <>
       <div
-        // 주소 검색 팝업이 열려 있는 동안엔 이 오버레이를 잠깐 숨긴다 — 두 모달의 딤(배경)이 겹쳐서
-        // 뜨면 이중 팝업처럼 보이던 문제. is-open을 뗐다가 다시 붙이면 기존 트랜지션 그대로 부드럽게
-        // 사라졌다 나타난다. AddressSearchModal은 이 div 밖(형제)으로 빼야 한다 — 안에 두면
-        // visibility:hidden/opacity:0/pointer-events:none이 자식인 검색 팝업까지 같이 덮어버린다.
+        // 주소 검색 팝업 오픈 중 오버레이 노출 시 두 모달 딤 중첩으로 이중 팝업처럼 보이는 현상 방지 (is-open 토글로 트랜지션 유지)
+        // AddressSearchModal은 형제 요소로 배치 필요 — 자식 배치 시 visibility/opacity/pointer-events가 하위 검색 팝업까지 적용됨
         className={`modal-overlay${isAddressModalOpen && !isAddressSearchOpen ? ' is-open' : ''}`}
         onClick={(event) => {
           if (event.target === event.currentTarget) closeAddressModal();

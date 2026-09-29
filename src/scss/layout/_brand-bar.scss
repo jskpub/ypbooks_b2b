@@ -1,8 +1,7 @@
 @use '../abstracts' as *;
 
-// 스크롤에 따라 줄어드는 축약형(.is-scrolled)까지 이 파일 하나에서 다룬다 — 예전엔 축약형이
-// header-sticky라는 완전히 별도 컴포넌트/파일이었지만, 지금은 헤더 하나가 계속 떠 있으면서
-// (position:sticky) 자기 자신을 줄이는 방식(test.html 참고)이라 같은 블록 안에 상태만 더한다.
+// 헤더가 position:sticky로 떠 있는 상태에서 스스로 줄어드는 방식이라, 스크롤 축약형(.is-scrolled)도
+// 별도 컴포넌트로 분리하지 않고 이 파일 한 곳에서 상태로만 처리함
 .brand-bar {
   &__inner {
     display: flex;
@@ -19,11 +18,9 @@
     }
   }
 
-  // 전체카테고리 햄버거 — 평소엔 gnb 쪽 트리거가 보이니 숨겨두고, 스크롤로 gnb가 접히면
-  // 이 자리에 fade in 한다. opacity/visibility뿐 아니라 width도 0→44px로 같이 움직이는 게
-  // 중요하다 — width를 안 움직이면 평소에도 이 버튼이 보이지 않을 뿐 자리(44px)는 항상
-  // 차지하고 있어서, 옆의 __search가 그만큼 항상 좁아진 채로 있다가 스크롤해도 폭이 거의
-  // 안 바뀌어 보이는 문제가 있었다.
+  // 전체카테고리 햄버거 — 평소엔 gnb 트리거가 보이므로 숨겨두고, 스크롤로 gnb가 접히면 fade in 함
+  // width도 opacity/visibility와 함께 0→44px로 애니메이션 필요, 미적용 시 자리(44px)를 항상 차지해
+  // 옆 __search가 스크롤 여부와 무관하게 항상 좁게 고정되는 현상 발생
   &__hamburger {
     @include icon-button;
     flex: 0 0 auto;
@@ -46,7 +43,7 @@
 
     .header.is-scrolled & {
       width: rem(44);
-      // __inner의 gap($space-4)을 여기서만 줄여서 햄버거-로고는 바짝 붙이고, 나머지 간격은 그대로 둔다.
+      // __inner의 gap($space-4)을 이 요소에서만 상쇄, 햄버거-로고 간격만 좁히고 나머지는 유지
       margin-right: -$space-2;
       opacity: 1;
       visibility: visible;
@@ -91,7 +88,7 @@
     transition: padding-left $motion-base;
 
     .header.is-scrolled & {
-      // 스크롤 시엔 햄버거가 왼쪽에 붙으므로 로고 자체의 여백은 비운다(예전 header-sticky와 동일).
+      // 스크롤 시 햄버거가 왼쪽에 붙으므로 로고 자체 여백은 제거
       padding-left: 0;
     }
 
@@ -108,10 +105,9 @@
     width: rem(120);
   }
 
-  // 고정 폭 없이 남는 자리를 모두 채워서, 펼침 상태에서도 __subsidy 오른쪽 끝이 container 라인에 맞는다.
-  // 스크롤 시 __hamburger/__icons의 width가 0에서 펼쳐지는 만큼(둘 다 $motion-base로 transition)
-  // 이 박스가 매 프레임 flex로 다시 계산되며 줄어들어서, 따로 폭을 애니메이션하지 않아도 자연스럽게 줄어든다.
-  // min-width:0이 없으면 input의 기본 최소 폭에 걸려 끝까지 줄어들지 못한다.
+  // 고정 폭 없이 남는 공간을 모두 채워 펼침 상태에서 __subsidy 오른쪽 끝을 container 라인에 맞춤
+  // __hamburger/__icons의 width 확장에 맞춰 flex로 자동 축소되므로 별도 폭 애니메이션 불필요
+  // min-width:0 누락 시 input 기본 최소 폭에 걸려 완전히 축소되지 않음
   &__search {
     flex: 0 1 auto;
     min-width: 0;
@@ -155,9 +151,8 @@
     }
   }
 
-  // 카드형 배지 — 연한 브랜드 배경 + 왼쪽 원형 아이콘 + 오른쪽 2줄(작은 제목 / 굵은 강조 내용).
-  // 스크롤 시에도 같은 엘리먼트가 그대로 남아 줄어들 뿐이다(예전엔 header-sticky에 아예 없어서
-  // 스크롤하면 사라졌는데, 이제는 계속 보인다 — 이번에 바뀐 유일한 내용).
+  // 카드형 배지 — 연한 브랜드 배경 + 왼쪽 원형 아이콘 + 오른쪽 2줄(작은 제목 / 굵은 강조 내용)
+  // 스크롤 시에도 요소를 제거하지 않고 크기만 축소함
   &__subsidy {
     flex: 0 0 auto;
     display: flex;
@@ -227,8 +222,7 @@
       max-height $motion-base,
       opacity $motion-fast;
 
-    // 스크롤 시엔 강조 문구(subsidy-lines) 한 줄만 남기고 제목 줄은 접는다(test.html의
-    // .support-banner__date와 동일하게 처리).
+    // 스크롤 시 강조 문구(subsidy-lines) 한 줄만 남기고 제목 줄은 접음
     .header.is-scrolled & {
       max-height: 0;
       opacity: 0;
@@ -245,8 +239,7 @@
       line-height $motion-base,
       letter-spacing $motion-base;
 
-    // 축약 상태에서 살짝 더 작게 — krds-yp-custom.md 11번 규칙상 한글에 음수 자간은 안 쓰므로
-    // (letter-spacing 축소 대신) 디자인 토큰에 있는 한 단계 작은 크기(caption)로 낮춘다.
+    // 한글에는 음수 자간을 쓰지 않는 규칙상, letter-spacing 축소 대신 한 단계 작은 크기(caption) 토큰 사용
     .header.is-scrolled & {
       font-size: $font-size-caption;
       line-height: $line-height-caption;
@@ -256,16 +249,15 @@
     }
   }
 
-  // 마이페이지/장바구니/주문/로그아웃 아이콘 — 예전엔 header-sticky 전용이었지만 이제 여기 항상
-  // 있고, 평소엔 숨겨져 있다가 스크롤 시 utility-bar 자리를 대신해 fade in 한다(test.html의
-  // .header-icons 패턴). __hamburger와 같은 이유로 평소엔 width도 0으로 접어서 자리를
-  // 차지하지 않게 한다 — 4개 아이콘(44px) + 사이 gap 3개($space-1=4px) = 188px.
+  // 마이페이지/장바구니/주문/로그아웃 아이콘 — 평소엔 숨겨져 있다가 스크롤 시 utility-bar 자리를
+  // 대신해 fade in 함. __hamburger와 같은 이유로 width도 0으로 접어 자리를 차지하지 않게 함
+  // (4개 아이콘 44px + gap 3개 4px = 188px)
   &__icons {
     flex: 0 0 auto;
     display: flex;
     gap: 0;
     width: 0;
-    // 폭이 0이어도 앞의 __inner gap은 남아서 __subsidy가 container 라인보다 그만큼 안쪽에서 끝나므로, 평소엔 음수 margin으로 상쇄한다.
+    // 폭이 0이어도 __inner의 gap은 그대로 남아 __subsidy가 container 라인 안쪽에서 끝나므로 음수 margin으로 상쇄
     margin-left: -$space-6;
     overflow: hidden;
     opacity: 0;

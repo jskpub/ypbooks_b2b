@@ -4,8 +4,7 @@ export type ReviewVisibility = 'public-real' | 'public-anonymous' | 'private';
 
 export interface Review {
   id: string;
-  /** 알라딘 ItemLookUp으로 실시간 표지/제목을 채우기 위한 키. bookTitle/bookAuthor/coverIcon은 알라딘 호출
-   * 실패 시 표시할 폴백이다(오프라인, 알라딘 장애 등). */
+  /** 알라딘 ItemLookUp 실시간 조회 키, bookTitle/bookAuthor/coverIcon은 조회 실패(오프라인, 알라딘 장애 등) 시 폴백 */
   isbn13: string;
   bookTitle: string;
   bookAuthor: string;
@@ -19,7 +18,7 @@ export interface Review {
   detail: string;
   createdAt: string;
   updatedAt?: string;
-  /** 본인을 제외한 다른 임직원의 좋아요 수 — 정렬 기준이라 본인이 눌러도 순서가 바뀌지 않는다. */
+  /** 본인 제외 좋아요 수, 정렬 기준이라 본인이 눌러도 순서 불변 */
   likeCount: number;
   likedByMe: boolean;
 }
@@ -116,8 +115,7 @@ export const reviews: Review[] = [
     likedByMe: false,
   },
   {
-    // CURRENT_USER_NAME(김민서)이 작성한 서평 — readingStatusStore 시드(그릿, 완독)와 짝을 맞춰
-    // REVIEW-02의 "서평 보기" 분기, REVIEW-03(나의 서평) 목록을 데이터 없이도 확인할 수 있게 한다.
+    // CURRENT_USER_NAME(김민서) 작성 서평, readingStatusStore 시드(그릿, 완독)와 짝을 맞춰 관련 화면들을 데이터 없이도 확인 가능하게 함
     id: 'review-그릿-김민서',
     isbn13: '9791162540633',
     bookTitle: '그릿 GRIT',

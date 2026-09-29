@@ -22,9 +22,7 @@ interface TrackMetrics {
 
 const INITIAL_METRICS: TrackMetrics = { thumbWidthPct: 100, thumbLeftPct: 0, atStart: true, atEnd: true };
 
-// Figma marker 11(추천 도서 목록 캐러셀) — BookCarousel과 달리 페이지 단위가 아니라 연속 스크롤 +
-// 하단 진행바(marker 10, thumb-progress)로 위치를 보여준다. 화살표는 보이는 폭만큼 스크롤하고
-// 맨 앞/뒤에서 비활성화된다(design-system.md에 없던 패턴이라 스크롤바 thumb 계산 방식을 그대로 옮겼다).
+// BookCarousel과 달리 페이지 단위가 아닌 연속 스크롤 + 하단 진행바로 위치 표시, 스크롤바 thumb 계산 방식 사용
 export default function RecommendThumbCarousel({ items, selectedIndex, onSelect }: RecommendThumbCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [metrics, setMetrics] = useState<TrackMetrics>(INITIAL_METRICS);

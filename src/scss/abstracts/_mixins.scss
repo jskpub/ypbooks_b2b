@@ -3,7 +3,6 @@
 @use 'variables' as *;
 @use 'functions' as *;
 
-// 모바일 퍼스트: min-width 기준
 @mixin respond-to($key) {
   $value: map.get($breakpoints, $key);
   @if $value == null {
@@ -14,8 +13,7 @@
   }
 }
 
-// 아이콘만 있는 버튼/링크의 실제 클릭 영역. 아이콘(.icon) 자체는 20px로 작게 두더라도,
-// 클릭 영역은 44×44px(WCAG 2.1 타깃 크기 권장치)로 넉넉하게 잡는다.
+// 아이콘(.icon) 시각 크기는 20px로 작지만, 클릭 영역은 WCAG 2.1 타깃 크기 권장치 준수 위해 44×44px 유지함
 @mixin icon-button {
   display: inline-flex;
   align-items: center;

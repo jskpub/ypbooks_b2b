@@ -45,7 +45,6 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           <span className='logo__badge'>비즈몰</span>
         </Link>
 
-        {/* origin/master의 SPA 검색 이동 기능 적용 */}
         <form className='brand-bar__search' role='search' onSubmit={handleSubmit}>
           <label htmlFor='site-search' className='sr-only'>
             도서 검색

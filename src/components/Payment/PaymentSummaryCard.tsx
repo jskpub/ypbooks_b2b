@@ -36,28 +36,26 @@ function renderRightSubsidyCallout({
   isMaxBenefitApplied?: boolean;
   onApplyMaxBenefit?: () => void;
 }) {
-  // [Case 2-A] 모두 소진 -> 전체 미노출
+  // Case 2-A: 모두 소진
   if (recommendedUsed && personalUsed) return null;
 
-  // 한쪽 유형만 소진된 경우 (Case 2-B / Case 2-C)
+  // Case 2-B / 2-C: 한쪽 유형만 소진
   if (recommendedUsed || personalUsed) {
     const usedLabel = recommendedUsed ? '추천도서' : '개인도서';
     const otherLabel = recommendedUsed ? '개인도서' : '추천도서';
     const hasOtherItems = recommendedUsed ? hasPersonalItems : hasRecommendedItems;
 
-    // [Case 2-B] 대체 적용 가능한 다른 도서가 없으면 미노출
+    // Case 2-B: 대체 적용 가능한 다른 도서 없음
     if (!hasOtherItems) return null;
 
-    // [Case 2-C] 소진 + 대체 적용 가능 도서 존재
+    // Case 2-C: 소진 + 대체 적용 가능 도서 존재
     return (
       <div className={`cart-summary__subsidy-stack${isMaxBenefitApplied ? ' is-applied' : ''}`}>
-        {/* ① 1행: 소진 내역 안내 */}
         <div className='cart-summary__subsidy-row cart-summary__subsidy-row--exhausted'>
           <Icon name='x-circle' className='cart-summary__subsidy-row-icon' />
           <span className='cart-summary__subsidy-row-text'>{usedLabel} 지원금 이번 달 사용 완료</span>
         </div>
 
-        {/* ② 2행: 적용 가능/완료 혜택 안내 */}
         <div className='cart-summary__subsidy-row cart-summary__subsidy-row--benefit'>
           <Icon name={isMaxBenefitApplied ? 'check-circle' : 'sparkle'} className='cart-summary__subsidy-row-icon' />
           <span className='cart-summary__subsidy-row-text'>
@@ -65,7 +63,6 @@ function renderRightSubsidyCallout({
           </span>
         </div>
 
-        {/* ③ 3행: 최대혜택 적용 액션 버튼 (적용 전만 전폭 100% 노출) */}
         {!isMaxBenefitApplied && (
           <button type='button' className='btn btn--secondary btn--sm cart-summary__subsidy-btn' onClick={onApplyMaxBenefit}>
             최대혜택 적용하기 <Icon name='caret-right' />
@@ -75,13 +72,11 @@ function renderRightSubsidyCallout({
     );
   }
 
-  // 추천/개인 도서 상품이 없는 경우 -> 미노출
   if (!hasRecommendedItems && !hasPersonalItems) return null;
 
-  // 소진된 지원금 없이 모두 정상 상태 (Case 2-D 또는 적용 완료)
+  // Case 2-D: 소진된 지원금 없음 (또는 적용 완료)
   return (
     <div className={`cart-summary__subsidy-stack${isMaxBenefitApplied ? ' is-applied' : ''}`}>
-      {/* ② 2행: 적용 가능/완료 혜택 안내 (1행 소진 안내 생략) */}
       <div className='cart-summary__subsidy-row cart-summary__subsidy-row--benefit'>
         <Icon name={isMaxBenefitApplied ? 'check-circle' : 'sparkle'} className='cart-summary__subsidy-row-icon' />
         <span className='cart-summary__subsidy-row-text'>
@@ -89,7 +84,6 @@ function renderRightSubsidyCallout({
         </span>
       </div>
 
-      {/* ③ 3행: 최대혜택 적용 액션 버튼 (적용 전만 전폭 100% 노출) */}
       {!isMaxBenefitApplied && (
         <button type='button' className='btn btn--secondary btn--sm cart-summary__subsidy-btn' onClick={onApplyMaxBenefit}>
           최대혜택 적용하기 <Icon name='caret-right' />
@@ -99,8 +93,7 @@ function renderRightSubsidyCallout({
   );
 }
 
-// design-system.md "Payment Sidebar" 패턴(상품금액 → 지원금 차감 줄 → 구분선 → 최종 결제 금액 →
-// 전체 폭 결제 버튼) 그대로. CartPage 사이드바의 .cart-summary를 그대로 재사용한다.
+// CartPage 사이드바의 .cart-summary 스타일 재사용
 export default function PaymentSummaryCard({
   totalSellingPrice,
   hasRecommendedItems,

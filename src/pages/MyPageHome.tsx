@@ -10,18 +10,15 @@ export default function MyPageHome() {
 
   const [readingItems] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
 
-  // 통계 수치 계산
   const totalPurchased = readingItems.length;
   const currentlyReading = readingItems.filter((item) => item.status === 'reading').length;
   const completedReading = readingItems.filter((item) => item.status === 'done').length;
 
-  // 최근 주문 2건만 가져오기
   const recentOrders = orderHistory.slice(0, 2);
 
   return (
     <main id='main' className='main my-page-layout'>
       <div className='container my-page-layout__inner'>
-        {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
             <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
@@ -73,7 +70,6 @@ export default function MyPageHome() {
           </nav>
         </aside>
 
-        {/* 메인 콘텐츠 영역 */}
         <div className='my-page-content'>
           <div className='my-page-content__header'>
             <h1 className='text-h1'>마이페이지</h1>
@@ -81,7 +77,6 @@ export default function MyPageHome() {
 
           <div className='my-page-dashboard'>
             <div className='dashboard-row dashboard-row--2col'>
-              {/* 회원 기본 정보 */}
               <div className='card dashboard-card'>
                 <h3 className='text-h3 dashboard-card__title'>회원 기본 정보</h3>
                 <table className='info-table'>
@@ -109,7 +104,6 @@ export default function MyPageHome() {
                 <p className='caption dashboard-card__note'>* 사원 정보는 인사(HR) 시스템 자동 연계 항목입니다.</p>
               </div>
 
-              {/* 당월 지원금 현황 */}
               <div className='card dashboard-card'>
                 <div className='dashboard-card__header'>
                   <h3 className='text-h3'>당월 지원금 현황 (2026년 9월)</h3>
@@ -144,7 +138,6 @@ export default function MyPageHome() {
               </div>
             </div>
 
-            {/* 나의 독서 활동 요약 */}
             <div className='card dashboard-card'>
               <h3 className='text-h3 dashboard-card__title'>나의 독서 활동 요약</h3>
               <div className='library-stats'>
@@ -163,7 +156,6 @@ export default function MyPageHome() {
               </div>
             </div>
 
-            {/* 최근 도서 주문 / 배송 내역 */}
             <div className='card dashboard-card'>
               <div className='dashboard-card__header'>
                 <h3 className='text-h3'>최근 도서 주문 / 배송 내역</h3>

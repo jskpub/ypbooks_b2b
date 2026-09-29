@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-// 장바구니 담기 등 짧은 액션 확인용 — design-system.md에 아직 정의되지 않은 패턴이라
-// 버튼의 다크 톤(색 대비)에 맞춰 최소 형태로 구성한다. 화면당 한 번에 하나만 뜬다.
+// design-system.md 미정의 패턴, 버튼 다크 톤에 맞춰 최소 구성. 화면당 동시 1개만 노출
 .toast {
   position: fixed;
   bottom: $space-8;

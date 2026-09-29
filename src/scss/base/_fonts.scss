@@ -1,6 +1,5 @@
-// Pretendard GOV — 로컬 정적 웨이트 파일 (src/assets/fonts/)
-// 실무 팁(design-system.md): UI엔 400/500/600/700만 써도 충분하지만, 받아둔 9종 전부 선언해둔다.
-// font-display: swap이라 브라우저가 로딩 중엔 폴백 폰트로 먼저 보여주고 로드되면 교체한다.
+// Pretendard GOV — 로컬 정적 웨이트 파일(src/assets/fonts/) 9종 전체 선언
+// font-display: swap, 로딩 중 폴백 폰트 표시 후 로드 완료 시 교체
 
 @font-face {
   font-family: 'Pretendard GOV';

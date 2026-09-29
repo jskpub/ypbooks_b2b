@@ -1,20 +1,18 @@
 @use '../abstracts' as *;
 
-// Figma node 44:2660(Component/Badge) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
-// 개인 Figma 파일에서 확인: 아웃라인 칩이 아니라 배경을 채운 필 칩이고, 좌우 패딩이 비대칭이다
-// (아이콘 쪽 space-2, 글자 쪽 space-3). 아이콘도 recommended=star, general=books로 확정됐다.
+// Figma 실측, 좌우 패딩 비대칭(아이콘 space-2 / 글자 space-3)은 의도된 값
 .badge {
   display: inline-flex;
   align-items: center;
   gap: $space-1;
   padding-block: $space-1;
   padding-inline: $space-2 $space-3;
-  border-radius: $radius-full; // Figma Radius 문서: "배지, 칩, 지원금 버튼"
-  font-size: $font-size-label-base; // 13/18 Medium — Figma Type 문서: "배지, 탭, 입력 라벨"
+  border-radius: $radius-full;
+  font-size: $font-size-label-base;
   line-height: $line-height-label-base;
   font-weight: 500;
 
-  // Figma 배지 아이콘 실측 16px — .icon 기본값(20px, utilities/_helpers.scss)을 안 쓰고 여기서 줄인다.
+  // .icon 기본값 20px(utilities/_helpers.scss) 대신 16px로 축소 적용
   .icon {
     width: rem(16);
     height: rem(16);
@@ -22,7 +20,7 @@
 
   &--recommended {
     background-color: $color-primary-soft;
-    color: $color-on-primary-soft; // "추천도서"
+    color: $color-on-primary-soft;
   }
 
   &--general,

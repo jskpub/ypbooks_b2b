@@ -1,16 +1,15 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:1772 (Component/Subsidy Button) — status(Apply/Applied/Exhausted).
-// 개인도서/추천도서 구분 없이 같은 스타일(브랜드색 primary)을 쓴다.
+// 개인도서/추천도서 구분 없이 동일 스타일(brand primary) 적용
 .subsidy-btn {
   display: inline-flex;
   align-items: center;
   gap: $space-1;
   padding: $space-1 $space-3;
-  border-radius: $radius-full; // 배지/칩/지원금 버튼 — Figma Radius 문서
+  border-radius: $radius-full;
   border: $border-width-1 solid $color-primary;
-  background-color: transparent;
-  color: $color-primary;
+  background-color: $color-surface-card;
+  color: $color-on-primary-soft;
   font-size: $font-size-body-xs;
   line-height: $line-height-label-base;
   font-weight: 500;
@@ -19,7 +18,6 @@
     color $motion-fast,
     border-color $motion-fast;
 
-  // design-system.md Imagery: "기본 20px, 소형 버튼·배지·칩 안에서는 16px"
   .icon {
     width: rem(16);
     height: rem(16);
@@ -41,10 +39,10 @@
 
     &:hover {
       background-color: $color-primary-hover;
+      border-color: $color-primary-hover;
     }
   }
 
-  // status=Exhausted(한도 소진) — 항상 비활성
   &.is-exhausted,
   &:disabled {
     background-color: $color-surface;
@@ -52,21 +50,4 @@
     color: $color-disabled-text;
     cursor: not-allowed;
   }
-}
-
-
-.subsidy-btn {
-  background-color: $color-surface-card;      // 추가 (기존 transparent)
-  border: $border-width-1 solid $color-primary;
-  color: $color-on-primary-soft;              // 변경 (기존 $color-primary)
-
-  &:hover { background-color: $color-primary-soft; }
-
-  &.is-applied {
-    background-color: $color-primary;
-    border-color: $color-primary;
-    color: $color-on-primary;
-    &:hover { background-color: $color-primary-hover; border-color: $color-primary-hover; }
-  }
-  // is-exhausted / :disabled 블록은 그대로
 }

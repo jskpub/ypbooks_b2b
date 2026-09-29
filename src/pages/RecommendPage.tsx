@@ -8,10 +8,9 @@ import { fetchRecommendedBooks, type RecommendedAladinItem } from '@/services/al
 
 const CURRENT_MONTH_LABEL = `${new Date().getMonth() + 1}월`;
 
-// 더보기(⑮) 스펙: 기본 3개월 노출 → 클릭 시 3개월씩 추가, 더 없으면 버튼 숨김.
+// 기본 3개월 노출, 클릭 시 3개월씩 추가, 더 없으면 버튼 숨김
 const MONTHS_PAGE_SIZE = 3;
 
-// BOOK-01. Figma node 84:50 기준 — 배너 + Picked Book(대표 도서, 썸네일로 전환) + 지난 추천 도서.
 export default function RecommendPage() {
   const [books, setBooks] = useState<RecommendedAladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');

@@ -21,7 +21,6 @@
     align-items: flex-start;
   }
 
-  // 상단 줄 — 브랜드 + 뱃지
   &__brand {
     display: flex;
     align-items: center;
@@ -45,7 +44,6 @@
     object-fit: contain;
   }
 
-  // 상단 줄 — 링크 내비게이션
   &__nav {
     display: flex;
     align-items: center;
@@ -88,7 +86,6 @@
     color: $color-foreground;
   }
 
-  // 하단 줄 — 사업자 정보 + 저작권
   &__info {
     display: flex;
     flex-direction: column;

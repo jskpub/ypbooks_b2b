@@ -1,6 +1,5 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:2310 (Component/Tab Item) — "현재 탭은 아래에 빨간 선으로 표시".
 .tab-item {
   display: inline-flex;
   align-items: center;

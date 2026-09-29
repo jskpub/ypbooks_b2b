@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-// 베스트(BOOK-03)/신상품(BOOK-04) 공용 레이아웃 — 카테고리 사이드바 + 본문.
+// 베스트(BOOK-03)/신상품(BOOK-04) 공용 레이아웃
 .catalog-page {
   display: flex;
   gap: $space-10;

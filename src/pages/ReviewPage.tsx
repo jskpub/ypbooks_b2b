@@ -13,12 +13,11 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 ];
 
 export default function ReviewPage() {
-  // 컴포넌트 바깥(모듈 최상단)에서 한 번만 읽으면 서평 작성 후 뒤로 돌아왔을 때도 그대로 캐시된
-  // 값을 보여준다 — 마운트마다(= 이 화면에 올 때마다) 다시 읽어야 방금 쓴 서평이 반영된다.
+  // 마운트마다 재조회해야 방금 작성한 서평이 반영됨 (모듈 최상단 캐시 방식은 뒤로가기 시 갱신 안 됨)
   const publicReviews = useMemo(() => getAllReviews().filter((review) => review.visibility !== 'private'), []);
   const [sortKey, setSortKey] = useState<SortKey>('latest');
   const [likedIds, setLikedIds] = useState(() => new Set(publicReviews.filter((review) => review.likedByMe).map((review) => review.id)));
-  // isbn13 -> 알라딘 표지 URL. 조회 전/실패 시엔 undefined로 두고 ReviewCard가 coverIcon으로 대체한다.
+  // 조회 전/실패 시 undefined 유지, ReviewCard가 coverIcon으로 대체
   const [covers, setCovers] = useState<Record<string, string>>({});
 
   useEffect(() => {

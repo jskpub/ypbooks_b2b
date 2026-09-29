@@ -9,9 +9,7 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// YP_PAYMENTS OrderCompletePage 이식. 마이페이지/주문내역 라우트가 이 프로젝트엔 아직 없어
-// "주문/배송내역 조회" 버튼은 빼고 "쇼핑 계속하기"만 남겼다. 클립보드 복사 아이콘(Copy/CopyCheck)도
-// 마땅한 아이콘이 없어 텍스트 버튼으로 대체했다.
+// 마이페이지/주문내역 라우트 부재로 "쇼핑 계속하기"만 유지, 클립보드 복사도 적합한 아이콘 부재로 텍스트 버튼 대체
 export default function OrderCompletePage() {
   const { lastOrder } = useCart();
   const navigate = useNavigate();
@@ -24,7 +22,7 @@ export default function OrderCompletePage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // 클립보드 API를 쓸 수 없는 환경(권한 거부 등) — 조용히 무시한다. 주문번호는 화면에 그대로 보인다.
+      // 클립보드 API 미지원/권한 거부 환경 무시, 주문번호는 화면에 이미 표시됨
     }
   };
 
@@ -155,7 +153,7 @@ export default function OrderCompletePage() {
         </div>
 
         <div className='order-complete__actions'>
-          {/* 원본은 마이페이지 주문 탭으로 이동 — 이 프로젝트엔 아직 그 라우트가 없어 자리만 잡아둠 */}
+          {/* 마이페이지 주문 탭 라우트 부재로 자리만 확보 */}
           <a href='javascript:;' className='btn btn--secondary'>
             <Icon name='receipt' />
             주문/배송내역 조회

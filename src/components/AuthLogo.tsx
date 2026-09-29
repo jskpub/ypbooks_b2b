@@ -1,4 +1,4 @@
-// 로그인 화면용 로고. BrandBar와 같은 로고 + "비즈몰" 배지로 일반몰과 구분되는 B2B 채널임을 알린다.
+// BrandBar와 동일 로고 사용, 비즈몰 배지로 일반몰과 구분되는 B2B 채널 표시
 export default function AuthLogo() {
   return (
     <div className='auth-logo'>

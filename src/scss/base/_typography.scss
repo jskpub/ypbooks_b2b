@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-// 스타일명은 Figma Type/Table 그대로: Display / Heading H1-H4 / Body / Label / Caption / Numeric
-// design-system.md 기준. 굵기는 400 / 500 / 700 세 가지만 쓴다.
+// 스타일명: Display / Heading H1-H4 / Body / Label / Caption / Numeric, 굵기는 400 / 500 / 700 세 가지만 사용
 
 body {
   font-family: $font-family-base;
@@ -14,28 +13,28 @@ body {
 h1 {
   font-size: $font-size-h1;
   line-height: $line-height-h1;
-  font-weight: 700; // Bold
+  font-weight: 700;
 }
 
 h2 {
   font-size: $font-size-h2;
   line-height: $line-height-h2;
-  font-weight: 700; // Bold
+  font-weight: 700;
 }
 
 h3 {
   font-size: $font-size-h3;
   line-height: $line-height-h3;
-  font-weight: 500; // Medium
+  font-weight: 500;
 }
 
 h4 {
   font-size: $font-size-h4;
   line-height: $line-height-h4;
-  font-weight: 500; // Medium
+  font-weight: 500;
 }
 
-// Display — 추천 도서를 크게 소개하는 영역에서만 쓴다. 일반 페이지 제목에는 h1을 쓴다.
+// Display — 추천 도서를 크게 소개하는 영역 전용, 일반 페이지 제목은 h1 사용
 .text-display-lg {
   font-size: $font-size-display-lg;
   line-height: $line-height-display-lg;
@@ -48,7 +47,7 @@ h4 {
   font-weight: 700;
 }
 
-// 실제 heading 태그를 쓰지 않고 스타일만 재사용할 때(예: 스타일 가이드 데모)
+// heading 태그 없이 스타일만 재사용하는 경우용(예: 스타일 가이드 데모)
 .text-h1 {
   font-size: $font-size-h1;
   line-height: $line-height-h1;
@@ -97,19 +96,19 @@ h4 {
 .label-lg {
   font-size: $font-size-label-lg;
   line-height: $line-height-label-lg;
-  font-weight: 500; // Medium — 버튼 라벨
+  font-weight: 500; // 버튼 라벨
 }
 
 .label-base {
   font-size: $font-size-label-base;
   line-height: $line-height-label-base;
-  font-weight: 500; // Medium — 배지, 탭, 입력 라벨
+  font-weight: 500; // 배지, 탭, 입력 라벨
 }
 
 .label-sm {
   font-size: $font-size-label-sm;
   line-height: $line-height-label-sm;
-  font-weight: 700; // Bold — 리본, 작은 태그
+  font-weight: 700; // 리본, 작은 태그
 }
 
 small,
@@ -137,8 +136,8 @@ small,
   font-weight: 700; // 평점 등 강조가 필요한 도서 메타
 }
 
-// Numeric — design-system.md의 fontFeature: tnum. 금액 자릿수를 세로로 맞춰 흔들리지 않게 한다.
-// 금액 한 덩어리는 서식을 쪼개지 않는다 — 숫자와 "원"에 다른 굵기·색을 주지 않는다.
+// Numeric — tabular-nums로 금액 자릿수 정렬 흔들림 방지
+// 금액은 숫자와 "원"에 서로 다른 굵기·색을 주지 않고 한 덩어리로 서식 유지함
 .price-lg,
 .price,
 .price-sm {

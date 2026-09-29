@@ -20,15 +20,11 @@ interface BookCarouselProps {
   perPage?: number;
 }
 
-// _book-card.scss의 카드 폭(240px)·$space-6(24px) 간격과 맞춰서 페이지당 이동 거리를 px로 계산한다.
-// 토큰을 SCSS에서만 관리하고 JS로 끌어오는 구조가 없어서 여기 값이 바뀌면 같이 바꿔야 한다.
+// SCSS 카드 폭·gap 토큰을 JS로 끌어오는 구조 부재, SCSS 값 변경 시 아래 상수도 함께 수정 필요
 const CARD_WIDTH_PX = 240;
 const CARD_GAP_PX = 24;
 
-// design-system.md "side-button" 패턴 — 가로 스크롤 도서 목록 양옆의 50×50 원형 버튼으로
-// perPage(기본 4)개씩 페이지 단위로 넘긴다. 첫 페이지에선 이전, 마지막 페이지에선 다음을 Disabled.
-// 기본값 5는 side-button(50px)×2 + gap(16px)×2를 더하면 1428px가 필요해 컨테이너 폭(1240px)을
-// 넘어서서 5번째 카드가 잘렸다 — 4로 낮춰 필요한 폭(1164px)이 컨테이너 안에 들어오게 한다.
+// perPage 기본값 5는 side-button·gap 포함 필요 폭(1428px)이 컨테이너 폭(1240px)을 초과해 카드가 잘림, 4로 설정해 방지
 export default function BookCarousel({ items, variant, showPrice = true, perPage = 4 }: BookCarouselProps) {
   const [page, setPage] = useState(0);
   const pageCount = Math.max(1, Math.ceil(items.length / perPage));

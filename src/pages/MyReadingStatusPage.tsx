@@ -30,17 +30,14 @@ function formatDot(isoDate: string): string {
   return isoDate.replaceAll('-', '.');
 }
 
-// REVIEW-02. 계정 드롭다운(마이페이지) UI가 아직 없어서 /myreading으로 직접 진입한다 —
-// REVIEW_SPEC.md "진입 경로 결정" 참고. 완독/서평 데이터는 DB 없이 localStorage로만 관리한다.
-// 통계(구매/서평/독서 권수)는 REVIEW-05(/mystats, 독서 통계)로 분리했다 — 이 페이지는 "지금 상태
-// 관리"만 다루고, 과거 기간 집계는 다루지 않는다.
+// 계정 드롭다운(마이페이지) UI 부재로 /myreading 직접 진입, 완독/서평 데이터는 DB 없이 localStorage로만 관리
+// 통계(구매/서평/독서 권수)는 /mystats로 분리, 이 페이지는 현재 상태 관리만 담당
 export default function MyReadingStatusPage() {
   const user = getSessionUser();
   const [tab, setTab] = useState<Tab>('all');
   const [items, setItems] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
   const [books, setBooks] = useState<Record<string, AladinItem | null>>({});
-  // 서평엔 개별 상세 페이지가 없어서, 카드의 "서평 보기"는 REVIEW-03(나의 서평) 목록의 해당
-  // 카드로 앵커(#review-{id}) 이동시킨다 — MyReviewsPage가 그 해시를 보고 스크롤+하이라이트한다.
+  // 서평 개별 상세 페이지 부재로 "서평 보기"는 MyReviewsPage의 해당 카드로 앵커(#review-{id}) 이동, 대상 페이지가 해시로 스크롤+하이라이트 처리
   const myReviewsByIsbn = useMemo(() => new Map(getMyReviews().map((review) => [review.isbn13, review])), [items]);
 
   useEffect(() => {
@@ -156,9 +153,7 @@ export default function MyReadingStatusPage() {
                     <p className='text-h4 reading-status__card-title'>{row.book?.title ?? '불러오는 중…'}</p>
                     <p className='text-body-sm reading-status__author'>{row.book?.author}</p>
                     <p className='caption'>구매일 {row.purchasedAt}</p>
-                    {/* 상태 전환(다시 읽기 등)으로 이 줄이 생겼다 없어졌다 하면 카드 높이가 바뀌면서
-                        같은 행의 다른 카드 버튼 위치까지 같이 밀린다 — 항상 렌더링하고 해당 없을 땐
-                        visibility만 숨겨서 높이를 고정한다. */}
+                    {/* 조건부 렌더링 시 카드 높이 변화로 같은 행 버튼 위치 밀림, 항상 렌더링 후 visibility만 숨겨 높이 고정 */}
                     <p className={`caption${row.status === 'done' && row.startedAt && row.completedAt ? '' : ' is-hidden'}`}>
                       독서 기간 {row.startedAt && row.completedAt ? `${formatDot(row.startedAt)} ~ ${formatDot(row.completedAt)}` : ' '}
                     </p>

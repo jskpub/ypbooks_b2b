@@ -1,16 +1,12 @@
 @use '../abstracts' as *;
 
-// Figma 소스: 1280px 고정 폭 기준 12컬럼, 거터 24px. 반응형 대상 아님(모바일 MVP 범위 밖).
 .grid {
   display: grid;
   gap: $layout-gutter;
   grid-template-columns: repeat($layout-columns, 1fr);
 }
 
-// 본문 + 결제 사이드바(320px 고정) 레이아웃 — Figma "Grid/Demo" 패턴
-// 기존 .layout--with-sidebar { .layout__main {} .layout__sidebar {} }는 정의된 적 없는
-// .layout 블록의 엘리먼트인 것처럼 이름 붙어 있었다(모디파이어가 블록처럼 단독 사용됨) — 실제로 쓰는
-// 모양 그대로 독립 블록으로 바꾸고 엘리먼트를 중첩한다.
+// 본문 + 결제 사이드바(320px 고정) 레이아웃
 .layout-with-sidebar {
   display: flex;
   align-items: flex-start;
@@ -21,10 +17,9 @@
     min-width: 0;
   }
 
-  // 스크롤해도 사이드바(주문 합계/결제 요약 카드)가 본문을 따라오도록 고정한다. top 값은
-  // 헤더(_category-menu.scss와 동일한 실측 상수: 펼침 181px/축약 87px)에 가려 잘리지 않도록
-  // 헤더의 현재 높이 + 여백(space-4)만큼 띄운다 — 헤더가 sticky top:0으로 항상 뷰포트 위에
-  // 붙어있어서, 그보다 작은 top 값을 쓰면 사이드바 위쪽이 헤더 뒤로 숨어 잘려 보인다.
+  // 스크롤 시 사이드바(주문 합계/결제 요약 카드)가 본문을 따라오도록 고정함
+  // top 값은 헤더 높이(_category-menu.scss와 동일 실측 상수: 펼침 181px/축약 87px) + 여백(space-4)
+  // 헤더가 sticky top:0으로 항상 뷰포트 위에 붙어있어 이보다 작은 top을 쓰면 사이드바 위쪽이 헤더에 가려짐
   &__sidebar {
     flex: 0 0 $layout-sidebar-width;
     width: $layout-sidebar-width;

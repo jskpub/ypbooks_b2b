@@ -1,6 +1,4 @@
-// 백엔드·실제 SSO 연동이 없는 MVP라 인증을 프론트에서 흉내낸다.
-// 로그인 상태는 sessionStorage에 두어서, 로그인 화면을 거치지 않고 주소를 직접 입력해 들어오면
-// (= 이 탭에 로그인 기록이 없으면) RequireAuth가 /login으로 돌려보낸다.
+// 백엔드/SSO 연동 부재로 인증 프론트 목업 처리, 세션은 sessionStorage 저장 (탭 단위, 미로그인 시 RequireAuth가 /login으로 리다이렉트)
 
 export interface SessionUser {
   employeeId: string;
@@ -11,13 +9,13 @@ interface EmployeeAccount extends SessionUser {
   password: string;
 }
 
-// 영풍문고가 발급한 사번·비밀번호라고 가정한 목업 계정.
+// 영풍문고 발급 가정 사번·비밀번호 목업 계정
 const EMPLOYEE_ACCOUNTS: EmployeeAccount[] = [{ employeeId: '26020045', password: 'ypbooks1234', name: '김민서' }];
 
-// 시연용: 로그인 화면 입력칸에 미리 채워 두어 Enter만 눌러도 들어가게 한다.
+// 시연용 자동 입력값, 로그인 화면에서 Enter만으로 진입 가능하도록 제공
 export const DEMO_ACCOUNT = { employeeId: EMPLOYEE_ACCOUNTS[0].employeeId, password: EMPLOYEE_ACCOUNTS[0].password };
 
-// 인트라넷 SSO가 넘겨준다고 가정한 사용자.
+// 인트라넷 SSO 전달 가정 사용자
 const SSO_USER: SessionUser = { employeeId: '26020045', name: '김민서' };
 
 const SESSION_KEY = 'ypbooks_b2b.session';
@@ -29,7 +27,7 @@ function saveSession(user: SessionUser) {
 export function getSessionUser(): SessionUser | null {
   const saved = sessionStorage.getItem(SESSION_KEY);
   if (!saved) return null;
-  // 값이 손상돼 JSON.parse가 실패하면 앱 전체가 흰 화면으로 멈추므로, 비로그인으로 처리하고 값을 지운다.
+  // JSON.parse 실패 시 앱 전체 렌더 중단 방지 위해 비로그인 처리 후 값 삭제
   try {
     return JSON.parse(saved) as SessionUser;
   } catch {

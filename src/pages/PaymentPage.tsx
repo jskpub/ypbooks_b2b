@@ -22,10 +22,7 @@ import AddressModal from '@/components/AddressModal';
 const SUBSIDY_TYPES: CartGroup[] = ['recommended', 'personal'];
 const DELIVERY_MEMO_DEFAULT = '부재시 경비실에 맡겨주세요.';
 
-// YP_PAYMENTS PaymentPage(E:\YP_PAYMENTS\src\pages\PaymentPage.tsx) 이식. 원본은 전역 ShopContext로
-// cart/subsidyLedger/selectedAddress를 관리하는데, 이 프로젝트도 CartContext를 새로 만들어 같은
-// 방식으로 옮겼다 — 장바구니에서 체크한 상품이 이 페이지에 그대로 이어진다. 지원금 적용/해제,
-// 그룹당 1권 상호배타, 최대혜택 배너, 결제 확인 팝업 등 핵심 로직은 원본과 동일하게 동작한다.
+// 장바구니 CartContext(cart/subsidyLedger/selectedAddress)를 그대로 이어받아 사용, 체크된 상품이 이 페이지로 연결됨
 export default function PaymentPage() {
   const navigate = useNavigate();
   const { toastMessage, showToast } = useToast();
@@ -54,8 +51,7 @@ export default function PaymentPage() {
   const isTypeExhausted = (type: CartGroup) => (type === 'recommended' ? subsidyLedger.recommendedUsed : subsidyLedger.personalUsed);
   const itemsOfType = (type: CartGroup) => selectedItems.filter((item) => item.group === type);
 
-  // 결제 페이지 진입 시 지원 대상인데 미적용인 유형이 있으면, 유형별로 지원 혜택이 가장 큰
-  // 도서에 자동으로 지원금을 적용한다(직원 입장에서 가장 이득이 되는 기본 선택) — 1회만 실행.
+  // 지원 대상인데 미적용인 유형이 있으면 유형별로 혜택이 가장 큰 도서에 자동 적용 (직원에게 가장 유리한 기본 선택), 진입 시 1회만 실행
   const applyBestSubsidyFor = (type: CartGroup) => {
     const candidates = itemsOfType(type);
     if (candidates.length === 0) return;
@@ -94,8 +90,7 @@ export default function PaymentPage() {
     });
   };
 
-  // 지원금이 적용 중이던 상품을 [✕]로 이번 결제에서 제외하면, 남은 같은 그룹 도서 중
-  // 할인액이 가장 큰 도서로 지원금을 자동 승계한다(원본 handleExcludeItem 이식).
+  // 지원금 적용 상품을 [✕]로 제외 시 같은 그룹 내 할인액 최대 도서로 지원금 자동 승계
   const handleExclude = (item: CartItem) => {
     const wasApplied = item.isSubsidyApplied;
     toggleChecked(item.id);

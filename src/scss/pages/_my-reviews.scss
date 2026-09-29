@@ -5,12 +5,12 @@
   margin-inline: auto;
   padding-block: $space-8;
 
-  // 카드 목록은 REVIEW-01과 같은 .review-feed__list/.review-card를 그대로 재사용한다.
+  // REVIEW-01과 동일한 .review-feed__list/.review-card 재사용
   .review-feed__list {
     margin-top: $space-6;
   }
 
-  // /myreading "서평 보기"에서 #review-{id}로 들어왔을 때 스크롤된 카드를 잠깐 강조한다.
+  // /myreading "서평 보기" #review-{id} 진입 시 스크롤된 카드 강조 표시
   li.is-highlighted .review-card {
     animation: my-reviews-highlight 1.6s ease;
   }

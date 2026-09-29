@@ -1,32 +1,32 @@
 @use '../abstracts' as *;
 
 .card {
-  padding: $space-6; // padding=Medium 기본값
+  padding: $space-6;
   border: $border-width-1 solid $color-border;
-  border-radius: $radius-lg; // 10px — Figma Radius 문서: "카드, 모달"
-  background-color: $color-surface-card; // --color-surface-card, 순백
+  border-radius: $radius-lg;
+  background-color: $color-surface-card;
   transition:
     border-color $motion-fast,
     box-shadow $motion-fast;
 
   &--sm {
-    padding: $space-4; // padding=Small
+    padding: $space-4;
   }
 
   &__title {
-    font-size: $font-size-h4; // 15/22 Medium — "도서명, 목록 제목"
+    font-size: $font-size-h4;
     line-height: $line-height-h4;
     font-weight: 500;
-    margin-bottom: $space-2; // design-system.md card: "제목-본문 8px"
+    margin-bottom: $space-2;
   }
 
   &__body {
     color: $color-foreground-secondary;
-    font-size: $font-size-body-sm; // 13/20 — "보조 설명, 표 본문"
+    font-size: $font-size-body-sm;
     line-height: $line-height-body-sm;
   }
 
   &.is-selected {
-    border-color: $color-primary; // 선택 상태 = 브랜드 강조색
+    border-color: $color-primary;
   }
 }

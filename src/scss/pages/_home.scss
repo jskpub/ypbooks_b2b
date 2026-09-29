@@ -58,7 +58,7 @@
     line-height: $line-height-body-sm;
   }
 
-  // SearchPage(검색 결과 그리드)가 아직 이 클래스를 쓴다 — 홈 자체는 BookCarousel로 옮겨감.
+  // SearchPage 검색 결과 그리드가 이 클래스 사용 중, 홈 자체는 BookCarousel로 대체됨
   &__row {
     display: flex;
     flex-wrap: wrap;

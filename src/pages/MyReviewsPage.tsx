@@ -7,9 +7,8 @@ import { deleteReview, getMyReviews, saveReview } from '@/data/reviewStore';
 import { fetchBookDetail } from '@/services/aladinApi';
 import { getSessionUser } from '@/data/auth';
 
-// REVIEW-03. 계정 드롭다운(마이페이지) UI가 아직 없어서 /myreview로 직접 진입한다.
-// REVIEW-01(서평 피드)과 같은 ReviewCard를 재사용하되, 좋아요 대신 관리 메뉴(공개범위 설정/
-// 수정하기/삭제하기)를 노출하는 'mine' variant로 렌더링한다.
+// 계정 드롭다운(마이페이지) UI 부재로 /myreview 직접 진입
+// 서평 피드와 같은 ReviewCard 재사용, 좋아요 대신 관리 메뉴(공개범위/수정/삭제) 노출하는 'mine' variant 사용
 export default function MyReviewsPage() {
   const user = getSessionUser();
   const location = useLocation();
@@ -51,11 +50,9 @@ export default function MyReviewsPage() {
     };
   }, [reviews]);
 
-  // 서평엔 개별 상세 페이지가 없어서, /myreading의 "서평 보기"는 #review-{id} 해시로 이 목록에
-  // 진입시킨다 — 여기서 그 해시를 보고 해당 카드로 스크롤하고 잠깐 강조 표시한다.
+  // /myreading "서평 보기"는 #review-{id} 해시로 진입, 해당 카드로 스크롤 후 잠깐 강조 표시
   useEffect(() => {
-    // 리뷰 id에 한글이 섞여 있으면 주소창엔 퍼센트 인코딩(%EA%B7%B8...)된 채로 남는데,
-    // DOM의 id 속성은 원문 그대로라 디코딩하지 않으면 getElementById가 못 찾는다.
+    // 리뷰 id에 한글 포함 시 주소창엔 퍼센트 인코딩된 채로 남지만 DOM id는 원문이라 디코딩 없이는 getElementById 실패
     const hash = decodeURIComponent(location.hash.replace('#', ''));
     if (!hash.startsWith('review-')) return;
     const el = document.getElementById(hash);

@@ -11,9 +11,7 @@ interface PastRecommendationRowProps {
 
 const PAGE_SIZE = 5;
 
-// BOOK-01 "지난 추천 도서" — 월별로 과거 추천작을 BookCard(past-recomment variant)로 보여준다. 목업 이력
-// (src/data/pastRecommendations.ts)의 ISBN마다 알라딘에서 표지/제목/저자를 조회해 채우고, 추천대상은
-// 목업 데이터 값을 그대로 쓴다. 화살표(⑬)는 5권씩 페이지 단위로 전환하며 처음/끝에서 비활성화된다.
+// 표지/제목/저자는 알라딘에서 조회해 채움, 추천대상은 목업 데이터(pastRecommendations.ts) 값 그대로 사용
 export default function PastRecommendationRow({ month, books }: PastRecommendationRowProps) {
   const [details, setDetails] = useState<Record<string, AladinItem | null>>({});
   const [page, setPage] = useState(0);

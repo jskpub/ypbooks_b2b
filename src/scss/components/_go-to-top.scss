@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-// 스크롤을 충분히 내렸을 때만 뜨는 "맨 위로" 플로팅 버튼. 화면 우하단 고정.
-// Side Button(가로 스크롤 화살표, _side-button.scss)과 같은 원형 버튼 톤(테두리·배경·그림자)을
-// 재사용하되, 크기(44px)와 위치(fixed)가 달라 별도 클래스로 둔다.
+// _side-button.scss와 톤(테두리·배경·그림자) 공유하되 크기·위치 달라 별도 클래스로 분리
 .go-to-top {
   position: fixed;
   right: $space-8;

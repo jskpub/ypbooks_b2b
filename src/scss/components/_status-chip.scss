@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:2167 (Component/Status Chip) — status=Available/Renewal.
-// "누르지 않습니다"라고 명시돼 있어 button이 아니라 span 등 비인터랙티브 요소로 마크업한다.
-// design-system.md: rounded.sm — badge/subsidy-button(rounded.full, 알약)과 달리 여긴 알약이 아니다.
+// 비인터랙티브 요소(span 등)로 마크업, button 사용 금지. badge/subsidy-button과 달리 radius-sm(알약 아님) 적용
 .status-chip {
   display: inline-flex;
   align-items: center;
@@ -13,14 +11,12 @@
   line-height: $line-height-label-base;
   font-weight: 500;
 
-  // design-system.md Imagery: "기본 20px, 소형 버튼·배지·칩 안에서는 16px"
   .icon {
     width: rem(16);
     height: rem(16);
   }
 
-  // v2.3: success 색이 삭제돼 available도 renewal과 같은 회색을 쓴다. Status Chip은 표시 전용이고
-  // "한도가 남아 있다"는 정보는 옆의 게이지·금액이 이미 말해주므로 색으로 또 말하지 않는다.
+  // available도 renewal과 동일 회색 사용, 한도 정보는 게이지·금액에서 이미 전달되어 색상 중복 표시 안 함
   &--available {
     background-color: $color-surface;
     border: $border-width-1 solid $color-border;
@@ -33,7 +29,6 @@
     color: $color-muted;
   }
 
-  // status=Exhausted(한도 소진) — YP_PAYMENTS CartPage 이식(장바구니 그룹 지원금 소진 표시)에서 추가.
   &--exhausted {
     background-color: $color-danger-soft;
     // border: $border-width-1 solid $color-danger-border;

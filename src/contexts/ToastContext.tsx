@@ -12,8 +12,7 @@ interface ToastContextValue {
 const ToastContext = createContext<ToastContextValue | null>(null);
 const TOAST_DURATION_MS = 2200;
 
-// 프로젝트에 아직 토스트 패턴이 없어서(design-system.md 미정의) 버튼 톤(다크 배경 + 흰 글자)에
-// 맞춰 최소 형태로 새로 만들었다. 한 번에 하나만 띄운다 — 여러 개 쌓일 만큼 빈번한 액션이 아니다.
+// 디자인 시스템에 토스트 패턴 미정의, 버튼 톤(다크 배경+흰 글자)에 맞춰 최소 형태로 구현. 동시 1개만 노출
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<ToastState | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);

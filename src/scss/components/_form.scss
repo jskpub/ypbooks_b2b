@@ -1,46 +1,39 @@
 @use 'sass:string';
 @use '../abstracts' as *;
 
-// select 화살표 아이콘(아래)을 인라인 SVG data URI의 fill로 넣으려면 '#'을 '%23'으로 직접 써야 해서
-// $color-border-control 값을 그대로 끼워 넣는다 — 테두리 색이 바뀌면 화살표도 같이 바뀐다.
+// data URI fill에 '#' 직접 사용 불가(%23 인코딩 필요), 변수 문자열 삽입으로 테두리색 변경 시 자동 동기화
 $select-caret-hex: string.slice('#{$color-border-control}', 2);
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: $space-2; // v2.3: 라벨-입력창, 입력창-오류문구 모두 8px
+  gap: $space-2;
 
   &__label {
-    font-size: $font-size-label-base; // 13/18 Medium — Figma Type 문서: "입력 라벨"
+    font-size: $font-size-label-base;
     line-height: $line-height-label-base;
     font-weight: 500;
   }
 
-  // design-system.md Colors → Brand & Accent: "YP Red — 필수 표시"에 쓰라고 명시된 용도다.
-  // 오류(danger)와는 다른 의미라 $color-primary를 쓴다. 시각 표시만 하고 SR에는 안 읽히게
-  // aria-hidden과 짝을 맞춰 쓴다 — 실제 필수 여부는 입력 쪽 aria-required로 알린다.
+  // 필수 표시, $color-danger 아닌 $color-primary 사용(오류와 의미 구분). aria-hidden 전제, 실제 필수 여부는 입력 요소 aria-required로 전달
   &__required {
     color: $color-primary;
   }
 
   &__input {
-    // Figma 실측(Component/Input field): 세로 패딩이 아니라 height 44px 고정 + 텍스트 세로 중앙
-    // 정렬로 만들어져 있다. 세로 패딩(예전 space-3=12px)까지 같이 주면 line-height(24)+패딩
-    // 24+테두리 2로 쌓여 ~50px가 되므로, 좌우만 패딩하고 높이를 직접 고정한다(box-sizing:
-    // border-box라 44px 안에 테두리까지 포함된다 — textarea는 아래 별도 규칙으로 다시 푼다).
+    // height 44px 고정 + 좌우 패딩만 적용, 세로 패딩 추가 시 line-height+패딩+테두리 합산으로 높이 초과(box-sizing: border-box 전제). textarea는 별도 규칙 적용
     height: rem(44);
     padding-inline: $space-2;
-    border: $border-width-1 solid $color-border-control; // --color-border-control, 폼 전용 테두리색
-    border-radius: $radius-sm; // 4px — Figma Radius: "입력, 소형 버튼, 툴팁"
+    border: $border-width-1 solid $color-border-control;
+    border-radius: $radius-sm;
     background-color: $color-surface-card;
-    // v2.3 Hierarchy 표가 body를 "기본 본문, 입력값"으로 명시 — 이전의 body-sm 추정을 대체한다
     font-size: $font-size-body-sm;
     line-height: $line-height-body-sm;
 
     &:focus-visible {
-      outline: 2px solid $color-focus-ring; // --color-focus-ring, 항상 파랑
+      outline: 2px solid $color-focus-ring;
       outline-offset: 1px;
-      border-color: $input-border-focus; // --input-border-focus, 빨강
+      border-color: $input-border-focus;
     }
   }
 
@@ -50,8 +43,7 @@ $select-caret-hex: string.slice('#{$color-border-control}', 2);
     color: $color-foreground-secondary;
   }
 
-  // v2.3 input-field-error — 테두리를 2px로 굵혀 Default/Focus와 구별한다.
-  // 오류 문구는 $font-size-caption($space-2 아래)이고, 붙으면 전체 높이가 70px에서 96px로 늘어난다.
+  // 테두리 2px로 굵혀 Default/Focus 상태와 시각적 구분
   &.is-error {
     .field__input {
       border-width: $border-width-2;
@@ -64,13 +56,10 @@ $select-caret-hex: string.slice('#{$color-border-control}', 2);
   }
 }
 
-// Figma Component/Select — input-field와 같은 토큰을 쓰고 오른쪽에 caret-down만 얹는다.
-// 브라우저 기본 화살표를 지우고(appearance:none) Icon/caret-down(Phosphor Regular)을
-// $color-muted로 고정한 인라인 SVG로 대체한다 — currentColor를 쓸 수 없는 background-image라
-// .checkbox의 체크 아이콘과 같은 방식(고정 색 데이터 URI)을 따른다.
+// background-image는 currentColor 미지원이라 고정 색 SVG data URI로 대체, .checkbox 체크 아이콘과 동일 방식
 select.field__input {
   appearance: none;
-  padding-right: $space-8; // 텍스트가 오른쪽 아이콘과 겹치지 않도록 여유를 둔다
+  padding-right: $space-8; // 우측 아이콘과 텍스트 겹침 방지 여백
   background-repeat: no-repeat;
   background-position: right $space-2 center;
   background-size: rem(16);
@@ -78,10 +67,7 @@ select.field__input {
   cursor: pointer;
 }
 
-// Figma Component/Textarea — input-field와 같은 토큰이되 세로로 늘어나고 아이콘이 없다. 여러 줄
-// 텍스트라 input의 "height 고정 + 세로 중앙 정렬" 트릭 대신 height:auto + 세로 패딩(space-2,
-// Figma 실측)으로 위쪽 정렬한다. 96px(3줄 기준)은 Figma 실측값. 리사이즈는 세로만 허용해
-// 사용자가 필요하면 더 늘릴 수 있게 둔다.
+// input의 height 고정 트릭 대신 height:auto + 세로 패딩으로 상단 정렬(여러 줄 텍스트 대응), 리사이즈는 세로만 허용
 textarea.field__input {
   height: auto;
   min-height: rem(96);
@@ -97,7 +83,7 @@ textarea.field__input {
   line-height: $line-height-body-sm;
 
   input {
-    accent-color: $color-primary; // 브랜드색(빨강) — 선택 상태
+    accent-color: $color-primary;
     width: rem(18);
     height: rem(18);
 
@@ -118,9 +104,7 @@ textarea.field__input {
   }
 }
 
-// Figma node 44:3303(Checkbox, checked=On) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
-// 브라우저 네이티브 accent-color로는 20px 크기·radius-sm(4px)·Phosphor check 아이콘을 정확히
-// 재현할 수 없어서(브라우저마다 렌더링이 다름), appearance:none으로 기본 렌더링을 끄고 직접 그린다.
+// accent-color는 브라우저마다 렌더링 달라 20px·radius-sm·커스텀 체크 아이콘 재현 불가, appearance:none으로 직접 렌더링
 .checkbox {
   display: inline-flex;
   align-items: center;
@@ -134,10 +118,7 @@ textarea.field__input {
   }
 }
 
-// 두 마크업 패턴을 다 지원한다: <label class="checkbox"><input/>라벨</label>처럼 input이
-// .checkbox 안에 있는 경우(전체선택 등)와, <input class="cart-book__checkbox checkbox"/>처럼
-// input 자신이 .checkbox인 경우(장바구니 행 — 옆에 텍스트 라벨이 없어서 label로 안 감쌈) 둘 다.
-// (이전엔 ".checkbox input"만 있어서 후자가 브라우저 기본 체크박스로 보였다.)
+// input이 .checkbox 내부(라벨 포함)인 경우와 input 자체가 .checkbox인 경우(장바구니 행, 라벨 없음) 모두 지원
 .checkbox input[type='checkbox'],
 input[type='checkbox'].checkbox {
   appearance: none;
@@ -158,7 +139,7 @@ input[type='checkbox'].checkbox {
   &:checked {
     background-color: $color-primary;
     border-color: $color-primary;
-    // Icon/check(Phosphor Regular) — src/assets/icons/check.svg와 같은 경로, fill만 흰색으로 고정.
+    // src/assets/icons/check.svg와 동일 아이콘, fill 흰색 고정 위해 인라인 data URI 사용(파일 변경 시 동기화 필요)
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M14.3538 4.85375L6.35375 12.8538C6.30731 12.9002 6.25217 12.9371 6.19147 12.9623C6.13077 12.9874 6.06571 13.0004 6 13.0004C5.93429 13.0004 5.86923 12.9874 5.80853 12.9623C5.74783 12.9371 5.69269 12.9002 5.64625 12.8538L2.14625 9.35375C2.05243 9.25993 1.99972 9.13268 1.99972 9C1.99972 8.86732 2.05243 8.74007 2.14625 8.64625C2.24007 8.55243 2.36732 8.49972 2.5 8.49972C2.63268 8.49972 2.75993 8.55243 2.85375 8.64625L6 11.7931L13.6463 4.14625C13.7401 4.05243 13.8673 3.99972 14 3.99972C14.1327 3.99972 14.2599 4.05243 14.3538 4.14625C14.4476 4.24007 14.5003 4.36732 14.5003 4.5C14.5003 4.63268 14.4476 4.75993 14.3538 4.85375Z'%3E%3C/path%3E%3C/svg%3E");
   }
 

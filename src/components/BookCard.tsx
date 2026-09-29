@@ -9,9 +9,9 @@ interface BookCardProps {
   title: string;
   author: string;
   coverSrc?: string;
-  /** home_best 전용 — home_bookcard는 순위 배지 자체가 없다(Figma 컴포넌트에 prop 없음). */
+  /** home_best 전용, home_bookcard는 순위 배지 없음 (Figma 컴포넌트에 prop 자체 부재) */
   rank?: number;
-  /** past-recomment 전용 — Figma "추천 대상" 캡션(design-system.md: 도서 제목·작가·추천대상 3개 필드만 표시). */
+  /** past-recomment 전용 "추천 대상" 캡션, 도서 제목·작가·추천대상 3개 필드만 표시 */
   target?: string;
   sellingPrice?: number;
   listPrice?: number;
@@ -23,7 +23,6 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// 스토리보드 인터랙션 명세: "카드 클릭 시 도서 상세(BOOK-05)로 이동" — 카드 전체를 링크로 감싼다.
 export default function BookCard({
   variant,
   isbn13,

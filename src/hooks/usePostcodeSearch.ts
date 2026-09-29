@@ -29,7 +29,7 @@ function loadPostcodeScript(): Promise<void> {
       script.onload = () => resolve();
       script.onerror = () => {
         script.remove();
-        postcodeScriptPromise = null; // 실패 시 다음 시도에서 재로드할 수 있게 초기화
+        postcodeScriptPromise = null; // 실패 시 재시도 가능하도록 초기화
         reject(new Error('postcode script load failed'));
       };
       document.head.appendChild(script);

@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-// 토큰이 실제로 반영됐는지 눈으로 확인하기 위한 진단용 페이지 스타일
+// 디자인 토큰 시각 확인용 진단 페이지
 .style-guide {
   display: flex;
   flex-direction: column;
@@ -40,7 +40,6 @@
 }
 
 $swatches: (
-  // 팔레트 (raw hue)
   'neutral-0': $color-neutral-0,
   'neutral-50': $color-neutral-50,
   'neutral-200': $color-neutral-200,
@@ -53,7 +52,6 @@ $swatches: (
   'blue-700': $color-blue-700,
   'green-500': $color-green-500,
   'green-600': $color-green-600,
-  // 시맨틱 (컴포넌트가 실제로 쓰는 토큰)
   'primary': $color-primary,
   'primary-hover': $color-primary-hover,
   'primary-pressed': $color-primary-pressed,

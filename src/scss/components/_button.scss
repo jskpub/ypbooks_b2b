@@ -1,19 +1,14 @@
 @use '../abstracts' as *;
 
-// design-system.md Components 표(Action > button-*) 실측 — variant × size × state.
-// size는 height를 명시로 고정한다(패딩+line-height 합으로 암묵적으로 맞추면 타이포 값이 바뀔 때마다
-// 버튼 높이가 같이 밀린다 — 실제로 label-lg의 line-height를 20→24로 올렸을 때 Large/Medium
-// 높이가 52/44에서 56/48로 밀렸던 적이 있다).
-// Large/Medium은 라벨 label-lg(16/24) + 아이콘 20px + radius-md, Small만 label(14/20) + 아이콘 16px + radius-sm.
-// Secondary/Tertiary/Danger가 Primary보다 2px씩 넓은 건 $border-width-2 보더 때문 — Tertiary는 보더가 안 보이지만
-// 투명 보더로 같은 두께를 잡아둬서 variant를 바꿔도 버튼 크기가 흔들리지 않게 한다.
+// height 명시 고정, 패딩+line-height 암묵 계산 시 타이포 변경마다 버튼 높이 밀림 방지
+// Tertiary 등 투명 보더로 $border-width-2 두께 유지, variant 변경 시 버튼 크기 흔들림 방지
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: $space-1;
   border: $border-width-1 solid transparent;
-  border-radius: $radius-md; // 버튼, 알림, 입력 그룹
+  border-radius: $radius-md;
   font-size: $font-size-label-lg;
   line-height: $line-height-label-lg;
   font-weight: 500;
@@ -46,7 +41,6 @@
     padding-inline: $space-4;
   }
 
-  // design-system.md Components 표: Small만 label-lg가 아니라 label(14/20), radius도 sm, 아이콘도 16px.
   &--sm {
     height: rem(36);
     padding-inline: $space-3;
@@ -60,7 +54,7 @@
     }
   }
 
-  // size 클래스 없이 쓰면 Medium을 기본값으로 둔다.
+  // size 클래스 미지정 시 Medium 기본값 적용
   &:not(&--lg):not(&--sm) {
     height: rem(44);
     padding-inline: $space-4;

@@ -12,7 +12,7 @@ interface CategoryMenuProps {
   menuRef: Ref<HTMLDivElement>;
 }
 
-// label → CID 빠른 조회용 맵 (카테고리 상수에 없는 레이블은 undefined → cid=0(종합)으로 fallback)
+// 카테고리 상수에 없는 레이블은 cid=0(종합)으로 폴백
 const labelToCid = new Map([
   ...DOMESTIC_CATEGORIES.map(({ label, cid }) => [label, cid] as [string, number]),
   ...FOREIGN_CATEGORIES.map(({ label, cid }) => [label, cid] as [string, number]),

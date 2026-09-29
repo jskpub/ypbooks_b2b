@@ -14,9 +14,9 @@ interface BookListRowProps {
   coverSrc?: string;
   sellingPrice: number;
   listPrice: number;
-  /** "추천도서" 칩 — 이달의 추천도서 목록 포함 여부(BOOK-03/04 스펙). */
+  /** "추천도서" 칩, 이달의 추천도서 목록 포함 여부 */
   isRecommended?: boolean;
-  /** 있으면 순위 배지 표시(Best 전용). Figma "Book List" Property1=Best. */
+  /** 있으면 순위 배지 표시 (Best 전용) */
   rank?: number;
 }
 
@@ -24,9 +24,7 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// design-system.md에 없던 "Book List" 컴포넌트 — Figma node 90:260(Property 1=Default/Best) 기준으로
-// 새로 만들었다. 베스트(BOOK-03)·신상품(BOOK-04) 목록에서 도서 1권을 가로 행으로 보여준다.
-// 태그(#태그)는 알라딘이 임의 태그를 제공하지 않아 표시하지 않는다(스펙: 태그 없으면 영역 자체 숨김).
+// 알라딘 API가 태그를 제공하지 않아 태그 영역 자체를 표시하지 않음
 export default function BookListRow({ isbn13, title, author, publisher, pubDate, categoryName, coverSrc, sellingPrice, listPrice, isRecommended, rank }: BookListRowProps) {
   const [qty, setQty] = useState(1);
   const discountRate = Math.round((1 - sellingPrice / listPrice) * 100);

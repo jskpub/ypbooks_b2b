@@ -1,6 +1,5 @@
 @use '../abstracts' as *;
 
-// design-system.md Components > Action > side-button — 가로 스크롤 도서 목록 양옆의 50×50 원형 버튼.
 .side-button {
   display: inline-flex;
   align-items: center;
@@ -20,7 +19,7 @@
     height: rem(20);
   }
 
-  // caret-right 아이콘을 뒤집어서 이전 화살표로 재사용(caret-left 에셋이 없음).
+  // caret-left 에셋 없어 caret-right 아이콘 회전으로 재사용
   &--prev .icon {
     transform: rotate(180deg);
   }
@@ -31,7 +30,7 @@
     cursor: not-allowed;
   }
 
-  // Figma "추천 도서 목록 캐러셀"(28px) / "지난 추천 도서" 월별 페이징(26px) 전용 — 50px 원본보다 작다.
+  // 추천 도서 캐러셀·지난 추천 도서 페이징 전용 축소 버전
   &--sm {
     width: rem(28);
     height: rem(28);

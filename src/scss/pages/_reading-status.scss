@@ -16,9 +16,7 @@
     margin-bottom: $space-6;
   }
 
-  // 모바일 앱에서 책 상태 목록은 표지가 우선 식별 요소라 세로 카드 그리드가 스캔하기 쉽다
-  // (가로 리스트는 표지가 작아져 뱃지/텍스트가 먼저 보임). 이 프로젝트는 1280px 고정 데스크톱
-  // 전용이라(breakpoints.scss 참고) 반응형 분기 없이 3열로 고정한다.
+  // 1280px 고정 데스크톱 전용 프로젝트(breakpoints.scss 참고), 반응형 분기 없이 3열 고정
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -72,8 +70,7 @@
     color: $color-foreground-secondary;
   }
 
-  // "독서 기간" 줄이 상태에 따라 생겼다 없어졌다 하면 카드 높이가 흔들려서, 항상 렌더링하고
-  // 해당 없을 때만 visibility로 숨긴다(공간은 그대로 차지).
+  // 카드 높이 흔들림 방지 위해 항상 렌더링, visibility로만 숨김(공간 유지)
   &__card-info .is-hidden {
     visibility: hidden;
   }
@@ -96,8 +93,7 @@
     }
   }
 
-  // 제목 줄바꿈 등으로 카드 내용 높이가 조금씩 달라도, 그리드가 한 행의 카드 높이를 맞춰주므로
-  // 버튼 줄을 카드 하단에 고정해두면 버튼 위치가 나란히 맞는다.
+  // 그리드 행 높이 동일화 활용, margin-top:auto로 버튼 줄 카드 하단 고정 정렬
   &__card-actions {
     display: flex;
     gap: $space-2;

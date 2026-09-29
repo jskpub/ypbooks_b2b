@@ -13,9 +13,8 @@ export default function MyOrdersPage() {
 
   const now = new Date();
   
-  // orderDate는 '2026. 09. 12.' 형태이므로 변환 필요
+  // orderDate가 '2026. 09. 12. 오후 3:45:00' 같은 문자열 형태라 정규식으로 날짜 부분만 추출해 변환
   const parseDate = (dateStr: string) => {
-    // "2026. 09. 12. 오후 3:45:00" 같은 형태를 감안하여 숫자로 파싱
     const match = dateStr.match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\./);
     if (match) {
       return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
@@ -24,12 +23,11 @@ export default function MyOrdersPage() {
   };
 
   const filteredOrders = orderHistory.map(order => {
-    // 그룹 및 상태 필터링은 개별 아이템 단위로 될 수도 있고, 주문 단위일 수도 있습니다.
-    // 여기서는 아이템을 필터링하여 일치하는 아이템이 있는 주문만 노출합니다.
+    // 아이템 단위로 필터링해 일치하는 아이템이 있는 주문만 노출
     const filteredItems = order.items.filter(item => {
       const matchGroup = group === 'all' || item.group === group;
-      // 현재 하드코딩 상태 '배송준비중' 
-      const itemStatus = 'ready'; // 실제라면 item.status 연동 필요
+      // 배송 상태 값 하드코딩, item.status 미연동
+      const itemStatus = 'ready';
       const matchStatus = status === 'all' || status === itemStatus;
       return matchGroup && matchStatus;
     });
@@ -47,8 +45,6 @@ export default function MyOrdersPage() {
     } else if (period === '6m') {
       const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
       if (orderDate < sixMonthsAgo) return false;
-    } else if (period === 'all') {
-      // 전부
     }
     return true;
   });
@@ -56,8 +52,6 @@ export default function MyOrdersPage() {
   return (
     <main id='main' className='main my-page-layout'>
       <div className='container my-page-layout__inner'>
-        
-        {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
             <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
@@ -101,8 +95,6 @@ export default function MyOrdersPage() {
           </div>
 
           <div className='my-orders'>
-            
-            {/* 조회 기간 / 필터 (card) */}
             <div className='card filter-card'>
               <div className='filter-row'>
                 <span className='filter-label'>조회 기간</span>
@@ -136,7 +128,6 @@ export default function MyOrdersPage() {
               <h3 className='text-h3'>도서 주문 목록 (총 {filteredOrders.length}건)</h3>
             </div>
 
-            {/* 도서 주문 목록 */}
             <div className='order-list'>
               {filteredOrders.length === 0 ? (
                 <div className="text-center" style={{padding: '2rem'}}>조건에 맞는 주문 내역이 없습니다.</div>
@@ -189,7 +180,6 @@ export default function MyOrdersPage() {
               )}
             </div>
 
-            {/* 도서 배송 및 취소/환불 정책 안내 */}
             <div className='policy-notice'>
               <h4 className='text-h4'>도서 배송 및 취소/환불 정책 안내</h4>
               <ul className='policy-notice__list caption'>

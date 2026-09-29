@@ -87,8 +87,7 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
 }
 
-// EJS의 icon() 헬퍼(vite.config.js에서 빌드 타임에 SVG를 인라인하던 것)를 대체.
-// <img src="*.svg">가 아니라 SVG를 컴포넌트로 렌더해야 currentColor로 글자색을 상속받는다.
+// <img src="*.svg"> 대신 SVG를 컴포넌트로 렌더 — currentColor로 글자색 상속 필요
 export function Icon({ name, className = 'icon', ...props }: IconProps) {
   const SvgIcon = icons[name];
   return <SvgIcon className={className} aria-hidden='true' focusable={false} {...props} />;

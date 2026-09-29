@@ -1,7 +1,5 @@
 @use '../abstracts' as *;
 
-// YP_PAYMENTS OrderCompletePage.tsx 이식. 기존 .card/.cart-table/.cart-book/.status-chip을
-// 재사용하고, 이 페이지에서만 쓰는 히어로 박스·정산 3분할 그리드만 새로 짰다.
 .order-complete {
   display: flex;
   flex-direction: column;

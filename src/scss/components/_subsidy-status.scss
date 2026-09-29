@@ -1,6 +1,5 @@
 @use '../abstracts' as *;
 
-// 도서별 지원금 사용 가능, 지원금 한도 소진 상태 표시.
 .subsidy-chip {
   display: inline-flex;
   align-items: center;
@@ -12,7 +11,6 @@
   font-weight: 500;
   cursor: default;
 
-  // design-system.md Imagery: "기본 20px, 소형 버튼·배지·칩 안에서는 16px"
   .icon {
     width: rem(16);
     height: rem(16);

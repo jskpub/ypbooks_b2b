@@ -17,13 +17,12 @@ interface PickedBookProps {
   reviewCount: number;
   sellingPrice: number;
   listPrice: number;
-  /** design-system.md Bookmark — 큐레이션 목록 외 B2B 관리자가 직접 추가한 도서에만 존재(예: "CEO 추천"). */
+  /** B2B 관리자가 큐레이션 외 직접 추가한 도서에만 존재 (예: CEO 추천) */
   badgeLabel?: string;
   badgeColor?: 'gray' | 'orange' | 'green' | 'teal' | 'blue' | 'purple' | 'pink';
 }
 
-// design-system.md "Picked Book" 패턴(홈 추천 영역/추천도서 목록 상단) — BOOK-01의 대표 도서
-// 영역(Figma feat-wrap)을 그대로 구현한다. Display 크기를 쓰는 유일한 패턴.
+// 유일하게 Display 크기 타이포를 사용하는 패턴
 export default function PickedBook({ isbn13, title, author, publisher, pubDate, categoryName, coverSrc, target, reason, ratingAverage, reviewCount, sellingPrice, listPrice, badgeLabel, badgeColor }: PickedBookProps) {
   const category = categoryName.split('>').slice(1, 3).join(' > ') || categoryName;
   const { addToCart } = useCart();

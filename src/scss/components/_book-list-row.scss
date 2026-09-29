@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-// Figma node 90:260 "Book List"(Property 1=Default/Best) 실측 — design-system.md에 없던
-// 컴포넌트라 여기서 새로 정의한다. 베스트(BOOK-03)·신상품(BOOK-04) 목록 전용.
+// 베스트(BOOK-03)·신상품(BOOK-04) 목록 전용 컴포넌트
 .book-list-row {
   display: flex;
   align-items: center;

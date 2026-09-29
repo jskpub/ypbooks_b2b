@@ -16,9 +16,7 @@ const renewalChip = (
   </span>
 );
 
-// 결제하기_예외상태케이스 Case 2-A~2-D. 원본(YP_PAYMENTS)의 파란 유리효과 배너는 design-system.md의
-// "새 색을 더하지 않는다" 원칙과 맞지 않아, 기존 .alert 컴포넌트(중립 surface + 아이콘으로만 톤 구분)로
-// 다시 짰다 — 문구와 조건 분기는 스토리보드를 그대로 따른다.
+// 원본 파란 유리효과 배너는 "새 색을 더하지 않는다" 원칙에 위배돼 제외, 기존 .alert 컴포넌트(중립 surface + 아이콘 톤 구분)로 대체함
 export default function SubsidyCallout({ recommendedUsed, personalUsed, hasRecommendedItems, hasPersonalItems, isMaxBenefitApplied, onApplyMaxBenefit }: SubsidyCalloutProps) {
   // Case 2-A: 결제 대상 상품에 해당하는 유형(추천·개인도서)의 지원금이 모두 소진된 경우
   if (recommendedUsed && personalUsed) {

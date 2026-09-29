@@ -116,7 +116,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsAddressModalOpen(false);
   };
 
-  // 기본 배송지로 저장하면 나머지 배송지의 기본 표시를 해제한다 — 기본 배송지는 항상 하나.
+  // 기본 배송지는 항상 하나만 유지
   const saveAddress = (data: Omit<Address, 'id'>, editingId: string | null) => {
     const id = editingId ?? `addr-${Date.now()}`;
     setAddresses((prev) => {
@@ -175,8 +175,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((item) => !item.checked));
   };
 
-  // 같은 그룹(추천도서/개인도서) 안에서는 지원금을 한 권에만 적용할 수 있다 — 새로 적용하면
-  // 같은 그룹의 기존 적용을 자동으로 해제한다(YP_PAYMENTS ShopContext의 enforceSubsidyExclusivity 이식).
+  // 같은 그룹(추천도서/개인도서) 내 지원금은 한 권에만 적용 가능, 신규 적용 시 기존 적용 자동 해제
   const applySubsidy = (id: string) => {
     setItems((prev) => {
       const target = prev.find((item) => item.id === id);
@@ -225,8 +224,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       deliveryAddress: selectedAddress,
     };
 
-    // 이번 결제에서 지원금을 적용한 그룹만 이번 달 한도를 소진 처리한다 — 지원금 없이 산
-    // 추천/개인도서는 한도를 쓰지 않는다(원본 processPayment와 동일).
+    // 지원금 적용해 결제한 그룹만 이번 달 한도 소진 처리, 지원금 미적용 구매는 한도 미차감
     setSubsidyLedger((prev) => ({
       recommendedUsed: prev.recommendedUsed || paidItems.some((item) => item.group === 'recommended' && item.isSubsidyApplied),
       personalUsed: prev.personalUsed || paidItems.some((item) => item.group === 'personal' && item.isSubsidyApplied),
@@ -234,8 +232,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) => prev.filter((item) => !item.checked));
     setLastOrder(order);
     setOrderHistory((prev) => [order, ...prev]);
-    // 나의 독서현황(/myreading)·독서 통계(/mystats)는 별도 목업 저장소(readingStatusStore)를 쓰므로,
-    // 결제 완료 시점에 여기서 직접 이어줘야 실제 구매가 그 화면들에도 반영된다.
+    // 독서현황/통계 화면은 별도 저장소(readingStatusStore) 사용, 결제 완료 시 직접 연동 필요
     addPurchasedItems(orderItems.map((item) => item.id));
     return order;
   };

@@ -6,8 +6,7 @@ import Spinner from '@/components/Spinner';
 import { DEMO_ACCOUNT, getSessionUser, signInWithEmployeeId } from '@/data/auth';
 import ypLogo from '@/assets/images/yp_logo.png';
 
-// AUTH-02 사번 로그인. 형식 검사 없이, 빈 칸이든 틀린 값이든 같은 오류 문구 하나로 알린다
-// (어느 쪽이 틀렸는지 알려 주지 않아야 사번 존재 여부가 드러나지 않는다).
+// 빈 칸/오타 구분 없이 동일 오류 문구 사용, 사번 존재 여부 노출 방지
 export default function LoginPage() {
   const navigate = useNavigate();
   const [employeeId, setEmployeeId] = useState(DEMO_ACCOUNT.employeeId);
@@ -35,7 +34,7 @@ export default function LoginPage() {
     (employeeId.trim() ? passwordRef : employeeIdRef).current?.focus();
   };
 
-  // 이미 로그인한 상태로 /login에 오면(주소 직접 입력, 로그인 후 뒤로가기로 이전 /login 기록 복귀) 홈으로 보낸다.
+  // 로그인 상태로 /login 접근(직접 입력, 뒤로가기 등) 시 홈으로 리다이렉트
   if (getSessionUser()) return <Navigate to='/' replace />;
 
   const fieldClassName = `field${hasError ? ' is-error' : ''}`;
@@ -112,7 +111,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* 입력칸이 미리 채워져 있어서, 화면을 열자마자 Enter로 로그인되도록 버튼에 포커스를 둔다. */}
+            {/* 입력칸 사전 채움 상태, Enter 즉시 로그인되도록 버튼에 포커스 부여 */}
             <button type='submit' className='btn btn--primary btn--lg auth-login__submit' disabled={isSubmitting} autoFocus>
               {isSubmitting ? (
                 <>

@@ -26,7 +26,7 @@ function monthKey(year: string, month: number): string {
   return `${year}-${String(month).padStart(2, '0')}`;
 }
 
-// 1월부터 이번 달까지 두 계열(구매/완독)을 나란히 집계한다. 미래 달은 아직 알 수 없는 값이라 뺀다.
+// 미래 달은 값을 알 수 없어 집계 대상에서 제외, 1월부터 이번 달까지만 구매/완독 두 계열 집계
 function buildMonthlySeries(items: ReadingStatusItem[], doneItems: ReadingStatusDone[], year: string, uptoMonth: number): MonthlyPoint[] {
   return Array.from({ length: uptoMonth }, (_, index) => {
     const month = index + 1;
@@ -40,8 +40,7 @@ function buildMonthlySeries(items: ReadingStatusItem[], doneItems: ReadingStatus
   });
 }
 
-// 누적 ÷ "활동한 달 수"로 계산하면 한 달만 몰아서 사도 월평균이 부풀려진다(예: 9월에만 4권 사면
-// 월평균 4권으로 나옴). 첫 구매월부터 이번 달까지 경과한 달력 개월 수로 나눠야 실제 페이스를 보여준다.
+// "활동한 달 수"로만 나누면 한 달 몰아 구매 시 월평균이 부풀려짐, 첫 구매월부터 경과한 전체 달력 개월 수로 나눠 실제 페이스 반영
 function monthsElapsedSince(startKey: string, currentYear: string, currentMonthNum: number): number {
   const [startYear, startMonth] = startKey.split('-').map(Number);
   const currentMonthIndex = Number(currentYear) * 12 + currentMonthNum;
@@ -49,11 +48,8 @@ function monthsElapsedSince(startKey: string, currentYear: string, currentMonthN
   return Math.max(1, currentMonthIndex - startMonthIndex + 1);
 }
 
-// 개발 검토사항 문서(B2B 기업 독서 프로그램 운영 관련 개발 검토사항_20260911.docx) 8절의
-// "나의 독서" 트리에서 "독서통계"가 구매한 책/읽는 중/읽은 책/서평 작성과 나란한 형제 항목으로
-// 정의돼 있어, 그 항목을 이 페이지로 분리했다. 표 대신 벤토 그리드(스냅샷 타일 + 차트 카드 +
-// 요약 카드 + 통합 활동 리스트)로 구성 — 참고한 통계 대시보드들의 레이아웃 패턴을 그대로 쓰되,
-// 데이터가 풍부하지 않은 이 서비스 특성상 게이지·퍼센트 카드는 넣지 않았다.
+// "독서통계"가 나의 독서 트리에서 독립 형제 항목으로 정의돼 별도 페이지로 분리
+// 표 대신 벤토 그리드(스냅샷 타일+차트 카드+요약 카드+활동 리스트)로 구성, 데이터가 풍부하지 않아 게이지·퍼센트 카드는 제외
 export default function MyStatsPage() {
   const user = getSessionUser();
   const [items] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
@@ -243,7 +239,6 @@ export default function MyStatsPage() {
                       <span className='caption'>{row.date}</span>
                     </>
                   );
-                  // 구매 내역은 주문/배송 현황 페이지로 연결.
                   if (row.type === '구매') {
                     return (
                       <li key={row.key}>

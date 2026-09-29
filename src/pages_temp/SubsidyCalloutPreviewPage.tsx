@@ -1,10 +1,8 @@
 import { useState, type ReactNode } from 'react';
 import SubsidyCallout from '@/components/Payment/SubsidyCallout';
 
-// 결제하기_예외상태케이스.pdf(PAY-01-2, Case 2-A~2-D) 검수용 임시 페이지.
-// 진짜 SubsidyCallout 컴포넌트를 그대로 가져다 props 조합만 바꿔서 4개 케이스를 한 화면에 늘어놓는다
-// — 마크업을 손으로 옮겨 적으면 실제 컴포넌트와 어긋날 수 있어서, 항상 이 컴포넌트를 직접 렌더링한다.
-// 라우트에는 안 걸려 있는 pages_temp 관례를 따른다 — 확인이 끝나면 지워도 된다.
+// 실제 SubsidyCallout 컴포넌트를 props 조합만 바꿔 렌더링, 마크업 수기 복제 시 실제 컴포넌트와 어긋날 위험 방지
+// 라우트 미연결 pages_temp 관례, 검수 종료 후 삭제 가능
 
 interface CaseDemoProps {
   code: string;

@@ -4,9 +4,7 @@ import type { CartItem } from '@/data/cartItems';
 
 interface CartItemRowProps {
   item: CartItem;
-  /** 이 행이 속한 그룹(추천도서/개인도서)의 배지 — CartGroupSection 헤더와 같은 값을 그대로
-   * 받아써서 도서 유형 배지가 이중으로 정의되지 않게 한다. Figma Cart Row(44:3338) 실측:
-   * 행마다 포맷(종이도서/전자도서)이 아니라 도서 유형 배지가 붙어있었다. */
+  /** CartGroupSection 헤더와 동일 값 재사용, 도서 유형 배지 중복 정의 방지 */
   groupBadgeClassName: string;
   groupBadgeIcon: IconName;
   groupBadgeLabel: string;
@@ -22,9 +20,7 @@ function formatWon(amount: number) {
 export default function CartItemRow({ item, groupBadgeClassName, groupBadgeIcon, groupBadgeLabel, onToggleChecked, onQtyChange, onRemove }: CartItemRowProps) {
   const discountRate = Math.round((1 - item.sellingPrice / item.listPrice) * 100);
 
-  // 행 아무 데나 클릭해도 체크박스처럼 선택/해제되게 한다. 단 수량 스텝퍼/삭제/배송안내 버튼처럼
-  // 자기 자신의 동작이 있는 요소를 눌렀을 땐 행 선택이 같이 바뀌면 안 된다 — 체크박스 자체를
-  // 클릭했을 때도 여기서 한 번 더 토글하면 onChange와 겹쳐서 상쇄(토글 안 되는 버그)되므로 걸러낸다.
+  // input/button/a 등 자체 동작 요소 클릭 시 행 선택 토글과 충돌 방지 (체크박스 자체 클릭 시 onChange와 중복 토글돼 상쇄되는 현상 포함)
   const handleRowClick = (event: MouseEvent<HTMLTableRowElement>) => {
     const target = event.target as HTMLElement;
     if (target.closest('input, button, a')) return;

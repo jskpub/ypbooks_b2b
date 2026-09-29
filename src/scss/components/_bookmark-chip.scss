@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-// design-system.md Components > Bookmark — 추천 주체(CEO픽, 본부장픽 등)를 알리는 책갈피 칩.
-// Figma feat-chip(node 1190:60) 실측: 표지 좌상단 가장자리에 살짝 걸쳐 붙고, 높이 28px +
-// 오른쪽 V자 꼬리(10px). 이 7색은 책갈피 칩 밖에서는 쓰지 않는다(design-system.md).
+// 책갈피 칩 7색 토큰, 이 컴포넌트 밖에서는 사용하지 않음
 .bookmark-chip {
   position: absolute;
   top: rem(-11);
@@ -11,7 +9,7 @@
   display: inline-flex;
   align-items: center;
   height: rem(28);
-  padding: rem(5) rem(16) rem(5) rem(12); // 우측 V자 꼬리 자리만큼 오른쪽 패딩을 더 준다
+  padding: rem(5) rem(16) rem(5) rem(12); // 우측 V자 꼬리(clip-path) 자리 확보 위해 우측 패딩 추가
   color: $color-on-primary;
   font-size: $font-size-label-sm;
   line-height: $line-height-label-sm;

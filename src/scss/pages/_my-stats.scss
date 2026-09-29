@@ -9,7 +9,6 @@
     margin-bottom: $space-8;
   }
 
-  // 벤토 그리드: 1행(이번 달 스냅샷 3칸) / 2행(차트 2칸 + 요약 1칸) / 3행(활동 리스트, 전체 폭).
   &__bento {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -97,8 +96,7 @@
     }
   }
 
-  // 단일 계열이 아니라 구매·완독 두 계열을 나란히 — dataviz 스킬 마크 스펙(<=24px 두께, 상단만
-  // 둥근 데이터 끝, 공통 베이스라인)을 두 막대에 각각 적용한다.
+  // 구매·완독 두 계열 나란히 배치, dataviz 마크 스펙(<=24px 두께·상단 라운드·공통 베이스라인) 적용
   &__chart-plot {
     display: flex;
     align-items: flex-end;
@@ -128,7 +126,7 @@
     gap: rem(2);
   }
 
-  // 평소엔 회색으로 죽어 있다가, 마우스를 올린 막대만 계열 색이 들어온다(값은 title 툴팁으로).
+  // 기본 회색, hover 시에만 계열 색 표시. 값은 title 속성 툴팁으로 전달
   &__chart-bar {
     width: rem(14);
     border-radius: $radius-sm $radius-sm 0 0;
@@ -184,7 +182,7 @@
     border: $border-width-1 solid $color-border;
     border-radius: $radius-md;
 
-    // 완독/서평 행은 Link라 <a>로 렌더링된다 — 밑줄/링크색 리셋하고 클릭 가능함을 hover로만 알린다.
+    // 완독/서평 행은 <a>(Link) 렌더링, 밑줄·링크색 리셋 후 hover로만 클릭 가능 표시
     &.is-link {
       color: inherit;
       text-decoration: none;

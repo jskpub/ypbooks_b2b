@@ -4,12 +4,8 @@ import CategoryMenu, { type CategoryTab } from './CategoryMenu';
 import Gnb from './Gnb';
 import UtilityBar from './UtilityBar';
 
-// 스크롤 임계값(px) — 내려갈 때/올라올 때를 다르게 둬서(hysteresis) 경계 근처에서
-// .is-scrolled가 계속 토글되는 걸 막는다(test.html 참고). 간격을 94px 이상으로 넓게 둔 건
-// 헤더 자신의 펼침↔축약 높이 차(약 94px)보다 커야 해서다 — 간격이 그보다 좁으면, 헤더가
-// 줄어들 때 브라우저 스크롤 앵커링이 보정하는 스크롤량만으로도 반대쪽 임계값을 넘어버려서
-// .is-scrolled가 켜졌다 꺼졌다를 무한 반복하는 버그가 있었다(_header.scss의
-// overflow-anchor:none과 같이 짝을 이루는 방어책).
+// 스크롤 다운/업 임계값 차등 적용(hysteresis)으로 경계 부근 .is-scrolled 무한 토글 방지
+// 임계값 간격은 헤더 펼침↔축약 높이 차(약 94px)보다 커야 함 — 좁으면 스크롤 앵커링 보정값이 반대 임계값을 넘어 토글 반복됨 (_header.scss overflow-anchor:none과 짝)
 const SCROLL_DOWN_THRESHOLD = 120;
 const SCROLL_UP_THRESHOLD = 20;
 
@@ -27,12 +23,7 @@ export default function Header() {
   const toggleMenu = () => setIsMenuOpen((open) => !open);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // 헤더 전체가 하나의 sticky 엘리먼트로 남아있으면서 .is-scrolled 클래스만으로 축약형을
-  // 표현한다(예전엔 header-sticky가 완전히 별도인 고정 헤더를 통째로 켜고 껐다 — 그래서
-  // 전환이 애니메이션 없이 뚝 끊겨 보였다). rAF로 스크롤마다 리플로우 없이 처리한다.
-  // 카테고리 메뉴가 열려있는 동안은 상태를 얼려둔다 — 패널 위치가 .is-scrolled 여부로
-  // 정해지는데(category-menu.scss), 열려있는 채로 헤더가 커졌다 작아졌다 하면 패널이
-  // 트리거를 놓치고 어긋나 보인다.
+  // 카테고리 메뉴 열림 중 스크롤 상태 고정 — 패널 위치가 .is-scrolled에 의존해(category-menu.scss) 헤더 크기 변화 시 패널이 트리거를 벗어나는 현상 방지
   useEffect(() => {
     let ticking = false;
     let scrolled = false;
@@ -63,10 +54,7 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // category-menu.js: Esc로 닫기, 메뉴/트리거 밖으로 포커스가 나가면 닫기.
-  // 트리거는 두 개(Gnb의 전체카테고리 버튼 / BrandBar의 햄버거) — 스크롤 상태에 따라
-  // 둘 중 하나만 보이지만(.is-scrolled로 opacity+visibility 토글), 어느 쪽으로 열었어도
-  // 포커스 아웃 판정은 둘 다 검사한다.
+  // 트리거가 Gnb/BrandBar 두 곳(스크롤 상태에 따라 하나만 노출)이라 포커스 아웃 판정 시 둘 다 검사 필요
   useEffect(() => {
     if (!isMenuOpen) return;
 

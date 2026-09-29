@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-// AddressSearchModal(src/components/AddressSearchModal.tsx) — AddressModal의 [주소 검색] 버튼에서
-// 열리는 2단계 팝업. 카카오 우편번호 서비스를 iframe으로 그대로 embed한다 — 내부 콘텐츠 자체는
-// 커스터마이즈할 수 없어서, 감싸는 프레임(모서리 둥글림, 로딩/에러 상태)만 이 프로젝트 톤에 맞춘다.
+// 카카오 우편번호 서비스 iframe 임베드, 내부 콘텐츠 커스터마이즈 불가로 프레임만 스타일링
 .address-search {
   &__frame {
     position: relative;

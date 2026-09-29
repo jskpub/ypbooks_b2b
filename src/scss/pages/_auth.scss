@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-// AUTH-01(SSO 자동 로그인) / AUTH-02(사번 로그인). 헤더·푸터가 붙는 Layout 밖에서 화면 전체를 쓴다.
-// 기존 컴포넌트(.card/.field/.btn/.alert/.logo__badge)를 재사용하고, 화면 배치만 여기서 잡는다.
+// 헤더·푸터 Layout 래퍼 밖에서 전체 화면 사용, 기존 컴포넌트(.card/.field/.btn 등) 재사용
 
 .auth-logo {
   display: inline-flex;
@@ -83,7 +82,7 @@
   grid-template-rows: 1fr auto;
   min-height: 100vh;
 
-  // 위아래 행을 같은 높이(1fr)로 두어 가운데 행의 태그라인이 패널 세로 중앙에 오게 한다.
+  // 상하 행 1fr 동일 높이로 태그라인 세로 중앙 정렬
   &__brand {
     display: grid;
     align-items: center;
@@ -99,7 +98,7 @@
     font-size: rem(50);
     line-height: 1.3;
     font-weight: 700;
-    // 사진 배경 위에 얹히는 글자라 foreground(검정)를 쓰면 안 보인다.
+    // 사진 배경 위 텍스트, foreground(검정) 사용 시 가독성 저하로 밝은 색 사용
     color: $color-neutral-200;
   }
 
@@ -116,7 +115,7 @@
     padding: $space-10;
     border: $border-width-1 solid $color-border;
 
-    // 누르는 카드가 아니라서 .card의 hover 그림자를 끈다.
+    // 클릭 대상 아님, .card 기본 hover 그림자 비활성화
     &:hover {
       box-shadow: none;
     }
@@ -151,7 +150,6 @@
     margin-top: $space-8;
   }
 
-  // 비밀번호 보기/숨기기 버튼을 입력창 오른쪽 안에 겹쳐 둔다.
   &__password {
     position: relative;
 
@@ -201,8 +199,8 @@
 
   &__meta {
     margin-top: $space-2;
-    font-size: $font-size-caption;
-    line-height: $line-height-caption;
+    font-size: $font-size-body-xs;
+    line-height: $line-height-body-xs;
     color: $color-muted;
     text-align: center;
   }
@@ -220,11 +218,11 @@
   }
 }
 
-// 로그인 화면 우상단에 고정된 "인트라넷으로 전환" 버튼. .btn--tertiary/--sm 위에 위치·색만 덧씌운다.
+// .btn--tertiary/--sm 기반, 위치·색상만 오버라이드
 .intranet-switch {
   position: fixed;
-  top: $space-3;
-  right: $space-3;
+  bottom: $space-8;
+  right: $space-10;
   border-color: $color-primary;
   background-color: $color-surface-card;
 }

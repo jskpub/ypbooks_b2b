@@ -5,7 +5,6 @@ import { Icon } from '@/components/Icon';
 import Spinner from '@/components/Spinner';
 import { signInWithSso } from '@/data/auth';
 
-// AUTH-01 인트라넷 SSO 자동 로그인. 입력 폼 없이 세션 확인만 보여 주고, 성공하면 홈으로 보낸다.
 export default function SsoPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

@@ -7,9 +7,7 @@ interface AddressSearchModalProps {
   onClose: () => void;
 }
 
-// AddressModal의 [주소 검색] 버튼에서 열리는 2단계 팝업. 카카오(다음) 우편번호 서비스를
-// iframe으로 그대로 embed하되(내부 콘텐츠 자체는 우리가 못 바꾼다), 감싸는 헤더·모서리·여백은
-// 이 프로젝트 디자인 시스템(modal--brand) 톤에 맞춰서 튀지 않게 둔다.
+// 카카오(다음) 우편번호 서비스를 iframe으로 임베드함 (내부 콘텐츠 수정 불가) — 감싸는 헤더·모서리·여백만 modal--brand 톤에 맞춤
 export default function AddressSearchModal({ onSelect, onClose }: AddressSearchModalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { status, retry } = usePostcodeSearch(containerRef, true, onSelect);

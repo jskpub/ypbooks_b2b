@@ -1,11 +1,9 @@
-﻿// 영풍문고 UI 카테고리 → 알라딘 대표 CID(상위 카테고리) 매핑.
-// 상위 CID 하나로 조회하면 하위 카테고리 도서까지 모두 포함되므로 API 호출은 1회.
+﻿// 상위 CID 하나로 조회 시 하위 카테고리 도서까지 포함되므로 API 호출 1회로 단순화 가능
 export interface CategoryItem {
   label: string;
   cid: number;
 }
 
-// 국내도서 카테고리 목록
 export const DOMESTIC_CATEGORIES: CategoryItem[] = [
   { label: '종합',           cid: 0 },
   { label: '소설/에세이/시', cid: 1 },
@@ -24,7 +22,6 @@ export const DOMESTIC_CATEGORIES: CategoryItem[] = [
   { label: '잡지',           cid: 2913 },
 ];
 
-// 외국도서 카테고리 목록
 export const FOREIGN_CATEGORIES: CategoryItem[] = [
   { label: '외서 종합',     cid: 74698 },
   { label: '외서 일반서적', cid: 74699 },

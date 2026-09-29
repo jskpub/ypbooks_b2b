@@ -1,7 +1,5 @@
 @use '../abstracts' as *;
 
-// design-system.md Feedback > Spinner — 회색 원 위에 빨강 호가 시계 방향으로 회전(800ms linear 무한).
-// Large 48px/두께 4, Medium 32/3, Small 20/2.
 .spinner {
   display: inline-block;
   flex-shrink: 0;

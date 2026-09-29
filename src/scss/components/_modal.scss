@@ -1,8 +1,6 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:2269 (Component/Modal) — type=Default/Danger, customize=Show Close.
-// 오버레이(고정+딤)는 category-menu __backdrop / cart-modal-overlay와 같은 패턴 — 두 번째로
-// .modal을 쓰는 화면(결제)이 생겨서 이번엔 페이지에 새로 안 만들고 여기 공용으로 둔다.
+// category-menu __backdrop / cart-modal-overlay와 동일 오버레이 패턴, 결제 화면 추가로 공용 컴포넌트화
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -31,7 +29,7 @@
   width: rem(480);
   max-width: 90vw;
   padding: $space-6;
-  border-radius: $radius-lg; // 카드, 모달 — Figma Radius 문서
+  border-radius: $radius-lg;
   background-color: $color-surface-card;
   box-shadow: $shadow-lg;
 
@@ -75,14 +73,11 @@
     gap: $space-2;
   }
 
-  // type=Danger — "되돌릴 수 없는 작업"
   &--danger &__title {
     color: $color-danger;
   }
 
-  // 헤더 자체가 브랜드 레드 타이틀 바인 변형 — cart-delivery-modal(배송 안내)과 같은 톤.
-  // subsidy-confirm처럼 헤더에 원형 아이콘만 얹고 제목을 바깥에 두는 모달엔 안 어울려서
-  // 옵트인 모디파이어로 뺐다 — 헤더 안에 실제 제목 텍스트가 들어가는 모달에서만 쓴다.
+  // 헤더에 실제 제목 텍스트 있는 모달 전용, subsidy-confirm처럼 아이콘+외부 제목 구조엔 미적용 위해 옵트인 모디파이어로 분리
   &--brand {
     padding: 0;
     padding-bottom: $space-6;

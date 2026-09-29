@@ -1,10 +1,5 @@
 @use '../abstracts' as *;
 
-// E:\YP_PAYMENTS\src\pages\CartPage.tsx 이식 — 색상/간격/모서리는 전부 이 프로젝트 토큰으로 매핑했고,
-// 하드코딩된 hex(#df0000 등)는 하나도 안 남겼다. 기존 컴포넌트(.card/.badge/.status-chip/.alert/.modal/
-// .stepper/.checkbox/.step-indicator/.layout-with-sidebar)를 최대한 재사용하고, 이 페이지에서만
-// 쓰는 조합(장바구니 그룹 아코디언, 표, 주문 요약)만 새로 짰다.
-
 .cart {
   padding-bottom: $space-8;
 
@@ -36,7 +31,6 @@
   }
 }
 
-// 무료배송 진행 카드
 .shipping-card {
   display: flex;
   flex-wrap: wrap;
@@ -106,7 +100,6 @@
   }
 }
 
-// 상단 컨트롤 바(전체선택/선택삭제 · 배송 안내)
 .cart-controls {
   display: flex;
   flex-wrap: wrap;
@@ -156,7 +149,6 @@
   }
 }
 
-// 그룹 카드(추천도서/개인도서) — 아코디언
 .cart-group {
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
@@ -225,7 +217,6 @@
     }
   }
 
-  // 닫힘 상태에선 아래 chevron(down), 열림 상태에선 위 chevron(up)만 보인다.
   &__chevron--up {
     display: none;
   }
@@ -258,7 +249,6 @@
   }
 }
 
-// 표
 .cart-table {
   width: 100%;
   border-collapse: collapse;
@@ -512,7 +502,6 @@
   }
 }
 
-// 하단 액션 바
 .cart-actions {
   display: flex;
   align-items: center;
@@ -520,10 +509,7 @@
   gap: $space-3;
 }
 
-// 사이드바(배송지 위젯 & 주문 요약) 스크롤 고정은 .layout-with-sidebar__sidebar 공용 규칙
-// (_grid.scss)이 헤더 높이까지 감안해서 처리한다 — 여기서 top을 고정값으로 다시 정의하면
-// 헤더가 축약(.is-scrolled)됐을 때 그 값이 우선 적용되어(선택자 특이도가 더 높음) 사이드바
-// 위쪽이 헤더 뒤로 가려 잘려 보이는 문제가 있었다.
+// top 값 재정의 금지: .layout-with-sidebar__sidebar(_grid.scss) 공용 규칙 사용, 직접 정의 시 .is-scrolled 헤더와 특이도 충돌로 사이드바 상단 가려짐
 
 .cart-address {
   display: flex;
@@ -617,7 +603,6 @@
   }
 }
 
-// 사이드바 — 주문 요약
 .cart-summary {
   .cart-address {
     & + & {
@@ -766,7 +751,7 @@
     color: $color-primary;
   }
 
-  // KRDS / KWCAG 2.2 표준 준수 인라인 도움말 (Helper Text / Notice)
+  // KRDS/KWCAG 2.2 접근성 표준 준수 목적, 임의 삭제 금지
   &__helper-text {
     display: flex;
     align-items: center;
@@ -786,13 +771,11 @@
     }
   }
 
-  // 이 카드 안의 CTA는 항상 카드 폭 전체를 채운다("주문하기").
   > .btn {
     width: 100%;
   }
 }
 
-// 배송일정 안내 모달
 .cart-modal-overlay {
   position: fixed;
   top: 0;

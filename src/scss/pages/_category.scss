@@ -1,9 +1,5 @@
 @use '../abstracts' as *;
 
-// CategoryPage — 카테고리별 도서 목록 페이지.
-// 레이아웃: 카테고리 사이드바(좌) + 메인 영역(우).
-// 메인: 카테고리명 h1 + 섹션 구분선 + BookCard 5개 1행.
-
 .category-page {
   display: flex;
   gap: $space-10;
@@ -18,7 +14,6 @@
     margin-bottom: $space-6;
   }
 
-  // 섹션 하나 = 섹션 제목 + BookCard 최대 5개 1행 + 구분선
   &__section {
     & + & {
       margin-top: $space-8;
@@ -49,7 +44,6 @@
   }
 }
 
-// 카테고리 사이드바 — 국내/외국 탭 추가 버전
 .category-sidebar {
   width: 160px;
   flex-shrink: 0;
@@ -112,7 +106,6 @@
   }
 }
 
-// 로딩 중 스켈레톤 카드
 .book-card-skeleton {
   width: 240px;
   flex-shrink: 0;

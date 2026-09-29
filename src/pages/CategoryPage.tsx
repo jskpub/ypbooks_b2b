@@ -8,7 +8,7 @@ type BookTab = 'domestic' | 'foreign';
 
 const CARDS_PER_ROW = 5;
 
-// 1회 호출 결과를 3개 섹션으로 나눠 제목과 함께 표시한다. 데이터는 동일하지만 UI는 구분돼 보인다.
+// 동일 데이터를 3개 섹션으로 분리 표시, 데이터는 같지만 UI상 구분되어 보임
 const SECTION_LABELS = ['주간 베스트셀러', '화제의 신간', '새로 나온 도서'];
 
 function findCategoryByCid(cid: number): { cat: CategoryItem; tab: BookTab } {
@@ -18,10 +18,7 @@ function findCategoryByCid(cid: number): { cat: CategoryItem; tab: BookTab } {
   return { cat: domestic, tab: 'domestic' };
 }
 
-// 카테고리별 도서 목록 페이지.
-// URL query param ?cid=숫자 로 카테고리를 지정한다.
-// 선택한 카테고리에 대해 알라딘 API를 1회만 호출하고,
-// 결과를 CARDS_PER_ROW(5)개씩 행으로 나눠 구분선으로 구분해 보여준다.
+// cid 쿼리 파라미터로 카테고리 지정, API 호출은 1회만 수행 후 CARDS_PER_ROW 단위로 섹션 분할
 export default function CategoryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const paramCid = Number(searchParams.get('cid') ?? '0');
@@ -45,7 +42,6 @@ export default function CategoryPage() {
       .catch(() => setStatus('error'));
   }, []);
 
-  // URL이 바뀌면 카테고리·탭도 동기화
   useEffect(() => {
     const cid = Number(searchParams.get('cid') ?? '0');
     const { cat, tab: newTab } = findCategoryByCid(cid);
@@ -64,7 +60,6 @@ export default function CategoryPage() {
     setSearchParams({ cid: String(defaultCat.cid) });
   }
 
-  // books를 CARDS_PER_ROW개씩 청크로 나눠 섹션 구분
   const rows: AladinItem[][] = [];
   for (let i = 0; i < books.length; i += CARDS_PER_ROW) {
     rows.push(books.slice(i, i + CARDS_PER_ROW));
@@ -73,7 +68,6 @@ export default function CategoryPage() {
   return (
     <main id="main" className="main">
       <div className="container category-page">
-        {/* 사이드바 */}
         <aside className="category-sidebar" aria-label="카테고리">
           <div className="category-sidebar__tabs" role="tablist">
             <button
@@ -110,7 +104,6 @@ export default function CategoryPage() {
           </ul>
         </aside>
 
-        {/* 본문 */}
         <div className="category-page__main">
           <h1 className="category-page__title text-h1">{activeCategory.label}</h1>
 

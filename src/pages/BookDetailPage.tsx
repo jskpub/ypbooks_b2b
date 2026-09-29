@@ -14,8 +14,7 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// 도서 상세(BOOK-05). design-system.md에 전용 화면 패턴 문서가 없어서 Book Card의 가격 표기 규칙과
-// Book List 패턴의 우측 액션(Stepper + 담기(Secondary) + 바로구매(Primary))을 그대로 가져와 구성했다.
+// 전용 디자인 패턴 부재로 Book Card 가격 표기 + Book List 우측 액션(Stepper+담기+바로구매) 구성 재사용
 export default function BookDetailPage() {
   const { isbn13 = '' } = useParams<{ isbn13: string }>();
   const [book, setBook] = useState<AladinItem | null>(null);
@@ -65,8 +64,7 @@ export default function BookDetailPage() {
   }
 
   const discountRate = Math.round((1 - book.priceSales / book.priceStandard) * 100);
-  // 알라딘 categoryName은 "국내도서>자기계발>성공>성공학"처럼 전체 경로로 온다. 브레드크럼이 전체 경로를
-  // 보여주므로 제목 위 카테고리 한 줄은 따로 두지 않는다(중복).
+  // 브레드크럼이 전체 카테고리 경로를 이미 표시하므로 제목 위 카테고리 한 줄은 중복 방지 위해 생략
   const categoryPath = (book.categoryName ?? '')
     .split('>')
     .map((part) => part.trim())

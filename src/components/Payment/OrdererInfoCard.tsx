@@ -9,7 +9,7 @@ interface OrdererInfoCardProps {
   onEmailChange: (value: string) => void;
 }
 
-// 이 프로젝트엔 로그인/사용자 세션이 없어서 주문자 이름은 원본과 동일하게 목데이터로 고정한다.
+// 로그인/사용자 세션 부재로 주문자 이름 목데이터 고정
 const ORDERER_NAME = '김민서';
 
 export default function OrdererInfoCard({ phonePrefix, phoneMid, phoneEnd, email, onPhonePrefixChange, onPhoneMidChange, onPhoneEndChange, onEmailChange }: OrdererInfoCardProps) {

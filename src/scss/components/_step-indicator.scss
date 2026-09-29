@@ -1,9 +1,6 @@
 @use '../abstracts' as *;
 
-// Figma node 60:3666(Component/Step Indicator) get_design_context 실측(fileKey bnqrMqVowAmJmZBMOtqmXc) —
-// "끝난 단계는 체크, 현재 단계는 빨간 원, 남은 단계는 테두리 원." 커넥터 선(64×2px)이 단계 사이에
-// 있고, 지나온 커넥터만 빨갛게 채워진다. "숫자는 순서를 알리는 용도로만 씁니다" — 링크/버튼이
-// 아니라 목록(ol)으로 마크업한다.
+// 숫자는 순서 표시 전용, 링크/버튼 아닌 목록(ol)으로 마크업 필요
 .step-indicator {
   display: flex;
   align-items: center;
@@ -25,7 +22,7 @@
     background-color: $color-surface-card;
     border: $border-width-2 solid $color-border-control;
     color: $color-foreground-secondary;
-    font-size: $font-size-body-xs; // 13px
+    font-size: $font-size-body-xs;
     font-weight: 500;
 
     .icon {
@@ -35,7 +32,7 @@
   }
 
   &__label {
-    font-size: $font-size-body-sm; // 15px
+    font-size: $font-size-body-sm;
     line-height: $line-height-body-sm;
     color: $color-foreground-secondary;
   }
@@ -52,7 +49,6 @@
     }
   }
 
-  // 현재 단계 — 빨간 원 + 흰 숫자, 라벨만 진하게(Medium)
   &__step--current {
     .step-indicator__circle {
       background-color: $color-primary;
@@ -66,7 +62,7 @@
     }
   }
 
-  // 완료 단계 — 빨간 원 + 흰 체크 아이콘, 라벨은 남은 단계와 동일(연하게)
+  // 완료 단계 라벨은 별도 스타일 없음(남은 단계와 동일)
   &__step--done {
     .step-indicator__circle {
       background-color: $color-primary;

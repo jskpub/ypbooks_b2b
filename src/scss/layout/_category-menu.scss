@@ -1,26 +1,19 @@
 @use '../abstracts' as *;
 
-// "전체카테고리" 트리거(gnb의 카테고리 버튼 / brand-bar 햄버거 둘 다 공용)로 여는 메가메뉴.
-//
-// 헤더 전체가 position:sticky로 항상 뷰포트 top:0에 붙어있으므로(_header.scss), panel도
-// 항상 position:fixed 하나로 충분하다(예전엔 header-sticky가 별도 고정 헤더였을 때만 fixed로
-// 바꾸고 평소엔 absolute였는데, 이제 그 구분 자체가 없어졌다).
-// top 값은 JS가 스크롤마다 계산하지 않고 CSS 상수로 박아둔다 — 헤더가 펼침/축약 두 상태뿐이고
-// 각 상태의 높이가 컨텐츠가 안 바뀌는 한 항상 같기 때문이다. 헤더 구성이 바뀌면 아래 두 rem()
-// 값을 실측해서 같이 갱신해야 한다.
-//
-// 열림/닫힘은 [hidden] 대신 .is-open 클래스 + opacity/transform 트랜지션으로 처리한다
-// (display:none은 transition이 안 먹어서 애니메이션이 안 된다).
-// z-index가 헤더(z-header)보다 낮아야 딤 처리된 배경 위로 헤더가 또렷하게 올라와 보인다.
+// "전체카테고리" 트리거(gnb 카테고리 버튼 / brand-bar 햄버거 공용)로 여는 메가메뉴
+// 헤더가 position:sticky로 항상 뷰포트 top:0에 붙어있으므로(_header.scss) panel도 position:fixed 고정
+// top 값은 헤더가 펼침/축약 두 상태뿐이고 상태별 높이가 고정이라 JS 계산 대신 CSS 상수로 지정함
+// 헤더 구성 변경 시 아래 두 rem() 값 실측 후 함께 갱신 필요
+// 열림/닫힘은 [hidden] 대신 .is-open 클래스 + opacity/transform 트랜지션 사용(display:none은 트랜지션 불가)
+// z-index는 헤더(z-header)보다 낮게 설정, 딤 배경 위로 헤더가 또렷하게 보이도록 함
 .category-menu {
   &__backdrop {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    // inset:0(=right:0 포함) 대신 width+min-width — header-sticky와 같은 이유로,
-    // 뷰포트가 1280px보다 좁아져도(가로 스크롤 상태) 딤 배경이 실제 콘텐츠 폭(1280px)을
-    // 다 못 덮고 뷰포트 폭만큼만 좁게 깔리는 문제를 막는다.
+    // inset:0(right:0 포함) 대신 width+min-width 사용, 뷰포트가 1280px보다 좁아져도(가로 스크롤 상태)
+    // 딤 배경이 실제 콘텐츠 폭(1280px)을 다 못 덮고 뷰포트 폭만큼만 좁게 깔리는 현상 방지
     width: 100%;
     min-width: $layout-min-width;
     z-index: $z-category-menu-backdrop;
@@ -39,15 +32,14 @@
     pointer-events: auto;
   }
 
-  // 배경은 뷰포트 전체 폭(#fff), 실제 콘텐츠 정렬은 안쪽 &__panel-inner(.container)가 담당 —
-  // header/footer와 동일하게 "바깥 풀폭 + 안쪽 container" 패턴을 따른다.
+  // 배경은 뷰포트 전체 폭, 실제 콘텐츠 정렬은 안쪽 &__panel-inner(.container)가 담당
+  // header/footer와 동일한 "바깥 풀폭 + 안쪽 container" 패턴 적용
   &__panel {
     position: fixed;
     top: rem(181); // 펼침 상태 실측: utility-bar(41) + brand-bar(112) + gnb(54)
     left: 0;
-    // right:0 대신 width+min-width — position:fixed는 body의 min-width(1280px)를 무시하고
-    // 항상 "지금 보이는 뷰포트" 폭에 맞춰지기 때문에, 뷰포트를 1280px보다 좁혀도 패널만
-    // 페이지 나머지(가로 스크롤 생김)와 다르게 쪼그라드는 문제를 막는다.
+    // right:0 대신 width+min-width 사용, position:fixed는 body의 min-width(1280px)를 무시하고
+    // 항상 현재 뷰포트 폭에 맞춰지므로 뷰포트를 좁혀도 패널만 페이지와 다르게 쪼그라드는 현상 방지
     width: 100%;
     min-width: $layout-min-width;
     z-index: $z-category-menu-panel;
@@ -73,8 +65,8 @@
   }
 }
 
-// 헤더가 축약 상태(.is-scrolled)인 동안엔 panel의 top을 축약 헤더 높이로 바꾼다.
-// Header.tsx가 스크롤마다 toggling하는 클래스를 그대로 감지만 할 뿐 별도 JS 훅이 필요 없다.
+// 헤더 축약 상태(.is-scrolled)에서 panel의 top을 축약 헤더 높이로 변경
+// Header.tsx가 토글하는 클래스를 :has()로 감지, 별도 JS 훅 불필요
 body:has(.header.is-scrolled) .category-menu__panel {
   top: rem(87); // 축약 상태 실측: brand-bar만 남고 utility-bar/gnb는 접힘(max-height:0)
 }

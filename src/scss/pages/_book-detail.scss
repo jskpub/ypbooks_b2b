@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-// 브레드크럼 → (표지 | 정보) → 추천 이유 → 상품 정보 → 책 소개 순으로 세로로 쌓는다.
-// GNB/헤더는 1280px 그리드를 그대로 쓰고, 본문만 읽기 폭으로 좁힌다(review-feed/recommend와 동일 패턴).
+// 본문 읽기 폭으로 제한, review-feed/recommend와 동일 패턴(GNB는 1280px 그리드 유지)
 .book-detail {
   display: flex;
   flex-direction: column;
@@ -206,7 +205,7 @@
     white-space: pre-line;
   }
 
-  // 상품 규격 정보 — 프로젝트에 table 패턴이 없어서 dl + grid(라벨 열 | 값 열)로 구성.
+  // table 패턴 부재로 dl + grid(라벨 열 | 값 열) 구성 대체
   &__spec-table {
     border-top: $border-width-1 solid $color-border-strong;
   }
