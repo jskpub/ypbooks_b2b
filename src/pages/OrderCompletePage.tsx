@@ -153,11 +153,11 @@ export default function OrderCompletePage() {
         </div>
 
         <div className='order-complete__actions'>
-          {/* 마이페이지 주문 탭 라우트 부재로 자리만 확보 */}
           <a href='javascript:;' className='btn btn--secondary'>
             <Icon name='receipt' />
             주문/배송내역 조회
           </a>
+
           <Link to='/' className='btn btn--secondary'>
             <Icon name='shopping-bag' />
             쇼핑 계속하기

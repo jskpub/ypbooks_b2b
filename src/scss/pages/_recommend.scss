@@ -37,7 +37,12 @@
 .recommend-carousel {
   margin-top: $space-6;
   margin-bottom: $space-12;
+  scrollbar-width: none;
 
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   &__row {
     display: flex;
     align-items: center;
@@ -76,10 +81,11 @@
   &__progress {
     position: relative;
     height: rem(3);
-    margin-top: $space-4;
+    margin: $space-4 auto 0;
     background-color: $color-border;
     border-radius: $radius-full;
     overflow: hidden;
+    width: 92%;
   }
 
   &__progress-fill {

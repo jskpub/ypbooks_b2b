@@ -218,7 +218,9 @@ export default function MyPageHome() {
                             <button className='btn btn--secondary btn--sm' disabled>
                               배송조회
                             </button>
-                            <button className='btn btn--secondary btn--sm'>주문상세</button>
+                            <button className='btn btn--secondary btn--sm' disabled>
+                              주문상세
+                            </button>
                           </td>
                         </tr>
                       )),

@@ -139,7 +139,7 @@ export default function MySubsidyPage() {
                     </li>
                   </ul>
                   <button className={subsidyLedger.personalUsed ? 'btn btn--disabled subsidy-rule-box__btn' : 'btn btn--primary subsidy-rule-box__btn'} disabled={subsidyLedger.personalUsed} onClick={() => navigate('/')}>
-                    {subsidyLedger.personalUsed ? '당월 한도 소진 (다음달 갱신)' : '개인도서 둘러보기 &gt;'}
+                    {subsidyLedger.personalUsed ? '당월 한도 소진 (다음달 갱신)' : '개인도서 둘러보기 >'}
                   </button>
                 </div>
               </div>
