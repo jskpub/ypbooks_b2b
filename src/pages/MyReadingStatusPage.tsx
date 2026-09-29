@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EmptyState from '@/components/EmptyState';
 import { Icon } from '@/components/Icon';
-import { getReadingStatusList, markCompleted, markReading, markStarted, type ReadingStatus, type ReadingStatusItem } from '@/data/readingStatusStore';
+import { getReadingStatusList, markCompleted, markStarted, type ReadingStatus, type ReadingStatusItem } from '@/data/readingStatusStore';
 import { getMyReviews } from '@/data/reviewStore';
 import { fetchBookDetail, type AladinItem } from '@/services/aladinApi';
 import { getSessionUser } from '@/data/auth';
@@ -82,11 +82,6 @@ export default function MyReadingStatusPage() {
 
   const handleComplete = (isbn13: string) => {
     markCompleted(isbn13);
-    refresh();
-  };
-
-  const handleRevert = (isbn13: string) => {
-    markReading(isbn13);
     refresh();
   };
 
@@ -182,9 +177,6 @@ export default function MyReadingStatusPage() {
                     )}
                     {row.status === 'done' && (
                       <>
-                        <button type='button' className='btn btn--secondary btn--sm' onClick={() => handleRevert(row.isbn13)}>
-                          다시 읽기
-                        </button>
                         {review ? (
                           <Link to={`/myreview#review-${review.id}`} className='btn btn--secondary btn--sm'>
                             서평 보기

@@ -72,9 +72,4 @@ export function markCompleted(isbn13: string): void {
   updateStatus(isbn13, { status: 'done', completedAt: new Date().toISOString().slice(0, 10) });
 }
 
-// "다시 읽기" — 완독을 되돌리고 재독으로 취급한다. 독서완료일이 없어야 통계(이번 달/누적)에서
-// 빠지고, 시작일도 오늘로 다시 잡아야 다음에 완독했을 때 "독서 기간"이 1차 독서 때 날짜와
-// 뒤섞이지 않는다.
-export function markReading(isbn13: string): void {
-  updateStatus(isbn13, { status: 'reading', startedAt: new Date().toISOString().slice(0, 10), completedAt: undefined });
-}
+
