@@ -40,8 +40,8 @@ export default function HomePage() {
       <div className='container home'>
         <section className='home-hero'>
           <p className='home-hero__eyebrow label-base'>임직원 독서 복지 프로그램</p>
-          <h1 className='home-hero__headline'>읽고 싶은 책, 회사가 함께 삽니다</h1>
-          <p className='home-hero__subtext text-body-lg'>추천도서는 회사가 전액 지원하고, 직접 고른 개인도서는 50%를 지원합니다.</p>
+          <h1 className='home-hero__headline'>읽고 싶은 책을 회사가 지원합니다</h1>
+          <p className='home-hero__subtext text-body-lg'>추천도서는 100%, 개인 도서는 50% 지원해드립니다</p>
           <Link to='/recommend' className='home-hero__cta btn btn--primary btn--lg'>
             도서 둘러보기
           </Link>
