@@ -101,6 +101,13 @@ export default function OrderCompletePage() {
         <div className='card order-complete__items'>
           <p className='card__title'>주문 상품 정보 ({lastOrder.items.length}종)</p>
           <table className='cart-table'>
+            <colgroup>
+              <col width='40%' />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
             <thead>
               <tr>
                 <th className='cart-table__book-col'>상품정보</th>
