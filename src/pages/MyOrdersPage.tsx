@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
 import { useCart } from '@/context/CartContext';
+import { useToast } from '@/contexts/ToastContext';
 
 export default function MyOrdersPage() {
   const user = getSessionUser();
   const { orderHistory } = useCart();
+  const { showToast } = useToast();
+  const handleOrderDetailClick = () => showToast('준비중입니다');
 
   const [period, setPeriod] = useState('1m');
   const [group, setGroup] = useState('all');
@@ -164,7 +167,7 @@ export default function MyOrdersPage() {
                       <span className='order-card__title'>
                         <strong>{order.orderDate.split(' ')[0]}</strong> | 주문번호: {order.orderId}
                       </span>
-                      <a href='javascript:;' className='order-card__link'>
+                      <a href='javascript:;' className='order-card__link' onClick={handleOrderDetailClick}>
                         [주문상세 보기 &gt;]
                       </a>
                     </div>
@@ -199,7 +202,7 @@ export default function MyOrdersPage() {
                               <button className='btn btn--primary btn--sm' disabled>
                                 배송조회
                               </button>
-                              <button className='btn btn--secondary btn--sm' disabled>
+                              <button type='button' className='btn btn--secondary btn--sm' onClick={handleOrderDetailClick}>
                                 주문상세
                               </button>
                             </div>

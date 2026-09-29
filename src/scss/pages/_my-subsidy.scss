@@ -92,15 +92,21 @@
     li {
       position: relative;
       padding-left: $space-2;
-      
+
       &::before {
         content: '•';
         position: absolute;
         left: 0;
       }
 
-      .text-blue { color: $color-bookmark-blue; font-weight: 700; }
-      .text-red { color: $color-primary; font-weight: 700; }
+      .text-blue {
+        color: $color-bookmark-blue;
+        font-weight: 700;
+      }
+      .text-red {
+        color: $color-primary;
+        font-weight: 700;
+      }
     }
   }
 
@@ -127,10 +133,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: $space-4;
   padding-bottom: $space-4;
   border-bottom: $border-width-2 solid $color-foreground;
-
   .filter-group {
     display: flex;
     align-items: center;
@@ -159,7 +163,8 @@
   width: 100%;
   border-collapse: collapse;
 
-  th, td {
+  th,
+  td {
     padding: $space-4 $space-2;
     border-bottom: $border-width-1 solid $color-border;
     vertical-align: middle;
@@ -178,13 +183,28 @@
     font-size: $font-size-body-sm;
   }
 
-  .text-center { text-align: center; }
-  .text-left { text-align: left; }
-  .text-right { text-align: right; }
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
 
-  .text-blue { color: $color-bookmark-blue; font-weight: 700; }
-  .text-red { color: $color-primary; font-weight: 700; }
-  .text-green { color: $color-bookmark-green; font-weight: 700; }
+  .text-blue {
+    color: $color-bookmark-blue;
+    font-weight: 700;
+  }
+  .text-red {
+    color: $color-primary;
+    font-weight: 700;
+  }
+  .text-green {
+    color: $color-bookmark-green;
+    font-weight: 700;
+  }
 
   .block {
     display: block;

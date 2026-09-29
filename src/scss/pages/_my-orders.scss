@@ -103,7 +103,7 @@
     font-size: $font-size-caption;
     color: $color-foreground-secondary;
     text-decoration: none;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -144,7 +144,7 @@
         display: flex;
         align-items: center;
         gap: $space-2;
-        
+
         .badge {
           display: inline-block;
           padding: $space-1 $space-2;
@@ -183,8 +183,12 @@
     gap: rem(2);
     font-size: $font-size-body-sm;
 
-    .text-blue { color: $color-bookmark-blue; }
-    .text-red { color: $color-primary; }
+    .text-blue {
+      color: $color-bookmark-blue;
+    }
+    .text-red {
+      color: $color-primary;
+    }
   }
 
   &__status {
@@ -198,7 +202,9 @@
     gap: rem(2);
     text-align: center;
 
-    .text-green { color: $color-bookmark-green; }
+    .text-green {
+      color: $color-bookmark-green;
+    }
   }
 
   &__actions {
@@ -210,7 +216,13 @@
     padding: $space-4;
     gap: $space-2;
 
-    .btn { width: 100%; min-width: rem(80); }
+    .btn {
+      width: 100%;
+      min-width: rem(80);
+      & + .btn {
+        margin-top: $space-3;
+      }
+    }
   }
 }
 
@@ -230,12 +242,12 @@
     flex-direction: column;
     gap: $space-2;
     color: $color-foreground-secondary;
-    
+
     li {
       position: relative;
       padding-left: $space-3;
       line-height: $line-height-caption;
-      
+
       &::before {
         content: '•';
         position: absolute;
