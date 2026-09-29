@@ -108,9 +108,6 @@ export default function BookDetailPage() {
                   {part}
                 </li>
               ))}
-              <li className='book-detail__breadcrumb-item book-detail__breadcrumb-item--current' aria-current='page'>
-                {book.title}
-              </li>
             </ol>
           </nav>
           {isRecommended && (

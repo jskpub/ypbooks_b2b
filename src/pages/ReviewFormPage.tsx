@@ -84,8 +84,8 @@ export default function ReviewFormPage() {
       setError('한줄평은 최소 2자, 최대 50자까지 입력 가능합니다.');
       return;
     }
-    if (detail.length < 30 || detail.length > 200) {
-      setError('AI 맞춤 질문 답변은 최소 30자, 최대 200자까지 입력 가능합니다.');
+    if (detail.length < 10 || detail.length > 200) {
+      setError('AI 맞춤 질문 답변은 최소 10자, 최대 200자까지 입력 가능합니다.');
       return;
     }
     const now = new Date().toISOString().slice(0, 10);
@@ -191,7 +191,7 @@ export default function ReviewFormPage() {
             <textarea
               className='review-form__textarea'
               rows={5}
-              minLength={30}
+              minLength={10}
               maxLength={200}
               value={detail}
               onChange={(event) => setDetail(event.target.value)}

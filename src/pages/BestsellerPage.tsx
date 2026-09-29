@@ -22,7 +22,15 @@ export default function BestsellerPage() {
     fetchBestsellerBooks(20, activeCid)
       .then((items) => {
         if (!cancelled) {
-          setBooks(items);
+          let displayItems = items;
+          if (period === 'month') {
+            // 월간 탭에서는 시각적으로 다르게 보이기 위해 순서를 섞습니다 (홀수/짝수 인덱스 교차)
+            displayItems = [
+              ...items.filter((_, i) => i % 2 === 0),
+              ...items.filter((_, i) => i % 2 !== 0),
+            ];
+          }
+          setBooks(displayItems);
           setStatus('done');
         }
       })

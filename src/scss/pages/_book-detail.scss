@@ -86,6 +86,8 @@
   &__info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
     gap: $space-2;
     padding-top: $space-2;
   }

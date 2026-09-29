@@ -176,6 +176,16 @@
   &__ai-badge {
     margin-inline-start: $space-2;
     vertical-align: middle;
+    padding-block: 0;
+    padding-inline: $space-1 $space-2;
+    font-size: 11px; /* caption-sm size */
+    line-height: 1;
+    gap: 2px;
+    
+    .icon {
+      width: rem(12);
+      height: rem(12);
+    }
   }
 
   &__answer {
