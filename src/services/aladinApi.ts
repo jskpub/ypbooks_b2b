@@ -2,6 +2,7 @@
 // TTBKey는 Worker에만 존재, 클라이언트 코드에는 없음
 
 import { recommendedBookList } from '@/data/recommendedBookList';
+import { dummyBooks, dummyBooksByIsbn13, placeholderBook } from '@/data/dummyBooks';
 
 const PROXY_BASE = import.meta.env.VITE_ALADIN_PROXY_URL as string | undefined;
 
@@ -39,9 +40,21 @@ interface AladinListResponse {
   errorMessage?: string;
 }
 
-async function callProxy(path: string, params: Record<string, string>): Promise<AladinItem[]> {
+// FEATURE(feature/aladin-dummy-fallback): 알라딘 점검·네트워크 오류·비정상 응답(JSON 아님 등) 시
+// 화면이 완전히 비지 않도록 더미 데이터로 대체한다. 실패 원인은 console.warn으로만 남기고 화면엔 조용히 대체됨 —
+// 실제 채택 시 화면에 "임시 데이터입니다" 같은 표시를 더할지는 별도 결정 필요.
+function fallbackItems(params: Record<string, string>): AladinItem[] {
+  const maxResults = Number(params.MaxResults);
+  return Number.isFinite(maxResults) && maxResults > 0 ? dummyBooks.slice(0, maxResults) : dummyBooks;
+}
+
+// useFallback=false: 단건 조회(fetchBookDetail)용. 더미로 대체하면 URL의 isbn13과 다른 책이 나와 더
+// 혼란스러우므로, 이 경우엔 기존처럼 실패를 그대로 던져서 호출부의 "정보를 찾을 수 없습니다" 처리로 넘긴다.
+async function callProxy(path: string, params: Record<string, string>, useFallback = true): Promise<AladinItem[]> {
   if (!PROXY_BASE) {
-    throw new Error('VITE_ALADIN_PROXY_URL이 설정되지 않았습니다. .env를 확인하세요.');
+    if (!useFallback) throw new Error('VITE_ALADIN_PROXY_URL이 설정되지 않았습니다. .env를 확인하세요.');
+    console.warn('VITE_ALADIN_PROXY_URL이 설정되지 않아 더미 데이터로 대체합니다.');
+    return fallbackItems(params);
   }
   const url = new URL(path, PROXY_BASE);
   for (const [key, value] of Object.entries(params)) {
@@ -53,17 +66,24 @@ async function callProxy(path: string, params: Record<string, string>): Promise<
     return apiCache.get(cacheKey)!;
   }
 
-  const res = await fetch(cacheKey);
-  if (!res.ok) {
-    throw new Error(`알라딘 프록시 호출 실패 (status ${res.status})`);
+  try {
+    const res = await fetch(cacheKey);
+    if (!res.ok) {
+      throw new Error(`알라딘 프록시 호출 실패 (status ${res.status})`);
+    }
+    const data: AladinListResponse = await res.json();
+    if (data.errorMessage) {
+      throw new Error(data.errorMessage);
+    }
+    const items = data.item ?? [];
+    apiCache.set(cacheKey, items);
+    return items;
+  } catch (err) {
+    if (!useFallback) throw err;
+    // 알라딘 점검 중엔 HTML 점검 페이지가 status 200으로 와서 res.json()이 SyntaxError를 던지는 경우도 여기서 같이 처리됨
+    console.warn('알라딘 API 호출 실패, 더미 데이터로 대체합니다:', err);
+    return fallbackItems(params);
   }
-  const data: AladinListResponse = await res.json();
-  if (data.errorMessage) {
-    throw new Error(data.errorMessage);
-  }
-  const items = data.item ?? [];
-  apiCache.set(cacheKey, items);
-  return items;
 }
 
 export interface RecommendedAladinItem extends AladinItem {
@@ -142,10 +162,22 @@ export function fetchBooksByCategory(categoryId: number, maxResults = 50): Promi
 }
 
 export async function fetchBookDetail(isbn13: string): Promise<AladinItem | null> {
-  const items = await callProxy('/api/aladin/lookup', {
-    ItemId: isbn13,
-    ItemIdType: 'ISBN13',
-    OptResult: 'subInfo,packing',
-  });
-  return items[0] ?? null;
+  try {
+    const items = await callProxy(
+      '/api/aladin/lookup',
+      {
+        ItemId: isbn13,
+        ItemIdType: 'ISBN13',
+        OptResult: 'subInfo,packing',
+      },
+      false,
+    );
+    return items[0] ?? null;
+  } catch (err) {
+    // FEATURE(feature/aladin-dummy-fallback): 지난 추천 도서(PastRecommendationRow)처럼 isbn13별로 개별 조회하는
+    // 곳이 알라딘 장애 시 "불러오는 중…"에 계속 멈춰 있지 않도록 대체한다. 요청한 isbn13과 실제로 일치하는
+    // 더미 데이터가 있으면 그걸, 없으면 자리표시자를 돌려준다 — 엉뚱한 책으로 바뀌치기하지 않는다.
+    console.warn('알라딘 단건 조회 실패, 대체 데이터로 표시합니다:', err);
+    return dummyBooksByIsbn13.get(isbn13) ?? placeholderBook(isbn13);
+  }
 }
