@@ -151,19 +151,4 @@
     flex-shrink: 0;
     color: $color-muted;
   }
-
-  // .auth-login__copyright와 같은 모양으로 맞춘다. 본문 패딩을 음수 마진으로 상쇄해
-  // 구분선이 본문 영역 좌우 끝까지, footer가 화면 맨 아래까지 닿게 한다.
-  &__footer {
-    display: flex;
-    margin: auto (-$space-10) (-$space-8);
-    align-items: center;
-    justify-content: space-between;
-    gap: $space-3;
-    padding: $space-5 $space-10;
-    border-top: $border-width-1 solid $color-border;
-    font-size: $font-size-caption;
-    line-height: $line-height-caption;
-    color: $color-muted;
-  }
 }

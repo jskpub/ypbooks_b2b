@@ -7,13 +7,13 @@ import { getReadingStatusList, type ReadingStatusItem } from '@/data/readingStat
 export default function MyPageHome() {
   const user = getSessionUser();
   const { orderHistory, subsidyLedger } = useCart();
-  
+
   const [readingItems] = useState<ReadingStatusItem[]>(() => getReadingStatusList());
 
   // 통계 수치 계산
   const totalPurchased = readingItems.length;
-  const currentlyReading = readingItems.filter(item => item.status === 'reading').length;
-  const completedReading = readingItems.filter(item => item.status === 'done').length;
+  const currentlyReading = readingItems.filter((item) => item.status === 'reading').length;
+  const completedReading = readingItems.filter((item) => item.status === 'done').length;
 
   // 최근 주문 2건만 가져오기
   const recentOrders = orderHistory.slice(0, 2);
@@ -21,40 +21,53 @@ export default function MyPageHome() {
   return (
     <main id='main' className='main my-page-layout'>
       <div className='container my-page-layout__inner'>
-        
         {/* LNB (사이드바) */}
         <aside className='my-page-sidebar'>
           <div className='my-page-sidebar__user'>
             <p className='text-h3'>{user?.name ?? '김민서'} 님</p>
             <p className='caption'>한결그룹</p>
           </div>
-          
+
           <nav className='my-page-nav'>
             <div className='my-page-nav__group'>
               <h4 className='my-page-nav__title'>쇼핑 & 주문 관리</h4>
               <ul>
-                <li className='is-active'><Link to="/mypage">마이페이지 홈</Link></li>
-                <li><Link to="/orders">주문 / 배송 조회</Link></li>
+                <li className='is-active'>
+                  <Link to='/mypage'>마이페이지 홈</Link>
+                </li>
+                <li>
+                  <Link to='/orders'>주문 / 배송 조회</Link>
+                </li>
               </ul>
             </div>
             <div className='my-page-nav__group'>
               <h4 className='my-page-nav__title'>복지 혜택</h4>
               <ul>
-                <li><Link to="/subsidy">나의 지원금 현황</Link></li>
+                <li>
+                  <Link to='/subsidy'>나의 지원금 현황</Link>
+                </li>
               </ul>
             </div>
             <div className='my-page-nav__group'>
               <h4 className='my-page-nav__title'>독서 서재</h4>
               <ul>
-                <li><Link to="/myreading">나의 독서현황</Link></li>
-                <li><Link to="/myreview">나의 서평</Link></li>
-                <li><Link to="/mystats">독서 통계</Link></li>
+                <li>
+                  <Link to='/myreading'>나의 독서현황</Link>
+                </li>
+                <li>
+                  <Link to='/myreview'>나의 서평</Link>
+                </li>
+                <li>
+                  <Link to='/mystats'>독서 통계</Link>
+                </li>
               </ul>
             </div>
             <div className='my-page-nav__group'>
               <h4 className='my-page-nav__title'>계정 & 설정</h4>
               <ul>
-                <li><Link to="/profile">회원 정보 조회</Link></li>
+                <li>
+                  <Link to='/profile'>회원 정보 조회</Link>
+                </li>
               </ul>
             </div>
           </nav>
@@ -67,7 +80,6 @@ export default function MyPageHome() {
           </div>
 
           <div className='my-page-dashboard'>
-            
             <div className='dashboard-row dashboard-row--2col'>
               {/* 회원 기본 정보 */}
               <div className='card dashboard-card'>
@@ -80,7 +92,9 @@ export default function MyPageHome() {
                     </tr>
                     <tr>
                       <th>사번 / 이름</th>
-                      <td>{user?.employeeId ?? '20240108'} / {user?.name ?? '김민서'}</td>
+                      <td>
+                        {user?.employeeId ?? '20240108'} / {user?.name ?? '김민서'}
+                      </td>
                     </tr>
                     <tr>
                       <th>소속 부서</th>
@@ -101,28 +115,28 @@ export default function MyPageHome() {
                   <h3 className='text-h3'>당월 지원금 현황 (2026년 9월)</h3>
                   <span className='caption'>매월 1일 갱신</span>
                 </div>
-                
+
                 <div className='subsidy-grid'>
                   <div className='subsidy-box'>
-                    <div className={`subsidy-box__badge ${subsidyLedger.recommendedUsed ? 'is-disabled' : ''}`}>
-                      {subsidyLedger.recommendedUsed ? '한도 소진' : '사용 가능'}
-                    </div>
+                    <div className={`subsidy-box__badge ${subsidyLedger.recommendedUsed ? 'is-disabled' : ''}`}>{subsidyLedger.recommendedUsed ? '한도 소진' : '사용 가능'}</div>
                     <p className='label-lg'>이달의 추천도서</p>
                     <ul className='subsidy-box__list'>
                       <li>지원율: 회사 100% 지원</li>
-                      <li>한도: 월 1권 (잔여 {subsidyLedger.recommendedUsed ? '0' : '1'}권{subsidyLedger.recommendedUsed ? ' - 소진' : ''})</li>
+                      <li>
+                        한도: 월 1권 (잔여 {subsidyLedger.recommendedUsed ? '0' : '1'}권{subsidyLedger.recommendedUsed ? ' - 소진' : ''})
+                      </li>
                       <li className='caption'>* 종이책 전용 / 본인부담 0원</li>
                     </ul>
                   </div>
-                  
+
                   <div className='subsidy-box'>
-                    <div className={`subsidy-box__badge ${subsidyLedger.personalUsed ? 'is-disabled' : ''}`}>
-                      {subsidyLedger.personalUsed ? '한도 소진' : '사용 가능'}
-                    </div>
+                    <div className={`subsidy-box__badge ${subsidyLedger.personalUsed ? 'is-disabled' : ''}`}>{subsidyLedger.personalUsed ? '한도 소진' : '사용 가능'}</div>
                     <p className='label-lg'>개인 자유도서</p>
                     <ul className='subsidy-box__list'>
                       <li>지원율: 50% (최대 1만원)</li>
-                      <li>한도: 월 1권 (잔여 {subsidyLedger.personalUsed ? '0' : '1'}권{subsidyLedger.personalUsed ? ' - 소진' : ''})</li>
+                      <li>
+                        한도: 월 1권 (잔여 {subsidyLedger.personalUsed ? '0' : '1'}권{subsidyLedger.personalUsed ? ' - 소진' : ''})
+                      </li>
                       <li className='caption'>* 종이책/전자책 가능</li>
                     </ul>
                   </div>
@@ -132,7 +146,7 @@ export default function MyPageHome() {
 
             {/* 나의 독서 활동 요약 */}
             <div className='card dashboard-card'>
-              <h3 className='text-h3 dashboard-card__title'>나의 독서 활동 요약 (My Library)</h3>
+              <h3 className='text-h3 dashboard-card__title'>나의 독서 활동 요약</h3>
               <div className='library-stats'>
                 <div className='library-stats__item'>
                   <span className='caption'>누적 구매</span>
@@ -153,9 +167,11 @@ export default function MyPageHome() {
             <div className='card dashboard-card'>
               <div className='dashboard-card__header'>
                 <h3 className='text-h3'>최근 도서 주문 / 배송 내역</h3>
-                <Link to="#" className="btn btn--secondary btn--sm">전체 주문내역 보기 &gt;</Link>
+                <Link to='#' className='btn btn--secondary btn--sm'>
+                  전체 주문내역 보기 &gt;
+                </Link>
               </div>
-              
+
               <table className='order-table'>
                 <thead>
                   <tr>
@@ -169,10 +185,12 @@ export default function MyPageHome() {
                 <tbody>
                   {recentOrders.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="text-center" style={{padding: '2rem'}}>최근 주문 내역이 없습니다.</td>
+                      <td colSpan={5} className='text-center' style={{ padding: '2rem' }}>
+                        최근 주문 내역이 없습니다.
+                      </td>
                     </tr>
                   ) : (
-                    recentOrders.flatMap((order) => 
+                    recentOrders.flatMap((order) =>
                       order.items.map((book, idx) => (
                         <tr key={`${order.orderId}-${book.id}-${idx}`}>
                           <td className='order-table__date'>
@@ -181,17 +199,17 @@ export default function MyPageHome() {
                           </td>
                           <td className='order-table__info'>
                             <div className='order-table__info-wrap'>
-                              {book.coverSrc ? (
-                                <img src={book.coverSrc} alt={book.title} className='book-thumb' style={{width: 44, height: 64, objectFit: 'cover'}} />
-                              ) : (
-                                <div className='book-thumb'>표지</div>
-                              )}
+                              {book.coverSrc ? <img src={book.coverSrc} alt={book.title} className='book-thumb' style={{ width: 44, height: 64, objectFit: 'cover' }} /> : <div className='book-thumb'>표지</div>}
                               <div className='book-details'>
                                 <div className='book-details__title'>
                                   <span className={`badge ${book.group === 'recommended' ? 'badge--recommend' : 'badge--general'}`}>{book.group === 'recommended' ? '추천도서' : '개인도서'}</span>
-                                  <strong>{book.title} ({book.qty}권)</strong>
+                                  <strong>
+                                    {book.title} ({book.qty}권)
+                                  </strong>
                                 </div>
-                                <span className='caption'>정가 {book.sellingPrice.toLocaleString()}원 | {book.formatLabel}</span>
+                                <span className='caption'>
+                                  정가 {book.sellingPrice.toLocaleString()}원 | {book.formatLabel}
+                                </span>
                               </div>
                             </div>
                           </td>
@@ -205,17 +223,18 @@ export default function MyPageHome() {
                             <span className='caption'>배송준비중</span>
                           </td>
                           <td className='order-table__actions'>
-                            <button className='btn btn--secondary btn--sm' disabled>배송조회</button>
+                            <button className='btn btn--secondary btn--sm' disabled>
+                              배송조회
+                            </button>
                             <button className='btn btn--secondary btn--sm'>주문상세</button>
                           </td>
                         </tr>
-                      ))
+                      )),
                     )
                   )}
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
       </div>

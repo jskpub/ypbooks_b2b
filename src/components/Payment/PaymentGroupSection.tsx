@@ -52,7 +52,6 @@ export default function PaymentGroupSection({
           </span>
         </span>
         <span className='cart-group__header-right'>
-          {isSubsidyExhausted ? <span className='subsidy-chip subsidy-chip--exhausted'>지원금 한도 소진</span> : <span className='subsidy-chip subsidy-chip--available'>지원금 사용 가능</span>}
           <span className='cart-group__chevron cart-group__chevron--down'>
             <Icon name='caret-down' />
           </span>

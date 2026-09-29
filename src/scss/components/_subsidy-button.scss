@@ -1,8 +1,7 @@
 @use '../abstracts' as *;
 
-// Figma node 1184:1772 (Component/Subsidy Button) — subsidy(Recommended/Personal) × status(Apply/Applied/Exhausted).
-// Recommended(추천도서 지원금)는 브랜드색(primary), Personal(개인 지원금)은 $color-subsidy-employee를 쓴다 —
-// 두 토큰 다 Foundations 노드에서 이미 실측해둔 값이라 새로 만들 필요 없이 그대로 재사용.
+// Figma node 1184:1772 (Component/Subsidy Button) — status(Apply/Applied/Exhausted).
+// 개인도서/추천도서 구분 없이 같은 스타일(브랜드색 primary)을 쓴다.
 .subsidy-btn {
   display: inline-flex;
   align-items: center;
@@ -45,26 +44,6 @@
     }
   }
 
-  // subsidy=Personal
-  &--personal {
-    border-color: $color-subsidy-employee;
-    color: $color-subsidy-employee;
-
-    &:hover {
-      background-color: $color-subsidy-employee-soft;
-    }
-
-    &.is-applied {
-      background-color: $color-subsidy-employee;
-      border-color: $color-subsidy-employee;
-      color: $color-on-primary;
-
-      &:hover {
-        background-color: $color-neutral-700;
-      }
-    }
-  }
-
   // status=Exhausted(한도 소진) — 항상 비활성
   &.is-exhausted,
   &:disabled {
@@ -73,4 +52,21 @@
     color: $color-disabled-text;
     cursor: not-allowed;
   }
+}
+
+
+.subsidy-btn {
+  background-color: $color-surface-card;      // 추가 (기존 transparent)
+  border: $border-width-1 solid $color-primary;
+  color: $color-on-primary-soft;              // 변경 (기존 $color-primary)
+
+  &:hover { background-color: $color-primary-soft; }
+
+  &.is-applied {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-on-primary;
+    &:hover { background-color: $color-primary-hover; border-color: $color-primary-hover; }
+  }
+  // is-exhausted / :disabled 블록은 그대로
 }

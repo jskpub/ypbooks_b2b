@@ -8,3 +8,14 @@
 @function rem($px, $base: 10) {
   @return math.div($px, $base) * 1rem;
 }
+
+// 이미지 에셋 base path — 컴포넌트/페이지 scss 파일 기준 상대경로. 폴더 구조가 바뀌면 이 한 곳만 고치면 된다.
+// variables.scss에 두지 않는 이유: variables.scss가 rem()을 쓰려고 이 파일을 @use하고 있어서,
+// 거꾸로 이 파일이 variables.scss를 @use하면 순환 참조(Module loop)로 컴파일이 깨진다.
+$image-path: '../../assets/images/';
+
+// assets/images/ 밑 파일명만 넘기면 $image-path를 붙여 url()로 감싸준다.
+// 예: bg-image('book_home_visual.png') → url('../../assets/images/book_home_visual.png')
+@function bg-image($filename) {
+  @return url('#{$image-path}#{$filename}');
+}

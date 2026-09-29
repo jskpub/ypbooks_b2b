@@ -50,7 +50,7 @@ export default function BrandBar({ isMenuOpen, onToggleMenu, triggerRef }: Brand
           <label htmlFor='site-search' className='sr-only'>
             도서 검색
           </label>
-          <input type='search' id='site-search' name='q' className='brand-bar__search-input' placeholder='도서명, 저자명, 카드번호를 검색해 보세요' value={query} onChange={(event) => setQuery(event.target.value)} />
+          <input type='search' id='site-search' name='q' className='brand-bar__search-input' placeholder='도서명, 저자명, ISBN을 입력해주세요.' value={query} onChange={(event) => setQuery(event.target.value)} />
           <button type='submit' className='brand-bar__search-submit'>
             <span className='sr-only'>검색</span>
             <Icon name='magnifying-glass' />

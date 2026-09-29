@@ -619,6 +619,11 @@
 
 // 사이드바 — 주문 요약
 .cart-summary {
+  .cart-address {
+    & + & {
+      margin-top: $space-5;
+    }
+  }
   display: flex;
   flex-direction: column;
   gap: $space-4;
@@ -626,7 +631,6 @@
   border: $border-width-1 solid $color-border;
   border-radius: $radius-lg;
   background-color: $color-surface-card;
-  margin-top: $space-5;
 
   &__title {
     padding-bottom: $space-3;

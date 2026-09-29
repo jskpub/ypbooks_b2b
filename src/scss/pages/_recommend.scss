@@ -27,12 +27,13 @@
   background-color: $color-surface;
   border-radius: $radius-lg;
 
-  &__eyebrow {
-    color: $color-primary;
-  }
-
+  background:
+    linear-gradient(rgba($color-neutral-900, 0.6), rgba($color-neutral-900, 0.6)),
+    url('../../assets/images/book_recommand_visual_02.jpg') center 0 / cover no-repeat;
+  &__title,
+  &__eyebrow,
   &__subtext {
-    color: $color-foreground-secondary;
+    color: $color-neutral-200;
   }
 }
 
@@ -91,7 +92,9 @@
     height: 100%;
     background-color: $color-muted;
     border-radius: $radius-full;
-    transition: left $motion-fast, width $motion-fast;
+    transition:
+      left $motion-fast,
+      width $motion-fast;
   }
 }
 

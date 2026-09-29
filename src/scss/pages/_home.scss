@@ -14,14 +14,22 @@
   text-align: center;
   background-color: $color-surface;
   border-radius: $radius-lg;
+  background:
+    linear-gradient(rgba($color-neutral-900, 0.6), rgba($color-neutral-900, 0.6)),
+    url('../../assets/images/book_home_visual_01.png') center 0 / cover no-repeat;
 
-  &__eyebrow {
-    color: $color-primary;
-  }
-
+  &__eyebrow,
+  &__headline,
   &__subtext {
-    color: $color-foreground-secondary;
+    color: $color-neutral-200;
   }
+  // &__eyebrow {
+  //   color: $color-primary;
+  // }
+
+  // &__subtext {
+  //   color: $color-foreground-secondary;
+  // }
 
   &__cta {
     margin-top: $space-4;

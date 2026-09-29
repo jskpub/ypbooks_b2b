@@ -17,9 +17,6 @@
   text-align: center;
   border: 1px solid $color-neutral-200;
   border-radius: rem(10);
-  .payment__head + & {
-    padding-top: $space-10;
-  }
   // .icon과 클래스 우선순위가 같아서(BEM 엘리먼트를 아이콘 자신에 직접 붙이면) SCSS 번들 순서상
   // utilities/_helpers.scss의 기본 20px에 나중에 덮어써진다 — 자식 선택자로 우선순위를 올려 피한다.
   .icon {
