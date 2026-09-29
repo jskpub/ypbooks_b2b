@@ -93,14 +93,20 @@ export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> 
   }));
 }
 
-// 홈 화면 "주간 베스트셀러" 위젯용. categoryId=0이면 전체 조회.
-export function fetchBestsellerBooks(maxResults = 8, categoryId = 0): Promise<AladinItem[]> {
+// 홈 화면 "주간 베스트셀러" 위젯 / 베스트(BOOK-03). categoryId=0이면 전체 조회.
+// period를 주면 그 주(Year/Month/Week)의 순위를, 생략하면 알라딘 기준 이번 주 순위를 준다.
+export function fetchBestsellerBooks(maxResults = 8, categoryId = 0, period?: { year: number; month: number; week: number }): Promise<AladinItem[]> {
   const params: Record<string, string> = {
     QueryType: 'Bestseller',
     SearchTarget: 'Book',
     MaxResults: String(maxResults),
   };
   if (categoryId > 0) params.CategoryId = String(categoryId);
+  if (period) {
+    params.Year = String(period.year);
+    params.Month = String(period.month);
+    params.Week = String(period.week);
+  }
   return callProxy('/api/aladin/list', params);
 }
 

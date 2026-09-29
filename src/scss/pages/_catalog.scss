@@ -15,16 +15,62 @@
     margin-bottom: $space-4;
   }
 
+  // 스토리보드 P.09/P.10 — 위쪽 모서리만 둥근 폴더형 탭. 아래 기준선 위에 탭을 1px 겹쳐 올리고,
+  // 선택된 탭은 아래 테두리를 배경색으로 칠해 기준선을 끊어서 본문과 이어져 보이게 한다.
   &__tabs {
     display: flex;
-    gap: $space-2;
-    border-bottom: $border-width-1 solid $color-border;
+    border-bottom: $border-width-1 solid $color-foreground;
     margin-bottom: $space-4;
   }
 
+  &__tab {
+    min-width: rem(158);
+    margin-bottom: -$border-width-1;
+    padding: $space-2 $space-6;
+    border: $border-width-1 solid $color-border-strong;
+    border-bottom-color: $color-foreground;
+    border-radius: $radius-lg $radius-lg 0 0;
+    background-color: $color-surface-card;
+    color: $color-foreground-secondary;
+    font-size: $font-size-label-base;
+    line-height: $line-height-label-base;
+    transition: color $motion-fast;
+
+    &:hover {
+      color: $color-foreground;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+
+    &.is-active {
+      border-color: $color-foreground;
+      border-bottom-color: $color-surface-card;
+      color: $color-foreground;
+      font-weight: 700;
+    }
+  }
+
+  // BOOK-03 년/월/주차 드롭다운 — 탭 아래 오른쪽 정렬.
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-2;
+    margin-bottom: $space-4;
+  }
+
+  &__select {
+    width: auto;
+    min-width: rem(96);
+  }
+
+  // BOOK-04 정렬 — 오른쪽 정렬, 항목 사이 세로 구분선, 선택 항목만 굵게.
   &__sort {
     display: flex;
-    gap: $space-3;
+    justify-content: flex-end;
+    align-items: center;
     margin-bottom: $space-4;
   }
 
@@ -32,6 +78,21 @@
     color: $color-foreground-secondary;
     font-size: $font-size-body-sm;
     line-height: $line-height-body-sm;
+
+    & + & {
+      margin-left: $space-3;
+      padding-left: $space-3;
+      border-left: $border-width-1 solid $color-border;
+    }
+
+    &:hover {
+      color: $color-foreground;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 2px;
+    }
 
     &.is-active {
       color: $color-foreground;

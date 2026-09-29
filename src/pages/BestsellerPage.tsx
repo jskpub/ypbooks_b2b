@@ -4,22 +4,45 @@ import CategorySidebar from '@/components/CategorySidebar';
 import EmptyState from '@/components/EmptyState';
 import { isCurrentlyRecommended } from '@/data/recommendedBookList';
 import { fetchBestsellerBooks, type AladinItem } from '@/services/aladinApi';
+import {
+  clampPeriod,
+  getCurrentPeriod,
+  getLastWeekOfMonth,
+  getMonthOptions,
+  getWeekOptions,
+  getYearOptions,
+  isCurrentPeriod,
+  type BestsellerPeriod,
+} from '@/utils/bestsellerPeriod';
 
 type Period = 'week' | 'month';
 
-// BOOK-03. Figma node 84:648 기준 — 카테고리 사이드바 + 주간/월간 탭 + Book List 행.
-// 알라딘 Bestseller는 원래 "주간" 단위 리스트라 월간 전용 데이터가 따로 없다 — 월간 탭도
-// 같은 호출을 재사용한다(정확한 월간 집계는 알라딘 API로는 불가능).
+const TABS: { key: Period; label: string }[] = [
+  { key: 'week', label: '주간' },
+  { key: 'month', label: '월간' },
+];
+
+// BOOK-03. 스토리보드 P.09(Figma node 106:2) 기준 — 카테고리 사이드바 + 주간/월간 탭 + 년/월/주차
+// 드롭다운 + Book List 행. 주간은 알라딘 Bestseller의 Year/Month/Week로 선택한 주의 순위를 받는다.
+// 알라딘엔 월간 리스트가 없어서, 월간은 선택한 달의 마지막 주 순위를 받아 순서만 재배열한다
+// (정확한 월간 집계는 알라딘 API로는 불가능).
 export default function BestsellerPage() {
   const [period, setPeriod] = useState<Period>('week');
+  const [selected, setSelected] = useState<BestsellerPeriod>(() => getCurrentPeriod());
   const [activeCid, setActiveCid] = useState(0); // 0 = 종합(전체)
   const [books, setBooks] = useState<AladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');
 
+  const yearOptions = getYearOptions();
+  const monthOptions = getMonthOptions(selected.year);
+  const weekOptions = getWeekOptions(selected.year, selected.month);
+
   useEffect(() => {
     let cancelled = false;
     setStatus('loading');
-    fetchBestsellerBooks(20, activeCid)
+    const target = period === 'month' ? { ...selected, week: getLastWeekOfMonth(selected.year, selected.month) } : selected;
+    // 이번 주는 파라미터 없이 요청한다 — 주차를 나누는 기준이 알라딘과 달라도 최신 순위가 나오게.
+    fetchBestsellerBooks(20, activeCid, isCurrentPeriod(target) ? undefined : target)
       .then((items) => {
         if (!cancelled) {
           let displayItems = items;
@@ -40,7 +63,9 @@ export default function BestsellerPage() {
     return () => {
       cancelled = true;
     };
-  }, [period, activeCid]);
+  }, [period, selected, activeCid]);
+
+  const updatePeriod = (next: Partial<BestsellerPeriod>) => setSelected((prev) => clampPeriod({ ...prev, ...next }));
 
   return (
     <main id='main' className='main'>
@@ -51,12 +76,38 @@ export default function BestsellerPage() {
           <h1 className='catalog-page__title text-h1'>베스트</h1>
 
           <div className='catalog-page__tabs' role='tablist'>
-            <button type='button' role='tab' aria-selected={period === 'week'} className={`tab-item${period === 'week' ? ' is-active' : ''}`} onClick={() => setPeriod('week')}>
-              주간
-            </button>
-            <button type='button' role='tab' aria-selected={period === 'month'} className={`tab-item${period === 'month' ? ' is-active' : ''}`} onClick={() => setPeriod('month')}>
-              월간
-            </button>
+            {TABS.map((t) => (
+              <button key={t.key} type='button' role='tab' aria-selected={period === t.key} className={`catalog-page__tab${period === t.key ? ' is-active' : ''}`} onClick={() => setPeriod(t.key)}>
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          <div className='catalog-page__controls'>
+            <select className='field__input catalog-page__select' aria-label='연도' value={selected.year} onChange={(event) => updatePeriod({ year: Number(event.target.value) })}>
+              {yearOptions.map((year) => (
+                <option key={year} value={year}>
+                  {year}년
+                </option>
+              ))}
+            </select>
+            <select className='field__input catalog-page__select' aria-label='월' value={selected.month} onChange={(event) => updatePeriod({ month: Number(event.target.value) })}>
+              {monthOptions.map((month) => (
+                <option key={month} value={month}>
+                  {month}월
+                </option>
+              ))}
+            </select>
+            {/* 월간 탭에서는 주차를 고르지 않는다 — 년/월 드롭다운만 남긴다. */}
+            {period === 'week' && (
+              <select className='field__input catalog-page__select' aria-label='주차' value={selected.week} onChange={(event) => updatePeriod({ week: Number(event.target.value) })}>
+                {weekOptions.map((week) => (
+                  <option key={week} value={week}>
+                    {week}주
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
 
           {status === 'error' && <p className='text-body-sm'>베스트셀러를 불러오지 못했습니다.</p>}

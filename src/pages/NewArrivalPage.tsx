@@ -19,10 +19,10 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
   { key: 'priceAsc', label: '낮은가격순' },
 ];
 
-// BOOK-04. Figma node 84:1015 기준 — 카테고리 사이드바 + 화제의 신간/새로 나온 도서 탭 + 정렬 + Book List 행.
+// BOOK-04. 스토리보드 P.10(Figma node 106:370) 기준 — 카테고리 사이드바 + 화제의 신간/새로 나온 도서 탭 + 정렬 + Book List 행.
 // 정렬은 알라딘 ItemList에 Sort 파라미터가 없어서 클라이언트에서 직접 정렬한다.
 export default function NewArrivalPage() {
-  const [tab, setTab] = useState<Tab>('all');
+  const [tab, setTab] = useState<Tab>('special'); // 스토리보드 P.10 — 첫 탭(화제의 신간)이 기본 선택
   const [sortKey, setSortKey] = useState<SortKey>('salesPoint');
   const [activeCid, setActiveCid] = useState(0); // 0 = 종합(전체)
   const [books, setBooks] = useState<AladinItem[]>([]);
@@ -64,7 +64,7 @@ export default function NewArrivalPage() {
 
           <div className='catalog-page__tabs' role='tablist'>
             {TABS.map((t) => (
-              <button key={t.key} type='button' role='tab' aria-selected={tab === t.key} className={`tab-item${tab === t.key ? ' is-active' : ''}`} onClick={() => setTab(t.key)}>
+              <button key={t.key} type='button' role='tab' aria-selected={tab === t.key} className={`catalog-page__tab${tab === t.key ? ' is-active' : ''}`} onClick={() => setTab(t.key)}>
                 {t.label}
               </button>
             ))}
