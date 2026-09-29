@@ -85,7 +85,7 @@ export async function fetchRecommendedBooks(): Promise<RecommendedAladinItem[]> 
 }
 
 // 홈 화면 "주간 베스트셀러" 위젯용. categoryId=0이면 전체 조회.
-export function fetchBestsellerBooks(maxResults = 8, categoryId = 0): Promise<AladinItem[]> {
+export function fetchBestsellerBooks(maxResults = 8, categoryId = 0, period?: { year: number; month: number; week: number }): Promise<AladinItem[]> {
   const params: Record<string, string> = {
     QueryType: 'Bestseller',
     SearchTarget: 'Book',
