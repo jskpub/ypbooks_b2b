@@ -16,6 +16,16 @@ export default function MyReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>(() => getMyReviews());
   const [covers, setCovers] = useState<Record<string, string>>({});
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
+  const [likedIds, setLikedIds] = useState(() => new Set(reviews.filter((review) => review.likedByMe).map((review) => review.id)));
+
+  const toggleLike = (id: string) => {
+    setLikedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -136,6 +146,8 @@ export default function MyReviewsPage() {
                   review={review}
                   coverSrc={covers[review.isbn13]}
                   variant='mine'
+                  isLiked={likedIds.has(review.id)}
+                  onToggleLike={toggleLike}
                   onChangeVisibility={handleChangeVisibility}
                   onDelete={handleDelete}
                 />

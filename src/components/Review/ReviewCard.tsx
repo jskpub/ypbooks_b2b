@@ -173,18 +173,16 @@ export default function ReviewCard({ review, coverSrc, variant = 'public', isLik
             <p className='review-card__answer text-body-sm'>{review.detail}</p>
           </div>
 
-          {variant === 'public' && (
-            <button
-              type='button'
-              className={`review-card__like${isLiked ? ' is-active' : ''}`}
-              aria-pressed={isLiked}
-              aria-label={`좋아요 ${likeCount}`}
-              onClick={() => onToggleLike?.(review.id)}
-            >
-              <Icon name='heart' />
-              <span aria-hidden='true'>{likeCount}</span>
-            </button>
-          )}
+          <button
+            type='button'
+            className={`review-card__like${isLiked ? ' is-active' : ''}`}
+            aria-pressed={isLiked}
+            aria-label={`좋아요 ${likeCount}`}
+            onClick={() => onToggleLike?.(review.id)}
+          >
+            <Icon name='heart' />
+            <span aria-hidden='true'>{likeCount}</span>
+          </button>
         </div>
 
         <div className='review-card__aside'>
