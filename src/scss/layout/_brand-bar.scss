@@ -305,7 +305,6 @@
     right: rem(8);
     min-width: rem(15);
     height: rem(14);
-    padding-inline: rem(3);
     border-radius: $radius-full;
     background-color: $color-red-500;
     color: $color-neutral-0;
@@ -317,5 +316,6 @@
     justify-content: center;
     pointer-events: none;
     box-sizing: border-box;
+    padding: 0 0 0.02rem 0.06rem;
   }
 }

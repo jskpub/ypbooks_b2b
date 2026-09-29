@@ -9,7 +9,7 @@ function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;
 }
 
-// 마이페이지/주문내역 라우트 부재로 "쇼핑 계속하기"만 유지, 클립보드 복사도 적합한 아이콘 부재로 텍스트 버튼 대체
+// 클립보드 복사는 적합한 아이콘 부재로 텍스트 버튼 대체
 export default function OrderCompletePage() {
   const { lastOrder } = useCart();
   const navigate = useNavigate();
@@ -153,10 +153,10 @@ export default function OrderCompletePage() {
         </div>
 
         <div className='order-complete__actions'>
-          <a href='javascript:;' className='btn btn--secondary'>
+          <Link to='/orders' className='btn btn--secondary'>
             <Icon name='receipt' />
             주문/배송내역 조회
-          </a>
+          </Link>
 
           <Link to='/' className='btn btn--secondary'>
             <Icon name='shopping-bag' />
