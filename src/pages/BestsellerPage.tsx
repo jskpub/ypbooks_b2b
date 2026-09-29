@@ -22,10 +22,7 @@ const TABS: { key: Period; label: string }[] = [
   { key: 'month', label: '월간' },
 ];
 
-// BOOK-03. 스토리보드 P.09(Figma node 106:2) 기준 — 카테고리 사이드바 + 주간/월간 탭 + 년/월/주차
-// 드롭다운 + Book List 행. 주간은 알라딘 Bestseller의 Year/Month/Week로 선택한 주의 순위를 받는다.
-// 알라딘엔 월간 리스트가 없어서, 월간은 선택한 달의 마지막 주 순위를 받아 순서만 재배열한다
-// (정확한 월간 집계는 알라딘 API로는 불가능).
+// 알라딘 월간 리스트 미제공으로 월간 탭은 선택한 달의 마지막 주 순위를 재배열해 표시 (정확한 월간 집계 불가)
 export default function BestsellerPage() {
   const [period, setPeriod] = useState<Period>('week');
   const [selected, setSelected] = useState<BestsellerPeriod>(() => getCurrentPeriod());
@@ -41,13 +38,13 @@ export default function BestsellerPage() {
     let cancelled = false;
     setStatus('loading');
     const target = period === 'month' ? { ...selected, week: getLastWeekOfMonth(selected.year, selected.month) } : selected;
-    // 이번 주는 파라미터 없이 요청한다 — 주차를 나누는 기준이 알라딘과 달라도 최신 순위가 나오게.
+    // 주차 산정 기준이 알라딘과 달라도 최신 순위가 반영되도록 이번 주는 파라미터 없이 요청
     fetchBestsellerBooks(20, activeCid, isCurrentPeriod(target) ? undefined : target)
       .then((items) => {
         if (!cancelled) {
           let displayItems = items;
           if (period === 'month') {
-            // 월간 탭에서는 시각적으로 다르게 보이기 위해 순서를 섞습니다 (홀수/짝수 인덱스 교차)
+            // 월간 탭 시각적 구분을 위해 홀짝 인덱스 교차 재배열
             displayItems = [
               ...items.filter((_, i) => i % 2 === 0),
               ...items.filter((_, i) => i % 2 !== 0),
@@ -98,7 +95,6 @@ export default function BestsellerPage() {
                 </option>
               ))}
             </select>
-            {/* 월간 탭에서는 주차를 고르지 않는다 — 년/월 드롭다운만 남긴다. */}
             {period === 'week' && (
               <select className='field__input catalog-page__select' aria-label='주차' value={selected.week} onChange={(event) => updatePeriod({ week: Number(event.target.value) })}>
                 {weekOptions.map((week) => (

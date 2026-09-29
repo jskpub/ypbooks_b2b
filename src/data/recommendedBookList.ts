@@ -1,16 +1,16 @@
 export interface RecommendedBookEntry {
   isbn13: string;
-  /** 추천대상 — Figma BOOK-01 "추천대상" 라벨 (직무/직급/상황 등을 하나의 문구로 작성) */
+  /** 추천대상, 직무/직급/상황 등을 하나의 문구로 작성 */
   target: string;
   /** 추천 분야 (6개 분야) */
   field?: '직무·실무' | '리더십·조직' | '문해력·자기계발' | '인문·교양' | '사회·경제·트렌드' | '문학·에세이';
   recommendReason: string;
-  /** 추천자 뱃지(Bookmark Chip) 텍스트 — 큐레이션 목록 외 B2B 관리자가 직접 추가한 도서에만 있음 */
+  /** 추천자 뱃지(Bookmark Chip) 텍스트, 큐레이션 목록 외 B2B 관리자가 직접 추가한 도서에만 존재 */
   badgeLabel?: string;
   /** Bookmark 7색 중 추천 주체별 고정값 */
   badgeColor?: 'gray' | 'orange' | 'green' | 'teal' | 'blue' | 'purple' | 'pink';
 
-  // --- 알라딘 API 조회 없이 정적으로 사용하는 도서 정보 ---
+  // 알라딘 API 조회 없이 정적으로 사용하는 도서 정보
   title: string;
   author: string;
   cover: string;
@@ -22,7 +22,6 @@ export interface RecommendedBookEntry {
   pubDate: string;
 }
 
-// B2B 추천 도서 선정 로직 (6개 분야 배분 및 대상별 맞춤 큐레이션)
 export const recommendedBookList: RecommendedBookEntry[] = [
   {
     "isbn13": "9791162245620",
@@ -178,7 +177,7 @@ export const recommendedBookList: RecommendedBookEntry[] = [
   }
 ];
 
-// 베스트셀러/신상품 목록에서 "추천도서" 뱃지를 달아줄 추천도서 10권에 포함되었는지 판별
+// 베스트셀러·신상품 목록에서 추천도서 뱃지 표시 여부 판별
 export function isCurrentlyRecommended(isbn13: string): boolean {
   return recommendedBookList.some((entry) => entry.isbn13 === isbn13);
 }

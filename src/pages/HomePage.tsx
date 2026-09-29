@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import BookCarousel from '@/components/BookCarousel';
 import { fetchBestsellerBooks, fetchNewArrivalBooks, fetchRecommendedBooks, type AladinItem } from '@/services/aladinApi';
 
-// 알라딘 리스트 API 하나를 홈 위젯 하나에 연결하는 작은 훅. 로딩/에러 상태만 최소로 다룬다.
 function useAladinBooks(fetcher: () => Promise<AladinItem[]>) {
   const [books, setBooks] = useState<AladinItem[]>([]);
   const [status, setStatus] = useState<'loading' | 'done' | 'error'>('loading');

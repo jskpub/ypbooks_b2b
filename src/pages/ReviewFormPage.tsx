@@ -19,8 +19,8 @@ function formatDate(isoDate: string) {
   return isoDate.replaceAll('-', '.');
 }
 
-// REVIEW-04. 신규 작성/수정을 한 화면에서 처리한다(REVIEW_SPEC.md "화면 분리 원칙").
-// 공개범위는 스펙상 별도 모달이지만, 지금 단계에서는 폼 안 라디오로 간단히 둔다.
+// 신규 작성/수정을 한 화면에서 처리 (스펙상 화면 분리 원칙과 다름)
+// 공개범위는 스펙상 별도 모달이나 현재 폼 내 라디오로 단순화
 export default function ReviewFormPage() {
   const { isbn13 = '' } = useParams<{ isbn13: string }>();
   const navigate = useNavigate();
