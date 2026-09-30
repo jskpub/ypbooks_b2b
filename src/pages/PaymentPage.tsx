@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import StepIndicator from '@/components/StepIndicator';
 import EmptyState from '@/components/EmptyState';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/useToast';
 import Toast from '@/components/Toast';
 import type { CartGroup, CartItem } from '@/data/cartItems';

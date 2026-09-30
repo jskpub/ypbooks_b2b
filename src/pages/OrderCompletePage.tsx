@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import StepIndicator from '@/components/StepIndicator';
 import EmptyState from '@/components/EmptyState';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 
 function formatWon(amount: number) {
   return `${amount.toLocaleString('ko-KR')}원`;

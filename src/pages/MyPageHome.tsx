@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import { getReadingStatusList, type ReadingStatusItem } from '@/data/readingStatusStore';
 
 export default function MyPageHome() {

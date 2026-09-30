@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Icon } from '@/components/Icon';
 import AddressSearchModal from '@/components/AddressSearchModal';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import type { PostcodeResult } from '@/hooks/usePostcodeSearch';
 import type { Address } from '@/data/address';
 

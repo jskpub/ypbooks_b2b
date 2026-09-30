@@ -8,7 +8,7 @@ import DeliveryInfoModal from '@/components/Cart/DeliveryInfoModal';
 import AddressModal from '@/components/AddressModal';
 import Toast from '@/components/Toast';
 import type { CartGroup } from '@/data/cartItems';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/useToast';
 import { FREE_SHIPPING_THRESHOLD, getShippingFee } from '@/utils/pricing';
 

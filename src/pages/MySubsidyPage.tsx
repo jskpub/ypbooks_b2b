@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSessionUser } from '@/data/auth';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/contexts/CartContext';
 
 export default function MySubsidyPage() {
   const user = getSessionUser();
